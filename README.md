@@ -1,0 +1,2 @@
+# SistemaGestionAcademica
+proyectico de nosotros
