@@ -1,2 +1,2 @@
-# SistemaGestionAcademica
-proyectico de nosotros
+# Sist.GestionAcademica
+Para la academia de música Arte y Vida-
