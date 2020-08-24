@@ -13,6 +13,9 @@ class Nivel_Asignatura(models.Model):
 """
 
 #Docentes ###############################################################################################################
+
+    
+
 class Docentes(models.Model):
     cod_docente = models.CharField(primary_key=True, max_length=10, null=False,blank=False)
     nombres = models.CharField(max_length= 25)
