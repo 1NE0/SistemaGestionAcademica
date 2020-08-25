@@ -17,9 +17,8 @@ from django.contrib import admin
 from django.urls import path #
 from django.conf.urls import url
 
-from Academia_Arte_y_Vida.app.gestionacademica.views import Ejemplo
-from Academia_Arte_y_Vida.app.gestionacademica.views import Admision
-from Academia_Arte_y_Vida.app.gestionacademica.views import Programas, CrearPrograma
+from Academia_Arte_y_Vida.app.gestionacademica.views import *
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -27,5 +26,7 @@ urlpatterns = [
     url(r'^admisiones/$', Admision, name='admisiones'),
     url(r'^programas/$', Programas, name="programas"),
     url(r'^crearprograma/$',CrearPrograma, name="crearprograma"),
+    url(r'^crearasignatura/$',CrearAsignatura, name="crearasignatura"),
+    url(r'^crearcurso/$',CrearCurso, name="crearcurso")
 
 ]
