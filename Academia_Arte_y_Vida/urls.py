@@ -22,7 +22,7 @@ from Academia_Arte_y_Vida.app.gestionacademica.views import *
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^ejemplo/$', Ejemplo, name="ejemplo"),
+    url(r'^home/$', Index, name="index"),
     url(r'^admisiones/$', Admision, name='admisiones'),
     url(r'^programas/$', Programas, name="programas"),
     url(r'^crearprograma/$',CrearPrograma, name="crearprograma"),

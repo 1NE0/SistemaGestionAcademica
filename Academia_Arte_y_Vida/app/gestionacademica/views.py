@@ -8,7 +8,7 @@ from Academia_Arte_y_Vida.app.gestionacademica.forms import *
 
 # Create your views here.
 
-def Ejemplo(request):
+def Index(request):
     #request : para realizar peticiones
     return render(request,"index.html")
 

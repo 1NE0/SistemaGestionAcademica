@@ -37,7 +37,7 @@ class Asignaturas(models.Model):
         
         return "({0}) {1}".format(self.cod_asig,self.nom_asig)
 
-# Queda pendiente el horario del curso
+
 
 #class Detalle_Curso(models.Model):
  #   grupo = models.CharField(max_length=3)
