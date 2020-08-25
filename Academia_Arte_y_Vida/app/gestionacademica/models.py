@@ -2,15 +2,6 @@ from django.db import models
 
 # Create your models here.
 
-"""
-class Nivel_Asignatura(models.Model):
-    numero = models.PositiveSmallIntegerField()
-    descripcion = models.CharField(max_length=500)
-
-    def __str__(self):
-
-        return "{0}".format(self.numero)
-"""
 
 #Docentes ###############################################################################################################
 class Docentes(models.Model):
@@ -27,7 +18,8 @@ class Programas(models.Model):
     # Asignatura = models.ForeignKey(Asignatura,null=True,blank=True,on_delete=models.CASCADE)
     # FALTA 
 
-    #def _str_(self):
+    def _str_(self):
+        return "{0}".format(self.nom_programa)
     #     return "({0}) {1} Curso(s) = {2}, Asignatura(s) = {3}".format(self.cod_programa,self.nom_programa)
 
 ####clase asignarura###################################################################################################
