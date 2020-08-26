@@ -20,6 +20,10 @@
     {% block content %}
     
     {% endblock %}
+    {% if user.is_active %}
+      <p>esta activo el puto</p>
+    {% endif %}
+    <button ></button>
   </body>
 
   {% include "complementos/footer.html" %}
