@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.template import loader
 from django.template import Template, Context
 from django.shortcuts import render
-from django.contrib.auth import authenticate,login
+from django.contrib.auth import authenticate,login,logout
 from Academia_Arte_y_Vida.app.gestionacademica.forms import *
 from Academia_Arte_y_Vida.app.gestionacademica.forms import login_form
 
@@ -71,3 +71,7 @@ def login_user(request):
     return render(request, 'login/login.html')
 
 
+def logout_user(request):
+       user = request.user
+       logout(request)
+       return render(request , "index.html")
