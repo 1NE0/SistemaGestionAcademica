@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path #
 from django.conf.urls import url
-
+from Academia_Arte_y_Vida import settings
 from Academia_Arte_y_Vida.app.gestionacademica.views import *
 
 
@@ -31,5 +31,5 @@ urlpatterns = [
     url(r'^crearcurso/$',CrearCurso, name="crearcurso"),
     url(r'^login/$', login_user, name="login"),
     url(r'^logout/$', logout_user, name="logout")
-
 ]
+
