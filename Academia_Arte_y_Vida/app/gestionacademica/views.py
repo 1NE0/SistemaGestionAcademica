@@ -3,7 +3,9 @@ from django.http import HttpResponse
 from django.template import loader
 from django.template import Template, Context
 from django.shortcuts import render
+from django.contrib.auth import authenticate,login
 from Academia_Arte_y_Vida.app.gestionacademica.forms import *
+from Academia_Arte_y_Vida.app.gestionacademica.forms import login_form
 
 
 # Create your views here.
@@ -52,4 +54,20 @@ def CrearCurso(request):
     context = {'form':form}
 
     return render(request,"crearcurso.html",context)
+
+def login_user(request):
+    
+    username = password = ''
+    form1 = login_form()
+    if request.POST:
+        username = request.POST['username']
+        password = request.POST['password']
+
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            login(request , user)
+            return render(request , "index.html" , {'user':user})
+
+    return render(request, 'login/login.html')
+
 

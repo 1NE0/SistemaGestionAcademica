@@ -21,12 +21,14 @@ from Academia_Arte_y_Vida.app.gestionacademica.views import *
 
 
 urlpatterns = [
+    url(r'^$', Index, name='index'),
     url(r'^admin/', admin.site.urls),
     url(r'^home/$', Index, name="index"),
     url(r'^admisiones/$', Admision, name='admisiones'),
     url(r'^programas/$', Programas, name="programas"),
     url(r'^crearprograma/$',CrearPrograma, name="crearprograma"),
     url(r'^crearasignatura/$',CrearAsignatura, name="crearasignatura"),
-    url(r'^crearcurso/$',CrearCurso, name="crearcurso")
+    url(r'^crearcurso/$',CrearCurso, name="crearcurso"),
+    url(r'^login/$', login_user, name="login")
 
 ]
