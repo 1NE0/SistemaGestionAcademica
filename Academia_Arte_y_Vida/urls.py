@@ -29,6 +29,7 @@ urlpatterns = [
     url(r'^crearprograma/$',CrearPrograma, name="crearprograma"),
     url(r'^crearasignatura/$',CrearAsignatura, name="crearasignatura"),
     url(r'^crearcurso/$',CrearCurso, name="crearcurso"),
-    url(r'^login/$', login_user, name="login")
+    url(r'^login/$', login_user, name="login"),
+    url(r'^logout/$', logout_user, name="logout")
 
 ]
