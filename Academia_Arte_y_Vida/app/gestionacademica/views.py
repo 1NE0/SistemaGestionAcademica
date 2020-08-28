@@ -8,7 +8,6 @@ from Academia_Arte_y_Vida.app.gestionacademica.forms import *
 from Academia_Arte_y_Vida.app.gestionacademica.forms import login_form
 from django.contrib.auth.decorators import login_required
 from Academia_Arte_y_Vida.app.gestionacademica import models
-
 # Create your views here.
 
 def Index(request):

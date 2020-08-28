@@ -1,7 +1,18 @@
 from django.db import models
 
 # Create your models here.
+#clase programa########################################################################################################
+class Programas(models.Model):
+    cod_programa = models.CharField(primary_key=True,max_length=10)
+    nom_programa = models.CharField(max_length=30)
+    contenido_Aca = models.CharField(max_length=500)
+    #Curso = models.ForeignKey(Cursos,null=True,blank=True,on_delete=models.CASCADE)
+    #Asignatura = models.ForeignKey(Asignaturas,null=True,blank=True,on_delete=models.CASCADE)
+    # FALTA 
 
+    def _str_(self):
+        return "{0}".format(self.nom_programa)
+    #     return "({0}) {1} Curso(s) = {2}, Asignatura(s) = {3}".format(self.cod_programa,self.nom_programa)
 
 #Docentes ###############################################################################################################
 class Docentes(models.Model):
@@ -18,8 +29,8 @@ class Asignaturas(models.Model):
     contenido_academico = models.CharField(max_length=500)
     nivel = models.IntegerField(null=False, blank=False)
     horario = models.DateTimeField()
-    #Programa = models.ForeignKey(Programas,null=False,blank=False,on_delete=models.CASCADE)
-    #Docente = models.ForeignKey(Docentes, null = False, blank= False, on_delete= models.CASCADE)
+    Programa = models.ForeignKey(Programas,null=False,blank=False,on_delete=models.CASCADE)
+    Docente = models.ForeignKey(Docentes, null = False, blank= False, on_delete= models.CASCADE)
     #Nivel_Asignatura = models.ForeignKey(Nivel_Asignatura,null=True,blank=True,on_delete = models.CASCADE)
 
     def _str_(self):
@@ -41,7 +52,7 @@ class Horarios(models.Model):
     #Curso = models.ForeignKey(Cursos,null=False,blank=False,on_delete=models.CASCADE)
 
     def _str_(self):
-        return "({0})({1})({2})".format(self.Curso,self.h_inicio,self.h_final,self.dia)
+        return "({0})({1})({2})".format(self.h_inicio,self.h_final,self.dia)
 
 
 #Clase curso##########################################################################################################
@@ -49,9 +60,9 @@ class Cursos(models.Model):
     cod_curso = models.CharField(max_length=10)
     nom_curso = models.CharField(max_length=30)
     grupo = models.CharField(max_length=3)
-    Horario = models.ForeignKey(Horarios,null=False,blank=False,on_delete=models.CASCADE)
+    Horario = models.OneToOneField(Horarios,null=False,blank=False,on_delete=models.CASCADE)
     #Nivel_Curso= models.ForeignKey(Nivel_Curso,null=False,blank=False,on_delete=models.CASCADE)
-    #Programa = models.ForeignKey(Programas,null=False,blank=False,on_delete=models.CASCADE)
+    Programa = models.ForeignKey(Programas,null=False,blank=False,on_delete=models.CASCADE)
 
 
     # Detalle_Curso = models.ForeignKey(Detalle_Curso,null=False,blank=False,on_delete=models.CASCADE)
@@ -64,7 +75,7 @@ class Cursos(models.Model):
 class Nivel_Cursos(models.Model):
     nivel = models.IntegerField(primary_key=True, null=False,blank=False)
     Curso = models.ForeignKey(Cursos, null=False,blank=False,on_delete=models.CASCADE)
-
+    Docente = models.ForeignKey(Docentes, null = False, blank= False, on_delete= models.CASCADE)
     def _str_(self):
         return "({1})({2})".format(self.Curso,self.nivel)
 
@@ -83,18 +94,7 @@ class Estudiantes(models.Model):
     correo = models.EmailField(blank = False)
     telefono = models.CharField(max_length=12)
 
-#clase programa########################################################################################################
-class Programas(models.Model):
-    cod_programa = models.CharField(primary_key=True,max_length=10)
-    nom_programa = models.CharField(max_length=30)
-    contenido_Aca = models.CharField(max_length=500)
-    Curso = models.ForeignKey(Cursos,null=True,blank=True,on_delete=models.CASCADE)
-    Asignatura = models.ForeignKey(Asignaturas,null=True,blank=True,on_delete=models.CASCADE)
-    # FALTA 
 
-    def _str_(self):
-        return "{0}".format(self.nom_programa)
-    #     return "({0}) {1} Curso(s) = {2}, Asignatura(s) = {3}".format(self.cod_programa,self.nom_programa)
 #clase inscripcion####################################################################################################
 class Inscripciones(models.Model):
     class Meta:
