@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 #clase programa########################################################################################################
@@ -19,7 +20,7 @@ class Docentes(models.Model):
     cod_docente = models.CharField(primary_key=True, max_length=10, null=False,blank=False)
     nombres = models.CharField(max_length= 25)
     apellidos = models.CharField(max_length= 25)
-
+    user = models.OneToOneField(User, on_delete=models.CASCADE ,default=9999)
 
 
 ####clase asignarura###################################################################################################
@@ -93,6 +94,9 @@ class Estudiantes(models.Model):
     sexo =models.CharField(max_length = 1, choices=sexos, default='M')
     correo = models.EmailField(blank = False)
     telefono = models.CharField(max_length=12)
+
+    # hacer la relacion a user
+    user = models.OneToOneField(User, on_delete=models.CASCADE ,default=9999)
 
 
 #clase inscripcion####################################################################################################
