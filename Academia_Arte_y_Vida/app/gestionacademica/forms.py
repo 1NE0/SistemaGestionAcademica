@@ -1,6 +1,8 @@
 from django.forms import ModelForm
 from Academia_Arte_y_Vida.app.gestionacademica.models import Programas, Asignaturas
+from Academia_Arte_y_Vida.app.gestionacademica.models import Pagos, Detalle_Pagos
 from django.contrib.auth.models import User
+
 
 class Programas_Form(ModelForm):
     class Meta:
@@ -20,3 +22,16 @@ class Login_Academico(ModelForm):
             'password'
         }
 """
+# #formulario para pagos#############################################################################
+
+# class pagoFormulario(ModelForm):
+#     class Meta:
+#         model = Pagos
+#         fields = '__all__'
+
+
+# #detalle pagp formulario############################################################################
+# class detalle_pagoForm(ModelForm):
+#     class Meta:
+#         model = Detalle_Pagos
+#         fields = '__all__'

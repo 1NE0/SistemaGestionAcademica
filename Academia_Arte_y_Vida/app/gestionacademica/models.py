@@ -23,10 +23,11 @@ class Programas(models.Model):
     cod_programa = models.CharField(primary_key=True,max_length=10)
     nom_programa = models.CharField(max_length=30)
     contenido_Aca = models.CharField(max_length=500)
+# def _str_(self):
+#         return "{} {}".format(self.nom_programa,self.cod_programa)
     # Curso = models.ForeignKey(Curso,null=True,blank=True,on_delete=models.CASCADE)
     # Asignatura = models.ForeignKey(Asignatura,null=True,blank=True,on_delete=models.CASCADE)
-    # FALTA 
-
+    # FALTA     
     #def _str_(self):
     #     return "({0}) {1} Curso(s) = {2}, Asignatura(s) = {3}".format(self.cod_programa,self.nom_programa)
 

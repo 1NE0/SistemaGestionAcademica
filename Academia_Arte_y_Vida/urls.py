@@ -20,6 +20,7 @@ from django.conf.urls import url
 from Academia_Arte_y_Vida.app.gestionacademica.views import Ejemplo
 from Academia_Arte_y_Vida.app.gestionacademica.views import Admision
 from Academia_Arte_y_Vida.app.gestionacademica.views import Programas, CrearPrograma
+from Academia_Arte_y_Vida.app.gestionacademica.views import buscarEstudiante, buscar
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -27,5 +28,13 @@ urlpatterns = [
     url(r'^admisiones/$', Admision, name='admisiones'),
     url(r'^programas/$', Programas, name="programas"),
     url(r'^crearprograma/$',CrearPrograma, name="crearprograma"),
+    # url(r'^pago/$',RegistroPago, name="registropago"),
+    # url(r'^Dpago/$',RegDetallePago, name="Dregistropago"),
+    url(r'^buscarEstudiante/$',buscarEstudiante, name="buscarestudiante"),
+    url(r'^registroPago/$',buscar, name="registropago"),
+    url(r'^pago/$',buscar, name="registropago"),
+
+    
+    
 
 ]
