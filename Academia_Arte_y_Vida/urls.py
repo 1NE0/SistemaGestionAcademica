@@ -16,15 +16,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path #
 from django.conf.urls import url
+from Academia_Arte_y_Vida import settings
+from Academia_Arte_y_Vida.app.gestionacademica.views import *
 
-from Academia_Arte_y_Vida.app.gestionacademica.views import Ejemplo
+
 from Academia_Arte_y_Vida.app.gestionacademica.views import Admision
 from Academia_Arte_y_Vida.app.gestionacademica.views import Programas, CrearPrograma
 from Academia_Arte_y_Vida.app.gestionacademica.views import buscarEstudiante, buscar
 
 urlpatterns = [
+    url(r'^$', Index, name='index'),
     url(r'^admin/', admin.site.urls),
-    url(r'^ejemplo/$', Ejemplo, name="ejemplo"),
+    url(r'^home/$', Index, name="index"),
     url(r'^admisiones/$', Admision, name='admisiones'),
     url(r'^programas/$', Programas, name="programas"),
     url(r'^crearprograma/$',CrearPrograma, name="crearprograma"),
@@ -37,4 +40,9 @@ urlpatterns = [
     
     
 
+    url(r'^crearasignatura/$',CrearAsignatura, name="crearasignatura"),
+    url(r'^crearcurso/$',CrearCurso, name="crearcurso"),
+    url(r'^login/$', login_user, name="login"),
+    url(r'^logout/$', logout_user, name="logout")
 ]
+

@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Academia Arte y Vida</title>
-
-    {% block title %} 
     
 
+    <title>Academia Arte y Vida</title>
+    {% block title %} 
+    
+    
     {% endblock %}
+
+    
+    <!-- Estilos y fuentes del template  -->
+    
     {% include "complementos/nav.html" %}
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -20,6 +25,15 @@
     {% block content %}
     
     {% endblock %}
+    {% if user.is_active %}
+      <p>esta activo el puto</p>
+      <p> EL USUARIO {{user.username}} SE LOGEO CON EXITO</p>
+      <hr>
+      <p> Y SUS DATOS DE ESTUDIANTE SON:</p>
+      {{estudiante.identificacion}}
+      {{estudiante.nombres}}
+      {{estudiante.apellidos}}
+    {% endif %}
   </body>
 
   {% include "complementos/footer.html" %}
