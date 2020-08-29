@@ -27,6 +27,12 @@
     {% endblock %}
     {% if user.is_active %}
       <p>esta activo el puto</p>
+      <p> EL USUARIO {{user.username}} SE LOGEO CON EXITO</p>
+      <hr>
+      <p> Y SUS DATOS DE ESTUDIANTE SON:</p>
+      {{estudiante.identificacion}}
+      {{estudiante.nombres}}
+      {{estudiante.apellidos}}
     {% endif %}
   </body>
 

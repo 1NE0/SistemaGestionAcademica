@@ -22,9 +22,9 @@
       <form class="form-inline my-2 my-lg-0">
           <h3 style="color:white;"> {{user.username}} </h3>
           {% if user.is_active%}
-            <a href="/logout">logout</a>
+            <a href="/logout" class="btn btn-outline-danger" >logout</a>
           {% else %}
-            <a href="/login">login</a>
+            <a href="/login" class="btn btn-outline-info">login</a>
           {% endif %}
       </form>
     </div>

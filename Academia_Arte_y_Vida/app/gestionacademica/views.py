@@ -7,8 +7,8 @@ from django.contrib.auth import authenticate,login,logout
 from Academia_Arte_y_Vida.app.gestionacademica.forms import *
 from Academia_Arte_y_Vida.app.gestionacademica.forms import login_form
 from django.contrib.auth.decorators import login_required
-from Academia_Arte_y_Vida.app.gestionacademica import models
-
+from Academia_Arte_y_Vida.app.gestionacademica.models import *
+from Academia_Arte_y_Vida.app.gestionacademica.models import Estudiantes
 # Create your views here.
 
 def Index(request):
@@ -70,9 +70,11 @@ def login_user(request):
         password = request.POST['password']
 
         user = authenticate(username=username, password=password)
+        estudiante = Estudiantes.objects.get(user_id=user.pk)
         if user is not None:
             login(request , user)
-            return render(request , "index.html" , {'user':user} )
+
+            return render(request , "index.html" , {'user':user , 'estudiante':estudiante})
 
     return render(request, 'login/login.html')
 
@@ -81,4 +83,3 @@ def logout_user(request):
        user = request.user
        logout(request)
        return render(request , "index.html")
-
