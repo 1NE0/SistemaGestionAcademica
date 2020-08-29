@@ -8,6 +8,7 @@ from Academia_Arte_y_Vida.app.gestionacademica.forms import *
 from Academia_Arte_y_Vida.app.gestionacademica.forms import login_form
 from django.contrib.auth.decorators import login_required
 from Academia_Arte_y_Vida.app.gestionacademica.models import *
+from Academia_Arte_y_Vida.app.gestionacademica import models
 from Academia_Arte_y_Vida.app.gestionacademica.models import Estudiantes
 # Create your views here.
 
