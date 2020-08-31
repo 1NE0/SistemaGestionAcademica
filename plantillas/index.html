@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     
-
+    {% include "complementos/nav.html" %}
     <title>Academia Arte y Vida</title>
     {% block title %} 
     
@@ -12,7 +12,8 @@
     
     <!-- Estilos y fuentes del template  -->
     
-    {% include "complementos/nav.html" %}
+    
+    
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
@@ -22,9 +23,13 @@
 
   </head>
   <body>
+    {% include "complementos/cabecera_principal.html" %}
+
     {% block content %}
     
     {% endblock %}
+    
+
     {% if user.is_active %}
       <p>esta activo el puto</p>
       <p> EL USUARIO {{user.username}} SE LOGEO CON EXITO</p>
@@ -39,3 +44,15 @@
   {% include "complementos/footer.html" %}
 
 </html>
+
+
+<style>
+    body{
+      background-image: url("https://www.vabulous.com/wp-content/uploads/2018/03/home-hero-bg-2.jpg");
+      background-size: 1920px 1080px;
+      background-repeat: no-repeat;
+    }
+    .cabecera{
+      height: 800px;
+    }
+</style>
