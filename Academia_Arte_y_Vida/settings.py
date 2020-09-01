@@ -86,13 +86,6 @@ DATABASES = {
         'PASSWORD': 'tqm9zuhG6XanREeLrTeR',
         'HOST': 'btc1aswv1doohutlewv5-mysql.services.clever-cloud.com',
         'PORT':'3306'
-
-        #'ENGINE': 'django.db.backends.mysql',
-        #'NAME': 'Academia_Arte_y_Vida',
-        #'USER': 'root',
-        #'PASSWORD': '1234',
-        #'HOST': 'localhost',
-        #'PORT':'3306'
     }
 }
 

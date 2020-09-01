@@ -1,10 +1,84 @@
 
-{% extends "index.html" %}
+
 
 {% block content %}
+    
+    
+    <div class="programa">
+        
+        <h3>Crear Programa</h3>
+        
     <form action="" method="POST">
         {% csrf_token %}
         {{ form }}
         <input type="submit" value="Crear Programa">
     </form>
+</div>
+
+
+<style>
+
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    background: #3282b8;
+}
+
+h3{
+    color: white;
+    text-align: center;
+    font-size: 40px;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+
+label{
+    color: white;
+    font-size: 17px;
+}
+.programa{
+    width: 70%;
+    margin-left: 15%;
+    margin-top: 5%;
+    border: 1px solid white;
+    
+}
+form{
+    text-align:  center;
+}
+
+.programa input[type="text"]{
+    display: block;
+    color: white;
+    border: none;
+    background: #146194;
+    border-bottom: 2px solid white;
+    
+    width: 30%;
+    height: 25px;
+    margin-bottom: 3%;
+    margin-left: 35%;
+}
+
+.programa input[name="contenido_Aca"]{
+    height: 15%;
+}
+
+.programa input[type="submit"]{
+    background: #146194;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 5%;
+    padding: 5px;
+}
+
+.programa input[type="submit"]:hover{
+    background: white;
+    color: #3282b8;
+}
+
+</style>
 {% endblock %}
