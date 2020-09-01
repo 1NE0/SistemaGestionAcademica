@@ -1,0 +1,34 @@
+{% extends "index.html" %}
+
+{% block content %}
+
+
+
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">id Pago</th>
+        <th scope="col">Fecha y hora</th>
+        <th scope="col">Motivo</th>
+        <th scope="col">Monto</th>
+        <th scope="col">Programa</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        {%for pago in buscarP%}
+        <th scope="row">{{pago.Pagos.id}}</th>
+        <td>{{pago.Fecha}}</td>
+        <td>{{pago.Pagos.motivo}}</td>
+        <td> {{pago.monto}}</td>
+        <td>{{pago.Pagos.Programa.nom_programa}}</td>
+        
+      </tr>
+      {%endfor%}
+
+      
+    </tbody>
+  </table>
+
+
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends "index.html" %} {% block content %}
+
+
+{% if Estudianteobj %} {% for estudiante in Estudianteobj %}
+<div style=" text-align: center">
+  {% csrf_token %}
+  
+  <form action="/pago/">
+    <p>{{ estudiante.nombres }}-{{ estudiante.apellidos}}</p>
+  <p>identificacion: <input  name="idestudiante" > {{estudiante.identificacion}}</input></p>
+    <label name="fecha">{{fechaActual}}</label>
+    <!-- caja motivo -->
+    <div style="margin-right: 30%; margin-left: 30%">
+      
+      <label name="motivo">Motivo</label>
+      <select class="form-control"
+              name="motivos"   
+      > 
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4 </option>
+      </select>
+    </div>
+    <hr />
+    <!-- id pago -->
+    <label for="">id Pago</label>
+    <input type="text" name="idpago" />
+
+    <hr />
+    <!-- caja programas -->
+    <div style="margin-left: 30%; margin-right: 30%">
+      <label name="programa" >Programa</label>
+      <select
+        class="form-control"
+        name="programas"
+      >
+        {% for programa in programaobj %}
+        <option>{{programa.nom_programa}}</option>
+
+        {% endfor %}
+      </select>
+    </div>
+    <hr />
+    <!-- monto -->
+    <div>
+      <label for="">Monto</label>
+      <input type="text" name="monto" />
+    </div>
+    <hr />
+    <button type="submit">Guardar</button>
+  </form>
+  {% endfor %} 
+
+  
+  {% else %}
+  <p>no se encontro estudiante</p>
+  {% endif %} 
+  
+</div>
+{% endblock %}
