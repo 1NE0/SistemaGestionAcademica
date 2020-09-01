@@ -28,6 +28,10 @@ def Programas(request):
     programasLista = models.Programas.objects.all()
     return render(request, "programas.html", {'programasLista' : programasLista})
 
+login_required(login_url='/login/login.html')
+def Pagos(request):
+    return render(request, 'pagos.html')
+
 @login_required(login_url='/login/login.html')
 def CrearPrograma(request):
     form = Programas_Form(request.POST or None)
@@ -101,9 +105,10 @@ def buscar(request):
        idEstudiante = request.GET["id"] #asigno los datos de el campo a una variable
        estudiantes=Estudiantes.objects.filter(identificacion__icontains=idEstudiante)
        programas=models.Programas.objects.all()
+       motivo = models.Pagos.objects.filter(motivo__icontains='1')
        buscarPago=models.Detalle_Pagos.objects.filter(Estudiante=idEstudiante)
        fechaActual = datetime.now()
-       return render(request,"registrarpago.html",{"buscarP":buscarPago,"programaobj":programas,"Estudianteobj":estudiantes, "fechaActual":fechaActual, "query":idEstudiante})
+       return render(request,"registrarpago.html",{"buscarP":buscarPago,"programaobj":programas,"Estudianteobj":estudiantes, "fechaActual":fechaActual, "query":idEstudiante , "motivo":motivo})
     else:
         mensaje="no se ingresaron datos"
 

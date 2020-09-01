@@ -26,10 +26,15 @@ urlpatterns = [
     url(r'^home/$', Index, name="index"),
     url(r'^admisiones/$', Admision, name='admisiones'),
     url(r'^programas/$', Programas, name="programas"),
+    url(r'^pagos/$', Pagos, name="pagos"),
     url(r'^crearprograma/$',CrearPrograma, name="crearprograma"),
     url(r'^crearasignatura/$',CrearAsignatura, name="crearasignatura"),
     url(r'^crearcurso/$',CrearCurso, name="crearcurso"),
     url(r'^login/$', login_user, name="login"),
-    url(r'^logout/$', logout_user, name="logout")
+    url(r'^logout/$', logout_user, name="logout"),
+    url(r'^registroPago/$', buscar, name="reguistropago"),
+    url(r'^buscarestudiante/$', buscarEstudiante, name="buscarestudiante"),
+    url(r'^pago/$', agregarpago, name="pago"),
+    url(r'^historiaPago/$', historiaPagos, name="historiapago")
 ]
 

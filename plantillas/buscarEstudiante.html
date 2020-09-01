@@ -1,21 +1,39 @@
-{% extends "index.html" %}
-
+{% extends "base.html" %}
+     {% block title %} 
+     <title> Buscar </title>
+     <head>
+       {% include "complementos/nav.html" %}
+     </head>
+    {% endblock %}
 {% block content %}
+        <body>
+                <div class="container">
+                        {# esto es el contenido cambiante dentro de admisiones #}
+                        <!-- <form method="POST">
+                                {% csrf_token%}
+                                {{form.as_p}}
+                                <button type="submit">Guardar</button>
+                        </form> -->
+                        <!-- /registroPago es el url al que me va enviar  -->
+                        <form action="" method="GET">  
+                                <div>
+                                <label for="">id estudinate</label>
+                                <input type="text" name="id" >
+                                
+                                <button type="submit" onclick="form.action='/registroPago/'">Registar pago</button>
+                                <button type="submit" onclick="form.action='/historiaPago/'">Historial de pagos</button>
+                                <div></div>
+                        </form>    
+                </div>
+                
+        </body>
+        <style>
+                body{
+                        padding-top: 200px;
+                        background-color: cornflowerblue;
+                }
+                .container{
 
-{# esto es el contenido cambiante dentro de admisiones #}
-<!-- <form method="POST">
-        {% csrf_token%}
-        {{form.as_p}}
-        <button type="submit">Guardar</button>
-</form> -->
-<!-- /registroPago es el url al que me va enviar  -->
-<form action="" method="GET">  
-        <div>
-        <label for="">id estudinate</label>
-        <input type="text" name="id" >
-        
-        <button type="submit" onclick="form.action='/registroPago/'">Registar pago</button>
-        <button type="submit" onclick="form.action='/historiaPago/'">Historial de pagos</button>
-        <div></div>
-</form>
+                }
+        </style>
 {% endblock %}
