@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'Academia_Arte_y_Vida.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-
+#Academia_Arte_y_Vida
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -85,7 +85,7 @@ DATABASES = {
         'USER': 'uiknwio8cchvk6wt',
         'PASSWORD': 'tqm9zuhG6XanREeLrTeR',
         'HOST': 'btc1aswv1doohutlewv5-mysql.services.clever-cloud.com',
-        'PORT':'3306',
+        'PORT':'3306'
     }
 }
 
