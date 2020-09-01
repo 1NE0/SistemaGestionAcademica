@@ -8,12 +8,12 @@
       color: white!important;
     }
   </style>
-  <nav class="navbar navbar-expand-lg navbar-ligth bg-ligth navegador" style="background-color: rgba(255, 255, 255, 0)!important;position: fixed;">
+  <nav class="navbar navbar-expand-lg navbar-ligth bg-ligth navegador" style="background-color: rgba(255, 255, 255, 0)!important;position: fixed;top:0px;">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-      <a class="navbar-brand" href="#" style="color:white;">SGA</a>
+      <a class="navbar-brand" href="{% url 'index' %}" style="color:white;">SGA</a>
 
       <!-- SI EL USUARIO ESTA LOGEADO, MUESTRE LAS PESTAÑAS-->
       {% if user.is_active %}
