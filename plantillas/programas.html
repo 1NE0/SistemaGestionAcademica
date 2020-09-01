@@ -15,7 +15,7 @@
 
 
 <h1>programas</h1>
-    {% if user.is_staff %}
+    {% if user.is_staff == 1 %}
     <a class="btn btn-outline-success" href="{% url 'crearprograma' %}" >Crear programa</a>
     <hr>
     {% endif %}
