@@ -30,13 +30,6 @@ urlpatterns = [
     url(r'^crearasignatura/$',CrearAsignatura, name="crearasignatura"),
     url(r'^crearcurso/$',CrearCurso, name="crearcurso"),
     url(r'^login/$', login_user, name="login"),
-    url(r'^logout/$', logout_user, name="logout"),
-    url(r'^registroPago/$', buscar, name="reguistropago"),
-    url(r'^buscarestudiante/$', buscarEstudiante, name="buscarestudiante"),
-    url(r'^pago/$', agregarpago, name="pago"),
-    url(r'^historiaPago/$', historiaPagos, name="historiapago")
-
-    
-    
+    url(r'^logout/$', logout_user, name="logout")
 ]
 

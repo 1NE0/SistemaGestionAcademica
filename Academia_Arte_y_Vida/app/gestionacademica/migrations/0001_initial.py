@@ -68,7 +68,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.CharField(max_length=40, primary_key=True, serialize=False)),
                 ('motivo', models.CharField(choices=[('1', 'Matricula'), ('2', 'Inscripcion'), ('3', 'Mensualidad'), ('4', 'Otros')], default='', max_length=1)),
-                ('Programa', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='gestionacademica.programas')),
+                ('Programa', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='gestionacademica.Programas')),
             ],
         ),
         migrations.CreateModel(
@@ -87,7 +87,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='cursos',
             name='Programa',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='gestionacademica.programas'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='gestionacademica.Programas'),
         ),
         migrations.CreateModel(
             name='Asignaturas',
@@ -97,8 +97,8 @@ class Migration(migrations.Migration):
                 ('contenido_academico', models.CharField(max_length=500)),
                 ('nivel', models.IntegerField()),
                 ('horario', models.DateTimeField()),
-                ('Docente', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='gestionacademica.docentes')),
-                ('Programa', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='gestionacademica.programas')),
+                ('Docente', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='gestionacademica.Docentes')),
+                ('Programa', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='gestionacademica.Programas')),
             ],
         ),
         migrations.CreateModel(
@@ -106,8 +106,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('Fecha_Realizacion', models.DateTimeField(auto_now_add=True)),
-                ('Estudiante', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='gestionacademica.estudiantes')),
-                ('Programa', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='gestionacademica.programas')),
+                ('Estudiante', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='gestionacademica.Estudiantes')),
+                ('Programa', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='gestionacademica.Programas')),
             ],
             options={
                 'unique_together': {('Programa', 'Estudiante')},
@@ -119,8 +119,8 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('monto', models.IntegerField()),
                 ('Fecha', models.DateTimeField()),
-                ('Estudiante', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='gestionacademica.estudiantes')),
-                ('Pagos', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='gestionacademica.pagos')),
+                ('Estudiante', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='gestionacademica.Estudiantes')),
+                ('Pagos', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='gestionacademica.Pagos')),
             ],
             options={
                 'unique_together': {('Estudiante', 'Pagos')},
