@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+     {% block title %} 
+     <title> Buscar </title>
+     <head>
+       {% include "complementos/nav.html" %}
+     </head>
+    {% endblock %}
+{% block content %}
+     <body>
+        <h1>pagosssss</h1>
+        <a href="{% url 'buscarestudiante' %}" type="button" class="btn btn-outline-light botoncito">Buscar estudiante</a>
+     </body>
+     <style>
+         body{
+             background-color: cornflowerblue;
+             margin-top: 200px;
+         }
+     </style>
+{%endblock%}
