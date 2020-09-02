@@ -1,17 +1,129 @@
-<div class="modal" id="ventanaLogin" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-  
-         <form method="POST"> {% csrf_token %}
-               <input type="text" name="username">
-               <input type="text" name="password">
-               <button type="Submit">Entrar</button>
-               {{message}}
-            {% if user.is_active %}
-                <p>usuario activo</p>
-            {% endif %}
-            {{message}}
-          </form>
-        </div>
-     </div>
-  </div>
+{% extends 'base.html' %}
+{% block title %} 
+
+<head>
+   <title> login </title>
+</head>
+{% endblock %}
+
+{% block content %}
+<body>
+   <!--<div class="container">
+      <form method="POST">
+         {% csrf_token %}
+         <div class="form-group">
+           <label for="exampleInputEmail1">Usuario</label>
+           <input type="text" class="form-control" name="username">
+           <small id="emailHelp" class="form-text text-muted">Nosotros nunca compartiremos tus datos</small>
+         </div>
+         <div class="form-group">
+           <label for="exampleInputPassword1">Password</label>
+           <input type="password" class="form-control" id="exampleInputPassword1" name="password">
+         </div>
+         <button type="submit" class="btn botoncito btn-primary">Entrar</button>
+       </form>
+   </div>-->
+   HTMLResult
+<head>
+      <!-- Scripts -->
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-environment-component@1.1.0/dist/aframe-environment-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-animation-component@3.2.1/dist/aframe-animation-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-particle-system-component@1.0.x/dist/aframe-particle-system-component.min.js"></script>
+</head>
+
+<body>
+  <a-scene overlay-visibility>
+    
+        <!-- ASSETS -->
+    <a-assets>
+      <a-asset-item id="module" src="https://poly.googleusercontent.com/downloads/c/fp/1597034300077218/89sX3Z2tkcY/7CNMm3ZtKz7/apollo_interior-medium_resolution.gltf"></a-asset-item>
+      <img id="home" src="https://raw.githubusercontent.com/mtthwgrvn/3D-models/master/2D-img/home-filled%403x.png">
+    </a-assets>
+ 
+    <!-- Environment -->
+    <a-entity environment="preset: yavapai; skyColor: #000000; horizonColor: #000000; groundColor: #D1D1D1; groundColor2: #494949; dressingColor: #494949" ></a-entity>
+    
+    <!-- Apollo 11 Lunar Command Module w.Interior -->
+    <a-entity gltf-model="#module" position="-5 12 -25" scale="0.1 0.1 0.1"></a-entity>
+    
+    <!-- ATLAS UI -->
+    <a-entity camera look-controls wasd-controls position="0 2.6 0">
+      
+      <!-- MCC -->
+      <a-entity geometry="primitive: plane; height: 0.16; width: 0.18" position="1.41 -0.01 -1" material="color: #00274C; opacity: 1" text="color: #FFCB05; align: center; value: MCC; width: 0.7; height: 1; opacity: 0.75"></a-entity>
+      <a-entity geometry="primitive: plane; height: 0.16; width: 0.04" position="1.48 -0.01 -1" material="color: #F2E866;"></a-entity>
+      <!-- NEIL -->
+      <a-entity geometry="primitive: plane; height: .16; width: 0.18" position="1.41 -0.2 -1" material="color: #00274C; opacity: 1" text="color: #FFCB05; align: center; value: NEIL; width: 0.7; height: 1; opacity: 0.75"></a-entity>
+      <a-entity geometry="primitive: plane; height: .16; width: 0.04" position="1.48 -0.2 -1" material="color: #C541F2"></a-entity>
+      <!-- ME -->
+      <a-plane geometry="primitive: plane; height: .4; width: 0.6" position="1.2 -.5 -1" material="color: #00274C; opacity: 1" text="color: #FFCB05; align: center; width: 0.7; height: 1; opacity: 0.75">
+                <!-- Reference marks, so we can see where the label is aligning.  -->
+        <a-entity mixin="marker" position="-0.5 0 0"></a-entity>
+        <a-entity mixin="marker" position="-0.25 0 0"></a-entity>
+        <a-entity mixin="marker" position="0 0 0"></a-entity>
+        <a-entity mixin="marker" position="0.25 0 0"></a-entity>
+        <a-entity mixin="marker" position="0.5 0 0"></a-entity>
+        
+        <a-text color="#FFCB05" align="center" baseline="top" width="1" position="0 0.18 0" value="Consumables"></a-text>
+        <a-text color="#FFCB05" align="left" baseline="center" width="1" position="-0.27 0.08 0" value="Oxygen"></a-text>
+        <a-text color="#FFCB05" align="left" baseline="center" width="1" position="-0.27 0 0" value="Water"></a-text>
+        <a-text color="#FFCB05" align="left" baseline="center" width="1" position="-0.27 -0.08 0" value="Battery"></a-text>
+        <a-text color="#FFCB05" align="right" baseline="center" width="1" position="0.25 0.08 0" value="05:03:09"></a-text>
+        <a-text color="#FFCB05" align="right" baseline="center" width="1" position="0.25 0 0" value="04:32:17"></a-text>
+        <a-text color="#FFCB05" align="right" baseline="center" width="1" position="0.25 -0.08 0" value="04:58:23"></a-text>
+        
+      </a-plane>
+      <a-entity geometry="primitive: plane; height: .4; width: 0.04" position="1.48 -.5 -1" material="color: #35D8F2"></a-entity>
+      
+      <!-- TASK LIST -->
+      <a-entity position="-1.2 0.2 -1">
+        <a-entity mixin="marker; height: AUTO; width: AUTO" position="0 0 0.01"></a-entity>
+        <a-entity position="0 0 0" geometry="primitive: plane; width: 0.5; height: 0.05" material="color: #00274C" text="color: #FFCB05; align: center; value: TASK LIST; width: 0.7; height: 1"></a-entity>
+        <!-- CURRENT TASK -->
+        <a-entity geometry="primitive: plane; height: 0.05; width: 0.5" position="0 -0.06 0" material="color: #00274C; opacity: 1" text="color: #FFCB05; align: center; value: CURRENT TASK; width: 1; height: 1">
+          <a-triangle rotation="0 0 90" vertex-a="0 0.02 0" vertex-b="-0.02 -0.02 0" vertex-c="0.02 -0.02 0" position="0.28 0 0" material="color: #FFCB05"></a-triangle>
+        </a-entity>
+        <!-- TASK 2 -->
+        <a-entity geometry="primitive: plane; height: 0.05; width: 0.5" position="0 -0.12 0" material="color: #00274C; opacity: 0.75" text="color: #FFCB05; align: center; value: TASK 2; width: 0.7; height: 1; opacity: 0.75"></a-entity>
+        <!-- TASK 3 -->
+        <a-entity geometry="primitive: plane; height: 0.05; width: 0.5" position="0 -0.18 0" material="color: #00274C; opacity: 0.5" text="color: #FFCB05; align: center; value: TASK 3; width: 0.7; height: 1; opacity: 0.5"></a-entity>
+    </a-entity>
+      
+      <!-- MAP -->
+      <a-sphere color="#fff" src="https://raw.githubusercontent.com/mtthwgrvn/3D-models/master/2D-img/geo_moon.png" position="-1.2 -0.5 -1" radius="0.15" segments-height="53"></a-sphere>
+      
+      <a-entity rotation="0 0 0" animation="property: rotation; to: 0 0 -360; loop: true; dur: 10000">
+    
+
+  </a-scene>
+    
+<!-- Component Registry -->
+
+</body>
+
+
+
+Resources1×0.5×0.25×Rerun
+
+   <style>
+      .container{
+         text-align: center;
+         width: 500px;
+         background-color: white;
+         margin-top: 200px;
+         padding-top: 50px;;
+      }
+      body{
+         background-color: black;
+      }
+      .botoncito{
+         margin-bottom: 100px;
+      }
+      
+   </style>
+</body>
+
+
+
+  {% endblock %}

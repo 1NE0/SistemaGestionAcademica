@@ -63,6 +63,8 @@ def CrearCurso(request):
     form = Cursos_Form(request.POST or None)
 
     if form.is_valid():
+        Codcurso = form.cleaned_data['cod_curso']
+        print("aaaaaaaaaaaaaaaaa" + Codcurso)
         form.save()
 
     context = {'form':form}
@@ -76,7 +78,7 @@ def login_user(request):
     if request.POST:
         username = request.POST['username']
         password = request.POST['password']
-
+        
         user = authenticate(username=username, password=password)
         estudiante = Estudiantes.objects.get(user_id=user.pk)
         if user is not None:
@@ -115,6 +117,7 @@ def buscar(request):
     return HttpResponse(mensaje) #objeto http 
 
 def agregarpago(request):
+    
     motivo = request.GET["motivos"]
     idestudiante = request.GET["idestudiante"]
     estuidante= Estudiantes.objects.get(identificacion=idestudiante)
