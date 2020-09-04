@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.template import loader
 from django.template import Template, Context , RequestContext
@@ -136,7 +136,65 @@ def agregarpago(request):
 
 def historiaPagos(request):
     idEstudiante = request.GET["id"] #asigno los datos de el campo a una variable        
-    estudiantes=Estudiantes.objects.filter(identificacion__icontains=idEstudiante)
+    estudiantes = Estudiantes.objects.filter(identificacion__icontains=idEstudiante)
     buscarPago=models.Detalle_Pagos.objects.filter(Estudiante=idEstudiante)
 
     return render(request,"historiaPagos.html",{"buscarP":buscarPago})
+
+#class crearInscripcion(CreateView):
+#    model = Inscripciones
+#    programas = models.Programas.objects.all()
+#    form_class_insc = form_Inscripcion
+#    form_class_est = form_Estudiante
+    
+    #asignamos el contexto
+#    def get_context_data(self, **kwargs):
+#        context = super(crearInscripcion, self).get_context_data(**kwargs), {'objprograma': programas}
+        #mandamos los formularios al contexto
+#        if 'formIns' not in context:
+#            context['formIns'] = self.form_class_insc(self.request.GET)
+#        if 'formEst' not in context:
+#            context['formEst'] = self.form_class_est(self.request.GET)
+#        return context
+    # sobreescribimos el post
+#    def post(self, request): # *args, **kwargs
+#        self.object = self.get_object
+        # recogemos de los 2 formularios, la info que estoy ingresando
+#        formIns = self.form_class_insc(request.POST)
+#        formEst = self.form_class_est(request.POST)
+        #validamos para poderlos guardar
+#        if formIns.is_valid() and formEst.is_valid():
+            # creamos una variable que me guarda el primer request.POST (form)
+#            inscripcion = formIns.save(commit=False) # el commit es para que no se guarde hasta que verifique mi estudiante
+#            inscripcion.estudiante = formEst.save() # con esto, creamos la relacion y guardamos los valores del form_est
+#            inscripcion.save()
+
+#            return HttpResponseRedirect(self.get_success_url())
+#        else:
+#            return self.render_to_response(self.get_context_data(formIns=formIns, formEst=formEst)) # me trae los formularios en blanco 
+
+def crearInscripcion(request):
+    
+        form_Ins = form_Inscripcion(request.POST)
+        programas = models.Programas.objects.all()
+        form_Est = form_Estudiante(request.POST)
+        inscripcion = Inscripciones()
+        
+        if form_Est.is_valid():
+            form_Est = form_Est.save(commit=False)
+            #estudiante = Estudiantes.objects.get(nombres = form_Est.nombres)#consulta a la db los datos ingresados
+            #form_Est.save()
+            
+            #programa1=models.Programas.objects.get('programas')
+            #programita = form_Ins.cleaned_data['nom_programa']
+            inscripcion.Fecha_Realizacion = datetime.now()
+            inscripcion.estudiante = form_Est.save()
+            #inscripcion.Programa = programita
+            inscripcion.save()
+            return redirect('index.html')
+            #return render(request, 'registro/formInscripcion.html', {'programa' : programa1})
+
+            return render(request, 'Admisiones.html')
+
+        context = {'formIns': form_Ins, 'objprograma': programas, "objestudiante" : form_Est } 
+        return render(request, 'registro/formInscripcion.html', context)

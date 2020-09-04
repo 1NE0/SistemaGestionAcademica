@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<!-- <form action="" method="POST">
+  {% csrf_token %}
+
+  <fieldset>
+    <legend>Seleccione el Programa Academico</legend>
+<div class="row ">
+      <div class="col-md-8 col-md-offset-2">
+        <div class="form-group">
+          <label name="programas">Programa academico</label>
+          <select class="form-control" name="programas">
+            {% for programas in objprograma %}
+            <option>
+              {{ programas.cod_programa }} - {{ programas.nom_programa }}
+            </option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Datos Personales</legend>
+    <div class="col-md-8 col-md-offset-2">
+      <div class="form-group">
+        <label for="">{{ objestudiante.identificacion.label }}</label>
+          {{ objestudiante.identificacion }} 
+        <label for="{{ objestudiante.tipo.name }}">{{ objestudiante.tipo.label }}</label>
+          {{ objestudiante.tipo }}
+        <label for="">{{ objestudiante.nombres.label }}</label>
+          {{ objestudiante.nombres }}
+        <label for="">{{ objestudiante.apellidos.label }}</label>
+          {{ objestudiante.apellidos }}
+        <label for="">{{ objestudiante.edad.label }}</label>
+          {{ objestudiante.edad }}
+        <label for="">{{ objestudiante.sexo.label }}</label>
+          {{ objestudiante.sexo }}
+        <label for="">{{objestudiante.telefono.label }}</label>
+          {{ objestudiante.telefono }}
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Correo Electronico</legend>
+    <div class="col-md-8 col-md-offset-2">
+      <div class="form-group">
+        <label for="">{{ objestudiante.correo.label }}</label>
+          {{ objestudiante.correo }}
+      </div>
+    </div>
+  </fieldset>
+</div>
+  <div class="col-md-8 col-md-offset-2">
+    <div class="form-group">
+      <button class="btn btn-primary" type="Submit">Enviar Informacion </button>
+    </div>
+  </div>
+</form> -->
+
+<form action="" method="POST">
+  {% csrf_token %}
+  {{objestudiante}}
+  <button type="submit">registrar</button>
+</form>
+
+{% endblock%} 
