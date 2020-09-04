@@ -181,14 +181,18 @@ def crearInscripcion(request):
         inscripcion = Inscripciones()
         
         if form_Est.is_valid():
-            form_Est = form_Est.save(commit=False)
-            #estudiante = Estudiantes.objects.get(nombres = form_Est.nombres)#consulta a la db los datos ingresados
-            #form_Est.save()
+            form_Est.save()
             
+            #obtener un campo.
+            #print(request.POST.get('identificacion')) 
+
             #programa1=models.Programas.objects.get('programas')
             #programita = form_Ins.cleaned_data['nom_programa']
             inscripcion.Fecha_Realizacion = datetime.now()
             inscripcion.estudiante = form_Est.save()
+
+            usuario = request.POST.get('usuario')
+            contraseña = request.POST.get('password')
             #inscripcion.Programa = programita
             inscripcion.save()
             return redirect('index.html')
