@@ -61,10 +61,46 @@
   </div>
 </form> -->
 
-<form action="" method="POST">
+<!-- <form action="/crearinscripcion/" method="POST">
   {% csrf_token %}
-  {{objestudiante}}
-  <button type="submit">registrar</button>
-</form>
+  <select name="programas">
+    {% for programas in objprograma %}
+    <option>
+      {{ programas.nom_programa }}
+    </option>
+    {% endfor %}
+  </select>
+  <input type="text" name="identificacion" placeholder="identificacion" default = "12345">
+  <select class="form-control" name="tipo"> 
+        <option label="Cedula ciudadania">1</option>
+        <option label="Tarjeta de identidad">2</option>
+        <option label="Cedula extranjera">3</option>
+        <option label="Certificado de cabildo">4</option>
+        <option label="Pasaporte">4</option>
+  </select>
+  <input type="text" name="nombres" placeholder="nombres">
+  <input type="text" name="apellidos" placeholder="apellidos">
+  <input type="text" name="edad" placeholder="edad">
+  <select class="form-control" name="sexo"> 
+    <option label="Femenino">F</option>
+    <option label="Masculino">M</option>
+  </select>
+  <input type="email" name="correo" placeholder="Email">
+  <input type="email" name="telefono" placeholder="telefono">
+
+  
+-->
+  <form action="" method="POST">
+    {% csrf_token %}
+    {{form}}
+
+    <input type="text" name="usuario">
+    <input type="password" name="password">
+    <button type="submit">registrar</button>
+  </form>
+
+  <!-- USER -->
+  
+</form> -->
 
 {% endblock%} 

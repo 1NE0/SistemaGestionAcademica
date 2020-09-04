@@ -127,8 +127,8 @@ def agregarpago(request):
     monto = request.GET["monto"]
     fechahoy = datetime.now()
     #prgramas = request.GET["programas"]
-    p = Pagos(id=idpagos, Programa=programa1,motivo=motivo).save()
-    p1=Pagos(Programa=programa1,id=idpagos,motivo=motivo)
+    p = Pagos(id=idpagos, Programa=programa1,motivo=motivo)
+    p1 = Pagos(Programa=programa1,id=idpagos,motivo=motivo).save()
     Dp=Detalle_Pagos(Estudiante=estuidante,Pagos=p1,monto=monto,Fecha=fechahoy).save()
     #return render(request,"pago#2.html",Dp="detallep",)   
     return redirect('/')
@@ -174,27 +174,21 @@ def historiaPagos(request):
 #            return self.render_to_response(self.get_context_data(formIns=formIns, formEst=formEst)) # me trae los formularios en blanco 
 
 def crearInscripcion(request):
-    
-        form_Ins = form_Inscripcion(request.POST)
         programas = models.Programas.objects.all()
-        form_Est = form_Estudiante(request.POST)
-        inscripcion = Inscripciones()
+        form_est = form_Estudiante(request.POST)
         
-        if form_Est.is_valid():
-            form_Est = form_Est.save(commit=False)
-            #estudiante = Estudiantes.objects.get(nombres = form_Est.nombres)#consulta a la db los datos ingresados
-            #form_Est.save()
+        if form_est.is_valid():
+            print (request.POST.get('identificacion'))
+            # GUARDAMOS EL ESTUDIANTE
+            form_est.save()
+
+            # OBTENER LOS DATOS DE LOGEO PARA CREAR UN USER...
+            usuario = request.POST.get('usuario')
+            contraseña = request.POST.get('password')
+            # DESPUES DE CREAR EL ESTUDIANTE, DEBEMOS ASIGNARLE UN USER...
             
-            #programa1=models.Programas.objects.get('programas')
-            #programita = form_Ins.cleaned_data['nom_programa']
-            inscripcion.Fecha_Realizacion = datetime.now()
-            inscripcion.estudiante = form_Est.save()
-            #inscripcion.Programa = programita
-            inscripcion.save()
-            return redirect('index.html')
-            #return render(request, 'registro/formInscripcion.html', {'programa' : programa1})
+            # AHORA DEBEMOS CREAR LA INSCRIPCION...
+            return render(request,"index.html",{'form' : form_est})
+        
+        return render(request,"registro/formInscripcion.html",{'form' : form_est})
 
-            return render(request, 'Admisiones.html')
-
-        context = {'formIns': form_Ins, 'objprograma': programas, "objestudiante" : form_Est } 
-        return render(request, 'registro/formInscripcion.html', context)

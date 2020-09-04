@@ -27,7 +27,7 @@ class login_form(forms.Form):
 class  form_Estudiante(ModelForm):
     class Meta:
         model = Estudiantes
-        fields = '__all__'
+        fields = ('identificacion', 'tipo' , 'nombres' , 'apellidos' , 'edad' , 'sexo' , 'correo' , 'telefono')
         labels = {
             'identificacion' : 'Identificacion',
             'tipo' : 'Tipo de Documento',
