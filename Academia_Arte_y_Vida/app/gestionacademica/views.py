@@ -196,12 +196,11 @@ def crearInscripcion(request):
                 inscripcion.Fecha_Realizacion = datetime.now()
                 inscripcion.Programa = request.POST.get('programas')
                 inscripcion.Estudiante = estudiante
-                inscripcion.save()
+                inscripcion.save() 
             #inscripcion = models.Inscripciones(Fecha_Realizacion = datetime.now(), 
             #                                    Programa = request.POST.get('programas'),
             #                                    Estudiante = estudiante).save()
-
-            print("SE GUARDO MI INSCRIPCION")
+            
             #print(request.GET('programas'))
             return render(request,"index.html",{'form' : form_est, 'objprograma' : programas, 'form_ins' : inscripcion })
         
