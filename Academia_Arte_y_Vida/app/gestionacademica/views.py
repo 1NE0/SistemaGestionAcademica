@@ -9,7 +9,7 @@ from Academia_Arte_y_Vida.app.gestionacademica.forms import login_form
 from django.contrib.auth.decorators import login_required
 from Academia_Arte_y_Vida.app.gestionacademica.models import *
 from Academia_Arte_y_Vida.app.gestionacademica import models
-from Academia_Arte_y_Vida.app.gestionacademica.models import Estudiantes,Pagos,Detalle_Pagos
+from Academia_Arte_y_Vida.app.gestionacademica.models import Estudiantes,Pagos,Detalle_Pagos, Programas
 from datetime import datetime
 from django.shortcuts import redirect
 
@@ -80,10 +80,10 @@ def login_user(request):
         password = request.POST['password']
         
         user = authenticate(username=username, password=password)
-        estudiante = Estudiantes.objects.get(user_id=user.pk)
+        print(user.id)
         if user is not None:
             login(request , user)
-
+            estudiante = Estudiantes.objects.get(user_id=user.id)
             return render(request , "index.html" , {'user':user , 'estudiante':estudiante})
 
     return render(request, 'login/login.html')
@@ -176,7 +176,7 @@ def historiaPagos(request):
 def crearInscripcion(request):
         programas = models.Programas.objects.all()
         form_est = form_Estudiante(request.POST)
-        inscripcion = form_Inscripcion(request.POST or None, request.FILES or None)
+        
 
         if form_est.is_valid():
             print (request.POST.get('identificacion'))
@@ -191,12 +191,16 @@ def crearInscripcion(request):
             usercito.is_staff = True # El usuario puede acceder a las secciones de administración.
             usercito.save()
             
+            #BUSCAR EL ESTUDIANTE Y ASIGNARLE EL USUARIO
+            estudiantico = Estudiantes.objects.get(identificacion=request.POST.get('identificacion'))
+            estudiantico.user = usercito
+            estudiantico.save()
+
             # AHORA DEBEMOS CREAR LA INSCRIPCION...
-            if inscripcion.is_valid():
-                inscripcion.Fecha_Realizacion = datetime.now()
-                inscripcion.Programa = request.POST.get('programas')
-                inscripcion.Estudiante = estudiante
-                inscripcion.save() 
+            print(request.POST.get('programas'))
+            programaSelect = models.Programas.objects.get(cod_programa=request.POST.get('programas'))
+            inscripcion = Inscripciones.objects.create(Fecha_Realizacion=datetime.now,Programa=programaSelect,Estudiante=estudiante)
+            inscripcion.save()
             #inscripcion = models.Inscripciones(Fecha_Realizacion = datetime.now(), 
             #                                    Programa = request.POST.get('programas'),
             #                                    Estudiante = estudiante).save()
@@ -204,5 +208,5 @@ def crearInscripcion(request):
             #print(request.GET('programas'))
             return render(request,"index.html",{'form' : form_est, 'objprograma' : programas, 'form_ins' : inscripcion })
         
-        return render(request,"registro/formInscripcion.html",{'form' : form_est, 'objprograma' : programas, 'form_ins' : inscripcion })
+        return render(request,"registro/formInscripcion.html",{'form' : form_est, 'objprograma' : programas})
 
