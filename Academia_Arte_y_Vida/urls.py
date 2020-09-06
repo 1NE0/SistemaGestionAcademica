@@ -21,6 +21,7 @@ from Academia_Arte_y_Vida.app.gestionacademica.views import *
 
 
 urlpatterns = [
+    
     url(r'^$', Index, name='index'),
     url(r'^admin/', admin.site.urls),
     url(r'^home/$', Index, name="index"),
@@ -30,6 +31,9 @@ urlpatterns = [
     url(r'^asignaturas/$', asignaturas, name="asignaturas"),
     url(r'^pagos/$', Pagos, name="pagos"),
     url(r'^crearprograma/$',CrearPrograma, name="crearprograma"),
+    url(r'^listaprograma/$',lista_programas, name="listaprograma"),
+    url(r'^editarprograma/(?P<cod_programa>\w+)/$',editar_programa, name="editarprograma"),
+    url(r'^eliminarprograma/(?P<cod_programa>\w+)/$',eliminar_programa, name="eliminarprograma"),
     url(r'^crearasignatura/$',CrearAsignatura, name="crearasignatura"),
     url(r'^crearcurso/$',CrearCurso, name="crearcurso"),
     url(r'^login/$', login_user, name="login"),
@@ -39,5 +43,6 @@ urlpatterns = [
     url(r'^pago/$', agregarpago, name="pago"),
     url(r'^historiaPago/$', historiaPagos, name="historiapago"),
     url(r'^registro/formInscripcion/$', crearInscripcion, name="crearinscripcion")
+    
 ]
 
