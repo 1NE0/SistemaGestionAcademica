@@ -27,7 +27,7 @@ class login_form(forms.Form):
 class  form_Estudiante(ModelForm):
     class Meta:
         model = Estudiantes
-        fields = '__all__'
+        fields = ('identificacion', 'tipo' , 'nombres' , 'apellidos' , 'edad' , 'sexo' , 'correo' , 'telefono')
         labels = {
             'identificacion' : 'Identificacion',
             'tipo' : 'Tipo de Documento',
@@ -49,9 +49,10 @@ class  form_Estudiante(ModelForm):
             'telefono' : forms.TextInput(attrs={'class': 'form-control'}),
         }
 
-class form_Inscripcion(Form):
+class form_Inscripcion(ModelForm):
     class Meta:
         model = Inscripciones
         fields = [
             'Programa'
         ]
+        
