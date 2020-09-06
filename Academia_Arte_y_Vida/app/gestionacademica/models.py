@@ -96,7 +96,7 @@ class Estudiantes(models.Model):
     telefono = models.CharField(max_length=12)
 
     # hacer la relacion a user
-    user = models.OneToOneField(User, on_delete=models.CASCADE ,default=9999)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
 
 
 #clase inscripcion####################################################################################################
