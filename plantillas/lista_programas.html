@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<table class="table table-bordered">
+
+    <thead>
+        <tr class="bg-primary text-white">
+            <td>Codigo</td>
+            <td>Nombre</td>
+            <td>Contenido Academico</td>
+            <td>Acciones</td>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% if programas %}
+        {% for programa in programas %}
+        <tr class="bg-light">
+            <td>{{ programa.cod_programa }}</td>
+            <td>{{ programa.nom_programa }}</td>
+            <td>{{ programa.contenido_Aca }}</td>
+            <td>
+                <a class="btn btn-primary" href="{% url 'editarprograma' programa.cod_programa %}">Editar</a>
+                <a class="btn btn-danger" href="{% url 'eliminarprograma' programa.cod_programa %}">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+        
+        {% else %}
+        <h3>No hay registro de programas</h3>
+
+        {% endif %}
+
+    </tbody>
+
+</table>
+
+{% endblock %}

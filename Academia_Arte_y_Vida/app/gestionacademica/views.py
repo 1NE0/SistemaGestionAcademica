@@ -46,6 +46,39 @@ def CrearPrograma(request):
     return render(request,"CrearPrograma.html",context)
 
 @login_required(login_url='/login/login.html')
+def lista_programas(request):
+    programas = models.Programas.objects.all()
+    context = {'programas':programas}
+    return render(request,'lista_programas.html',context)
+
+@login_required(login_url='/login/login.html')
+def editar_programa(request,cod_programa):
+    programa = models.Programas.objects.get(cod_programa=cod_programa)
+    if request.method == 'GET':
+        form = Programas_Form(instance=programa)
+    else:
+        form = Programas_Form(request.POST, instance=programa)
+        if form.is_valid():
+            form.save()
+        return redirect("lista_programas.html")
+    
+    context = {'form':form}
+
+    return render(request,"CrearPrograma.html",context)
+
+@login_required(login_url='/login/login.html')
+def eliminar_programa(request,cod_programa):
+    programa = models.Programas.objects.get(cod_programa=cod_programa)
+    if request.method == 'POST':
+        programa.delete()
+        return redirect("lista_programas.html")
+    context = {'programa':programa}
+    return render(request,"eliminar_programa.html",context)
+
+
+
+
+@login_required(login_url='/login/login.html')
 def CrearAsignatura(request):
     form = Asignaturas_Form(request.POST or None)
 

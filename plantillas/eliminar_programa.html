@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<form method="post">
+    {% csrf_token %}
+    <h3>¿Desea eliminar el programa {{programa.nom_programa}}?</h3>
+
+    <button class="btn btn-danger" type="submit">Si</button>
+
+    <a href="{% url 'listaprograma' %}">Cancelar</a>
+
+
+</form>
+
+{% endblock %}
