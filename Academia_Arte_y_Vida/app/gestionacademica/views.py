@@ -123,20 +123,7 @@ def buscar(request):
 
     return HttpResponse(mensaje) #objeto http 
 
-# def buscar(request):
-#     if request.GET["id"]:
-#         # asigno los datos de el campo a una variable
-#         idEstudiante = request.GET["id"]
-#         estudiantes = Estudiantes.objects.filter(identificacion__icontains=idEstudiante)
-#         programas = models.Programas.objects.all()
-#         motivo = models.Pagos.objects.filter(motivo__icontains='1')
-#         buscarPago = models.Detalle_Pagos.objects.filter( Estudiante=idEstudiante)
-#         fechaActual = datetime.now()
-#         return render(request, "registrarpago.html", {"buscarP": buscarPago, "programaobj": programas, "Estudianteobj": estudiantes, "fechaActual": fechaActual, "query": idEstudiante, "motivo": motivo})
-#     else:
-#         mensaje = "no se ingresaron datos"
 
-#     return HttpResponse(mensaje)  # objeto http
 
 
 def agregarpago(request):
