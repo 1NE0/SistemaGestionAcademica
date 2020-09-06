@@ -69,7 +69,7 @@ def editar_programa(request,cod_programa):
         form = Programas_Form(request.POST, instance=programa)
         if form.is_valid():
             form.save()
-        return redirect("lista_programas.html")
+        return redirect("../../listaprograma")
     
     context = {'form':form}
 
@@ -135,7 +135,6 @@ def logout_user(request):
        user = request.user
        logout(request)
        return render(request , "index.html")
-
 
 
 #logica pagos#####################################################################################
