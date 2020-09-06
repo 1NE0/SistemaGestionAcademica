@@ -9,7 +9,7 @@ from Academia_Arte_y_Vida.app.gestionacademica.forms import login_form
 from django.contrib.auth.decorators import login_required
 from Academia_Arte_y_Vida.app.gestionacademica.models import *
 from Academia_Arte_y_Vida.app.gestionacademica import models
-from Academia_Arte_y_Vida.app.gestionacademica.models import Estudiantes,Pagos,Detalle_Pagos
+from Academia_Arte_y_Vida.app.gestionacademica.models import Estudiantes,Pagos,Detalle_Pagos, Programas
 from datetime import datetime
 from django.shortcuts import redirect
 
@@ -80,10 +80,10 @@ def login_user(request):
         password = request.POST['password']
         
         user = authenticate(username=username, password=password)
-        estudiante = Estudiantes.objects.get(user_id=user.pk)
+        print(user.id)
         if user is not None:
             login(request , user)
-
+            estudiante = Estudiantes.objects.get(user_id=user.id)
             return render(request , "index.html" , {'user':user , 'estudiante':estudiante})
 
     return render(request, 'login/login.html')
@@ -127,8 +127,8 @@ def agregarpago(request):
     monto = request.GET["monto"]
     fechahoy = datetime.now()
     #prgramas = request.GET["programas"]
-    p = Pagos(id=idpagos, Programa=programa1,motivo=motivo).save()
-    p1=Pagos(Programa=programa1,id=idpagos,motivo=motivo)
+    p = Pagos(id=idpagos, Programa=programa1,motivo=motivo)
+    p1 = Pagos(Programa=programa1,id=idpagos,motivo=motivo).save()
     Dp=Detalle_Pagos(Estudiante=estuidante,Pagos=p1,monto=monto,Fecha=fechahoy).save()
     #return render(request,"pago#2.html",Dp="detallep",)   
     return redirect('/')
@@ -174,27 +174,39 @@ def historiaPagos(request):
 #            return self.render_to_response(self.get_context_data(formIns=formIns, formEst=formEst)) # me trae los formularios en blanco 
 
 def crearInscripcion(request):
-    
-        form_Ins = form_Inscripcion(request.POST)
         programas = models.Programas.objects.all()
-        form_Est = form_Estudiante(request.POST)
-        inscripcion = Inscripciones()
+        form_est = form_Estudiante(request.POST)
         
-        if form_Est.is_valid():
-            form_Est = form_Est.save(commit=False)
-            #estudiante = Estudiantes.objects.get(nombres = form_Est.nombres)#consulta a la db los datos ingresados
-            #form_Est.save()
+
+        if form_est.is_valid():
+            print (request.POST.get('identificacion'))
+            # GUARDAMOS EL ESTUDIANTE
+            estudiante = form_est.save()
+
+            # OBTENER LOS DATOS DE LOGEO PARA CREAR UN USER...
+            usuario = request.POST.get('usuario')
+            contraseña = request.POST.get('password')
+            # DESPUES DE CREAR EL ESTUDIANTE, DEBEMOS ASIGNARLE UN USER...
+            usercito = User.objects.create_user(usuario, contraseña)
+            usercito.is_staff = True # El usuario puede acceder a las secciones de administración.
+            usercito.save()
             
-            #programa1=models.Programas.objects.get('programas')
-            #programita = form_Ins.cleaned_data['nom_programa']
-            inscripcion.Fecha_Realizacion = datetime.now()
-            inscripcion.estudiante = form_Est.save()
-            #inscripcion.Programa = programita
+            #BUSCAR EL ESTUDIANTE Y ASIGNARLE EL USUARIO
+            estudiantico = Estudiantes.objects.get(identificacion=request.POST.get('identificacion'))
+            estudiantico.user = usercito
+            estudiantico.save()
+
+            # AHORA DEBEMOS CREAR LA INSCRIPCION...
+            print(request.POST.get('programas'))
+            programaSelect = models.Programas.objects.get(cod_programa=request.POST.get('programas'))
+            inscripcion = Inscripciones.objects.create(Fecha_Realizacion=datetime.now,Programa=programaSelect,Estudiante=estudiante)
             inscripcion.save()
-            return redirect('index.html')
-            #return render(request, 'registro/formInscripcion.html', {'programa' : programa1})
+            #inscripcion = models.Inscripciones(Fecha_Realizacion = datetime.now(), 
+            #                                    Programa = request.POST.get('programas'),
+            #                                    Estudiante = estudiante).save()
+            
+            #print(request.GET('programas'))
+            return render(request,"index.html",{'form' : form_est, 'objprograma' : programas, 'form_ins' : inscripcion })
+        
+        return render(request,"registro/formInscripcion.html",{'form' : form_est, 'objprograma' : programas})
 
-            return render(request, 'Admisiones.html')
-
-        context = {'formIns': form_Ins, 'objprograma': programas, "objestudiante" : form_Est } 
-        return render(request, 'registro/formInscripcion.html', context)
