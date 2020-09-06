@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.template import loader
 from django.template import Template, Context , RequestContext
 from django.shortcuts import render
+from django.contrib.auth.models import Group, User
 from django.contrib.auth import authenticate,login,logout
 from Academia_Arte_y_Vida.app.gestionacademica.forms import *
 from Academia_Arte_y_Vida.app.gestionacademica.forms import login_form
@@ -14,6 +15,14 @@ from datetime import datetime
 from django.shortcuts import redirect
 
 # Create your views here.
+
+def asignaturas (request):
+    asignaturasLista = Asignaturas.objects.all()
+    return render(request,"asignaturas.html" , {'asignaturas' : asignaturasLista})
+
+def cursos (request):
+    cursosLista = Cursos.objects.all()
+    return render(request,"cursos.html", {'cursos' : cursosLista})
 
 def Index(request):
     #request : para realizar peticiones
@@ -189,6 +198,8 @@ def crearInscripcion(request):
             # DESPUES DE CREAR EL ESTUDIANTE, DEBEMOS ASIGNARLE UN USER...
             usercito = User.objects.create_user(usuario, contraseña)
             usercito.is_staff = True # El usuario puede acceder a las secciones de administración.
+            group = Group.objects.get(name='estudiantes')
+            usercito.groups.add(group)
             usercito.save()
             
             #BUSCAR EL ESTUDIANTE Y ASIGNARLE EL USUARIO
