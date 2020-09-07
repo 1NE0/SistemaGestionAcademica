@@ -198,12 +198,9 @@ def crearInscripcion(request):
 
             # AHORA DEBEMOS CREAR LA INSCRIPCION...
             print(request.POST.get('programas'))
-            programaSelect = models.Programas.objects.get(cod_programa=request.POST.get('programas'))
+            programaSelect = models.Programas.objects.get(nom_programa=request.POST.get('programas'))
             inscripcion = Inscripciones.objects.create(Fecha_Realizacion=datetime.now,Programa=programaSelect,Estudiante=estudiante)
             inscripcion.save()
-            #inscripcion = models.Inscripciones(Fecha_Realizacion = datetime.now(), 
-            #                                    Programa = request.POST.get('programas'),
-            #                                    Estudiante = estudiante).save()
             
             #print(request.GET('programas'))
             return render(request,"index.html",{'form' : form_est, 'objprograma' : programas, 'form_ins' : inscripcion })

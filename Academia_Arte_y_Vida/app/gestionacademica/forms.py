@@ -55,7 +55,4 @@ class form_Inscripcion(ModelForm):
         fields = [
             'Programa'
         ]
-        widgets = {
-            'Fecha_Realizacion': forms.DateTimeField(input_formats=['%Y-%m-%d']),
-        }
         

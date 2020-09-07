@@ -87,27 +87,54 @@
   <input type="email" name="correo" placeholder="Email">
   <input type="email" name="telefono" placeholder="telefono">-->
 
-  <form action="" method="POST" enctype="multipart/form-data">
+  <form action="" method="POST" enctype="multipart/form-data" class="form-inline">
     {% csrf_token %}
     <br />
     <h1 class="text-center">REGISTRO DE INSCRIPCION ACADEMICA</h1>
     <br />
-    <span>Fecha de Realizacion: </span>
-    <label for=""> {{ form_ins.Fecha_Realizacion }}</label>
-    <div class="form-group">
-      <label>Seleccione el programa academico</label>
-      <select class="form-control" name="programas">
-        {% for programas in objprograma %}
-        <option >{{ programas.cod_programa }} </option>
-        {% endfor %}
-      </select>
+    <div class="col-md-8 col-md-offset-2">
+      <div class="form-group">
+        <legend>Seleccionar programa academico</legend>
+        <label>Programa academico</label>
+        <select class="form-control" name="programas">
+          {% for programas in objprograma %}
+          <option>{{ programas.nom_programa }}</option>
+          {% endfor %}
+        </select>
+      </div>
     </div>
-
-    {{form}}
+    <!--{{form}}-->
+    <div class="col-md-8 col-md-offset-2">
+      <div class="form-group">
+        <legend>Datos Personales</legend>
+        <label for="">{{ form.identificacion.label }}</label>
+        {{ form.identificacion }}
+        <label for="">{{ form.tipo.label }}</label>
+        {{ form.tipo }}
+        <label for="">{{ form.nombres.label }}</label>
+        {{ form.nombres }}
+        <label for="">{{ form.apellidos.label }}</label>
+        {{ form.apellidos }}
+        <label for="">{{ form.edad.label }}</label>
+        {{ form.edad }}
+        <label for="">{{ form.sexo.label }}</label>
+        {{ form.sexo }}
+        <label for="">{{ form.telefono.label }}</label>
+        {{ form.telefono }}
+        <label for="">{{ form.correo.label }}</label>
+        {{ form.correo }}
+      </div>
+    </div>
     <br />
-    <input type="text" name="usuario" />
-    <input type="password" name="password" />
-    <button class="btn btn-primary" type="Submit">Enviar Informacion</button>
+
+    <div class="col-md-8 col-md-offset-2">
+      <legend>Asignar Usuario</legend>
+      <span>Usuario: </span>
+      <input type="text" name="usuario" />
+      <span>Contraseña: </span>
+      <input type="password" name="password" />
+      <button class="btn btn-primary" type="Submit">Enviar Informacion</button>
+    </div>
   </form>
 
   <!-- USER -->
