@@ -3,29 +3,21 @@ from django.http import HttpResponse
 from django.template import loader
 from django.template import Template, Context, RequestContext
 from django.shortcuts import render
-<<<<<<< HEAD
 from django.contrib.auth import authenticate, login, logout
-=======
 from django.contrib.auth.models import Group, User
 from django.contrib.auth import authenticate,login,logout
->>>>>>> 080f0e0a288e2f82b2983960e6752532b5a134e5
 from Academia_Arte_y_Vida.app.gestionacademica.forms import *
 from Academia_Arte_y_Vida.app.gestionacademica.forms import login_form
 from django.contrib.auth.decorators import login_required
 from Academia_Arte_y_Vida.app.gestionacademica.models import *
 from Academia_Arte_y_Vida.app.gestionacademica import models
-<<<<<<< HEAD
 from Academia_Arte_y_Vida.app.gestionacademica.models import Estudiantes, Pagos, Detalle_Pagos
-=======
 from Academia_Arte_y_Vida.app.gestionacademica.models import Estudiantes,Pagos,Detalle_Pagos, Programas
->>>>>>> 080f0e0a288e2f82b2983960e6752532b5a134e5
 from datetime import datetime
 from django.shortcuts import redirect
 
 # Create your views here.
 
-<<<<<<< HEAD
-=======
 def asignaturas (request):
     asignaturasLista = Asignaturas.objects.all()
     return render(request,"asignaturas.html" , {'asignaturas' : asignaturasLista})
@@ -33,7 +25,6 @@ def asignaturas (request):
 def cursos (request):
     cursosLista = Cursos.objects.all()
     return render(request,"cursos.html", {'cursos' : cursosLista})
->>>>>>> 080f0e0a288e2f82b2983960e6752532b5a134e5
 
 def Index(request):
     # request : para realizar peticiones
@@ -144,15 +135,11 @@ def login_user(request):
         user = authenticate(username=username, password=password)
         print(user.id)
         if user is not None:
-<<<<<<< HEAD
             login(request, user)
-
-            return render(request, "index.html", {'user': user, 'estudiante': estudiante})
-=======
+            
             login(request , user)
             estudiante = Estudiantes.objects.get(user_id=user.id)
             return render(request , "index.html" , {'user':user , 'estudiante':estudiante})
->>>>>>> 080f0e0a288e2f82b2983960e6752532b5a134e5
 
     return render(request, 'login/login.html')
 
@@ -192,33 +179,22 @@ def agregarpago(request):
     programa1 = models.Programas.objects.get(nom_programa=programalabel)
     monto = request.GET["monto"]
     fechahoy = datetime.now()
-<<<<<<< HEAD
-    p3=models.Pagos(Programa=programa1,id=request.GET["idpago"],motivo=motivo)
-    p3.save()
-    # Dp=models.Detalle_Pagos(Estudiante=estuidante, Pagos=p3, monto=monto, Fecha=fechahoy).sav
-    DetlleP=models.Detalle_Pagos(Estudiante=estuidante,Pagos=p3, monto=monto,Fecha=fechahoy)
-    DetlleP.save()
-    # return render(request,"pago#2.html",Dp="detallep",)
-=======
     #prgramas = request.GET["programas"]
-    p = Pagos(id=idpagos, Programa=programa1,motivo=motivo)
-    p1 = Pagos(Programa=programa1,id=idpagos,motivo=motivo).save()
-    Dp=Detalle_Pagos(Estudiante=estuidante,Pagos=p1,monto=monto,Fecha=fechahoy).save()
+    p2 = models.Pagos(id=idpagos,Programa=programa1,motivo=motivo)
+    print(p2)
+    Dp= models.Detalle_Pagos(Estudiante=estuidante,Pagos=p2,monto=monto,Fecha=fechahoy).save()
     #return render(request,"pago#2.html",Dp="detallep",)   
->>>>>>> 080f0e0a288e2f82b2983960e6752532b5a134e5
     return redirect('/')
 
 
 
 def historiaPagos(request):
-<<<<<<< HEAD
     # asigno los datos de el campo a una variable
     idEstudiante = request.GET["id"]
     estudiantes = Estudiantes.objects.filter(identificacion__icontains=idEstudiante)
     buscarPago = models.Detalle_Pagos.objects.filter(Estudiante=idEstudiante)
 
     return render(request, "historiaPagos.html", {"buscarP": buscarPago})
-=======
     idEstudiante = request.GET["id"] #asigno los datos de el campo a una variable        
     estudiantes = Estudiantes.objects.filter(identificacion__icontains=idEstudiante)
     buscarPago=models.Detalle_Pagos.objects.filter(Estudiante=idEstudiante)
@@ -296,4 +272,3 @@ def crearInscripcion(request):
         
         return render(request,"registro/formInscripcion.html",{'form' : form_est, 'objprograma' : programas})
 
->>>>>>> 080f0e0a288e2f82b2983960e6752532b5a134e5
