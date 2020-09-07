@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<form method="post">
+    {% csrf_token %}
+    <h3>¿Desea eliminar el curso {{curso.nom_curso}}?</h3>
+
+    <button class="btn btn-danger" type="submit">Si</button>
+
+    <a href="{% url 'listacursos' %}">Cancelar</a>
+
+
+</form>
+
+{% endblock %}
