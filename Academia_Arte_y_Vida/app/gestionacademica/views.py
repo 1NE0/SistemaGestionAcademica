@@ -32,6 +32,9 @@ def Index(request):
 def Admision(request):
     return render(request, "Admisiones.html")
 
+
+#  Programas -----------------------------------------------------------
+
 @login_required(login_url='/login/login.html')
 def Programas(request):
     programasLista = models.Programas.objects.all()
@@ -47,7 +50,7 @@ def CrearPrograma(request):
 
     if form.is_valid():
         form.save()
-    
+        return redirect("../../listaprograma")
     context ={
         'form':form
     }
@@ -80,12 +83,12 @@ def eliminar_programa(request,cod_programa):
     programa = models.Programas.objects.get(cod_programa=cod_programa)
     if request.method == 'POST':
         programa.delete()
-        return redirect("lista_programas.html")
+        return redirect("../../listaprograma")
     context = {'programa':programa}
     return render(request,"eliminar_programa.html",context)
 
 
-
+# Asignaturas ----------------------------------------------------------
 
 @login_required(login_url='/login/login.html')
 def CrearAsignatura(request):
@@ -100,6 +103,8 @@ def CrearAsignatura(request):
 
     return render(request,"crearasignatura.html",context)
 
+# Cursos ------------------------------------------------------------------
+
 @login_required(login_url='/login/login.html')
 def CrearCurso(request):
     form = Cursos_Form(request.POST or None)
@@ -108,10 +113,42 @@ def CrearCurso(request):
         Codcurso = form.cleaned_data['cod_curso']
         print("aaaaaaaaaaaaaaaaa" + Codcurso)
         form.save()
+        return redirect("../../listacursos")
 
     context = {'form':form}
 
     return render(request,"crearcurso.html",context)
+
+@login_required(login_url='/login/login.html')
+def lista_curso(request):
+    cursos = models.Cursos.objects.all()
+    context = {'cursos':cursos}
+    return render(request,"lista_cursos.html",context)
+
+@login_required(login_url='/login/login.html')
+def Editar_curso(request,cod_curso):
+    curso = models.Cursos.objects.get(cod_curso=cod_curso)
+    if request.method == 'GET':
+        form = Cursos_Form(instance=curso)
+    else:
+        form = Cursos_Form(request.POST, instance=curso)
+        if form.is_valid():
+            form.save()
+        return redirect("../../listacursos")
+    
+    context = {'form':form}
+
+    return render(request,"crearcurso.html",context)
+
+@login_required(login_url='/login/login.html')
+def Eliminar_Curso(request,cod_curso):
+    curso = models.Cursos.objects.get(cod_curso=cod_curso)
+    if request.method == 'POST':
+        curso.delete()
+        return redirect("../../listacursos")
+    context = {'curso':curso}
+    return render(request,"eliminar_curso.html",context)
+
 
 def login_user(request):
     
