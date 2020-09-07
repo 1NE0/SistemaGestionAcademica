@@ -1,0 +1,16 @@
+
+<div class="modal" id="ventanaLogin" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+   <div class="modal-content">
+
+       <form  method="POST">
+          {{ form.as_p }}
+          {% csrf_token %}
+             <button type="submit">Entrar</button>
+
+        </form>
+      </div>
+   </div>
+</div>
+
+

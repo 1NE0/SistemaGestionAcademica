@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+     {% block title %} 
+     <title> Buscar </title>
+     <head>
+       {% include "complementos/nav.html" %}
+     </head>
+    {% endblock %}
+{% block content %}
+        <body>
+                <div class="container">
+                        {# esto es el contenido cambiante dentro de admisiones #}
+                        <!-- <form method="POST">
+                                {% csrf_token%}
+                                {{form.as_p}}
+                                <button type="submit">Guardar</button>
+                        </form> -->
+                        <!-- /registroPago es el url al que me va enviar  -->
+                        <form action="" method="GET">  
+                                <div>
+                                <label for="" style="color: white;">Identificcion Estudinte</label>
+                                <input type="text" name="id" >
+                                
+                                <button class="btn btn-outline-light botoncito" type="submit" onclick="form.action='/registroPago/'">Registar pago</button>
+                                <button class="btn btn-outline-light botoncito" type="submit" onclick="form.action='/historiaPago/'">Historial de pagos</button>
+                                <div></div>
+                        </form>    
+                </div>
+                
+        </body>
+        <style>
+                body{
+                        padding-top: 200px;
+                        background-color: cornflowerblue;
+                }
+                .container{
+                        align-items: center;
+                        
+
+                }
+        </style>
+{% endblock %}

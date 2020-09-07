@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+     {% block title %} 
+     <title> Buscar </title>
+     <head>
+       {% include "complementos/nav.html" %}
+     </head>
+    {% endblock %}
+
+{% block content %}
+
+
+<div class="container">
+
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">id Pago</th>
+        <th scope="col">Fecha y hora</th>
+        <th scope="col">Motivo</th>
+        <th scope="col">Monto</th>
+        <th scope="col">Programa</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        {%for pago in buscarP%}
+        <th scope="row">{{pago.Pagos.id}}</th>
+        <td>{{pago.Fecha}}</td>
+        <td>{{pago.Pagos.motivo}}</td>
+        <td> {{pago.monto}}</td>
+        <td>{{pago.Pagos.Programa.nom_programa}}</td>
+        
+      </tr>
+      {%endfor%}
+
+      
+    </tbody>
+  </table>
+</div>
+<style>
+  body{
+          padding-top: 70px;
+          padding-bottom: 200px;
+          background-color: cornflowerblue;
+  }
+  .container{
+    margin-left: 10%;
+    margin-right: 10%;
+    ma: ;
+    border: solid white;
+    border-radius: 20px;
+    /* padding: 5px; */
+
+  }
+</style>
+
+{% endblock %}
