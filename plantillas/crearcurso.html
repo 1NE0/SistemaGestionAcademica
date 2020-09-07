@@ -1,4 +1,4 @@
-
+{% extends "base.html" %}
 {% block content %}
 <body>
     <div class="contenedor">
@@ -7,6 +7,7 @@
             {% csrf_token %}
             {{ form }}
             <input type="submit" value="Crear Curso">
+           
         </form>
     </div>
     
@@ -40,8 +41,15 @@
         margin-left: 15%;
         margin-top: 5%;
         border: 1px solid white;
-       margin-bottom: 5%;
+      
     }  
+
+    .contenedor a{
+        display: block;
+        width: 20%;
+        margin-top: 3%;
+        margin-left: 40%;
+    }
 
     form{
         text-align:  center;
@@ -66,12 +74,17 @@
         border-bottom: 2px solid white;
         
     }
-    .contenedor select[name="Horario"]{
+    
+    .contenedor select[name="dia"],
+    .contenedor select[name="h_inicio"],
+    .contenedor select[name="h_final"]{
         color: white;
         background: #146194;
         border-bottom: 2px solid white;
         margin-bottom: 2%;
     }
+
+    
 
     .contenedor input[type="submit"]{
         display: block;

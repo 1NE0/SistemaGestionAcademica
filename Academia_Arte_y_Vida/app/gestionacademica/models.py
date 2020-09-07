@@ -29,7 +29,6 @@ class Asignaturas(models.Model):
     nom_asig = models.CharField(max_length=30)
     contenido_academico = models.CharField(max_length=500)
     nivel = models.IntegerField(null=False, blank=False)
-    horario = models.DateTimeField()
     Programa = models.ForeignKey(Programas,null=False,blank=False,on_delete=models.CASCADE)
     Docente = models.ForeignKey(Docentes, null = False, blank= False, on_delete= models.CASCADE)
     #Nivel_Asignatura = models.ForeignKey(Nivel_Asignatura,null=True,blank=True,on_delete = models.CASCADE)
@@ -46,22 +45,43 @@ class Asignaturas(models.Model):
   #  def _str_(self):
    #     return "{0}".format(self.grupo)
 #clase Horario#######################################################################################################
+"""
 class Horarios(models.Model):
-    h_inicio = models.DateTimeField(null= False)
-    h_final = models.DateTimeField(null= False)
-    dia = models.DateTimeField(null= False)
-    #Curso = models.ForeignKey(Cursos,null=False,blank=False,on_delete=models.CASCADE)
+
+    dias = (('1','Lunes'),('2','Martes'),('3','Miercoles'),('4','Jueves'),('5','Viernes'),('6','Sabado'),)
+    dia = models.CharField(max_length=1,choices=dias,default='')
+    horas_iniciales = (
+        ('1','8:00'), ('2','9:00'),('3','10:00'),('4','11:00'),('5','12:00'),('6','13:00'),
+        ('7','14:00'),('8','15:00'),('9','16:00'),('10','17:00'),('11','18:00'),
+    )
+    h_inicio = models.CharField(max_length=5,choices=horas_iniciales,default='1')
+    horas_finales = (
+        ('1','10:00'),('2','11:00'),('3','12:00'),('4','13:00'),
+        ('5','14:00'),('6','15:00'),('7','16:00'),('8','17:00'),('9','18:00'),
+    )
+    h_final = models.CharField(max_length=1,choices=horas_finales,default='1')
 
     def _str_(self):
-        return "({0})({1})({2})".format(self.h_inicio,self.h_final,self.dia)
+        return "({0})".format(self.dia,self.h_inicio,self.h_final)
 
-
+"""
 #Clase curso##########################################################################################################
 class Cursos(models.Model):
     cod_curso = models.CharField(max_length=10)
     nom_curso = models.CharField(max_length=30)
     grupo = models.CharField(max_length=3)
-    Horario = models.OneToOneField(Horarios,null=False,blank=False,on_delete=models.CASCADE)
+    dias = (('1','Lunes'),('2','Martes'),('3','Miercoles'),('4','Jueves'),('5','Viernes'),('6','Sabado'),)
+    dia = models.CharField(max_length=1,choices=dias,default='')
+    horas_iniciales = (
+        ('1','8:00'), ('2','9:00'),('3','10:00'),('4','11:00'),('5','12:00'),('6','13:00'),
+        ('7','14:00'),('8','15:00'),('9','16:00'),('10','17:00'),('11','18:00'),
+    )
+    h_inicio = models.CharField(max_length=5,choices=horas_iniciales,default='1')
+    horas_finales = (
+        ('1','10:00'),('2','11:00'),('3','12:00'),('4','13:00'),
+        ('5','14:00'),('6','15:00'),('7','16:00'),('8','17:00'),('9','18:00'),
+    )
+    h_final = models.CharField(max_length=1,choices=horas_finales,default='1')
     #Nivel_Curso= models.ForeignKey(Nivel_Curso,null=False,blank=False,on_delete=models.CASCADE)
     Programa = models.ForeignKey(Programas,null=False,blank=False,on_delete=models.CASCADE)
 
@@ -69,7 +89,7 @@ class Cursos(models.Model):
     # Detalle_Curso = models.ForeignKey(Detalle_Curso,null=False,blank=False,on_delete=models.CASCADE)
 
     def _str_(self):
-        return "({0}) {1} [{2}]".format(self.cod_curso,self.nom_curso,self.Horario)
+        return "({0}) {1} [{2}]".format(self.cod_curso,self.nom_curso,self.dia,self.h_inicio)
 
 
 #nivel curso###########################################################################################################
