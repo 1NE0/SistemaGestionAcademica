@@ -39,8 +39,22 @@ def Admision(request):
 
 @login_required(login_url='/login/login.html')
 def Programas(request):
+    docente = None
+    estudiante = None
+
     programasLista = models.Programas.objects.all()
-    return render(request, "programas.html", {'programasLista': programasLista})
+    userID = request.user.id
+    if Estudiantes.objects.get(user_id=userID) == None:
+        docente = Docentes.objects.get(user_id=userID)
+    
+    estudiante = Estudiantes.objects.get(user_id=userID)
+    inscripcionesEstudiante = Inscripciones.objects.filter(Estudiante_id = estudiante.identificacion)
+    print(inscripcionesEstudiante['id'])
+    
+    
+    
+
+    return render(request, "programas.html", {'programasLista': programasLista , 'estudiante' : estudiante , 'docente' : docente , 'inscripciones' : inscripcionesEstudiante.values()})
 
 
 login_required(login_url='/login/login.html')
