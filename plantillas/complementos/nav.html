@@ -39,7 +39,7 @@
       </ul>
       {% endif %}
       <form class="form-inline my-2 my-lg-0">
-          <h3 style="color:white;margin-right: 50px;"> {{user.username}} </h3>
+          <h3 class="nombre"> {{user.username}} </h3>
           {% if user.is_active%}
             <a href="/logout" class="btn btn-outline-light" >logout</a>
           {% else %}
@@ -51,3 +51,10 @@
   
 </html>
 
+<style>
+    .nombre{
+      color:white;
+      margin-right: 50px;
+      margin-left: 600px;
+    }
+</style>
