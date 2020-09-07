@@ -43,6 +43,9 @@ def Admision(request):
 def Programas(request):
     docente = None
     estudiante = None
+    #lists
+    temp = []
+    listaInscripciones = []
 
     programasLista = models.Programas.objects.all()
     userID = request.user.id
@@ -51,12 +54,14 @@ def Programas(request):
     
     estudiante = Estudiantes.objects.get(user_id=userID)
     inscripcionesEstudiante = Inscripciones.objects.filter(Estudiante_id = estudiante.identificacion)
-    print(inscripcionesEstudiante['id'])
+    #programas = [v['Programa_id'] for v in inscripcionesEstudiante.values()]
+    
+    
     
     
     
 
-    return render(request, "programas.html", {'programasLista': programasLista , 'estudiante' : estudiante , 'docente' : docente , 'inscripciones' : inscripcionesEstudiante.values()})
+    return render(request, "programas.html", {'programasLista': programasLista , 'estudiante' : estudiante , 'docente' : docente , 'inscripcionesEstudiante' : inscripcionesEstudiante})
 
 
 login_required(login_url='/login/login.html')
