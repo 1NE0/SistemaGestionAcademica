@@ -1,60 +1,102 @@
-{% extends "index.html" %} {% block content %}
+{% extends "base.html" %}
+     {% block title %} 
+     <title> Registro Pago</title>
+     <head>
+       {% include "complementos/nav.html" %}
+     </head>
+    {% endblock %}
+    {% block content %}
 
-
-{% if Estudianteobj %} {% for estudiante in Estudianteobj %}
-<div style=" text-align: center">
-  {% csrf_token %}
   
-  <form action="/pago/">
-    <p>{{ estudiante.nombres }}-{{ estudiante.apellidos}}</p>
-  <p>identificacion: <input  name="idestudiante" > {{estudiante.identificacion}}</input></p>
-    <label name="fecha">{{fechaActual}}</label>
-    <!-- caja motivo -->
-    <div style="margin-right: 30%; margin-left: 30%">
+
+
+
+    {% if Estudianteobj %}
+     {% for estudiante in Estudianteobj %}
+    <div style=" text-align: center;">
       
-      <label name="motivo">Motivo</label>
-      <select class="form-control"
-              name="motivos"> 
-        <option label="Matricula">1</option>
-        <option label="Inscripcion">2</option>
-        <option label="Mensualidad">3</option>
-        <option label="Otros">4</option>
-      </select>
+      
+      <form class="formulario" action="/pago/">
+        <p>{{ estudiante.nombres }}-{{ estudiante.apellidos}}</p>
+        <div>
+          <label for="">identificacion</label>
+        </div>
+       <input value="{{estudiante.identificacion}}" name="idestudiante" >
+        <!-- <label name="fecha">{{fechaActual}}</label> -->
+        <!-- caja motivo -->
+        <div style="margin-right: 30%; margin-left: 30%">
+          
+          <label name="motivo">Motivo</label>
+          <select class="form-control"
+                  name="motivos"> 
+            <option label="Matricula">1</option>
+            <option label="Inscripcion">2</option>
+            <option label="Mensualidad">3</option>
+            <option label="Otros">4</option>
+          </select>
+        </div>
+        <hr />
+        <!-- id pago -->
+        <div>
+        <label for="">Id Pago</label> 
+        </div>
+        <input type="text" name="idpago" />
+        
+    
+        <hr />
+        <!-- caja programas -->
+        <div style="margin-left: 30%; margin-right: 30%">
+          <label name="programa" >Programa</label>
+          <select class="form-control" name="programas">
+            {% for programa in programaobj %}
+            <option>{{programa.nom_programa}}</option>
+    
+            {% endfor %}
+          </select>
+        </div>
+        <hr />
+        <!-- monto -->
+        <div>
+          <label for="">Monto</label>
+        </div>
+        
+          <input type="text" name="monto" />
+        
+        <hr/>
+    
+        <button class="btn btn-outline-light botoncito" type="submit" type="submit">Guardar</button>
+      </form>
+      <!-- {% endfor %}  -->
+    
+      
+      {% else %}
+      <p>no se encontro estudiante</p>
+      {% endif %} 
+      
     </div>
-    <hr />
-    <!-- id pago -->
-    <label for="">id Pago</label>
-    <input type="text" name="idpago" />
-
-    <hr />
-    <!-- caja programas -->
-    <div style="margin-left: 30%; margin-right: 30%">
-      <label name="programa" >Programa</label>
-      <select
-        class="form-control"
-        name="programas"
-      >
-        {% for programa in programaobj %}
-        <option>{{programa.nom_programa}}</option>
-
-        {% endfor %}
-      </select>
-    </div>
-    <hr />
-    <!-- monto -->
-    <div>
-      <label for="">Monto</label>
-      <input type="text" name="monto" />
-    </div>
-    <hr />
-    <button type="submit">Guardar</button>
-  </form>
-  {% endfor %} 
-
-  
-  {% else %}
-  <p>no se encontro estudiante</p>
-  {% endif %} 
-  
-</div>
-{% endblock %}
+    
+    
+    <style>
+      body{
+              padding-top: 50px;
+              background-color: cornflowerblue;
+      }
+      .container{
+    
+      }
+    
+      .formulario{
+        border: solid white;
+        color: white;
+        /* display: inline-block; */
+        padding: 10px; 
+        margin-left: 30%;
+        margin-right: 30%;
+        margin-top: 5%;
+       border-radius: 20px
+      }
+    
+    
+      
+    </style>
+    {% endblock %}
