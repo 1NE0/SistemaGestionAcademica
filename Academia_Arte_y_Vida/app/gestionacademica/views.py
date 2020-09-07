@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.template import loader
 from django.template import Template, Context, RequestContext
 from django.shortcuts import render
+from django.contrib.auth.hashers import check_password
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import Group, User
 from django.contrib.auth import authenticate,login,logout
@@ -125,22 +126,24 @@ def CrearCurso(request):
 
 
 def login_user(request):
-
-    username = password = ''
-    form1 = login_form()
     if request.POST:
         username = request.POST['username']
         password = request.POST['password']
 
+        usuario = User.objects.get(username=username)
+        print("el usuario encontrado es" + usuario.username)
+        boole = check_password(password , usuario.password)
+        print(boole)
         user = authenticate(username=username, password=password)
-        print(user.id)
+        print(user)
         if user is not None:
-            login(request, user)
-            
-            login(request , user)
-            estudiante = Estudiantes.objects.get(user_id=user.id)
-            return render(request , "index.html" , {'user':user , 'estudiante':estudiante})
-
+            if user.is_active:
+                login(request, user)
+                # Redirect to a success page.
+                return render(request , "index.html" , {'user':user})
+            else:
+                #  Retornar a una pagina de error
+                redirect('/')
     return render(request, 'login/login.html')
 
 
@@ -242,17 +245,21 @@ def crearInscripcion(request):
             print (request.POST.get('identificacion'))
             # GUARDAMOS EL ESTUDIANTE
             estudiante = form_est.save()
-
+            correo = request.POST.get('correo')
             # OBTENER LOS DATOS DE LOGEO PARA CREAR UN USER...
             usuario = request.POST.get('usuario')
             contraseña = request.POST.get('password')
+            #CODIFICAR LA CONTRASEÑA
+
+            print(contraseña)
             # DESPUES DE CREAR EL ESTUDIANTE, DEBEMOS ASIGNARLE UN USER...
-            usercito = User.objects.create_user(usuario, contraseña)
+            usercito = User.objects.create_user(usuario, correo, contraseña)
             usercito.is_staff = True # El usuario puede acceder a las secciones de administración.
+            usercito.set_password = contraseña
             group = Group.objects.get(name='estudiantes')
             usercito.groups.add(group)
             usercito.save()
-            
+            login(request , usercito)
             #BUSCAR EL ESTUDIANTE Y ASIGNARLE EL USUARIO
             estudiantico = Estudiantes.objects.get(identificacion=request.POST.get('identificacion'))
             estudiantico.user = usercito
