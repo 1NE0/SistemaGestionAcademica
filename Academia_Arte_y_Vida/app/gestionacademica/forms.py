@@ -73,8 +73,8 @@ class  form_Estudiante(ModelForm):
         correo = self.cleaned_data.get("correo")
         if "edu" not in correo:
             #print("ERROR PA")
-            raise ValidationError("Use un email con la extension .edu")
-        return correo
+            raise Exception("Use un email con la extension .edu")
+        return self.cleaned_data
 
 class form_Inscripcion(ModelForm):
     class Meta:
