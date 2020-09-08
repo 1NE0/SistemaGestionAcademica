@@ -70,18 +70,19 @@ class Cursos(models.Model):
     cod_curso = models.CharField(max_length=10)
     nom_curso = models.CharField(max_length=30)
     grupo = models.CharField(max_length=3)
-    dias = (('1','Lunes'),('2','Martes'),('3','Miercoles'),('4','Jueves'),('5','Viernes'),('6','Sabado'),)
-    dia = models.CharField(max_length=1,choices=dias,default='')
+    dias = (('Lunes','Lunes'),('Martes','Martes'),('Miercoles','Miercoles'),('Jueves','Jueves'),('Viernes','Viernes'),('Sabado','Sabado'),)
+    dia = models.CharField(max_length=10,choices=dias,default='',)
     horas_iniciales = (
-        ('1','8:00'), ('2','9:00'),('3','10:00'),('4','11:00'),('5','12:00'),('6','13:00'),
-        ('7','14:00'),('8','15:00'),('9','16:00'),('10','17:00'),('11','18:00'),
+        ('8:00','8:00'), ('9:00','9:00'),('10:00','10:00'),('11:00','11:00'),('12:00','12:00'),('13:00','13:00'),
+        ('14:00','14:00'),('15:00','15:00'),('16:00','16:00'),('17:00','17:00'),('18:00','18:00'),
     )
-    h_inicio = models.CharField(max_length=5,choices=horas_iniciales,default='1')
+    h_inicio = models.CharField(max_length=5,choices=horas_iniciales,default='8:00')
     horas_finales = (
-        ('1','10:00'),('2','11:00'),('3','12:00'),('4','13:00'),
-        ('5','14:00'),('6','15:00'),('7','16:00'),('8','17:00'),('9','18:00'),
+        ('10:00','10:00'),('11:00','11:00'),('12:00','12:00'),('13:00','13:00'),
+        ('14:00','14:00'),('15:00','15:00'),('16:00','16:00'),('17:00','17:00'),('18:00','18:00'),('19:00','19:00'),
+        ('20:00','20:00'),
     )
-    h_final = models.CharField(max_length=1,choices=horas_finales,default='1')
+    h_final = models.CharField(max_length=5,choices=horas_finales,default='10:00')
     #Nivel_Curso= models.ForeignKey(Nivel_Curso,null=False,blank=False,on_delete=models.CASCADE)
     Programa = models.ForeignKey(Programas,null=False,blank=False,on_delete=models.CASCADE)
 
