@@ -68,13 +68,13 @@ class  form_Estudiante(ModelForm):
             'correo' : forms.EmailInput(attrs={'class': 'form-control'}),
             'telefono' : forms.TextInput(attrs={'class': 'form-control'}),
         }
-    def clean_correo(self):
+    #def clean_correo(self):
         #cleaned_data = super().clean()
-        correo = self.cleaned_data.get("correo")
-        if "edu" not in correo:
-            #print("ERROR PA")
-            raise Exception("Use un email con la extension .edu")
-        return self.cleaned_data
+    #    correo = self.cleaned_data.get("correo")
+    #   if "edu" not in correo:
+    #         #print("ERROR PA")
+    #        raise Exception("Use un email con la extension .edu")
+    #    return self.cleaned_data
 
 class form_Inscripcion(ModelForm):
     class Meta:
