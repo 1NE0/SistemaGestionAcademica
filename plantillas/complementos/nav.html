@@ -30,10 +30,16 @@
         <li class="nav-item">
           <a class="nav-link" href="{% url 'pagos' %}">Pagos</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'asignaturas' %}">Asignaturas</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'cursos' %}">Cursos</a>
+        </li>
       </ul>
       {% endif %}
       <form class="form-inline my-2 my-lg-0">
-          <h3 style="color:white;margin-right: 50px;"> {{user.username}} </h3>
+          <h3 class="nombre"> {{user.username}} </h3>
           {% if user.is_active%}
             <a href="/logout" class="btn btn-outline-light" >logout</a>
           {% else %}
@@ -45,3 +51,10 @@
   
 </html>
 
+<style>
+    .nombre{
+      color:white;
+      margin-right: 50px;
+      margin-left: 600px;
+    }
+</style>

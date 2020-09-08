@@ -21,15 +21,24 @@ from Academia_Arte_y_Vida.app.gestionacademica.views import *
 
 
 urlpatterns = [
+    
     url(r'^$', Index, name='index'),
     url(r'^admin/', admin.site.urls),
     url(r'^home/$', Index, name="index"),
     url(r'^admisiones/$', Admision, name='admisiones'),
     url(r'^programas/$', Programas, name="programas"),
+    url(r'^cursos/$', cursos, name="cursos"),
+    url(r'^asignaturas/$', asignaturas, name="asignaturas"),
     url(r'^pagos/$', Pagos, name="pagos"),
     url(r'^crearprograma/$',CrearPrograma, name="crearprograma"),
+    url(r'^listaprograma/$',lista_programas, name="listaprograma"),
+    url(r'^editarprograma/(?P<cod_programa>\w+)/$',editar_programa, name="editarprograma"),
+    url(r'^eliminarprograma/(?P<cod_programa>\w+)/$',eliminar_programa, name="eliminarprograma"),
     url(r'^crearasignatura/$',CrearAsignatura, name="crearasignatura"),
     url(r'^crearcurso/$',CrearCurso, name="crearcurso"),
+    url(r'^listacursos/$',lista_curso, name="listacursos"),
+    url(r'^editarcurso/(?P<cod_curso>\w+)$',Editar_curso, name="editarcurso"),
+    url(r'^eliminarcurso/(?P<cod_curso>\w+)$',Eliminar_Curso, name="eliminarcurso"),
     url(r'^login/$', login_user, name="login"),
     url(r'^logout/$', logout_user, name="logout"),
     url(r'^registroPago/$', buscar, name="reguistropago"),
@@ -37,5 +46,6 @@ urlpatterns = [
     url(r'^pago/$', agregarpago, name="pago"),
     url(r'^historiaPago/$', historiaPagos, name="historiapago"),
     url(r'^registro/formInscripcion/$', crearInscripcion, name="crearinscripcion")
+    
 ]
 
