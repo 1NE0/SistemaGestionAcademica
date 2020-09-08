@@ -277,7 +277,6 @@ def crearInscripcion(request):
             inscripcion = Inscripciones.objects.create(Fecha_Realizacion=datetime.now,Programa=programaSelect,Estudiante=estudiante)
             inscripcion.save()
             
-            #print(request.GET('programas'))
             return render(request,"index.html",{'form' : form_est, 'objprograma' : programas, 'form_ins' : inscripcion })
         
         return render(request,"registro/formInscripcion.html",{'form' : form_est, 'objprograma' : programas})

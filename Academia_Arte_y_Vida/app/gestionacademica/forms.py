@@ -3,6 +3,7 @@ from django import forms
 from Academia_Arte_y_Vida.app.gestionacademica.models import *
 from Academia_Arte_y_Vida.app.gestionacademica.models import Estudiantes,Inscripciones,Programas, Asignaturas, Cursos
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 
 class Programas_Form(ModelForm):
     class Meta:
@@ -63,15 +64,19 @@ class  form_Estudiante(ModelForm):
             'nombres' : forms.TextInput(attrs={'class': 'form-control'}),
             'apellidos' : forms.TextInput(attrs={'class': 'form-control'}),
             'edad': forms.TextInput(attrs={'class': 'form-control'}),
-            'sexo' : forms.RadioSelect(attrs=None, choices=('sexos')),
+            'sexo' : forms.RadioSelect(attrs=None, choices=('sexos')), 
             'correo' : forms.EmailInput(attrs={'class': 'form-control'}),
             'telefono' : forms.TextInput(attrs={'class': 'form-control'}),
         }
+    def clean_correo(self):
+        #cleaned_data = super().clean()
+        correo = self.cleaned_data.get("correo")
+        if "edu" not in correo:
+            #print("ERROR PA")
+            raise ValidationError("Use un email con la extension .edu")
+        return correo
 
 class form_Inscripcion(ModelForm):
     class Meta:
         model = Inscripciones
-        fields = [
-            'Programa'
-        ]
-        
+        fields = ['Programa']
