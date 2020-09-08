@@ -141,37 +141,7 @@ def historiaPagos(request):
 
     return render(request,"historiaPagos.html",{"buscarP":buscarPago})
 
-#class crearInscripcion(CreateView):
-#    model = Inscripciones
-#    programas = models.Programas.objects.all()
-#    form_class_insc = form_Inscripcion
-#    form_class_est = form_Estudiante
-    
-    #asignamos el contexto
-#    def get_context_data(self, **kwargs):
-#        context = super(crearInscripcion, self).get_context_data(**kwargs), {'objprograma': programas}
-        #mandamos los formularios al contexto
-#        if 'formIns' not in context:
-#            context['formIns'] = self.form_class_insc(self.request.GET)
-#        if 'formEst' not in context:
-#            context['formEst'] = self.form_class_est(self.request.GET)
-#        return context
-    # sobreescribimos el post
-#    def post(self, request): # *args, **kwargs
-#        self.object = self.get_object
-        # recogemos de los 2 formularios, la info que estoy ingresando
-#        formIns = self.form_class_insc(request.POST)
-#        formEst = self.form_class_est(request.POST)
-        #validamos para poderlos guardar
-#        if formIns.is_valid() and formEst.is_valid():
-            # creamos una variable que me guarda el primer request.POST (form)
-#            inscripcion = formIns.save(commit=False) # el commit es para que no se guarde hasta que verifique mi estudiante
-#            inscripcion.estudiante = formEst.save() # con esto, creamos la relacion y guardamos los valores del form_est
-#            inscripcion.save()
-
-#            return HttpResponseRedirect(self.get_success_url())
-#        else:
-#            return self.render_to_response(self.get_context_data(formIns=formIns, formEst=formEst)) # me trae los formularios en blanco 
+############################# Inscripcion Academica #######################################
 
 def crearInscripcion(request):
         programas = models.Programas.objects.all()
@@ -194,7 +164,7 @@ def crearInscripcion(request):
             #BUSCAR EL ESTUDIANTE Y ASIGNARLE EL USUARIO
             estudiantico = Estudiantes.objects.get(identificacion=request.POST.get('identificacion'))
             estudiantico.user = usercito
-            estudiantico.save()
+            estudiantico.save() 
 
             # AHORA DEBEMOS CREAR LA INSCRIPCION...
             print(request.POST.get('programas'))
