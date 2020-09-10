@@ -225,9 +225,6 @@ def buscar(request):
 
     return HttpResponse(mensaje) #objeto http 
 
-
-
-
 def agregarpago(request):
     motivo = request.GET["motivos"]
     idestudiante = request.GET["idestudiante"]
@@ -237,12 +234,14 @@ def agregarpago(request):
     programa1 = models.Programas.objects.get(nom_programa=programalabel)
     monto = request.GET["monto"]
     fechahoy = datetime.now()
-    #prgramas = request.GET["programas"]
-    p2 = models.Pagos(id=idpagos,Programa=programa1,motivo=motivo)
-    print(p2)
-    Dp= models.Detalle_Pagos(Estudiante=estuidante,Pagos=p2,monto=monto,Fecha=fechahoy).save()
-    #return render(request,"pago#2.html",Dp="detallep",)   
+    p3=models.Pagos(Programa=programa1,id=request.GET["idpago"],motivo=motivo)
+    p3.save()
+    DetlleP=models.Detalle_Pagos(Estudiante=estuidante,Pagos=p3, monto=monto,Fecha=fechahoy)
+    DetlleP.save()
     return redirect('/')
+
+
+
 
 
 
@@ -253,11 +252,6 @@ def historiaPagos(request):
     buscarPago = models.Detalle_Pagos.objects.filter(Estudiante=idEstudiante)
 
     return render(request, "historiaPagos.html", {"buscarP": buscarPago})
-    idEstudiante = request.GET["id"] #asigno los datos de el campo a una variable        
-    estudiantes = Estudiantes.objects.filter(identificacion__icontains=idEstudiante)
-    buscarPago=models.Detalle_Pagos.objects.filter(Estudiante=idEstudiante)
-
-    return render(request,"historiaPagos.html",{"buscarP":buscarPago})
 
 #class crearInscripcion(CreateView):
 #    model = Inscripciones
