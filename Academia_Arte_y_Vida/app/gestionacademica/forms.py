@@ -45,7 +45,7 @@ class login_form(forms.Form):
 
 class  form_Estudiante(ModelForm):
     class Meta:
-        model = Estudiantes
+        model = usuario
         fields = ('identificacion', 'tipo' , 'nombres' , 'apellidos' , 'edad' , 'sexo' , 'correo' , 'telefono')
         labels = {
             'identificacion' : 'Identificacion',
