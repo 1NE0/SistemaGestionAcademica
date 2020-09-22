@@ -119,6 +119,22 @@ class Estudiantes(models.Model):
     # hacer la relacion a user
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
 
+class usuario(models.Model):
+    identificacion = models.IntegerField(primary_key=True)
+    tipos_doc = (
+        ('1','Cedula Ciudadania'),('2','Tarjeta de identidad'),('3','Cedula de Extranjeria'),('4','Certificado Cabildo '),('5','Pasaporte'),
+    )
+    tipo=models.CharField(max_length=1, choices=tipos_doc, default='2')
+    nombres = models.CharField(max_length=30)
+    apellidos = models.CharField(max_length = 30)
+    edad = models.IntegerField(blank=False)
+    sexos=(('F','Femenino'),('M','Masculino'))
+    sexo =models.CharField(max_length = 1, choices=sexos, default='M')
+    correo = models.EmailField(blank = False)
+    telefono = models.CharField(max_length=12)
+    nom_programa = models.CharField(max_length=30, default="")
+    # hacer la relacion a user
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
 
 #clase inscripcion####################################################################################################
 class Inscripciones(models.Model):

@@ -48,20 +48,20 @@ def Programas(request):
     listaInscripciones = []
 
     programasLista = models.Programas.objects.all()
-    userID = request.user.id
-    if Estudiantes.objects.get(user_id=userID) == None:
-        docente = Docentes.objects.get(user_id=userID)
-    
-    estudiante = Estudiantes.objects.get(user_id=userID)
-    inscripcionesEstudiante = Inscripciones.objects.filter(Estudiante_id = estudiante.identificacion)
-    #programas = [v['Programa_id'] for v in inscripcionesEstudiante.values()]
-    
-    
-    
-    
-    
+    usercito = request.user
+    group = Group.objects.get(name='estudiantes')
+    users = group.user_set.all()
+    for user in users:
+        if user.id == usercito.id:
+            # si está el 
+            estudiante = Estudiantes.objects.get(user_id=usercito.id)
+            inscripcionesEstudiante = Inscripciones.objects.filter(Estudiante_id = estudiante.identificacion)
+            programas = [v['Programa_id'] for v in inscripcionesEstudiante.values()]
+            return render(request, "programas.html", {'programasLista': programasLista , 'estudiante': estudiante,'inscripcionesEstudiante' : programas})
 
-    return render(request, "programas.html", {'programasLista': programasLista , 'estudiante' : estudiante , 'docente' : docente , 'inscripcionesEstudiante' : inscripcionesEstudiante})
+
+    
+    return render(request, "inscripciones.html", {'programasLista': programasLista})
 
 
 login_required(login_url='/login/login.html')
@@ -284,6 +284,15 @@ def historiaPagos(request):
 #            return HttpResponseRedirect(self.get_success_url())
 #        else:
 #            return self.render_to_response(self.get_context_data(formIns=formIns, formEst=formEst)) # me trae los formularios en blanco 
+from django import template
+from django.contrib.auth.models import Group 
+
+register = template.Library() 
+
+@register.filter(name='has_group') 
+def has_group(user, group_name):
+       group =  Group.objects.get(name=group_name) 
+       return group in user.groups.all() 
 
 def crearInscripcion(request):
         programas = models.Programas.objects.all()
@@ -293,7 +302,7 @@ def crearInscripcion(request):
         if form_est.is_valid():
             print (request.POST.get('identificacion'))
             # GUARDAMOS EL ESTUDIANTE
-            estudiante = form_est.save()
+            usuarioEstudiante = form_est.save()
             correo = request.POST.get('correo')
             # OBTENER LOS DATOS DE LOGEO PARA CREAR UN USER...
             usuario = request.POST.get('usuario')
@@ -301,30 +310,35 @@ def crearInscripcion(request):
             #CODIFICAR LA CONTRASEÑA
 
             print(contraseña)
-            # DESPUES DE CREAR EL ESTUDIANTE, DEBEMOS ASIGNARLE UN USER...
+            # CREAR UN USER PARA LOGEARSE
             usercito = User.objects.create_user(usuario, correo, contraseña)
             usercito.is_staff = True # El usuario puede acceder a las secciones de administración.
             usercito.set_password = contraseña
-            group = Group.objects.get(name='estudiantes')
+            group = Group.objects.get(name='usuarios')
             usercito.groups.add(group)
+            # GUARDAR EL USER
             usercito.save()
+            # INICIAR SESION CON ESTE USER
             login(request , usercito)
-            #BUSCAR EL ESTUDIANTE Y ASIGNARLE EL USUARIO
-            estudiantico = Estudiantes.objects.get(identificacion=request.POST.get('identificacion'))
-            estudiantico.user = usercito
-            estudiantico.save()
 
-            # AHORA DEBEMOS CREAR LA INSCRIPCION...
+            #OBTENER EL PROGRAMA QUE SELECCIONO
             print(request.POST.get('programas'))
             programaSelect = models.Programas.objects.get(cod_programa=request.POST.get('programas'))
-            inscripcion = Inscripciones.objects.create(Fecha_Realizacion=datetime.now,Programa=programaSelect,Estudiante=estudiante)
-            inscripcion.save()
+            #BUSCAR EL USUARIO REGISTRADO ANTERIORMENTE Y ASIGNARLE EL USER DE LOGEO
+            estudiantico = models.usuario.objects.get(identificacion=request.POST.get('identificacion'))
+            estudiantico.user = usercito
+            estudiantico.nom_programa = programaSelect.nom_programa
+            estudiantico.save()
+
+            # AHORA DEBEMOS AGREGAR AL USUARIO, EL PROGRAMA AL QUE SE INTENTA REGISTRAR
+            
+            
             #inscripcion = models.Inscripciones(Fecha_Realizacion = datetime.now(), 
             #                                    Programa = request.POST.get('programas'),
             #                                    Estudiante = estudiante).save()
             
             #print(request.GET('programas'))
-            return render(request,"index.html",{'form' : form_est, 'objprograma' : programas, 'form_ins' : inscripcion })
+            return render(request,"index.html",{'form' : form_est, 'objprograma' : programas})
         
         return render(request,"registro/formInscripcion.html",{'form' : form_est, 'objprograma' : programas})
 
