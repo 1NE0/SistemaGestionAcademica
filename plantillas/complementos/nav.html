@@ -15,9 +15,11 @@
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
       <a class="navbar-brand" href="{% url 'index' %}" style="color:white;">SGA</a>
 
-      <!-- SI EL USUARIO ESTA LOGEADO, MUESTRE LAS PESTAÑAS-->
-      {% if user.is_active %}
+      
+      
       <ul class="navbar-nav mr-auto mt-2 mt-lg-0 itemsitos">
+        <!-- SI EL USUARIO ES UN ESTUDIANTE-->
+        {% ifequal user.groups.all.0.name "estudiantes"%}
         <li class="nav-item active">
           <a class="nav-link active" href="{% url 'index' %}">Nosotros <span class="sr-only">(current)</span></a>
         </li>
@@ -36,8 +38,40 @@
         <li class="nav-item">
           <a class="nav-link" href="{% url 'cursos' %}">Cursos</a>
         </li>
-      </ul>
-      {% endif %}
+      
+      {% endifequal %}
+      <!-- SI EL USUARIO ES UN EDIRECTOR-->
+      {% ifequal user.groups.all.0.name "director"%}
+      <li class="nav-item active">
+        <a class="nav-link active" href="{% url 'index' %}">Nosotros <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item" >
+        <a class="nav-link" href="{% url 'admisiones' %}" >Admisiones</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'programas' %}">Programas</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'pagos' %}">Pagos</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'asignaturas' %}">Asignaturas</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'cursos' %}">Cursos</a>
+      </li>
+    
+    {% endifequal %}
+    <!-- SI EL USUARIO ES UN USUARIO-->
+    {% ifequal user.groups.all.0.name "usuarios"%}
+    <li class="nav-item active">
+      <a class="nav-link active" href="{% url 'index' %}">Nosotros <span class="sr-only">(current)</span></a>
+    </li>
+    <li class="nav-item" >
+      <a class="nav-link" href="{% url 'admisiones' %}" >Admisiones</a>
+    </li>
+  {% endifequal %}
+  </ul>
       <form class="form-inline my-2 my-lg-0">
           <h3 class="nombre"> {{user.username}} </h3>
           {% if user.is_active%}
