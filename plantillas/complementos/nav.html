@@ -38,7 +38,9 @@
         <li class="nav-item">
           <a class="nav-link" href="{% url 'cursos' %}">Cursos</a>
         </li>
-      
+        <li>
+          estudiante
+        </li>
       {% endifequal %}
       <!-- SI EL USUARIO ES UN EDIRECTOR-->
       {% ifequal user.groups.all.0.name "director"%}
@@ -60,7 +62,9 @@
       <li class="nav-item">
         <a class="nav-link" href="{% url 'cursos' %}">Cursos</a>
       </li>
-    
+      <li>
+        <p class="rol">director</p>
+      </li>
     {% endifequal %}
     <!-- SI EL USUARIO ES UN USUARIO-->
     {% ifequal user.groups.all.0.name "usuarios"%}
@@ -70,25 +74,45 @@
     <li class="nav-item" >
       <a class="nav-link" href="{% url 'admisiones' %}" >Admisiones</a>
     </li>
+    <li>
+      <h6>Usuario</h6>
+    </li>
+    
   {% endifequal %}
+  <li>
+    <form class="form-inline my-2 my-lg-0">
+      <h3 class="nombre"> {{user.username}} </h3>
+      {% if user.is_active%}
+        <a href="/logout" class="btn btn-outline-light" >logout</a>
+      {% else %}
+        <a href="/login" class="btn btn-outline-light">login</a>
+      {% endif %}
+  </form>
+</li>
   </ul>
-      <form class="form-inline my-2 my-lg-0">
-          <h3 class="nombre"> {{user.username}} </h3>
-          {% if user.is_active%}
-            <a href="/logout" class="btn btn-outline-light" >logout</a>
-          {% else %}
-            <a href="/login" class="btn btn-outline-light">login</a>
-          {% endif %}
-      </form>
+        
+      
     </div>
   </nav> 
   
 </html>
 
 <style>
+  @import url(//fonts.googleapis.com/css?family=Lato:300:400);
     .nombre{
       color:white;
       margin-right: 50px;
-      margin-left: 600px;
+    }
+    .rol{
+      font-size: 18;
+      font-family: 'Lato', sans-serif;
+      font-weight: lighter;
+      margin-top: 5px;
+      margin-left: 500px;
+      margin-right: 15px;
+      border: white 1px solid;
+      color: white;
+      text-align: center;
+      width: 100px;
     }
 </style>
