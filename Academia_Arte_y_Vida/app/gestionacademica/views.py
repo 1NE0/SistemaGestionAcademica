@@ -34,7 +34,10 @@ def Index(request):
 
 @login_required(login_url='/login/login.html')
 def Admision(request):
-    return render(request, "Admisiones.html")
+
+    usuariosRegistrados = models.usuario.objects.all()
+
+    return render(request, "Admisiones.html" , {'usuariosLista' : usuariosRegistrados})
 
 
 #  Programas -----------------------------------------------------------
@@ -49,6 +52,7 @@ def Programas(request):
 
     programasLista = models.Programas.objects.all()
     usercito = request.user
+    # mirar si el usercito esta en el grupo de estudiantes
     group = Group.objects.get(name='estudiantes')
     users = group.user_set.all()
     for user in users:
@@ -59,8 +63,13 @@ def Programas(request):
             programas = [v['Programa_id'] for v in inscripcionesEstudiante.values()]
             return render(request, "programas.html", {'programasLista': programasLista , 'estudiante': estudiante,'inscripcionesEstudiante' : programas})
 
+    # mirar si el usercito esta en el grupo de estudiantes
+    group = Group.objects.get(name='director')
+    users = group.user_set.all()
+    for user in users:  #recorrer todos los users que estan en el grupo "director"
+        if user.id == usercito.id:
+            return render(request, "programas.html", {'programasLista': programasLista})
 
-    
     return render(request, "inscripciones.html", {'programasLista': programasLista})
 
 
