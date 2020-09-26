@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<a class="btn btn-success" href="{% url 'crearcurso' %}">Crear Curso</a>
+
+<table class="table table-bordered">
+
+    <thead>
+        <tr class="bg-primary text-white">
+            <td>Codigo</td>
+            <td>Nombre</td>
+            <td>Grupo</td>
+            <td>dia</td>
+            <td>Hora inicio</td>
+            <td>Hora Final</td>
+            <td>Programa</td>
+            <td>Acciones</td>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% if cursos %}
+        {% for curso in cursos%}
+        <tr>
+            <td>{{ curso.cod_curso }}</td>
+            <td>{{ curso.nom_curso }}</td>
+            <td>{{ curso.grupo }}</td>
+            <td>{{ curso.dia }}</td>
+            <td>{{ curso.h_inicio }}</td>
+            <td>{{ curso.h_final }}</td>
+            <td>{{ curso.Programa }}</td>
+            <td>
+                <a class="btn btn-primary" href="{% url 'editarcurso' curso.cod_curso %}">Editar</a>
+                <a class="btn btn-danger" href="{% url 'eliminarcurso' curso.cod_curso %}">Eliminar</a>
+            </td>
+
+        </tr>
+
+        {% endfor %}
+        {% else %}
+        <h3>No hay registro de cursos</h3>
+        {% endif %}
+    </tbody>
+
+</table>
+
+
+{% endblock %}

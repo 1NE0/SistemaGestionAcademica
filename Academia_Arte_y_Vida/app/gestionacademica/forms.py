@@ -13,11 +13,30 @@ class Asignaturas_Form(ModelForm):
     class Meta:
         model = Asignaturas
         fields = '__all__'
-
+"""
+class Horario_Form(ModelForm):
+    class Meta:
+        model = Horarios
+        fields = '__all__'
+        widgets = {
+            
+        }
+"""
 class Cursos_Form(ModelForm):
     class Meta:
         model = Cursos
         fields = '__all__'
+        labels = {
+            'cod_curso' : 'Codigo',
+            'nom_curso' : 'Nombre',
+            'grupo' : 'Grupo',
+            'h_inicio':'Hora de inicio',
+            'h_final' : 'Hora final'
+
+        }
+        widgets = {
+            
+        }
 
 
 class login_form(forms.Form):
@@ -26,7 +45,7 @@ class login_form(forms.Form):
 
 class  form_Estudiante(ModelForm):
     class Meta:
-        model = Estudiantes
+        model = usuario
         fields = ('identificacion', 'tipo' , 'nombres' , 'apellidos' , 'edad' , 'sexo' , 'correo' , 'telefono')
         labels = {
             'identificacion' : 'Identificacion',
