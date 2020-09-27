@@ -24,15 +24,22 @@
                                  <hr>
                         <!-- Aqui recorremos la lista de programas, esto solo lo vera el director academico-->
                         {% for usuario in usuariosLista %}
+                        <form action="/primerpago/">
                                 <div class="card carta" style="width: 18rem;">
                                         <img src="http://wallpapers4screen.com/Uploads/15-11-2017/37581/thumb2-geometry-3d-art-geometric-shapes-creative-purple-background.jpg" class="card-img-top" alt="fondo">
                                         <div class="card-body">
-                                        <h5 class="card-title">{{usuario.nombres}}</h5>
-                                        <p class="card-text">{{usuario.identificacion}}</p>
-                                        <a href="#" class="btn btn-primary">Efectuar primer pago</a>
+                                        <h5 class="card-title" name='nombreE'>{{usuario.nombres}}</h5>
+                                        <p class="card-text" >{{usuario.identificacion}}</p>
+                                        <input type="text" name="ident" value="{{usuario.identificacion}}">
+                                        
+                                        <button class="btn btn-primary" type="submit" >Efectuar primer pago</button>
+                                        
+                                        <!-- <a href="{% url 'primerpago' %}" class="btn btn-primary" type="submit">Efectuar primer pago</a> -->
                                         </div>
                                 </div>
+                        </form>
                         {% endfor %}
+                        
 
                         {% else %}
                         <div class="principal">
