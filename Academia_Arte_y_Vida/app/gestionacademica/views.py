@@ -359,7 +359,7 @@ def crearInscripcion(request):
         # OBTENER EL PROGRAMA QUE SELECCIONO
         print(request.POST.get('programas'))
         programaSelect = models.Programas.objects.get(
-            cod_programa=request.POST.get('programas'))
+            nom_programa=request.POST.get('programas'))
         # BUSCAR EL USUARIO REGISTRADO ANTERIORMENTE Y ASIGNARLE EL USER DE LOGEO
         estudiantico = models.usuario.objects.get(
         identificacion=request.POST.get('identificacion'))
