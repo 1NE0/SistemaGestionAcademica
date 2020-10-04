@@ -362,7 +362,7 @@ def crearInscripcion(request):
             cod_programa=request.POST.get('programas'))
         # BUSCAR EL USUARIO REGISTRADO ANTERIORMENTE Y ASIGNARLE EL USER DE LOGEO
         estudiantico = models.usuario.objects.get(
-            identificacion=request.POST.get('identificacion'))
+        identificacion=request.POST.get('identificacion'))
         estudiantico.user = usercito
         estudiantico.nom_programa = programaSelect.nom_programa
         estudiantico.save()
