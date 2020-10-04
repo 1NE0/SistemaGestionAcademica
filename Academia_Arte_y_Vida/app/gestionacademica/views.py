@@ -205,10 +205,10 @@ def login_user(request):
         username = request.POST['username']
         password = request.POST['password']
 
-        usuario = User.objects.get(username=username)
-        print("el usuario encontrado es" + usuario.username)
-        boole = check_password(password, usuario.password)
-        print(boole)
+        # usuario = User.objects.get(username=username)
+        # print("el usuario encontrado es" + usuario.username)
+        # boole = check_password(password, usuario.password)
+
         user = authenticate(username=username, password=password)
         print(user)
         if user is not None:
@@ -216,9 +216,11 @@ def login_user(request):
                 login(request, user)
                 # Redirect to a success page.
                 return render(request, "index.html", {'user': user})
-            else:
-                #  Retornar a una pagina de error
-                redirect('/')
+        else:
+            #  Retornar a una pagina de error
+            print("entreeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
+            return render(request, "login/login.html" , {'user': user})
+        print("entreeeee otraaaa vezzzzzz")
     return render(request, 'login/login.html')
 
 
