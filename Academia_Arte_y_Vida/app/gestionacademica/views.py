@@ -344,31 +344,34 @@ def crearInscripcion(request):
         usuario = request.POST.get('usuario')
         contraseña = request.POST.get('password')
         # CODIFICAR LA CONTRASEÑA
+        usuarioRepetido = User.objects.filter(username = usuario)
+        if usuarioRepetido != null:
 
-        print(contraseña)
-        # CREAR UN USER PARA LOGEARSE
-        usercito = User.objects.create_user(usuario, correo, contraseña)
-        # El usuario puede acceder a las secciones de administración.
-        usercito.is_staff = True
-        usercito.set_password = contraseña
-        group = Group.objects.get(name='usuarios')
-        usercito.groups.add(group)
-        # GUARDAR EL USER
-        usercito.save()
-        # INICIAR SESION CON ESTE USER
-        login(request, usercito)
+            print(contraseña)
+            # CREAR UN USER PARA LOGEARSE
+            usercito = User.objects.create_user(usuario, correo, contraseña)
+            # El usuario puede acceder a las secciones de administración.
+            usercito.is_staff = True
+            usercito.set_password = contraseña
+            group = Group.objects.get(name='usuarios')
+            usercito.groups.add(group)
+            # GUARDAR EL USER
+            usercito.save()
+            # INICIAR SESION CON ESTE USER
+            login(request, usercito)
 
-        # OBTENER EL PROGRAMA QUE SELECCIONO
-        print(request.POST.get('programas'))
-        programaSelect = models.Programas.objects.get(
-            nom_programa=request.POST.get('programas'))
-        # BUSCAR EL USUARIO REGISTRADO ANTERIORMENTE Y ASIGNARLE EL USER DE LOGEO
-        estudiantico = models.usuario.objects.get(
-        identificacion=request.POST.get('identificacion'))
-        estudiantico.user = usercito
-        estudiantico.nom_programa = programaSelect.nom_programa
-        estudiantico.save()
-
+            # OBTENER EL PROGRAMA QUE SELECCIONO
+            print(request.POST.get('programas'))
+            programaSelect = models.Programas.objects.get(
+                nom_programa=request.POST.get('programas'))
+            # BUSCAR EL USUARIO REGISTRADO ANTERIORMENTE Y ASIGNARLE EL USER DE LOGEO
+            estudiantico = models.usuario.objects.get(
+            identificacion=request.POST.get('identificacion'))
+            estudiantico.user = usercito
+            estudiantico.nom_programa = programaSelect.nom_programa
+            estudiantico.save()
+        else:
+            print("me dañé")
         # AHORA DEBEMOS AGREGAR AL USUARIO, EL PROGRAMA AL QUE SE INTENTA REGISTRAR
 
         # inscripcion = models.Inscripciones(Fecha_Realizacion = datetime.now(),
