@@ -1,25 +1,80 @@
-
-{% extends "base.html" %}
-{% block title %} 
-            {% include "complementos/nav.html" %}
+<html>
+        {% extends "base.html" %}
+        {% block title %} 
+            
     {% endblock %}
 {% block content %}
 
 {# esto es el contenido cambiante dentro de admisiones #}
 
         <body>
-                <h1 class="text-center"> AREA DE ADMISIONES</h1>
+                <div>
+                        {% include "complementos/nav.html" %}
+                </div>
                 
-                <a href="{% url 'crearinscripcion' %}" class="text-white">Realizar inscripcion en linea</a>
+                <div class="arriba">
+                        
+                        <!--  ESTO LE SALDRÁ AL DIRECTOR -->
+                        {% ifequal user.groups.all.0.name "director" %}
+                        
+                        
+                                
+                                        <!--Just the logo.. Don't mind this-->
+                                <h1>Usuarios que realizaron inscripcion</h1>
+                                 <hr>
+                        <!-- Aqui recorremos la lista de programas, esto solo lo vera el director academico-->
+                        {% for usuario in usuariosLista %}
+                        <form action="/primerpago/">
+                                <div class="card carta" style="width: 18rem;">
+                                        <img src="http://wallpapers4screen.com/Uploads/15-11-2017/37581/thumb2-geometry-3d-art-geometric-shapes-creative-purple-background.jpg" class="card-img-top" alt="fondo">
+                                        <div class="card-body">
+                                        <h5 class="card-title" name='nombreE'>{{usuario.nombres}}</h5>
+                                        <p class="card-text" >{{usuario.identificacion}}</p>
+                                        <input type="text" name="ident" value="{{usuario.identificacion}}">
+                                        
+                                        <button class="btn btn-primary" type="submit" >Efectuar primer pago</button>
+                                        
+                                        <!-- <a href="{% url 'primerpago' %}" class="btn btn-primary" type="submit">Efectuar primer pago</a> -->
+                                        </div>
+                                </div>
+                        </form>
+                        {% endfor %}
+                        
+
+                        {% else %}
+                        <div class="principal">
+                                <!-- A TODOS LES SALDRA ESTO -->
+
+                        </div>
+                {% endifequal %}
+                </div>
+                
+                
+                <!-- <a href="{% url 'crearinscripcion' %}" class="text-white">Realizar inscripcion en linea</a> -->
 
         </body>
+
         <style>
                 body{
-                        background-color: rgb(45, 114, 254)!important;
-                        padding-top: 200px;
+                        background: linear-gradient(60deg, rgba(84,58,183,1) 0%, rgba(0,172,193,1) 100%);
+                        padding-top: 0px;
                 }
                 body h1{
+                        margin-left: 50px;
                         color:white;
+                }
+                
+                .arriba{
+                        padding-top: 100px;
+                }
+                .principal{
+                        height: 400px;
+                }
+                .carta{
+                        display: inline-flex;
+                        margin-left: 50px;
                 }
         </style>
 {% endblock %}
+
+</html>

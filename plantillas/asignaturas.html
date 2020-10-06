@@ -6,6 +6,7 @@
 
 {% block content %}
 <body>
+    <div class="principal"></div>
     <!-- SI ES UN DIRECTOOOOOOOOOOOOOOOOOOOOOOOOOOOOOR -->
     <div class="contenido">
         {% if user.is_superuser == 1 %}
@@ -38,7 +39,11 @@
                 }
                 .contenido{
                     margin-top: 200px;
+                    width: 500px;
                     margin-left: 50px;
+                }
+                .principal{
+                    height: 500px;
                 }
             </style>
 {% endblock %}

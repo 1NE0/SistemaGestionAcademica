@@ -12,7 +12,7 @@ admin.site.register(Estudiantes)
 admin.site.register(Inscripciones)
 admin.site.register(Pagos)
 admin.site.register(Detalle_Pagos)
-
+admin.site.register(usuario)
 
 
 

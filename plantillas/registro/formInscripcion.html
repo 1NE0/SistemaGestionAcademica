@@ -86,8 +86,8 @@
   </select>
   <input type="email" name="correo" placeholder="Email">
   <input type="email" name="telefono" placeholder="telefono">-->
-
-  <form action="" method="POST" enctype="multipart/form-data">
+<div class="formulario">
+  <form action="" method="POST"  enctype="multipart/form-data">
     {% csrf_token %}
     <br />
     <h1 class="text-center">REGISTRO DE INSCRIPCION ACADEMICA</h1>
@@ -97,19 +97,50 @@
       <label>Seleccione el programa academico</label>
       <select class="form-control" name="programas">
         {% for programas in objprograma %}
-        <option >{{ programas.cod_programa }} </option>
+        <option >{{ programas.nom_programa }} </option>
         {% endfor %}
       </select>
     </div>
 
     {{form}}
     <br />
-    <input type="text" name="usuario" />
-    <input type="password" name="password" />
-    <button class="btn btn-primary" type="Submit">Enviar Informacion</button>
+    <h4>Registre sus credenciales de inicio de sesión</h4>
+    <input type="text" name="usuario" placeholder="pepito"/>
+    <input type="password" name="password" placeholder="**********"/>
+    <br>
+    <button class="btn btn-outline-light boton" type="Submit">Enviar Informacion</button>
   </form>
-
   <!-- USER -->
 </form>
+</div>
+  
 
+
+<style>
+  body{
+    background: linear-gradient(60deg, rgba(84,58,183,1) 0%, rgba(0,172,193,1) 100%);
+  }
+  .boton{
+    text-align: center;
+    width: 200px;
+    margin-top: 50px;
+  }
+  .formulario{
+    margin-left: 200px;
+    margin-right: 200px;
+    margin-top: 200px;
+    margin-bottom: 200px;
+  }
+  h4{
+    color: white;
+    font-weight: lighter;
+  }
+  .formulario h1{
+    color: white;
+    font-weight: bold;
+  }
+  label{
+    color: white;
+  }
+</style>
 {% endblock%}
