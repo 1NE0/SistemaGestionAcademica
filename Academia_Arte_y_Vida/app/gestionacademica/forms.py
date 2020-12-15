@@ -1,7 +1,7 @@
 from django.forms import ModelForm , Form
 from django import forms
-from Academia_Arte_y_Vida.app.gestionacademica.models import *
-from Academia_Arte_y_Vida.app.gestionacademica.models import Estudiantes,Inscripciones,Programas, Asignaturas, Cursos
+from Academia_Arte_y_Vida.app.gestionacademica import models
+from Academia_Arte_y_Vida.app.gestionacademica.models import Estudiantes,Inscripciones,Programas, Asignaturas, Cursos , usuario
 from django.contrib.auth.models import User
 
 class Programas_Form(ModelForm):

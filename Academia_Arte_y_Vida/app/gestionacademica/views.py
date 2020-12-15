@@ -21,6 +21,10 @@ from django.shortcuts import redirect
 
 # Create your views here.
 
+@login_required(login_url='/login/login.html')
+def estudiantes(request):
+    estudiantesLista = models.Estudiantes.objects.all()
+    return render(request, "estudiantes/estudiantes.html", {'estudiantes': estudiantesLista})
 
 def asignaturas(request):
     asignaturasLista = Asignaturas.objects.all()
@@ -200,6 +204,9 @@ def Eliminar_Curso(request, cod_curso):
     return render(request, "eliminar_curso.html", context)
 
 
+def is_member(user):
+       return user.groups.filter(name='director').exists()
+
 def login_user(request):
     if request.POST:
         username = request.POST['username']
@@ -210,10 +217,14 @@ def login_user(request):
         # boole = check_password(password, usuario.password)
 
         user = authenticate(username=username, password=password)
-        print(user)
+        
         if user is not None:
             if user.is_active:
                 login(request, user)
+
+                # REDIRECCIONAR AL DIRECTOR
+                if is_member(user):
+                    return render(request, "administracion/admin.html", {'user': user})
                 # Redirect to a success page.
                 return render(request, "index.html", {'user': user})
         else:
@@ -273,7 +284,10 @@ def primerpago(request):
       id = request.GET["ident"]
       nuevo= models.usuario.objects.get(identificacion= id)
       nuevoE = models.Estudiantes(nombres=nuevo.nombres,apellidos=nuevo.apellidos,user=nuevo.user,identificacion=nuevo.identificacion,tipo=nuevo.tipo,edad=nuevo.edad,sexo=nuevo.sexo,correo=nuevo.correo,telefono=nuevo.telefono)
+      
       nuevoE.save()
+      nuevo.delete()
+
       return render(request, "buscarEstudiante_primerpago.html",{"query": id, "idestudiante":nuevoE})
     else:
         mensaje = "no se ingresaron datos"
@@ -289,38 +303,6 @@ def historiaPagos(request):
 
     return render(request, "historiaPagos.html", {"buscarP": buscarPago})
 
-# class crearInscripcion(CreateView):
-#    model = Inscripciones
-#    programas = models.Programas.objects.all()
-#    form_class_insc = form_Inscripcion
-#    form_class_est = form_Estudiante
-
-    # asignamos el contexto
-#    def get_context_data(self, **kwargs):
-#        context = super(crearInscripcion, self).get_context_data(**kwargs), {'objprograma': programas}
-    # mandamos los formularios al contexto
-#        if 'formIns' not in context:
-#            context['formIns'] = self.form_class_insc(self.request.GET)
-#        if 'formEst' not in context:
-#            context['formEst'] = self.form_class_est(self.request.GET)
-#        return context
-    # sobreescribimos el post
-#    def post(self, request): # *args, **kwargs
-#        self.object = self.get_object
-    # recogemos de los 2 formularios, la info que estoy ingresando
-#        formIns = self.form_class_insc(request.POST)
-#        formEst = self.form_class_est(request.POST)
-    # validamos para poderlos guardar
-#        if formIns.is_valid() and formEst.is_valid():
-    # creamos una variable que me guarda el primer request.POST (form)
-#            inscripcion = formIns.save(commit=False) # el commit es para que no se guarde hasta que verifique mi estudiante
-#            inscripcion.estudiante = formEst.save() # con esto, creamos la relacion y guardamos los valores del form_est
-#            inscripcion.save()
-
-
-#            return HttpResponseRedirect(self.get_success_url())
-#        else:
-#            return self.render_to_response(self.get_context_data(formIns=formIns, formEst=formEst)) # me trae los formularios en blanco
 
 register = template.Library()
 
@@ -330,6 +312,7 @@ def has_group(user, group_name):
     group = Group.objects.get(name=group_name)
     return group in user.groups.all()
 
+# inscripcioooon -----------------------------------------------------------------------------
 
 def crearInscripcion(request):
     programas = models.Programas.objects.all()
@@ -354,28 +337,26 @@ def crearInscripcion(request):
         group = Group.objects.get(name='usuarios')
         usercito.groups.add(group)
         # GUARDAR EL USER
-        usercito.save()
+        
         # INICIAR SESION CON ESTE USER
         login(request, usercito)
 
         # OBTENER EL PROGRAMA QUE SELECCIONO
         print(request.POST.get('programas'))
-        programaSelect = models.Programas.objects.get(
-            nom_programa=request.POST.get('programas'))
+        programaSelect = models.Programas.objects.get(nom_programa=request.POST.get('programas'))
         # BUSCAR EL USUARIO REGISTRADO ANTERIORMENTE Y ASIGNARLE EL USER DE LOGEO
-        estudiantico = models.usuario.objects.get(
-        identificacion=request.POST.get('identificacion'))
-        estudiantico.user = usercito
-        estudiantico.nom_programa = programaSelect.nom_programa
-        estudiantico.save()
-
-        # AHORA DEBEMOS AGREGAR AL USUARIO, EL PROGRAMA AL QUE SE INTENTA REGISTRAR
+        usuarioCreado = models.usuario.objects.get(identificacion=request.POST.get('identificacion'))
+        usuarioCreado.user = usercito
+        usuarioCreado.nom_programa = programaSelect.nom_programa
+        
 
         # inscripcion = models.Inscripciones(Fecha_Realizacion = datetime.now(),
         #                                    Programa = request.POST.get('programas'),
         #                                    Estudiante = estudiante).save()
 
-        # print(request.GET('programas'))
+        # GUARDAR TODOOO
+        usercito.save()
+        usuarioCreado.save()
         return render(request, "index.html", {'form': form_est, 'objprograma': programas})
 
     return render(request, "registro/formInscripcion.html", {'form': form_est, 'objprograma': programas})
