@@ -78,13 +78,22 @@ WSGI_APPLICATION = 'Academia_Arte_y_Vida.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 #Academia_Arte_y_Vida
+# 'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'btc1aswv1doohutlewv5',
+#         'USER': 'uiknwio8cchvk6wt',
+#         'PASSWORD': 'tqm9zuhG6XanREeLrTeR',
+#         'HOST': 'btc1aswv1doohutlewv5-mysql.services.clever-cloud.com',
+#         'PORT':'3306'
+#     }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'btc1aswv1doohutlewv5',
-        'USER': 'uiknwio8cchvk6wt',
-        'PASSWORD': 'tqm9zuhG6XanREeLrTeR',
-        'HOST': 'btc1aswv1doohutlewv5-mysql.services.clever-cloud.com',
+        'NAME': 'bi1nyd2ibo5idejidwpd',
+        'USER': 'u2glksgz4x4zztbl',
+        'PASSWORD': 'APmjJNmeZDao8jxwrcLJ',
+        'HOST': 'bi1nyd2ibo5idejidwpd-mysql.services.clever-cloud.com',
         'PORT':'3306'
     }
 }
@@ -127,3 +136,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = (os.path.join(BASE_DIR,'static'),) 
