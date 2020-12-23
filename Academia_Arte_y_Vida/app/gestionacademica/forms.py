@@ -8,6 +8,11 @@ class Programas_Form(ModelForm):
     class Meta:
         model = Programas
         fields = '__all__'
+        labels = {
+            'cod_programa' : 'Código',
+            'nom_programa' : 'Nombre',
+            'contenido_Aca': 'Contenido'
+        }
 
 class Asignaturas_Form(ModelForm):
     class Meta:

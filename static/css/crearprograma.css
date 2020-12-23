@@ -1,0 +1,113 @@
+
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    background: #3282b8;
+}
+
+h3{
+    color: white;
+    text-align: center;
+    font-size: 40px;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+
+label{
+    color: white;
+    font-size: 17px;
+}
+.programa{
+    width: 70%;
+    margin-left: 15%;
+    margin-top: 5%;
+    border: 1px solid white;
+    
+}
+form{
+    text-align:  center;
+}
+
+.programa input[type="text"]{
+    display: block;
+    color: white;
+    border: none;
+    background: #146194;
+    border-bottom: 2px solid white;
+    width: 30%;
+    height: 25px;
+    margin-bottom: 3%;
+    margin-left: 35%;
+}
+
+.programa input[name="contenido_Aca"]{
+    height: 15%;
+}
+
+.programa input[type="submit"]{
+    background: #146194;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 5%;
+    padding: 5px;
+}
+
+.programa input[type="submit"]:hover{
+    background: white;
+    color: #3282b8;
+}
+@media all and (max-width:1250px){
+    h3{
+        font-size: 45px;
+    }
+
+    label{
+        font-size: 22px;
+    }
+
+    .programa input[name="contenido_Aca"]{
+        height: 35%;
+    }
+}
+
+
+@media all and (max-width:600px){
+
+    h3{
+        font-size: 30px;
+    }
+
+    label{
+        font-size: 15px;
+    }
+
+    .programa input[type="text"]{
+        width: 50%;
+        margin-left: 25%;
+    }
+
+    
+
+    .programa input[type="submit"]{
+        margin-top: 5px;
+        font-size: 12px;
+        padding: 5px;
+    }
+}
+
+@media all and (max-width:500px){
+    h3{
+        font-size: 25px;
+    }
+
+    label{
+        font-size: 14px;
+    }
+    .programa input[name="cod_programa"],
+    .programa input[name="nom_programa"]{
+        height: 50%;
+    }
+}

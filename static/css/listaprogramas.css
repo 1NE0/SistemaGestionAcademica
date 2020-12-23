@@ -1,0 +1,42 @@
+body{
+    background: black;
+}
+
+
+
+table{
+    width: 80%;
+}
+
+#contenido{
+    width: 50%;
+}
+
+#editar{
+   
+    width: 40%;
+}
+
+#eliminar{
+    
+    width: 40%;
+}
+
+@media all and (max-width:980px){
+
+    #contenido{
+        width: 40%;
+    }
+
+    #editar{
+        width: 100%;
+    }
+    #eliminar{
+        margin-top: 10px;
+        width: 100%;
+    }
+
+    
+
+
+}

@@ -1,4 +1,22 @@
-{% extends "base.html" %}
+
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content=="IE=edge"/>
+    <meta name="google" value="notranslate"/>
+    
+    <link rel="stylesheet" href="{% static 'css/listaprogramas.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <title>Programas</title>
+    
+</head>
+<body>
+    
+<h1 class="text-primary text-center mt-3 mb-3">Programas</h1>
 
 {% block content %}
 
@@ -19,10 +37,10 @@
         <tr class="bg-light">
             <td>{{ programa.cod_programa }}</td>
             <td>{{ programa.nom_programa }}</td>
-            <td>{{ programa.contenido_Aca }}</td>
+            <td id="contenido">{{ programa.contenido_Aca }}</td>
             <td>
-                <a class="btn btn-primary" href="{% url 'editarprograma' programa.cod_programa %}">Editar</a>
-                <a class="btn btn-danger" href="{% url 'eliminarprograma' programa.cod_programa %}">Eliminar</a>
+                <a class="btn btn-primary" id="editar" href="{% url 'editarprograma' programa.cod_programa %}">Editar</a>
+                <a class="btn btn-danger" id="eliminar" href="{% url 'eliminarprograma' programa.cod_programa %}">Eliminar</a>
             </td>
         </tr>
         {% endfor %}
@@ -37,3 +55,5 @@
 </table>
 
 {% endblock %}
+</body>
+</html>
