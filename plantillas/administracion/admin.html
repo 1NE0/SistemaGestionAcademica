@@ -8,8 +8,12 @@
             <meta name="google" value="notranslate"/>
             <title>Administracion</title>
             <link rel="stylesheet" href="{% static 'css/admin.css' %}">
+            <script src="{% static 'js/admin.js' %}"></script>
             <link rel="stylesheet" type="text/css" href="css/menu.css">
             <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+            <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
     </head>
 <body>
 
@@ -40,8 +44,14 @@
     
         </li>
             <li class="darkerlishadow">
-            <a href= "{% url 'estudiantes' %}">
-            <i class="fa fa-clock-o fa-lg"></i>
+            <a href= "#">
+            <i class="fa fa-clock-o fa-lg" id="btnCargar">
+                <!-- aqui se clickea -->
+                <div class="container">
+                    <div class="container" id="contenido"></div>
+
+                </div>
+            </i>
             <span class="nav-text">Estudiantes</span>
             </a>
         </li>
@@ -132,20 +142,31 @@
     
     <ul class="logout">
         <li>
-                        <a href="m">
-                                <i class="fa fa-lightbulb-o fa-lg"></i>
-                                <span class="nav-text">
-                                    BLOG 
-                                </span>
+            <a href="m">
+            <i class="fa fa-lightbulb-o fa-lg"></i>
+            <span class="nav-text">
+            BLOG 
+            </span>
                                 
-                            </a>
+             </a>
         </li>  
     </ul>
 </nav>
 
     <div class="contenido">
+        <!-- <div id="content" style="display: none;">
+            contenido del div escondido<br/>
+            contenido del div escondido<br/>
+            contenido del div escondido<br/>
+        </div>
+        <b>Mostrar contenido?</b>
+        <input type="checkbox" name="check" id="check" value="1" onchange="javascript:showContent()" />
+         -->
+
+
+
         {% block content %}
-        
+                
         {% endblock %}
     </div>
 </body>
