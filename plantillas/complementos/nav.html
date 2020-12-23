@@ -4,101 +4,45 @@
     <link rel="stylesheet" href="{% static 'css/nav.css' %}">
     <script src="{% static 'css/nav.css' %}"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   </head>
   
-  {% comment %} <nav class="navbar navbar-expand-lg navbar-ligth bg-ligth navegador" style="background-color: rgba(255, 255, 255, 0)!important;position: fixed;top:0px;">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-      <a class="navbar-brand" href="{% url 'index' %}" style="color:white;">SGA</a>
-
-      
-      
-      <ul class="navbar-nav mr-auto mt-2 mt-lg-0 itemsitos">
-        <!-- SI EL USUARIO ES UN ESTUDIANTE-->
-        {% ifequal user.groups.all.0.name "estudiantes"%}
-        <li class="nav-item active">
-          <a class="nav-link active" href="{% url 'index' %}">Nosotros <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item" >
-          <a class="nav-link" href="{% url 'admisiones' %}" >Admisiones</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'programas' %}">Programas</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'pagos' %}">Pagos</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'asignaturas' %}">Asignaturas</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'cursos' %}">Cursos</a>
-        </li>
-        <li>
-          estudiante
-        </li>
-      {% endifequal %}
-      <!-- SI EL USUARIO ES UN EDIRECTOR-->
-      {% ifequal user.groups.all.0.name "director"%}
-      <li class="nav-item active">
-        <a class="nav-link active" href="{% url 'index' %}"> Administracion<span class="sr-only">(current)</span></a>
-      </li>
-      
-    {% endifequal %}
-    <!-- SI EL USUARIO ES UN USUARIO-->
-    {% ifequal user.groups.all.0.name "usuarios"%}
-    <li class="nav-item active">
-      <a class="nav-link active" href="{% url 'index' %}">Nosotros <span class="sr-only">(current)</span></a>
-    </li>
-    <li class="nav-item" >
-      <a class="nav-link" href="{% url 'admisiones' %}" >Admisiones</a>
-    </li>
-    <li>
-      <h6>Usuario</h6>
-    </li>
-    
-  {% endifequal %}
-  <li>
-    <form class="form-inline my-2 my-lg-0">
-      <h3 class="nombre"> {{user.username}} </h3>
-      {% if user.is_active%}
-        <a href="/logout" class="btn btn-outline-light" >logout</a>
-      {% else %}
-        <a href="/login" class="btn btn-outline-light">login</a>
-      {% endif %}
-  </form>
-</li>
-  </ul>
-        
-      
-    </div>
-  </nav>  {% endcomment %}
     <nav class="navegador">
       
       <div class="menu-main">
           <div class="logo">
             <!-- <img src="https://i.imgur.com/FAFeDCb.png" alt="" width="60px" height="60px"> -->
             <a href=""><h2>SGA <i class="fas fa-atom"></i></h2></a>
-            
           </div>
-          <a href="#">¿Quiénes somos?</a>
-          <a href="#" >Programas</a>
-          <a href="#">Cursos</a>
-          <a href="#">Ayuda</a>
-          
-          <!--  -->
+          <div class="item"><a href="#">¿Quiénes somos?</a></div>
+          <div class="item"><a href="#" >Programas</a></div>
+          <div class="item"><a href="#">Cursos</a></div>
+          <div class="item"><a href="#">Ayuda</a></div>
+          <div class="ultimo"></div>
+          <!-- SI EL USER ESTÁ ACTIVO -->
           {% if user.is_active%}
-            <a href="" class="ultimo" style="margin-left:500px!important;">{{user.username}} <i class="fas fa-user" style="margin-left:10px;"></i></a>
+            
+            <nav class="perfil">
+              <ul>
+                <li class="item"><a href="">{{user.username}} <i class="fas fa-user" style="margin-left:10px;"></i></a>
+                    <ul>
+                      {% ifequal user.groups.all.0.name "director"%}
+                          <li><a href="">Administracion</a></li>
+                      {% endifequal %}
+                      <li><a href="">Perfil</a></li>
+                      <li><a href="/logout">Salir</a></li>
+                      
+                    </ul>
+                </li>
+              </ul>
+          </nav>
           {% else %}
-            <a href="#" class="ultimo">login</a>
-            <a href="#" class="boton-registro">Registrarse</a>
+            <div class="item"><a class="accion" href="/login">Login</a></div>
+            <div class="item"><a class="accion" href="{% url 'crearinscripcion' %}">Registrarse</a></div>
           {% endif %}
           <!-- SI ES UN DIRECTOR -->
-          {% ifequal user.groups.all.0.name "director"%}
-              
-          {% endifequal %}
+          
       </div>
         
   </nav>
