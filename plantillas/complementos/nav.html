@@ -2,9 +2,11 @@
 <html>
   <head>
     <link rel="stylesheet" href="{% static 'css/nav.css' %}">
+    <script src="{% static 'css/nav.css' %}"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
   </head>
   
-  <nav class="navbar navbar-expand-lg navbar-ligth bg-ligth navegador" style="background-color: rgba(255, 255, 255, 0)!important;position: fixed;top:0px;">
+  {% comment %} <nav class="navbar navbar-expand-lg navbar-ligth bg-ligth navegador" style="background-color: rgba(255, 255, 255, 0)!important;position: fixed;top:0px;">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -41,26 +43,9 @@
       <!-- SI EL USUARIO ES UN EDIRECTOR-->
       {% ifequal user.groups.all.0.name "director"%}
       <li class="nav-item active">
-        <a class="nav-link active" href="{% url 'index' %}">Nosotros <span class="sr-only">(current)</span></a>
+        <a class="nav-link active" href="{% url 'index' %}"> Administracion<span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item" >
-        <a class="nav-link" href="{% url 'admisiones' %}" >Admisiones</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'programas' %}">Programas</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'pagos' %}">Pagos</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'asignaturas' %}">Asignaturas</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'cursos' %}">Cursos</a>
-      </li>
-      <li>
-        <p class="rol">director</p>
-      </li>
+      
     {% endifequal %}
     <!-- SI EL USUARIO ES UN USUARIO-->
     {% ifequal user.groups.all.0.name "usuarios"%}
@@ -89,26 +74,33 @@
         
       
     </div>
-  </nav> 
-  
-</html>
+  </nav>  {% endcomment %}
+    <nav class="navegador">
+      
+      <div class="menu-main">
+          <div class="logo">
+            <!-- <img src="https://i.imgur.com/FAFeDCb.png" alt="" width="60px" height="60px"> -->
+            <a href=""><h2>SGA <i class="fas fa-atom"></i></h2></a>
+            
+          </div>
+          <a href="#">¿Quiénes somos?</a>
+          <a href="#" >Programas</a>
+          <a href="#">Cursos</a>
+          <a href="#">Ayuda</a>
+          
+          <!--  -->
+          {% if user.is_active%}
+            <a href="" class="ultimo" style="margin-left:500px!important;">{{user.username}} <i class="fas fa-user" style="margin-left:10px;"></i></a>
+          {% else %}
+            <a href="#" class="ultimo">login</a>
+            <a href="#" class="boton-registro">Registrarse</a>
+          {% endif %}
+          <!-- SI ES UN DIRECTOR -->
+          {% ifequal user.groups.all.0.name "director"%}
+              
+          {% endifequal %}
+      </div>
+        
+  </nav>
 
-<style>
-  @import url(//fonts.googleapis.com/css?family=Lato:300:400);
-    .nombre{
-      color:white;
-      margin-right: 50px;
-    }
-    .rol{
-      font-size: 18;
-      font-family: 'Lato', sans-serif;
-      font-weight: lighter;
-      margin-top: 5px;
-      margin-left: 500px;
-      margin-right: 15px;
-      border: white 1px solid;
-      color: white;
-      text-align: center;
-      width: 100px;
-    }
-</style>
+</html>

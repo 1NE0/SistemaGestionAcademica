@@ -1,8 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Yantramanav:wght@900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bungee&family=Yantramanav:wght@900&display=swap');
 
-.itemsitos{
-      font-weight: bold;
-      font-size: 14px;
-}
-.nav-link{
-      color: white!important;
-}
+body{
+      margin: 0px;
+      background: #d1d1d1;
+  }
+
+  
+  .menu-main{
+      display: flex;
+      justify-content: right;
+      background: #ffffff;
+      height: 60px;
+      position: static;
+  }
+  
+  .logo{
+      margin-right: 100px;
+      padding-left: 100px;
+  }
+
+  .logo h2{
+      /* font-family: 'Bungee', cursive; */
+      font-family: 'Yantramanav', sans-serif;
+      display: flex;
+      width: 100px;
+      height: 100%;
+      text-align: center;
+      padding-top: 12px;
+  }
+
+  .logo i{
+      width: 32px;
+      height: 32px;
+      color: #266b6b;
+      margin-left: 5px;
+      -webkit-transition: -webkit-transform 1s ease-out;
+      -moz-transition: -moz-transform 1s ease-out;
+      transition: transform 1s ease-out;
+  }
+
+  .logo i:hover{
+      -webkit-transform: rotate(360deg);
+      -moz-transform: rotate(360deg);
+      transform: rotate(360deg);
+      color: rgb(245,128,133);
+  }
+  
+  .menu-main a{
+      flex: 1;
+      display: flex;
+      color: #000000;
+      text-decoration: none!important;
+      font-size: 16px;
+      font-weight: bold;    
+      justify-content: center;
+      align-items: center;
+      font-family: 'Yantramanav', sans-serif;
+  }
+  
+  .menu-main a:hover{
+      /* background: rgba(0,0,0, .1); */
+      color: rgb(245,128,133);
+  }
+  
+  .menu-main a.active{
+      background-color: #29487d;
+  }
+  
+  .ultimo{
+        margin-left: 300px;
+  }
+
+  @media (max-width: 768px) {
+      
+      .menu-main{
+          height: auto;
+          border-bottom: 0px;
+          display: block;
+          width: 105%;
+      }
+      
+      .menu-main a{
+          height: 45px;
+          border-bottom: 1px solid #29487d;
+      }
+
+      .logo{
+            flex: 1;
+            width: 50px;
+            display: flex;
+            color: #000000;
+            text-decoration: none!important;
+            font-size: 12px;
+            font-weight: bold;    
+            justify-content: center;
+            align-items: center;
+            font-family: 'Yantramanav', sans-serif;
+            text-align: center;
+      }
+
+      .logo h2{
+            /* font-family: 'Bungee', cursive; */
+            font-family: 'Yantramanav', sans-serif;
+            display: flex;
+            width: 100%;
+            text-align: center;
+            padding-top: 12px;
+        }
+        .ultimo{
+            margin-left: 0px;
+      }
+  }
