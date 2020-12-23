@@ -40,6 +40,13 @@ def Index(request):
     # request : para realizar peticiones
     return render(request, "index.html")
 
+def quienes_somos(request):
+    # request : para realizar peticiones
+    return render(request, "quienesSomos.html")
+
+def programas_info(request):
+    # request : para realizar peticiones
+    return render(request, "info/programas_info.html")
 
 @login_required(login_url='/login/login.html')
 def Admision(request):
@@ -360,3 +367,5 @@ def crearInscripcion(request):
         return render(request, "index.html", {'form': form_est, 'objprograma': programas})
 
     return render(request, "registro/formInscripcion.html", {'form': form_est, 'objprograma': programas})
+
+

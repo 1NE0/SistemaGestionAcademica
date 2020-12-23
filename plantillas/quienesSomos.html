@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load static %}
+<html>
+    <head>
+      {% block title %} 
+          {% include "complementos/nav.html" %}
+          <title> Quienes Somos </title>
+          <link rel="stylesheet" href="{% static 'css/quienesSomos.css' %}">
+      {% endblock %}
+    </head>
+
+    {% block content %}
+        <body>
+            <div class="contenidito">
+                <p>brindamos formación instrumental, gramatical, musical y artística a niños, jóvenes y adultos, con una experiencia de 3 años y con un equipo de docentes profesionalmente capacitados, perfeccionando talentos, capacidades y técnicas de cada estudiante, teniendo como meta potenciar, proyectar y estimular el interés en los programas de música y artes plásticas. </p>
+            </div>
+        </body>
+    {% endblock %}
+</html>

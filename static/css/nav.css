@@ -14,7 +14,6 @@ body{
       justify-content: center;
       background: #ffffff;
       height: 60px;
-      position: static;
   }
   
   .logo{
@@ -87,7 +86,7 @@ body{
   }
   
   .ultimo{
-        margin-right: 400px;
+        margin-right: 300px;
   }
  
     /*  submenu */
@@ -95,13 +94,14 @@ body{
         text-decoration:none;
         color:inherit;
         font-size:14px;
-        }
+    }
     .perfil ul{
         border-radius: 3px;
         /* margin-top: 15px; */
     }
     .perfil{
         margin-top: 15px;
+        z-index: 6;
     }      
     .perfil li{
         display:inline-block;
@@ -112,6 +112,7 @@ body{
         text-align:center;
         color:rgb(0, 0, 0);
         position:relative;
+        z-index: 6;
     }
             
     .perfil li:hover{
@@ -128,6 +129,7 @@ body{
         position:absolute;
         top:30px;
         left: -40px;
+        z-index: 6;
     }
 
     /* botones login/registrarse */
@@ -147,7 +149,7 @@ body{
           height: auto;
           border-bottom: 0px;
           display: block;
-          width: 133%;
+          width: 100%;
       }
       
       .item{
@@ -167,7 +169,6 @@ body{
             align-items: center;
             font-family: 'Yantramanav', sans-serif;
             text-align: center;
-            margin-left: 150px;
       }
 
       .logo h2{
@@ -180,14 +181,18 @@ body{
         }
         .ultimo{
             margin-left: 0px;
-      }
+        }
+        .perfil ul{
+            margin: 0px;
+        }
   }
 
-  @media (max-width: 1170px) {
+  /* @media (max-width: 1170px) {
         .ultimo{
             margin-right: 0px;
             margin-left: 0px;
         }
-    }
+    } */
 
+}
     
