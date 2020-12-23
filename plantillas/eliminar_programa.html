@@ -4,13 +4,27 @@
 
 <form method="post">
     {% csrf_token %}
-    <h3>¿Desea eliminar el programa {{programa.nom_programa}}?</h3>
-
+    <h3 class="text-center">¿Desea eliminar el programa {{programa.nom_programa}}?</h3>
+    <div class="text-center mt-3">
     <button class="btn btn-danger" type="submit">Si</button>
 
     <a href="{% url 'listaprograma' %}">Cancelar</a>
-
+    </div>
 
 </form>
+
+<style>
+
+
+    @media all and (max-width:500px){
+        form{
+            margin-bottom: 100px;
+        } 
+
+
+    }
+    
+
+</style>
 
 {% endblock %}
