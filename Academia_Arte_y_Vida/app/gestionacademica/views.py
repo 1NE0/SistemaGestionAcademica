@@ -55,6 +55,9 @@ def Admision(request):
 
     return render(request, "Admisiones.html", {'usuariosLista': usuariosRegistrados})
 
+def administracion_staff(request):
+    return render(request,"administracion/admin.html")
+
 
 #  Programas -----------------------------------------------------------
 

@@ -118,7 +118,8 @@ body{
     .perfil li:hover{
         background-color:#fff;
         color:#000;
-        }
+        animation-duration: 0.3s;
+    }
             
     .perfil li>ul{
         display:none;
@@ -128,8 +129,9 @@ body{
         display:block;
         position:absolute;
         top:30px;
-        left: -40px;
+        left: 0px;
         z-index: 6;
+        animation-duration: 0.3s;
     }
 
     /* botones login/registrarse */
