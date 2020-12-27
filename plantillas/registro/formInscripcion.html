@@ -86,61 +86,89 @@
   </select>
   <input type="email" name="correo" placeholder="Email">
   <input type="email" name="telefono" placeholder="telefono">-->
-<div class="formulario">
-  <form action="" method="POST"  enctype="multipart/form-data">
-    {% csrf_token %}
-    <br />
-    <h1 class="text-center">REGISTRO DE INSCRIPCION ACADEMICA</h1>
-    <br />
-    
-    <div class="form-group">
-      <label>Seleccione el programa academico</label>
-      <select class="form-control" name="programas">
-        {% for programas in objprograma %}
-        <option >{{ programas.nom_programa }} </option>
-        {% endfor %}
-      </select>
-    </div>
+  <div class="container">
+    <div class="formulario">
+      <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <br />
+        <h1 class="text-center">REGISTRO DE INSCRIPCION ACADEMICA</h1>
+        <br />
 
-    {{form}}
-    <br />
-    <h4>Registre sus credenciales de inicio de sesión</h4>
-    <input type="text" name="usuario" placeholder="pepito"/>
-    <input type="password" name="password" placeholder="**********"/>
-    <br>
-    <button class="btn btn-outline-light boton" type="Submit">Enviar Informacion</button>
-  </form>
-  <!-- USER -->
-</form>
+        <div class="form-group">
+          <label>Seleccione el programa academico</label>
+          <select class="form-control" name="programas">
+            {% for programas in objprograma %}
+            <option>{{ programas.nom_programa }} </option>
+            {% endfor %}
+          </select>
+        </div>
+
+        {{form}}
+        <br />
+        <h4>Registre sus credenciales de inicio de sesión</h4>
+        <input type="text" name="usuario" placeholder="pepito" />
+        <input type="password" name="password" placeholder="**********" />
+        <br>
+        <button class="btn btn-outline-light boton" type="Submit">Enviar Informacion</button>
+      </form>
+      <!-- USER -->
+    </form>
+  </div>
 </div>
-  
+
 
 
 <style>
-  body{
-    background: linear-gradient(60deg, rgba(84,58,183,1) 0%, rgba(0,172,193,1) 100%);
+
+  .container{
+    width: 100%;
+    max-width: 2000px;
+    overflow-x: hidden;
   }
-  .boton{
+
+  body {
+    background: linear-gradient(60deg, rgba(84, 58, 183, 1) 0%, rgba(0, 172, 193, 1) 100%);
+  }
+
+  .boton {
     text-align: center;
     width: 200px;
     margin-top: 50px;
   }
-  .formulario{
+
+  .formulario {
+    overflow-x: hidden;
     margin-left: 200px;
     margin-right: 200px;
     margin-top: 200px;
     margin-bottom: 200px;
+    box-sizing: border-box;
   }
-  h4{
+
+  /*::-webkit-scrollbar {
+    display: none
+}*/
+ 
+  h4 {
     color: white;
     font-weight: lighter;
   }
-  .formulario h1{
+
+  .formulario h1 {
     color: white;
     font-weight: bold;
   }
-  label{
+
+  label {
     color: white;
   }
+
+  @media screen and (max-width: 800px){
+    .formulario h1{
+      color: brown;
+    }
+  }
+   
+   
 </style>
 {% endblock%}
