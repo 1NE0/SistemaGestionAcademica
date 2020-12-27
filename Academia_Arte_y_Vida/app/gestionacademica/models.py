@@ -45,26 +45,7 @@ class Asignaturas(models.Model):
   #  def _str_(self):
    #     return "{0}".format(self.grupo)
 #clase Horario#######################################################################################################
-"""
-class Horarios(models.Model):
 
-    dias = (('1','Lunes'),('2','Martes'),('3','Miercoles'),('4','Jueves'),('5','Viernes'),('6','Sabado'),)
-    dia = models.CharField(max_length=1,choices=dias,default='')
-    horas_iniciales = (
-        ('1','8:00'), ('2','9:00'),('3','10:00'),('4','11:00'),('5','12:00'),('6','13:00'),
-        ('7','14:00'),('8','15:00'),('9','16:00'),('10','17:00'),('11','18:00'),
-    )
-    h_inicio = models.CharField(max_length=5,choices=horas_iniciales,default='1')
-    horas_finales = (
-        ('1','10:00'),('2','11:00'),('3','12:00'),('4','13:00'),
-        ('5','14:00'),('6','15:00'),('7','16:00'),('8','17:00'),('9','18:00'),
-    )
-    h_final = models.CharField(max_length=1,choices=horas_finales,default='1')
-
-    def _str_(self):
-        return "({0})".format(self.dia,self.h_inicio,self.h_final)
-
-"""
 #Clase curso##########################################################################################################
 class Cursos(models.Model):
     cod_curso = models.CharField(max_length=10)
@@ -83,7 +64,7 @@ class Cursos(models.Model):
         ('20:00','20:00'),
     )
     h_final = models.CharField(max_length=5,choices=horas_finales,default='10:00')
-    #Nivel_Curso= models.ForeignKey(Nivel_Curso,null=False,blank=False,on_delete=models.CASCADE)
+    
     Programa = models.ForeignKey(Programas,null=False,blank=False,on_delete=models.CASCADE)
 
 
@@ -93,13 +74,26 @@ class Cursos(models.Model):
         return "({0}) {1} [{2}]".format(self.cod_curso,self.nom_curso,self.dia,self.h_inicio)
 
 
+
+
+
 #nivel curso###########################################################################################################
 class Nivel_Cursos(models.Model):
     nivel = models.IntegerField(primary_key=True, null=False,blank=False)
+    descripcion = models.CharField(max_length=200)
     Curso = models.ForeignKey(Cursos, null=False,blank=False,on_delete=models.CASCADE)
     Docente = models.ForeignKey(Docentes, null = False, blank= False, on_delete= models.CASCADE)
     def _str_(self):
         return "({1})({2})".format(self.Curso,self.nivel)
+
+#detalle curso#########################################################################################################
+
+class detalle_curso(models.Model):
+    grupo = models.IntegerField(primary_key=True,null=False)
+    Nivel_Curso= models.ForeignKey(Nivel_Cursos,null=False,blank=False,on_delete=models.CASCADE)
+    horario_inicial = models.DateField((""), auto_now=False, auto_now_add=False)
+    horario_final = models.DateField((""), auto_now=False, auto_now_add=False)
+
 
 #clase Estudiante######################################################################################################
 class Estudiantes(models.Model):

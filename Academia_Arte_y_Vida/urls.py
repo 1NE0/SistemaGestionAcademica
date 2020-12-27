@@ -47,7 +47,9 @@ urlpatterns = [
     url(r'^historiaPago/$', historiaPagos, name="historiapago"),
     url(r'^registro/formInscripcion/$', crearInscripcion, name="crearinscripcion"),
     url(r'^primerpago/$', primerpago, name="primerpago"),
-
-    
+    url(r'^estudiantes/$', estudiantes, name="estudiantes"),
+    url(r'^quienes_somos/$', quienes_somos, name="quienes_somos"),
+    url(r'^informacion_programas/$', programas_info, name="programas_info"),
+    url(r'^administracion/$', administracion_staff, name="administracion"),
 ]
 

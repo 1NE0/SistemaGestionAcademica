@@ -29,7 +29,7 @@
             <td>{{ curso.dia }}</td>
             <td>{{ curso.h_inicio }}</td>
             <td>{{ curso.h_final }}</td>
-            <td>{{ curso.Programa }}</td>
+            <td>{{ curso.Programa.nom_programa }}</td>
             <td>
                 <a class="btn btn-primary" href="{% url 'editarcurso' curso.cod_curso %}">Editar</a>
                 <a class="btn btn-danger" href="{% url 'eliminarcurso' curso.cod_curso %}">Eliminar</a>

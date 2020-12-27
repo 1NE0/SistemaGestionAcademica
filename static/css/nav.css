@@ -1,0 +1,203 @@
+@import url('https://fonts.googleapis.com/css2?family=Yantramanav:wght@900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bungee&family=Yantramanav:wght@900&display=swap');
+
+body{
+      margin: 0px;
+      background: #d1d1d1;
+  }
+
+  .navegador{
+      width: 100%;
+  }
+  .menu-main{
+      display: flex;
+      justify-content: center;
+      background: #ffffff;
+      height: 60px;
+      position: fixed;
+      z-index: 100;
+      width: 100%;
+  }
+  
+  .logo{
+      margin-right: 100px;
+      padding-left: 100px;
+  }
+
+  .logo h2{
+      /* font-family: 'Bungee', cursive; */
+      font-family: 'Yantramanav', sans-serif;
+      display: flex;
+      width: 100px;
+      height: 100%;
+      text-align: center;
+      padding-top: 12px;
+      text-decoration: none!important;
+      color: black;
+  }
+
+  .logo a:hover{
+      text-decoration: none;
+      color: rgb(245,128,133);
+  }
+
+  .logo i{
+      width: 32px;
+      height: 32px;
+      color: #266b6b;
+      margin-left: 5px;
+      -webkit-transition: -webkit-transform 1s ease-out;
+      -moz-transition: -moz-transform 1s ease-out;
+      transition: transform 1s ease-out;
+      text-decoration: none;
+  }
+
+  .logo :hover>i{
+      -webkit-transform: rotate(360deg);
+      -moz-transform: rotate(360deg);
+      transform: rotate(360deg);
+      color: rgb(245,128,133);
+      text-decoration: none
+  }
+  .logo :hover>a{
+    text-decoration: none!important;
+  }
+  .item {
+      flex: 1;
+      display: flex;
+      color: #000000;
+      text-decoration: none!important;
+      font-size: 16px;
+      font-weight: bold;    
+      justify-content: center;
+      align-items: center;
+      font-family: 'Yantramanav', sans-serif;
+  }
+  
+  .item a{
+      text-decoration: none;
+      color: black;
+  }
+  .item a:hover{
+      /* background: rgba(0,0,0, .1); */
+      color: rgb(245,128,133);
+      text-decoration: none;
+  }
+  
+  .item a.active{
+      background-color: #29487d;
+  }
+  
+  .ultimo{
+        margin-right: 300px;
+  }
+ 
+    /*  submenu */
+    .perfil a{
+        text-decoration:none;
+        color:inherit;
+        font-size:14px;
+    }
+    .perfil ul{
+        border-radius: 3px;
+        /* margin-top: 15px; */
+    }
+    .perfil{
+        margin-top: 15px;
+        z-index: 6;
+    }      
+    .perfil li{
+        display:inline-block;
+        width:150px;
+        height:30px;
+        padding:5px 10px;
+        background-color:#ffffff;
+        text-align:center;
+        color:rgb(0, 0, 0);
+        position:relative;
+        z-index: 6;
+    }
+            
+    .perfil li:hover{
+        background-color:#fff;
+        color:#000;
+        animation-duration: 0.3s;
+    }
+            
+    .perfil li>ul{
+        display:none;
+    }
+
+    .perfil li:hover>ul{
+        display:block;
+        position:absolute;
+        top:30px;
+        left: 0px;
+        z-index: 6;
+        animation-duration: 0.3s;
+    }
+
+    /* botones login/registrarse */
+    .accion{
+        transition-duration: 0.2s;
+    }
+    .accion:hover{
+        padding: 10px 15px!important;
+        background-color: rgb(245,128,133);
+        color: white!important;
+        transition-duration: 0.2s;
+        border-radius: 4px!important;
+    }
+  @media (max-width: 768px) {
+      
+      .menu-main{
+          height: auto;
+          border-bottom: 0px;
+          display: block;
+          width: 100%;
+      }
+      
+      .item{
+          height: 45px;
+          border-bottom: 1px solid #29487d;
+      }
+
+      .logo{
+            flex: 1;
+            width: 50px;
+            display: flex;
+            color: #000000;
+            text-decoration: none!important;
+            font-size: 12px;
+            font-weight: bold;    
+            justify-content: center;
+            align-items: center;
+            font-family: 'Yantramanav', sans-serif;
+            text-align: center;
+      }
+
+      .logo h2{
+            /* font-family: 'Bungee', cursive; */
+            font-family: 'Yantramanav', sans-serif;
+            display: flex;
+            width: 100%;
+            text-align: center;
+            padding-top: 12px;
+        }
+        .ultimo{
+            margin-left: 0px;
+        }
+        .perfil ul{
+            margin: 0px;
+        }
+  }
+
+  /* @media (max-width: 1170px) {
+        .ultimo{
+            margin-right: 0px;
+            margin-left: 0px;
+        }
+    } */
+
+}
+    

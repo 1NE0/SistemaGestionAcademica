@@ -1,13 +1,18 @@
 from django.forms import ModelForm , Form
 from django import forms
-from Academia_Arte_y_Vida.app.gestionacademica.models import *
-from Academia_Arte_y_Vida.app.gestionacademica.models import Estudiantes,Inscripciones,Programas, Asignaturas, Cursos
+from Academia_Arte_y_Vida.app.gestionacademica import models
+from Academia_Arte_y_Vida.app.gestionacademica.models import Estudiantes,Inscripciones,Programas, Asignaturas, Cursos , usuario
 from django.contrib.auth.models import User
 
 class Programas_Form(ModelForm):
     class Meta:
         model = Programas
         fields = '__all__'
+        labels = {
+            'cod_programa' : 'Código',
+            'nom_programa' : 'Nombre',
+            'contenido_Aca': 'Contenido'
+        }
 
 class Asignaturas_Form(ModelForm):
     class Meta:
