@@ -18,12 +18,20 @@ from Academia_Arte_y_Vida.app.gestionacademica.models import Estudiantes, Pagos,
 from Academia_Arte_y_Vida.app.gestionacademica.models import Estudiantes, Pagos, Detalle_Pagos, Programas
 from datetime import datetime
 from django.shortcuts import redirect
+from django.core import serializers
+from django.http import JsonResponse
 
 # Create your views here.
 
 @login_required(login_url='/login/login.html')
 def estudiantes(request):
     estudiantesLista = models.Estudiantes.objects.all()
+    # if request.is_ajax and request.method == "GET":
+    #     instancia = serializers.serialize('json', estudiantesLista)
+    #     print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+    #     # send to client side.
+    #     return JsonResponse({"instance": instancia})
+    print("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb")
     return render(request, "estudiantes/estudiantes.html", {'estudiantes': estudiantesLista})
 
 def asignaturas(request):

@@ -1,5 +1,8 @@
+@import url("https://fonts.googleapis.com/css?family=Lato:400,100,300,700,100italic,300italic,400italic,700italic,900,900italic");
+@import url("https://fonts.googleapis.com/css?family=Raleway:400,700");
 
-
+  
+  
   /* cartas */
   
 .container{
@@ -42,12 +45,12 @@
 .container .card:hover .face.face1{
     background: #ff0057;
     transform: translateY(0);
-    z-index: 10;
 }
 .container .card:hover .face.face1 .content p i{
     color: white;
     margin-top: 50px;
     transition-duration: 0.2s;
+    
 }
 .container .card .face.face1 .content{
     opacity: 0.2;
@@ -154,8 +157,9 @@ body{height: 900px;}
 	background-attachment: fixed;
 	position: relative;
 	overflow: hidden;
-    border-radius: 0 0 85% 85% / 30%;
+    /* border-radius: 0 0 85% 85% / 30%; */
     z-index: -1;
+    padding-top: 60px;
 }
 
 .overlay{
@@ -169,7 +173,7 @@ body{height: 900px;}
 }
 
 h1 {
-	font-family: 'Dancing Script', cursive;
+	font-family: 'Raleway';
 	font-size: 80px;
     margin-bottom: 30px;
     color: white;

@@ -14,9 +14,18 @@ body
 @import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
 @import url(https://fonts.googleapis.com/css?family=Titillium+Web:300);
 
-.logo{
-  
+
+#cargando{
+    background-color: black!important;
 }
+
+.contenedor-central{
+    background: #98acf8;
+    width: 100%;
+    height: 1500px;
+    padding-left: 55px;
+}
+
 
 .settings {
   
@@ -91,13 +100,9 @@ font-size:20px;
 
 }
 
-.main-menu:hover, nav.main-menu.expanded {
-width:200px;
-overflow:hidden;
-opacity:1;
-}
 
-.main-menu {
+
+.main-menu{
     background:#F7F7F7;
     position:absolute;
     top:0;
@@ -111,6 +116,14 @@ opacity:1;
     -webkit-transform:translateZ(0) scale(1,1);
     box-shadow: 1px 0 15px rgba(0, 0, 0, 0.07);
     opacity:1;
+    z-index: 100!important;
+}
+
+.main-menu:hover, nav.main-menu.expanded {
+    width:200px;
+    overflow:hidden;
+    opacity:1;
+    z-index: 100!important;
 }
 
 .main-menu>ul {
@@ -276,11 +289,3 @@ height: 100%;
 }
 
 
-.contenido{
-    background: #98acf8;
-    width: 100%;
-    height: 1500px;
-    padding-left: 150px;
-    padding-top: 50px;
-
-}
