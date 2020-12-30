@@ -46,6 +46,7 @@ def cursos(request):
 
 def Index(request):
     # request : para realizar peticiones
+    print(request.user.username)
     return render(request, "index.html")
 
 def quienes_somos(request):
@@ -297,20 +298,6 @@ def agregarpago(request):
     return redirect('/')
 
 
-def primerpago(request):
-    if request.GET["ident"]:
-      id = request.GET["ident"]
-      nuevo= models.usuario.objects.get(identificacion= id)
-      nuevoE = models.Estudiantes(nombres=nuevo.nombres,apellidos=nuevo.apellidos,user=nuevo.user,identificacion=nuevo.identificacion,tipo=nuevo.tipo,edad=nuevo.edad,sexo=nuevo.sexo,correo=nuevo.correo,telefono=nuevo.telefono)
-      
-      nuevoE.save()
-      nuevo.delete()
-
-      return render(request, "buscarEstudiante_primerpago.html",{"query": id, "idestudiante":nuevoE})
-    else:
-        mensaje = "no se ingresaron datos"
-
-    return HttpResponse(mensaje)
 
 
 def historiaPagos(request):
@@ -334,28 +321,26 @@ def has_group(user, group_name):
 
 def crearInscripcion(request):
     programas = models.Programas.objects.all()
-    form_est = form_Estudiante(request.POST)
+    form_est = form_Estudiante_nuevo(request.POST)
 
     if form_est.is_valid():
         print(request.POST.get('identificacion'))
-        # GUARDAMOS EL ESTUDIANTE
-        usuarioEstudiante = form_est.save()
-        correo = request.POST.get('correo')
+        # GUARDAMOS EL USUARIO (estudiante sin registrarse)
+        estudiante_nuevo = form_est.save()
+        
         # OBTENER LOS DATOS DE LOGEO PARA CREAR UN USER...
+        correo = request.POST.get('correo')
         usuario = request.POST.get('usuario')
         contraseña = request.POST.get('password')
         # CODIFICAR LA CONTRASEÑA
-
         print(contraseña)
         # CREAR UN USER PARA LOGEARSE
         usercito = User.objects.create_user(usuario, correo, contraseña)
         # El usuario puede acceder a las secciones de administración.
-        usercito.is_staff = True
+        usercito.is_staff = False
         usercito.set_password = contraseña
         group = Group.objects.get(name='usuarios')
         usercito.groups.add(group)
-        # GUARDAR EL USER
-        
         # INICIAR SESION CON ESTE USER
         login(request, usercito)
 
@@ -366,17 +351,35 @@ def crearInscripcion(request):
         usuarioCreado = models.usuario.objects.get(identificacion=request.POST.get('identificacion'))
         usuarioCreado.user = usercito
         usuarioCreado.nom_programa = programaSelect.nom_programa
-        
-
-        # inscripcion = models.Inscripciones(Fecha_Realizacion = datetime.now(),
-        #                                    Programa = request.POST.get('programas'),
-        #                                    Estudiante = estudiante).save()
 
         # GUARDAR TODOOO
         usercito.save()
         usuarioCreado.save()
-        return render(request, "index.html", {'form': form_est, 'objprograma': programas})
+
+        #LLEVARLO A LA PAGINA DE PAGO EN LINEA
+        return primerpago(request)
 
     return render(request, "registro/formInscripcion.html", {'form': form_est, 'objprograma': programas})
 
 
+
+def primerpago(request):
+    usuario = models.usuario.objects.get(user=request.user.id)
+    programa = models.Programas.objects.get(nom_programa=usuario.nom_programa)
+    print(models.periodo.periodo_actual().Fecha_final.month)
+    if request.POST:
+        #TRASNFORMAR EL USUARIO EN ESTUDIANTE
+        estudiante = models.Estudiantes(identificacion=usuario.identificacion,tipo=usuario.tipo,nombres=usuario.nombres,apellidos=usuario.apellidos,edad=usuario.edad,sexo=usuario.sexo,correo=usuario.correo,telefono=usuario.telefono,user=usuario.user)
+        estudiante.programa = programa
+        #GUARDAR EL ESTUDIANTE
+        estudiante.save()
+        #BORRAR EL USUARIO
+        usuario.delete()
+
+        #CREAR LA INSCRIPCION
+        inscripcion = Inscripciones(periodo=models.periodo.periodo_actual(),Fecha_Realizacion=datetime.now(),Programa=programa,Estudiante=estudiante)
+        inscripcion.save()
+        
+
+
+    return render(request,"index.html" , {'usuario':usuario})

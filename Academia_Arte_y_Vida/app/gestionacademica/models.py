@@ -2,6 +2,36 @@ from django.db import models
 from django.contrib.auth.models import User
 
 # Create your models here.
+
+# periodo ############################################################################################################
+
+class periodo(models.Model):
+    Fecha_inicio = models.DateField(default="")
+    Fecha_final = models.DateField(default="")
+
+    def periodo_actual():
+        return periodo.objects.last()
+
+#clase Estudiante######################################################################################################
+class Estudiantes(models.Model):
+    tipos_doc = (
+        ('1','Cedula Ciudadania'),('2','Tarjeta de identidad'),('3','Cedula de Extranjeria'),('4','Certificado Cabildo '),('5','Pasaporte'),
+    )
+    identificacion = models.IntegerField(primary_key=True)
+    tipo=models.CharField(max_length=1, choices=tipos_doc, default='2')
+    nombres = models.CharField(max_length=30)
+    apellidos = models.CharField(max_length = 30)
+    edad = models.IntegerField(blank=False)
+    sexos=(('F','Femenino'),('M','Masculino'))
+    sexo =models.CharField(max_length = 1, choices=sexos, default='M')
+    correo = models.EmailField(blank = False)
+    telefono = models.CharField(max_length=12)
+
+    # hacer la relacion a user
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
+
+
+
 #clase programa########################################################################################################
 class Programas(models.Model):
     cod_programa = models.CharField(primary_key=True,max_length=10)
@@ -10,10 +40,19 @@ class Programas(models.Model):
     #Curso = models.ForeignKey(Cursos,null=True,blank=True,on_delete=models.CASCADE)
     #Asignatura = models.ForeignKey(Asignaturas,null=True,blank=True,on_delete=models.CASCADE)
     # FALTA 
-
     def _str_(self):
         return "{0}".format(self.nom_programa)
     #     return "({0}) {1} Curso(s) = {2}, Asignatura(s) = {3}".format(self.cod_programa,self.nom_programa)
+
+#clase inscripcion####################################################################################################
+class Inscripciones(models.Model):
+    class Meta:
+        unique_together = (('Programa', 'Estudiante'),)
+
+    Fecha_Realizacion = models.DateTimeField(auto_now_add=True)
+    Programa = models.ForeignKey(Programas,null=False,blank=False,on_delete=models.CASCADE)
+    Estudiante = models.ForeignKey(Estudiantes, null=False,blank=False,on_delete=models.CASCADE)
+    periodo = models.ForeignKey(periodo, default="",null=False,blank=False,on_delete=models.CASCADE)
 
 #Docentes ###############################################################################################################
 class Docentes(models.Model):
@@ -95,23 +134,7 @@ class detalle_curso(models.Model):
     horario_final = models.DateField((""), auto_now=False, auto_now_add=False)
 
 
-#clase Estudiante######################################################################################################
-class Estudiantes(models.Model):
-    identificacion = models.IntegerField(primary_key=True)
-    tipos_doc = (
-        ('1','Cedula Ciudadania'),('2','Tarjeta de identidad'),('3','Cedula de Extranjeria'),('4','Certificado Cabildo '),('5','Pasaporte'),
-    )
-    tipo=models.CharField(max_length=1, choices=tipos_doc, default='2')
-    nombres = models.CharField(max_length=30)
-    apellidos = models.CharField(max_length = 30)
-    edad = models.IntegerField(blank=False)
-    sexos=(('F','Femenino'),('M','Masculino'))
-    sexo =models.CharField(max_length = 1, choices=sexos, default='M')
-    correo = models.EmailField(blank = False)
-    telefono = models.CharField(max_length=12)
 
-    # hacer la relacion a user
-    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
 
 class usuario(models.Model):
     identificacion = models.IntegerField(primary_key=True)
@@ -130,14 +153,7 @@ class usuario(models.Model):
     # hacer la relacion a user
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
 
-#clase inscripcion####################################################################################################
-class Inscripciones(models.Model):
-    class Meta:
-        unique_together = (('Programa', 'Estudiante'),)
 
-    Fecha_Realizacion = models.DateTimeField(auto_now_add=True)
-    Programa = models.ForeignKey(Programas,null=False,blank=False,on_delete=models.CASCADE)
-    Estudiante = models.ForeignKey(Estudiantes, null=False,blank=False,on_delete=models.CASCADE)
 
 
 #pagos###############################################################################################################
@@ -158,3 +174,4 @@ class Detalle_Pagos(models.Model):
     Fecha = models.DateTimeField(null= False)
     Estudiante = models.ForeignKey(Estudiantes, null=False,blank=False, on_delete=models.CASCADE)
     Pagos =models.ForeignKey(Pagos,null=False,blank=False, on_delete=models.CASCADE)
+

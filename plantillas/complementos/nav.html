@@ -31,6 +31,9 @@
                       {% ifequal user.groups.all.0.name "director"%}
                           <li><a href="{% url 'administracion'%}">Administracion</a></li>
                       {% endifequal %}
+                      {% ifequal user.groups.all.0.name "usuarios"%}
+                          <li><a href="{% url 'inscripcion' %}">Inscripcion</a></li>
+                      {% endifequal %}
                       <li><a href="">Perfil</a></li>
                       <li><a href="/logout">Salir</a></li>
                       

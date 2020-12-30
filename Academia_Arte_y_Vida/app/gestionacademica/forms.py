@@ -48,13 +48,13 @@ class login_form(forms.Form):
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput())
 
-class  form_Estudiante(ModelForm):
+class  form_Estudiante_nuevo(ModelForm):
     class Meta:
         model = usuario
-        fields = ('identificacion', 'tipo' , 'nombres' , 'apellidos' , 'edad' , 'sexo' , 'correo' , 'telefono')
+        fields = ('tipo','identificacion'  , 'nombres' , 'apellidos' , 'edad' , 'sexo' , 'correo' , 'telefono')
         labels = {
-            'identificacion' : 'Identificacion',
             'tipo' : 'Tipo de Documento',
+            'identificacion' : 'Identificacion',
             'nombres' : 'Nombres',
             'apellidos' : 'Apellidos',
             'edad': 'Edad',
@@ -63,8 +63,8 @@ class  form_Estudiante(ModelForm):
             'telefono' : 'Telefono',
         }
         widgets = {
-            'identificacion' : forms.TextInput(attrs={'class': 'form-control'}),
             'tipo' : forms.Select(attrs={'class': 'form-control'}, choices=('tipos_doc')),
+            'identificacion' : forms.TextInput(attrs={'class': 'form-control'}),
             'nombres' : forms.TextInput(attrs={'class': 'form-control'}),
             'apellidos' : forms.TextInput(attrs={'class': 'form-control'}),
             'edad': forms.TextInput(attrs={'class': 'form-control'}),
