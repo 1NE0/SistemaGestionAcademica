@@ -48,29 +48,31 @@ class login_form(forms.Form):
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput())
 
-class  form_Estudiante(ModelForm):
+class  form_Estudiante_nuevo(ModelForm):
     class Meta:
         model = usuario
-        fields = ('identificacion', 'tipo' , 'nombres' , 'apellidos' , 'edad' , 'sexo' , 'correo' , 'telefono')
+        fields = ('tipo','identificacion'  , 'nombres' , 'apellidos' , 'edad' , 'sexo' , 'correo' , 'telefono' , 'direccion')
         labels = {
-            'identificacion' : 'Identificacion',
             'tipo' : 'Tipo de Documento',
+            'identificacion' : 'Identificacion',
             'nombres' : 'Nombres',
             'apellidos' : 'Apellidos',
             'edad': 'Edad',
             'sexo' : 'Genero',
             'correo' : 'Correo Electronico',
             'telefono' : 'Telefono',
+            'Direccion' : 'Direccion',
         }
         widgets = {
-            'identificacion' : forms.TextInput(attrs={'class': 'form-control'}),
             'tipo' : forms.Select(attrs={'class': 'form-control'}, choices=('tipos_doc')),
+            'identificacion' : forms.TextInput(attrs={'class': 'form-control'}),
             'nombres' : forms.TextInput(attrs={'class': 'form-control'}),
             'apellidos' : forms.TextInput(attrs={'class': 'form-control'}),
             'edad': forms.TextInput(attrs={'class': 'form-control'}),
             'sexo' : forms.RadioSelect(attrs=None, choices=('sexos')),
             'correo' : forms.EmailInput(attrs={'class': 'form-control'}),
             'telefono' : forms.TextInput(attrs={'class': 'form-control'}),
+            'direccion' : forms.TextInput(attrs={'class': 'form-control'}),
         }
 
 class form_Inscripcion(ModelForm):

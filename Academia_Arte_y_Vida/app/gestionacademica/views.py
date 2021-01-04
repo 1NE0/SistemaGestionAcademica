@@ -20,7 +20,7 @@ from datetime import datetime
 from django.shortcuts import redirect
 from django.core import serializers
 from django.http import JsonResponse
-
+from django.http import QueryDict
 # Create your views here.
 
 @login_required(login_url='/login/login.html')
@@ -46,6 +46,7 @@ def cursos(request):
 
 def Index(request):
     # request : para realizar peticiones
+    print(request.user.username)
     return render(request, "index.html")
 
 def quienes_somos(request):
@@ -66,6 +67,8 @@ def Admision(request):
 def administracion_staff(request):
     return render(request,"administracion/admin.html")
 
+def board_estudiante(request):
+    return render(request,"board_estudiante/board.html")
 
 #  Programas -----------------------------------------------------------
 
@@ -235,7 +238,7 @@ def login_user(request):
         # boole = check_password(password, usuario.password)
 
         user = authenticate(username=username, password=password)
-        
+
         if user is not None:
             if user.is_active:
                 login(request, user)
@@ -297,20 +300,6 @@ def agregarpago(request):
     return redirect('/')
 
 
-def primerpago(request):
-    if request.GET["ident"]:
-      id = request.GET["ident"]
-      nuevo= models.usuario.objects.get(identificacion= id)
-      nuevoE = models.Estudiantes(nombres=nuevo.nombres,apellidos=nuevo.apellidos,user=nuevo.user,identificacion=nuevo.identificacion,tipo=nuevo.tipo,edad=nuevo.edad,sexo=nuevo.sexo,correo=nuevo.correo,telefono=nuevo.telefono)
-      
-      nuevoE.save()
-      nuevo.delete()
-
-      return render(request, "buscarEstudiante_primerpago.html",{"query": id, "idestudiante":nuevoE})
-    else:
-        mensaje = "no se ingresaron datos"
-
-    return HttpResponse(mensaje)
 
 
 def historiaPagos(request):
@@ -334,49 +323,80 @@ def has_group(user, group_name):
 
 def crearInscripcion(request):
     programas = models.Programas.objects.all()
-    form_est = form_Estudiante(request.POST)
+    form_est = form_Estudiante_nuevo(request.POST)
+    departamentos = models.departamento.objects.all()
+    ciudades = models.ciudad.objects.all()
 
     if form_est.is_valid():
         print(request.POST.get('identificacion'))
-        # GUARDAMOS EL ESTUDIANTE
-        usuarioEstudiante = form_est.save()
-        correo = request.POST.get('correo')
+        # GUARDAMOS EL USUARIO (estudiante sin registrarse)
+        estudiante_nuevo = form_est.save(commit=False)
+
         # OBTENER LOS DATOS DE LOGEO PARA CREAR UN USER...
+        correo = request.POST.get('correo')
         usuario = request.POST.get('usuario')
         contraseña = request.POST.get('password')
         # CODIFICAR LA CONTRASEÑA
-
         print(contraseña)
         # CREAR UN USER PARA LOGEARSE
         usercito = User.objects.create_user(usuario, correo, contraseña)
         # El usuario puede acceder a las secciones de administración.
-        usercito.is_staff = True
+        usercito.is_staff = False
         usercito.set_password = contraseña
         group = Group.objects.get(name='usuarios')
         usercito.groups.add(group)
-        # GUARDAR EL USER
-        
         # INICIAR SESION CON ESTE USER
         login(request, usercito)
 
         # OBTENER EL PROGRAMA QUE SELECCIONO
         print(request.POST.get('programas'))
         programaSelect = models.Programas.objects.get(nom_programa=request.POST.get('programas'))
+        usuarioCreado = models.ciudad(codigo=1234,nombre="florida_machete_y_cuchillo")
+
+
+        # OBTENER LA CIUDAD QUE SELECCIONÓ
+        ciudadSelect = models.ciudad.objects.get(nombre=request.POST.get('ciudades_combo'))
+
+        estudiante_nuevo.ciudad = ciudadSelect
+        estudiante_nuevo.save()
         # BUSCAR EL USUARIO REGISTRADO ANTERIORMENTE Y ASIGNARLE EL USER DE LOGEO
         usuarioCreado = models.usuario.objects.get(identificacion=request.POST.get('identificacion'))
         usuarioCreado.user = usercito
         usuarioCreado.nom_programa = programaSelect.nom_programa
-        
-
-        # inscripcion = models.Inscripciones(Fecha_Realizacion = datetime.now(),
-        #                                    Programa = request.POST.get('programas'),
-        #                                    Estudiante = estudiante).save()
+        usuarioCreado.ciudad = ciudadSelect
 
         # GUARDAR TODOOO
         usercito.save()
         usuarioCreado.save()
-        return render(request, "index.html", {'form': form_est, 'objprograma': programas})
 
-    return render(request, "registro/formInscripcion.html", {'form': form_est, 'objprograma': programas})
+        #LLEVARLO A LA PAGINA DE PAGO EN LINEA
+        # return primerpago(request)
+        return render(request, "index.html")
+
+    return render(request, "registro/formInscripcion.html", {'form': form_est, 'objprograma': programas , 'objdepartamentos' : departamentos , 'objciudades' : ciudades})
 
 
+
+def primerpago(request):
+    usuario = models.usuario.objects.get(user=request.user.id)
+    programa = models.Programas.objects.get(nom_programa=usuario.nom_programa)
+
+    print(models.periodo.periodo_actual().Fecha_final.month)
+    if request.method == "POST":
+        print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+        #TRANSFORMAR EL USUARIO EN ESTUDIANTE
+        estudiante = models.Estudiantes(ciudad=usuario.ciudad,identificacion=usuario.identificacion,tipo=usuario.tipo,nombres=usuario.nombres,apellidos=usuario.apellidos,edad=usuario.edad,sexo=usuario.sexo,correo=usuario.correo,telefono=usuario.telefono,direccion=usuario.direccion,user=usuario.user)
+        estudiante.programa = programa
+        #AGREGARLO AL GRUPO "ESTUDIANTES"
+        group = Group.objects.get(name='estudiantes')
+        request.user.groups.add(group)
+        #GUARDAR EL ESTUDIANTE
+        estudiante.save()
+        #BORRAR EL USUARIO
+        usuario.delete()
+
+        #CREAR LA INSCRIPCION
+        inscripcion = Inscripciones(Estudiante=estudiante,periodo=periodo.periodo_actual(),Fecha_Realizacion=datetime.now(),Programa=programa)
+        inscripcion.save()
+
+    return render(request,"primer_pago/primer_pago.html" , {'usuario':usuario})
