@@ -98,7 +98,7 @@ def Programas(request):
     for user in users:  # recorrer todos los users que estan en el grupo "director"
         if user.id == usercito.id:
             return render(request, "programas.html", {'programasLista': programasLista})
-
+        
     return render(request, "inscripciones.html", {'programasLista': programasLista})
 
 

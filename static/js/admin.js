@@ -4,6 +4,7 @@ function serializar(){
  }
 
 $(document).ready(function() {
+
     $('#btn1').on('click', function(e) {
         e.preventDefault(); // no recargue la pagina
         $("#contenedor-central").load('/estudiantes'); //cargar la vista "estudiantes" en el div con el id "contenedor" (no olvidarse del numeral adelante)
@@ -28,11 +29,11 @@ $(document).ready(function() {
         return false;
         console.log("holi");
     });
-
     
-
-    
-
+//    $('#btn2').on('clickk',function(p){
+//        p.preventDefault();
+//        $("#contenedor-central").load('/programas');        
+//    });
     
 });
 
