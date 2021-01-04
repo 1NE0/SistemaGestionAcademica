@@ -51,7 +51,7 @@ class login_form(forms.Form):
 class  form_Estudiante_nuevo(ModelForm):
     class Meta:
         model = usuario
-        fields = ('tipo','identificacion'  , 'nombres' , 'apellidos' , 'edad' , 'sexo' , 'correo' , 'telefono')
+        fields = ('tipo','identificacion'  , 'nombres' , 'apellidos' , 'edad' , 'sexo' , 'correo' , 'telefono' , 'direccion')
         labels = {
             'tipo' : 'Tipo de Documento',
             'identificacion' : 'Identificacion',
@@ -61,6 +61,7 @@ class  form_Estudiante_nuevo(ModelForm):
             'sexo' : 'Genero',
             'correo' : 'Correo Electronico',
             'telefono' : 'Telefono',
+            'Direccion' : 'Direccion',
         }
         widgets = {
             'tipo' : forms.Select(attrs={'class': 'form-control'}, choices=('tipos_doc')),
@@ -71,6 +72,7 @@ class  form_Estudiante_nuevo(ModelForm):
             'sexo' : forms.RadioSelect(attrs=None, choices=('sexos')),
             'correo' : forms.EmailInput(attrs={'class': 'form-control'}),
             'telefono' : forms.TextInput(attrs={'class': 'form-control'}),
+            'direccion' : forms.TextInput(attrs={'class': 'form-control'}),
         }
 
 class form_Inscripcion(ModelForm):

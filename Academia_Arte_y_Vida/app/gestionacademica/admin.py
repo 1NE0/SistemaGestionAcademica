@@ -14,6 +14,8 @@ admin.site.register(Pagos)
 admin.site.register(Detalle_Pagos)
 admin.site.register(usuario)
 admin.site.register(periodo)
+admin.site.register(ciudad)
+admin.site.register(departamento)
 
 
 

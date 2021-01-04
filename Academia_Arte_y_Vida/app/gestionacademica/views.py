@@ -20,7 +20,7 @@ from datetime import datetime
 from django.shortcuts import redirect
 from django.core import serializers
 from django.http import JsonResponse
-
+from django.http import QueryDict
 # Create your views here.
 
 @login_required(login_url='/login/login.html')
@@ -67,6 +67,8 @@ def Admision(request):
 def administracion_staff(request):
     return render(request,"administracion/admin.html")
 
+def board_estudiante(request):
+    return render(request,"board_estudiante/board.html")
 
 #  Programas -----------------------------------------------------------
 
@@ -236,7 +238,7 @@ def login_user(request):
         # boole = check_password(password, usuario.password)
 
         user = authenticate(username=username, password=password)
-        
+
         if user is not None:
             if user.is_active:
                 login(request, user)
@@ -322,12 +324,14 @@ def has_group(user, group_name):
 def crearInscripcion(request):
     programas = models.Programas.objects.all()
     form_est = form_Estudiante_nuevo(request.POST)
+    departamentos = models.departamento.objects.all()
+    ciudades = models.ciudad.objects.all()
 
     if form_est.is_valid():
         print(request.POST.get('identificacion'))
         # GUARDAMOS EL USUARIO (estudiante sin registrarse)
-        estudiante_nuevo = form_est.save()
-        
+        estudiante_nuevo = form_est.save(commit=False)
+
         # OBTENER LOS DATOS DE LOGEO PARA CREAR UN USER...
         correo = request.POST.get('correo')
         usuario = request.POST.get('usuario')
@@ -347,39 +351,52 @@ def crearInscripcion(request):
         # OBTENER EL PROGRAMA QUE SELECCIONO
         print(request.POST.get('programas'))
         programaSelect = models.Programas.objects.get(nom_programa=request.POST.get('programas'))
+        usuarioCreado = models.ciudad(codigo=1234,nombre="florida_machete_y_cuchillo")
+
+
+        # OBTENER LA CIUDAD QUE SELECCIONÓ
+        ciudadSelect = models.ciudad.objects.get(nombre=request.POST.get('ciudades_combo'))
+
+        estudiante_nuevo.ciudad = ciudadSelect
+        estudiante_nuevo.save()
         # BUSCAR EL USUARIO REGISTRADO ANTERIORMENTE Y ASIGNARLE EL USER DE LOGEO
         usuarioCreado = models.usuario.objects.get(identificacion=request.POST.get('identificacion'))
         usuarioCreado.user = usercito
         usuarioCreado.nom_programa = programaSelect.nom_programa
+        usuarioCreado.ciudad = ciudadSelect
 
         # GUARDAR TODOOO
         usercito.save()
         usuarioCreado.save()
 
         #LLEVARLO A LA PAGINA DE PAGO EN LINEA
-        return primerpago(request)
+        # return primerpago(request)
+        return render(request, "index.html")
 
-    return render(request, "registro/formInscripcion.html", {'form': form_est, 'objprograma': programas})
+    return render(request, "registro/formInscripcion.html", {'form': form_est, 'objprograma': programas , 'objdepartamentos' : departamentos , 'objciudades' : ciudades})
 
 
 
 def primerpago(request):
     usuario = models.usuario.objects.get(user=request.user.id)
     programa = models.Programas.objects.get(nom_programa=usuario.nom_programa)
+
     print(models.periodo.periodo_actual().Fecha_final.month)
-    if request.POST:
-        #TRASNFORMAR EL USUARIO EN ESTUDIANTE
-        estudiante = models.Estudiantes(identificacion=usuario.identificacion,tipo=usuario.tipo,nombres=usuario.nombres,apellidos=usuario.apellidos,edad=usuario.edad,sexo=usuario.sexo,correo=usuario.correo,telefono=usuario.telefono,user=usuario.user)
+    if request.method == "POST":
+        print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+        #TRANSFORMAR EL USUARIO EN ESTUDIANTE
+        estudiante = models.Estudiantes(ciudad=usuario.ciudad,identificacion=usuario.identificacion,tipo=usuario.tipo,nombres=usuario.nombres,apellidos=usuario.apellidos,edad=usuario.edad,sexo=usuario.sexo,correo=usuario.correo,telefono=usuario.telefono,direccion=usuario.direccion,user=usuario.user)
         estudiante.programa = programa
+        #AGREGARLO AL GRUPO "ESTUDIANTES"
+        group = Group.objects.get(name='estudiantes')
+        request.user.groups.add(group)
         #GUARDAR EL ESTUDIANTE
         estudiante.save()
         #BORRAR EL USUARIO
         usuario.delete()
 
         #CREAR LA INSCRIPCION
-        inscripcion = Inscripciones(periodo=models.periodo.periodo_actual(),Fecha_Realizacion=datetime.now(),Programa=programa,Estudiante=estudiante)
+        inscripcion = Inscripciones(Estudiante=estudiante,periodo=periodo.periodo_actual(),Fecha_Realizacion=datetime.now(),Programa=programa)
         inscripcion.save()
-        
 
-
-    return render(request,"index.html" , {'usuario':usuario})
+    return render(request,"primer_pago/primer_pago.html" , {'usuario':usuario})

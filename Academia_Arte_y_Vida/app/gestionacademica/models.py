@@ -44,7 +44,7 @@ class Estudiantes(models.Model):
     # hacer la relacion a user
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     ciudad = models.ForeignKey(
-        ciudad, default="", null=False, blank=False, on_delete=models.CASCADE)
+        ciudad, default="", null=True, blank=False, on_delete=models.CASCADE)
 
 
 #clase programa########################################################################################################
@@ -196,6 +196,7 @@ class usuario(models.Model):
     correo = models.EmailField(blank=False)
     telefono = models.CharField(max_length=12)
     direccion = models.CharField(default="",max_length=60, blank=False)
+    nom_programa = models.CharField(default="",max_length=60, blank=False)
     # hacer la relacion a user
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     ciudad = models.ForeignKey(
