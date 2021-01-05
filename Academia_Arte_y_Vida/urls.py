@@ -53,4 +53,6 @@ urlpatterns = [
     url(r'^administracion/$', administracion_staff, name="administracion"),
     url(r'^board_estudiante/$', board_estudiante, name="board_estudiante"),
     url(r'^inscripcion/$', primerpago, name="inscripcion"),
+    url(r'^docentes/$', docentes, name="docentes"),
+    #url(r'^pago/$', detalles_pagos, name="pago")
 ]

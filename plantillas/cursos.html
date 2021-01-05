@@ -1,7 +1,6 @@
-{% extends "base.html" %}
 
     {% block title %} 
-            {% include "complementos/nav.html" %}
+           
     {% endblock %}
 
 {% block content %}
@@ -10,7 +9,7 @@
     <div class="contenido">
         <h1>Cursos</h1>
     {% if user.is_staff == 1 %}
-    <a class="btn btn-light"" href="{% url 'crearcurso' %}" >Crear curso</a>
+    <a class="btn btn-light" href="{% url 'crearcurso' %}" >Crear curso</a>
     <hr>
     {% endif %}
     <!-- Aqui recorremos la lista de programas, esto solo lo vera el director academico-->

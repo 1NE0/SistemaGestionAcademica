@@ -43,6 +43,13 @@ def cursos(request):
     cursosLista = Cursos.objects.all()
     return render(request, "cursos.html", {'cursos': cursosLista})
 
+def docentes(request):
+    docentesLista = models.Docentes.objects.all()
+    return render(request, "administracion/docentes.html", {'docentes': docentesLista})
+
+#def detalles_pagos(request):
+#    pagosLista = models.Pagos.objects.all()
+#    return render(request, "administracion/pago.html", {'detallePago': pagosLista})
 
 def Index(request):
     # request : para realizar peticiones
@@ -100,6 +107,7 @@ def Programas(request):
     users = group.user_set.all()
     for user in users:  # recorrer todos los users que estan en el grupo "director"
         if user.id == usercito.id:
+            
             return render(request, "programas.html", {'programasLista': programasLista})
         
     return render(request, "inscripciones.html", {'programasLista': programasLista})

@@ -1,5 +1,4 @@
 <html>
-        {% extends "base.html" %}
         {% block title %} 
             
     {% endblock %}
@@ -8,16 +7,10 @@
 {# esto es el contenido cambiante dentro de admisiones #}
 
         <body>
-                <div>
-                        {% include "complementos/nav.html" %}
-                </div>
-                
                 <div class="arriba">
                         
                         <!--  ESTO LE SALDRÁ AL DIRECTOR -->
                         {% ifequal user.groups.all.0.name "director" %}
-                        
-                        
                                 
                                         <!--Just the logo.. Don't mind this-->
                                 <h1>Usuarios que realizaron inscripcion</h1>
