@@ -1,0 +1,50 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/periodo.css' %}" />
+<!-- Acordeon -->
+<div class="paginita">
+    <div class="seccion1">
+        <p>
+            <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+              Link with href
+            </a>
+            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+              Button with data-bs-target
+            </button>
+          </p>
+          <div class="collapse" id="collapseExample">
+            <div class="card card-body">
+              Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+            </div>
+          </div>
+    </div>
+    <div class="seccion2">
+        <div class="accordion accordion-flush" id="accordionFlushExample">
+            {% if periodos.count == 0 %}
+                <p>no hay periodos registrados actualmente</p>
+            {% endif %}
+            {% for periodoActual in periodos %}
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingOne">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                    {{periodoActual.Fecha_inicio}}  -  {{periodoActual.Fecha_final}}
+                  </button>
+                </h2>
+                <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                    <p>Programas registrados en este periodo:</p>
+                    <div class="accordion-body">
+                      {% for programa in programas %}
+                            {% if programa.periodo == periodoActual %}
+                                <div class="cardio card card-1">
+                                    <div class="nombre"><p>{{programa.nom_programa}}</p></div>
+                                    <div class="contenido"><p>{{programa.contenido_Aca}}</p></div>
+                                </div>
+                                
+                            {% endif %}
+                      {% endfor %}
+                  </div>
+                </div>
+              
+            {% endfor %}
+          </div>
+    </div>
+</div>

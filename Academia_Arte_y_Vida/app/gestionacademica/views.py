@@ -31,6 +31,11 @@ def estudiantes(request):
     return render(request, "administracion/estudiantes.html", {'estudiantes': estudiantesLista})
 
 
+def periodo(request):
+    programas = models.Programas.objects.all()
+    periodos = models.periodo.objects.all()
+    return render(request,"administracion/periodo.html" , {'periodos' : periodos , 'programas' : programas})
+
 def asignaturas(request):
     asignaturasLista = Asignaturas.objects.all()
     return render(request, "asignaturas.html", {'asignaturas': asignaturasLista})

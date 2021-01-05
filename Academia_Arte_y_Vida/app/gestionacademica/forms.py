@@ -1,7 +1,7 @@
 from django.forms import ModelForm , Form
 from django import forms
 from Academia_Arte_y_Vida.app.gestionacademica import models
-from Academia_Arte_y_Vida.app.gestionacademica.models import Estudiantes,Inscripciones,Programas, Asignaturas, Cursos , usuario
+from Academia_Arte_y_Vida.app.gestionacademica.models import Estudiantes,Inscripciones,Programas, Asignaturas, Cursos , usuario,periodo
 from django.contrib.auth.models import User
 
 class Programas_Form(ModelForm):
@@ -18,15 +18,17 @@ class Asignaturas_Form(ModelForm):
     class Meta:
         model = Asignaturas
         fields = '__all__'
-"""
-class Horario_Form(ModelForm):
+
+class DateInput(forms.DateInput):
+    input_type = 'date'
+
+class periodo_form(ModelForm):
     class Meta:
-        model = Horarios
+        model = models.periodo
         fields = '__all__'
         widgets = {
-            
         }
-"""
+
 class Cursos_Form(ModelForm):
     class Meta:
         model = Cursos
