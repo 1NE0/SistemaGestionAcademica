@@ -1,26 +1,30 @@
 {% load static %}
 
-<h1> AQUI SE REALIZARÁ EL PAGO EN LINEA PARA USUARIOS NUEVOS</h1>
-<h3> Se conectará la api de nequi o la ke sea</h3>
+<h1>AQUI SE REALIZARÁ EL PAGO EN LINEA PARA USUARIOS NUEVOS</h1>
+<h3>Se conectará la api de nequi o la ke sea</h3>
 <h3>{{usuario.nombres}}</h3>
 
-<link rel="stylesheet" href="{% static 'css/primer_pago.css' %}">
-<link rel="stylesheet" href="{% static 'css/botones.css' %}">
+<link rel="stylesheet" href="{% static 'css/primer_pago.css' %}" />
+<link rel="stylesheet" href="{% static 'css/botones.css' %}" />
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 
 <body>
-  <link rel="stylesheet" href="{% static 'js/primer_pago.js' %}">
-    <form action="" method="POST">{% csrf_token %}
-
-      <div class="btn-bg bg-5">
-          <div class="btn btn-5">
-            <button id="botoncito" onclick="mensaje()"> sweetalert </button>
-            <a href="" type="submit" value=""><button href="">Simular primer pago</button></a>
-          </div>
-        </div>
-
-    </form>
-
+  <link rel="stylesheet" href="{% static 'js/primer_pago.js' %}" />
+  <form action="" method="POST">
+    {% csrf_token %}
+    <button
+      id="botoncito"
+      onclick='swal("Good job!", "You clicked the button!", "success");'
+    >
+      sweetalert
+    </button>
+    <div class="btn-bg bg-5">
+      <div class="btn btn-5">
+        <a href="" type="submit" value=""
+          ><button href="">Simular primer pago</button></a
+        >
+      </div>
+    </div>
+  </form>
 </body>
-

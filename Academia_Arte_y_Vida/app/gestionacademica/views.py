@@ -20,7 +20,7 @@ from datetime import datetime
 from django.shortcuts import redirect
 from django.core import serializers
 from django.http import JsonResponse
-from django.http import QueryDict
+import json
 from django.contrib import messages
 # Create your views here.
 
@@ -275,11 +275,18 @@ def logout_user(request):
     logout(request)
     return render(request, "index.html")
 
-#logica pagos#####################################################################################
-
 
 def buscarEstudiante(request):
-    return render(request, "estudiantes/estudiantes.html")
+    if request.is_ajax:
+        print("soy un ajax")
+        estudiantes = models.Estudiantes.objects.filter(nombres=request.GET.get('nombre'))
+        data = serializers.serialize('json' , estudiantes)
+        print(data)
+        # return HttpResponse(data)
+        return  HttpResponse(data, 'application/json')
+    return HttpResponse(data)
+
+#logica pagos#####################################################################################
 
 
 def buscar(request):
@@ -391,11 +398,13 @@ def crearInscripcion(request):
 
         # LLEVARLO A LA PAGINA DE PAGO EN LINEA
         # return primerpago(request)
+        messages.success(request, '¡Usuario creado Satisfactoriamente!')
         return render(request, "index.html")
 
     return render(request, "registro/formInscripcion.html", {'form': form_est, 'objprograma': programas, 'objdepartamentos': departamentos, 'objciudades': ciudades})
 
 
+@login_required(login_url='/login/login.html')
 def primerpago(request):
     usuario = models.usuario.objects.get(user=request.user.id)
     programa = models.Programas.objects.get(nom_programa=usuario.nom_programa)
@@ -419,7 +428,5 @@ def primerpago(request):
         inscripcion = Inscripciones(Estudiante=estudiante, periodo=periodo.periodo_actual(
         ), Fecha_Realizacion=datetime.now(), Programa=programa)
         inscripcion.save()
-
-        messages.success(request, 'Profile details updated.')
 
     return render(request, "primer_pago/primer_pago.html", {'usuario': usuario})
