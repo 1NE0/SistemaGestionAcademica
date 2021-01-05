@@ -28,13 +28,7 @@ from django.contrib import messages
 @login_required(login_url='/login/login.html')
 def estudiantes(request):
     estudiantesLista = models.Estudiantes.objects.all()
-    # if request.is_ajax and request.method == "GET":
-    #     instancia = serializers.serialize('json', estudiantesLista)
-    #     print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-    #     # send to client side.
-    #     return JsonResponse({"instance": instancia})
-    print("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb")
-    return render(request, "estudiantes/estudiantes.html", {'estudiantes': estudiantesLista})
+    return render(request, "administracion/estudiantes.html", {'estudiantes': estudiantesLista})
 
 
 def asignaturas(request):
@@ -83,7 +77,7 @@ def Admision(request):
 
 
 def estadisticas(request):
-    return render(request,"estadisticas/estadisticas.html")
+    return render(request,"administracion/estadisticas.html")
 
 def administracion_staff(request):
     return render(request, "administracion/admin.html")
