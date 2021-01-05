@@ -75,6 +75,9 @@ def Admision(request):
     return render(request, "Admisiones.html", {'usuariosLista': usuariosRegistrados})
 
 
+def estadisticas(request):
+    return render(request,"estadisticas/estadisticas.html")
+
 def administracion_staff(request):
     return render(request, "administracion/admin.html")
 
@@ -274,6 +277,8 @@ def logout_user(request):
     user = request.user
     logout(request)
     return render(request, "index.html")
+
+
 
 
 def buscarEstudiante(request):
