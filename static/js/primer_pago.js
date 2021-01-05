@@ -1,0 +1,4 @@
+
+function mensaje(){
+  swal("hola");
+}

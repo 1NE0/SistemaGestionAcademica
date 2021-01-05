@@ -1,0 +1,42 @@
+.contenidito {
+  padding-top: 100px;
+  height: 900px;
+  margin-left: 100px;
+  margin-right: 100px;
+}
+
+body {
+  background-color: white !important;
+}
+
+.imagen {
+}
+.texto {
+}
+
+.texto p {
+  font-size: 14px;
+  color: white;
+  font-weight: bolder;
+  text-align: left;
+  margin-top: 50px;
+  line-height: 20px;
+}
+
+.card {
+  background-color: rgb(26, 188, 156) !important;
+  padding: 20px;
+  transition: 0.3s linear;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+  flex-direction: row !important;
+  margin-bottom: 60px;
+}
+
+.card:hover {
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.8);
+  transform: translateY(-10px) scale(1.02);
+}
+
+body {
+  height: 500px;
+}

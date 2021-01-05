@@ -21,7 +21,9 @@ from django.shortcuts import redirect
 from django.core import serializers
 from django.http import JsonResponse
 from django.http import QueryDict
+from django.contrib import messages
 # Create your views here.
+
 
 @login_required(login_url='/login/login.html')
 def estudiantes(request):
@@ -34,9 +36,14 @@ def estudiantes(request):
     print("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb")
     return render(request, "estudiantes/estudiantes.html", {'estudiantes': estudiantesLista})
 
+
 def asignaturas(request):
     asignaturasLista = Asignaturas.objects.all()
     return render(request, "asignaturas.html", {'asignaturas': asignaturasLista})
+
+
+def fotos(request):
+    return render(request, "fotos/fotos.html")
 
 
 def cursos(request):
@@ -49,13 +56,16 @@ def Index(request):
     print(request.user.username)
     return render(request, "index.html")
 
+
 def quienes_somos(request):
     # request : para realizar peticiones
     return render(request, "quienesSomos.html")
 
+
 def programas_info(request):
     # request : para realizar peticiones
     return render(request, "info/programas_info.html")
+
 
 @login_required(login_url='/login/login.html')
 def Admision(request):
@@ -64,13 +74,16 @@ def Admision(request):
 
     return render(request, "Admisiones.html", {'usuariosLista': usuariosRegistrados})
 
+
 def administracion_staff(request):
-    return render(request,"administracion/admin.html")
+    return render(request, "administracion/admin.html")
+
 
 def board_estudiante(request):
-    return render(request,"board_estudiante/board.html")
+    return render(request, "board_estudiante/board.html")
 
 #  Programas -----------------------------------------------------------
+
 
 @login_required(login_url='/login/login.html')
 def Programas(request):
@@ -226,7 +239,8 @@ def Eliminar_Curso(request, cod_curso):
 
 
 def is_member(user):
-       return user.groups.filter(name='director').exists()
+    return user.groups.filter(name='director').exists()
+
 
 def login_user(request):
     if request.POST:
@@ -244,14 +258,14 @@ def login_user(request):
                 login(request, user)
 
                 # REDIRECCIONAR AL DIRECTOR
-                if is_member(user):
-                    return render(request, "administracion/admin.html", {'user': user})
+                # if is_member(user):
+                #     return render(request, "administracion/admin.html", {'user': user})
                 # Redirect to a success page.
                 return render(request, "index.html", {'user': user})
         else:
             #  Retornar a una pagina de error
             print("entreeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
-            return render(request, "login/login.html" , {'user': user})
+            return render(request, "login/login.html", {'user': user})
         print("entreeeee otraaaa vezzzzzz")
     return render(request, 'login/login.html')
 
@@ -265,17 +279,18 @@ def logout_user(request):
 
 
 def buscarEstudiante(request):
-
-    return render(request, "buscarEstudiante.html")
+    return render(request, "estudiantes/estudiantes.html")
 
 
 def buscar(request):
     if request.GET["id"]:
         # asigno los datos de el campo a una variable
         idEstudiante = request.GET["id"]
-        estudiantes = Estudiantes.objects.filter(identificacion__icontains=idEstudiante)
+        estudiantes = Estudiantes.objects.filter(
+            identificacion__icontains=idEstudiante)
         programas = models.Programas.objects.all()
-        buscarPago = models.Detalle_Pagos.objects.filter(Estudiante=idEstudiante)
+        buscarPago = models.Detalle_Pagos.objects.filter(
+            Estudiante=idEstudiante)
         fechaActual = datetime.now()
         return render(request, "registrarpago.html", {"buscarP": buscarPago, "programaobj": programas, "Estudianteobj": estudiantes, "fechaActual": fechaActual, "query": idEstudiante})
     else:
@@ -293,19 +308,20 @@ def agregarpago(request):
     programa1 = models.Programas.objects.get(nom_programa=programalabel)
     monto = request.GET["monto"]
     fechahoy = datetime.now()
-    p3 = models.Pagos(Programa=programa1,id=request.GET["idpago"], motivo=motivo)
+    p3 = models.Pagos(Programa=programa1,
+                      id=request.GET["idpago"], motivo=motivo)
     p3.save()
-    DetlleP = models.Detalle_Pagos(Estudiante=estuidante, Pagos=p3, monto=monto, Fecha=fechahoy)
+    DetlleP = models.Detalle_Pagos(
+        Estudiante=estuidante, Pagos=p3, monto=monto, Fecha=fechahoy)
     DetlleP.save()
     return redirect('/')
-
-
 
 
 def historiaPagos(request):
     # asigno los datos de el campo a una variable
     idEstudiante = request.GET["id"]
-    estudiantes = Estudiantes.objects.filter(identificacion__icontains=idEstudiante)
+    estudiantes = Estudiantes.objects.filter(
+        identificacion__icontains=idEstudiante)
     buscarPago = models.Detalle_Pagos.objects.filter(Estudiante=idEstudiante)
 
     return render(request, "historiaPagos.html", {"buscarP": buscarPago})
@@ -320,6 +336,7 @@ def has_group(user, group_name):
     return group in user.groups.all()
 
 # inscripcioooon -----------------------------------------------------------------------------
+
 
 def crearInscripcion(request):
     programas = models.Programas.objects.all()
@@ -350,17 +367,20 @@ def crearInscripcion(request):
 
         # OBTENER EL PROGRAMA QUE SELECCIONO
         print(request.POST.get('programas'))
-        programaSelect = models.Programas.objects.get(nom_programa=request.POST.get('programas'))
-        usuarioCreado = models.ciudad(codigo=1234,nombre="florida_machete_y_cuchillo")
-
+        programaSelect = models.Programas.objects.get(
+            nom_programa=request.POST.get('programas'))
+        usuarioCreado = models.ciudad(
+            codigo=1234, nombre="florida_machete_y_cuchillo")
 
         # OBTENER LA CIUDAD QUE SELECCIONÓ
-        ciudadSelect = models.ciudad.objects.get(nombre=request.POST.get('ciudades_combo'))
+        ciudadSelect = models.ciudad.objects.get(
+            nombre=request.POST.get('ciudades_combo'))
 
         estudiante_nuevo.ciudad = ciudadSelect
         estudiante_nuevo.save()
         # BUSCAR EL USUARIO REGISTRADO ANTERIORMENTE Y ASIGNARLE EL USER DE LOGEO
-        usuarioCreado = models.usuario.objects.get(identificacion=request.POST.get('identificacion'))
+        usuarioCreado = models.usuario.objects.get(
+            identificacion=request.POST.get('identificacion'))
         usuarioCreado.user = usercito
         usuarioCreado.nom_programa = programaSelect.nom_programa
         usuarioCreado.ciudad = ciudadSelect
@@ -369,12 +389,11 @@ def crearInscripcion(request):
         usercito.save()
         usuarioCreado.save()
 
-        #LLEVARLO A LA PAGINA DE PAGO EN LINEA
+        # LLEVARLO A LA PAGINA DE PAGO EN LINEA
         # return primerpago(request)
         return render(request, "index.html")
 
-    return render(request, "registro/formInscripcion.html", {'form': form_est, 'objprograma': programas , 'objdepartamentos' : departamentos , 'objciudades' : ciudades})
-
+    return render(request, "registro/formInscripcion.html", {'form': form_est, 'objprograma': programas, 'objdepartamentos': departamentos, 'objciudades': ciudades})
 
 
 def primerpago(request):
@@ -384,19 +403,23 @@ def primerpago(request):
     print(models.periodo.periodo_actual().Fecha_final.month)
     if request.method == "POST":
         print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-        #TRANSFORMAR EL USUARIO EN ESTUDIANTE
-        estudiante = models.Estudiantes(ciudad=usuario.ciudad,identificacion=usuario.identificacion,tipo=usuario.tipo,nombres=usuario.nombres,apellidos=usuario.apellidos,edad=usuario.edad,sexo=usuario.sexo,correo=usuario.correo,telefono=usuario.telefono,direccion=usuario.direccion,user=usuario.user)
+        # TRANSFORMAR EL USUARIO EN ESTUDIANTE
+        estudiante = models.Estudiantes(ciudad=usuario.ciudad, identificacion=usuario.identificacion, tipo=usuario.tipo, nombres=usuario.nombres, apellidos=usuario.apellidos,
+                                        edad=usuario.edad, sexo=usuario.sexo, correo=usuario.correo, telefono=usuario.telefono, direccion=usuario.direccion, user=usuario.user)
         estudiante.programa = programa
-        #AGREGARLO AL GRUPO "ESTUDIANTES"
+        # AGREGARLO AL GRUPO "ESTUDIANTES"
         group = Group.objects.get(name='estudiantes')
         request.user.groups.add(group)
-        #GUARDAR EL ESTUDIANTE
+        # GUARDAR EL ESTUDIANTE
         estudiante.save()
-        #BORRAR EL USUARIO
+        # BORRAR EL USUARIO
         usuario.delete()
 
-        #CREAR LA INSCRIPCION
-        inscripcion = Inscripciones(Estudiante=estudiante,periodo=periodo.periodo_actual(),Fecha_Realizacion=datetime.now(),Programa=programa)
+        # CREAR LA INSCRIPCION
+        inscripcion = Inscripciones(Estudiante=estudiante, periodo=periodo.periodo_actual(
+        ), Fecha_Realizacion=datetime.now(), Programa=programa)
         inscripcion.save()
 
-    return render(request,"primer_pago/primer_pago.html" , {'usuario':usuario})
+        messages.success(request, 'Profile details updated.')
+
+    return render(request, "primer_pago/primer_pago.html", {'usuario': usuario})
