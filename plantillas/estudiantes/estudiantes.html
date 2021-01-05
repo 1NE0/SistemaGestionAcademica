@@ -1,43 +1,55 @@
 {% load static%}
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous"/>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="{% static 'css/estudiantes.css' %}" />
+
 <div class="pagina">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="{% static 'css/estudiantes.css' %}">
-
-    <table class="table table-dark table-borderless">
-        <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Nombre</th>
-              <th scope="col">Apellido</th>
-              <th scope="col">Edad</th>
-              <th scope="col">Identificacion</th>
-              <th scope="col">Acción</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for estudiante in estudiantes %}
-            <tr>
-              <th scope="row">1</th>
-              <td>{{estudiante.nombres}}</td>
-              <td>{{estudiante.apellidos}}</td>
-              <td>{{estudiante.edad}}</td>
-              <td>{{estudiante.identificacion}}</td>
-              <td>@mdo</td>
-            </tr>
-            {% endfor %}
-          </tbody>
-    </table>
-
-    {% for estudiante in estudiantes %}
-                <div class="card carta" style="width: 18rem;">
-                    <img src="http://wallpapers4screen.com/Uploads/15-11-2017/37581/thumb2-geometry-3d-art-geometric-shapes-creative-purple-background.jpg" class="card-img-top" alt="fondo">
-                    <div class="card-body">
-                    <h5 class="card-title">{{estudiante.nombres}}</h5>
-                    <p class="card-text">{{estudiante.apellidos}}</p>
-                    <a href="#" class="btn btn-primary">Ir al programa</a>
-                    </div>
-                </div>
-    {% endfor %}
-
+        <div class="seccion-1">
+            <div class="info uno"> <p>{{estudiantes.count}}<i class="fas fa-user"></i></p></div>
+        </div>
+        <div class="buscador">
+          <form method="GET" action="{% url 'buscarestudiante' %}" id="buscarForm">
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" name="nombre" id="input_nombre" placeholder="Buscar un estudiante" aria-describedby="basic-addon2">
+              <div class="input-group-append">
+                <button class="btn btn-info" type="submit" value="buscar" id="botoncito"><i class="fas fa-search" style="color: white;"></i></button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="seccion-2">
+          <table class="table table-hover table-ligth" id="tabla">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellido</th>
+                <th scope="col">Edad</th>
+                <th scope="col">Identificacion</th>
+                <th scope="col">Acción</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for estudiante in estudiantes %}
+              <tr>
+                <th scope="row">{{estudiante.id}}</th>
+                <td>{{estudiante.nombres}}</td>
+                <td>{{estudiante.apellidos}}</td>
+                <td>{{estudiante.edad}}</td>
+                <td>{{estudiante.identificacion}}</td>
+                <td>
+                  <button class="btn btn-info eliminarBTN"><i class="fas fa-minus-circle" style="color: white;"></i></button>
+                  <button class="btn btn-info editarBTN"><i class="fas fa-edit" style="color: white;" ></i></button>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
 </div>
+
+<script src="{% static 'js/estudiantes.js' %}"></script>

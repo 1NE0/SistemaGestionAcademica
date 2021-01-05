@@ -1,19 +1,41 @@
-{% extends "base.html" %}
-{% load static %}
+{% extends "base.html" %} {% load static %}
 <html>
-    <head>
-      {% block title %} 
-          {% include "complementos/nav.html" %}
-          <title> Quienes Somos </title>
-          <link rel="stylesheet" href="{% static 'css/quienesSomos.css' %}">
-      {% endblock %}
-    </head>
-
-    {% block content %}
-        <body>
-            <div class="contenidito">
-                <p>brindamos formación instrumental, gramatical, musical y artística a niños, jóvenes y adultos, con una experiencia de 3 años y con un equipo de docentes profesionalmente capacitados, perfeccionando talentos, capacidades y técnicas de cada estudiante, teniendo como meta potenciar, proyectar y estimular el interés en los programas de música y artes plásticas. </p>
-            </div>
-        </body>
+  <head>
+    {% block title %} {% include "complementos/nav.html" %}
+    <title>Quienes Somos</title>
+    <link rel="stylesheet" href="{% static 'css/quienesSomos.css' %}" />
     {% endblock %}
+  </head>
+
+  {% block content %}
+  <div class="contenidito">
+    <div class="card">
+        <div>
+            <img src="https://i.imgur.com/icN95Am.png" height="300px" width="300px">
+        </div>
+        <div class="texto">
+            <p>
+                brindamos formación instrumental, gramatical, musical y artística a niños,
+                jóvenes y adultos, con una experiencia de 3 años y con un equipo de
+                docentes profesionalmente capacitados, perfeccionando talentos,
+                capacidades y técnicas de cada estudiante, teniendo como meta potenciar,
+                proyectar y estimular el interés en los programas de música y artes
+                plásticas.
+              </p>
+        </div>
+    </div>
+    <div class="card">
+        <div class="texto">
+            <p>
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae quaerat praesentium nulla officiis mollitia eius est, quae, ab exercitationem libero aliquid in cumque distinctio porro, quo itaque? Maiores, odit aspernatur.
+            </p>
+        </div>
+        <div>
+            <img src="https://i.imgur.com/icN95Am.png" height="300px" width="300px">
+        </div>
+        
+    </div>
+    
+  </div>
+  {% endblock %}
 </html>

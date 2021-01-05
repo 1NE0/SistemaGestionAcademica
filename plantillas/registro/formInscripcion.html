@@ -1,91 +1,8 @@
 {% extends "base.html" %} {% block content %}
 <form action="" method="POST">
   {% csrf_token %}
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-  <!--<fieldset>
-    <legend>Seleccione el Programa Academico</legend>
-<div class="row ">
-      <div class="col-md-8 col-md-offset-2">
-        <div class="form-group">
-          <label name="programas">Programa academico</label>
-          <select class="form-control" name="programas">
-            {% for programas in objprograma %}
-            <option>
-              {{ programas.cod_programa }} - {{ programas.nom_programa }}
-            </option>
-            {% endfor %}
-          </select>
-        </div>
-      </div>
-  </fieldset>
-
-  <fieldset>
-    <legend>Datos Personales</legend>
-    <div class="col-md-8 col-md-offset-2">
-      <div class="form-group">
-        <label for="">{{ objestudiante.identificacion.label }}</label>
-          {{ objestudiante.identificacion }} 
-        <label for="{{ objestudiante.tipo.name }}">{{ objestudiante.tipo.label }}</label>
-          {{ objestudiante.tipo }}
-        <label for="">{{ objestudiante.nombres.label }}</label>
-          {{ objestudiante.nombres }}
-        <label for="">{{ objestudiante.apellidos.label }}</label>
-          {{ objestudiante.apellidos }}
-        <label for="">{{ objestudiante.edad.label }}</label>
-          {{ objestudiante.edad }}
-        <label for="">{{ objestudiante.sexo.label }}</label>
-          {{ objestudiante.sexo }}
-        <label for="">{{objestudiante.telefono.label }}</label>
-          {{ objestudiante.telefono }}
-      </div>
-    </div>
-  </fieldset>
-
-  <fieldset>
-    <legend>Correo Electronico</legend>
-    <div class="col-md-8 col-md-offset-2">
-      <div class="form-group">
-        <label for="">{{ objestudiante.correo.label }}</label>
-          {{ objestudiante.correo }}
-      </div>
-    </div>
-  </fieldset>
-</div>
-  <div class="col-md-8 col-md-offset-2">
-    <div class="form-group">
-      <input type="text" name="usuario">
-      <input type="password" name="password">
-      <button class="btn btn-primary" type="Submit">Enviar Informacion </button>
-    </div>
-  </div>
-</form> -->
-
-  <!-- <form action="/crearinscripcion/" method="POST">
-  {% csrf_token %}
-  <select name="programas">
-    {% for programas in objprograma %}
-    <option>
-      {{ programas.nom_programa }}
-    </option>
-    {% endfor %}
-  </select>
-  <input type="text" name="identificacion" placeholder="identificacion" default = "12345">
-  <select class="form-control" name="tipo"> 
-        <option label="Cedula ciudadania">1</option>
-        <option label="Tarjeta de identidad">2</option>
-        <option label="Cedula extranjera">3</option>
-        <option label="Certificado de cabildo">4</option>
-        <option label="Pasaporte">4</option>
-  </select>
-  <input type="text" name="nombres" placeholder="nombres">
-  <input type="text" name="apellidos" placeholder="apellidos">
-  <input type="text" name="edad" placeholder="edad">
-  <select class="form-control" name="sexo"> 
-    <option label="Femenino">F</option>
-    <option label="Masculino">M</option>
-  </select>
-  <input type="email" name="correo" placeholder="Email">
-  <input type="email" name="telefono" placeholder="telefono">-->
   <div class="container">
     <div class="formulario">
       <form action="/inscripcion/" method="POST" enctype="multipart/form-data">
@@ -124,7 +41,12 @@
         <input type="text" name="usuario" placeholder="pepito" />
         <input type="password" name="password" placeholder="**********" />
         <br>
-        a<button class="btn btn-outline-light boton" type="Submit">Enviar Informacion</button>
+        {% if form_est.is_valid %}
+          <button class="btn btn-outline-light boton" type="Submit" onclick='swal("verbo")'>Enviar Informacion</button>
+          {% else %}
+          <button class="btn btn-outline-light boton" type="Submit">Enviar Informacion</button>
+        {% endif %}
+        
       </form>
       <!-- USER -->
     </form>
