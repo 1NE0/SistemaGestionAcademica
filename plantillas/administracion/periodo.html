@@ -1,23 +1,26 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/periodo.css' %}" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+  
 <!-- Acordeon -->
 <div class="paginita">
     <div class="seccion1">
         <p>
-            <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-              Link with href
+            <a class="btn btn-primary add" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                <i class="fas fa-plus-square" style="color: white;"></i>
             </a>
-            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-              Button with data-bs-target
-            </button>
-          </p>
+        </p>
           <div class="collapse" id="collapseExample">
             <div class="card card-body">
-              Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                {{form_periodo}}
+                <button type="submit" class="btn btn-success registrar"> registrar </button>
             </div>
           </div>
     </div>
     <div class="seccion2">
+        <div class="titulo">
+            <h2>PERIODOS</h2>
+        </div>
         <div class="accordion accordion-flush" id="accordionFlushExample">
             {% if periodos.count == 0 %}
                 <p>no hay periodos registrados actualmente</p>

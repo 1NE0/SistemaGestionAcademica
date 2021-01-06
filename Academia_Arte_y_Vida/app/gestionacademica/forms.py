@@ -27,6 +27,8 @@ class periodo_form(ModelForm):
         model = models.periodo
         fields = '__all__'
         widgets = {
+            'Fecha_inicio': forms.DateInput(format=('%m/%d/%Y'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),
+            'Fecha_final': forms.DateInput(format=('%m/%d/%Y'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),
         }
 
 class Cursos_Form(ModelForm):

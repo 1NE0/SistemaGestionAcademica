@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
 .accordion-body{
     height: auto!important;
     display: inline-flex;
@@ -13,6 +14,10 @@
     text-align: center;
     margin-top: 5px;
     margin-bottom: 0px;
+}
+
+.accordion-button{
+    /* background-color: white!important; */
 }
 
 .cardio {
@@ -61,10 +66,40 @@
   }
 
 
+  /* expanded */
+   
+
+  /* boton add */
+
+  .add{
+      width: 100%;
+      margin-bottom: 10px;
+  }
+
+  .registrar{
+      margin-top: 20px;
+  }
   /* secciones */
   .seccion1{
     margin: 20px;
   }
   .seccion2{
       margin: 20px;
+  }
+
+  .seccion2 .titulo h2{
+      font-size: 25px;
+      color: white;
+      text-align: center;
+      font-weight: 700;
+      padding-top: 15px;
+  }
+
+  .seccion2 .titulo{
+      
+      width: 100%;
+      height: 60px;
+      margin-bottom: 10px;
+      font-family: 'Poppins', sans-serif;
+      background: #2fb3bd;
   }
