@@ -41,12 +41,12 @@ def periodo(request):
     if request.is_ajax() and request.method == 'GET':
         pass
     if request.is_ajax() and request.method == 'POST':
-        Fecha_ini = request.POST.get('Fecha_inicio[value]')
-        Fecha_fin = request.POST.get('Fecha_final[value]')
+        Fecha_ini = request.POST.get('Fecha_inicio')
+        Fecha_fin = request.POST.get('Fecha_final')
         periodo = models.periodo(Fecha_inicio=Fecha_ini,Fecha_final=Fecha_fin)
         periodo.save()
     
-    return render(request,"administracion/periodo.html" , {'periodos' : periodos , 'programas' : programas },  csrfContext)
+    return render(request,"administracion/periodo.html" , {'periodos' : periodos , 'programas' : programas })
 
 def asignaturas(request):
     asignaturasLista = Asignaturas.objects.all()
