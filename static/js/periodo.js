@@ -12,7 +12,7 @@ $(document).ready(function () {  // cuando el documento esté listo
         Fecha_inicio: data[1].value,
         Fecha_final: data[2].value,
       },
-      dataType: "json",
+      dataType: "html",
       beforeSend: function(response){
         // antes de enviar la peticion
           console.log("reealizando...");
@@ -20,10 +20,11 @@ $(document).ready(function () {  // cuando el documento esté listo
       success: function(response){
         // si todo sale bien
         console.log("hola")
-        swal("Hello world!");
+        swal("¡Bien hecho!", "Se registro correctamente el periodo", "success");
       },
       error: function (response) {
         // si todo sale mal
+        console.log(response)
         e.preventDefault();
       },
     });

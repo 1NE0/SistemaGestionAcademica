@@ -59,6 +59,7 @@ def fotos(request):
 
 def cursos(request):
     cursosLista = Cursos.objects.all()
+
     return render(request, "cursos.html", {'cursos': cursosLista})
 
 def docentes(request):
