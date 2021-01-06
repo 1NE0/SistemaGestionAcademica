@@ -16,12 +16,14 @@ from Academia_Arte_y_Vida.app.gestionacademica.models import *
 from Academia_Arte_y_Vida.app.gestionacademica import models
 from Academia_Arte_y_Vida.app.gestionacademica.models import Estudiantes, Pagos, Detalle_Pagos
 from Academia_Arte_y_Vida.app.gestionacademica.models import Estudiantes, Pagos, Detalle_Pagos, Programas
+import sweetify
 from datetime import datetime
 from django.shortcuts import redirect
 from django.core import serializers
 from django.http import JsonResponse
 import json
 from django.contrib import messages
+from django.views.decorators.csrf import csrf_protect
 # Create your views here.
 
 
@@ -30,16 +32,21 @@ def estudiantes(request):
     estudiantesLista = models.Estudiantes.objects.all()
     return render(request, "administracion/estudiantes.html", {'estudiantes': estudiantesLista})
 
-
+@csrf_protect
 def periodo(request):
+    csrfContext = RequestContext(request).flatten()
     programas = models.Programas.objects.all()
     periodos = models.periodo.objects.all()
-    periodo_formcito = periodo_form(request.POST or None)
 
-    if request.method == 'POST':
-        if periodo_formcito.is_valid():
-            print("esta bien")
-    return render(request,"administracion/periodo.html" , {'periodos' : periodos , 'programas' : programas , 'form_periodo' : periodo_formcito})
+    if request.is_ajax() and request.method == 'GET':
+        pass
+    if request.is_ajax() and request.method == 'POST':
+        Fecha_ini = request.POST.get('Fecha_inicio[value]')
+        Fecha_fin = request.POST.get('Fecha_final[value]')
+        periodo = models.periodo(Fecha_inicio=Fecha_ini,Fecha_final=Fecha_fin)
+        periodo.save()
+    
+    return render(request,"administracion/periodo.html" , {'periodos' : periodos , 'programas' : programas },  csrfContext)
 
 def asignaturas(request):
     asignaturasLista = Asignaturas.objects.all()
@@ -256,12 +263,13 @@ def Eliminar_Curso(request, cod_curso):
 def is_member(user):
     return user.groups.filter(name='director').exists()
 
-
+@csrf_protect
 def login_user(request):
+    csrfContext = RequestContext(request).flatten()
     if request.POST:
         username = request.POST['username']
         password = request.POST['password']
-
+        
         # usuario = User.objects.get(username=username)
         # print("el usuario encontrado es" + usuario.username)
         # boole = check_password(password, usuario.password)
@@ -280,9 +288,9 @@ def login_user(request):
         else:
             #  Retornar a una pagina de error
             print("entreeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
-            return render(request, "login/login.html", {'user': user})
+            return render(request, "login/login.html", {'user': user} , csrfContext)
         print("entreeeee otraaaa vezzzzzz")
-    return render(request, 'login/login.html')
+    return render(request, 'login/login.html' , csrfContext)
 
 
 def logout_user(request):

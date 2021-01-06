@@ -138,3 +138,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (os.path.join(BASE_DIR,'static'),) 
+# opciones posibles: 'sweetalert', 'sweetalert2' - el valor predeterminado es 'sweetalert2' 
+SWEETIFY_SWEETALERT_LIBRARY  =  'sweetalert2'

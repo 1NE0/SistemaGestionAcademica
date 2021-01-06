@@ -1,7 +1,9 @@
 {% load static %}
+
 <link rel="stylesheet" href="{% static 'css/periodo.css' %}" />
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-  
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <!-- Acordeon -->
 <div class="paginita">
     <div class="seccion1">
@@ -12,9 +14,12 @@
         </p>
           <div class="collapse" id="collapseExample">
             <div class="card card-body">
-                <form action="{% url 'periodos' %}" method="POST">{% csrf_token %}
-                    {{form_periodo}}
-                    
+                <form  method="POST" action="{% url 'periodos' %}" id="form_periodos">
+                    {% csrf_token %}
+                    <label for="start">Fecha inicio</label>
+                    <input type="date" id="start" name="trip-start" value="2018-07-22" min="{{datetime.now}}" max="2021-12-31">
+                    <label for="start">Fecha Final</label>
+                    <input type="date" id="start" name="trip-start" value="2018-07-22" min="2018-01-01" max="2018-12-31">
                     <button type="Submit" value="Submit" class="btn btn-success registrar">registrar</button>
                 </form>
             </div>
@@ -54,3 +59,5 @@
           </div>
     </div>
 </div>
+
+<script src="{% static 'js/periodo.js' %}"></script>
