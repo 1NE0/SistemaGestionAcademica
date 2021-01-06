@@ -12,8 +12,11 @@
         </p>
           <div class="collapse" id="collapseExample">
             <div class="card card-body">
-                {{form_periodo}}
-                <button type="submit" class="btn btn-success registrar"> registrar </button>
+                <form action="{% url 'periodos' %}" method="POST">{% csrf_token %}
+                    {{form_periodo}}
+                    
+                    <button type="Submit" value="Submit" class="btn btn-success registrar">registrar</button>
+                </form>
             </div>
           </div>
     </div>

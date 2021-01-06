@@ -34,10 +34,11 @@ def estudiantes(request):
 def periodo(request):
     programas = models.Programas.objects.all()
     periodos = models.periodo.objects.all()
-    periodo_formcito = periodo_form()
+    periodo_formcito = periodo_form(request.POST or None)
 
-    if periodo_formcito.is_valid():
-        print("esta bien")
+    if request.method == 'POST':
+        if periodo_formcito.is_valid():
+            print("esta bien")
     return render(request,"administracion/periodo.html" , {'periodos' : periodos , 'programas' : programas , 'form_periodo' : periodo_formcito})
 
 def asignaturas(request):
