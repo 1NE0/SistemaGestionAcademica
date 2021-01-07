@@ -22,6 +22,7 @@ class departamento(models.Model):
 class ciudad(models.Model):
     codigo = models.IntegerField(null=False, blank=False)
     nombre = models.CharField(max_length=50, null=False, blank=False)
+    departamento = models.ForeignKey(departamento ,default="", null=False, blank=False, on_delete=models.CASCADE)
 
 #clase Estudiante######################################################################################################
 
@@ -115,26 +116,26 @@ class Asignaturas(models.Model):
 class Cursos(models.Model):
     cod_curso = models.CharField(max_length=10)
     nom_curso = models.CharField(max_length=30)
-    grupo = models.CharField(max_length=3)
-    dias = (('Lunes', 'Lunes'), ('Martes', 'Martes'), ('Miercoles', 'Miercoles'),
-            ('Jueves', 'Jueves'), ('Viernes', 'Viernes'), ('Sabado', 'Sabado'),)
-    dia = models.CharField(max_length=10, choices=dias, default='',)
-    horas_iniciales = (
-        ('8:00', '8:00'), ('9:00', '9:00'), ('10:00', '10:00'), ('11:00',
-                                                                 '11:00'), ('12:00', '12:00'), ('13:00', '13:00'),
-        ('14:00', '14:00'), ('15:00', '15:00'), ('16:00',
-                                                 '16:00'), ('17:00', '17:00'), ('18:00', '18:00'),
-    )
-    h_inicio = models.CharField(
-        max_length=5, choices=horas_iniciales, default='8:00')
-    horas_finales = (
-        ('10:00', '10:00'), ('11:00', '11:00'), ('12:00', '12:00'), ('13:00', '13:00'),
-        ('14:00', '14:00'), ('15:00', '15:00'), ('16:00', '16:00'), ('17:00',
-                                                                     '17:00'), ('18:00', '18:00'), ('19:00', '19:00'),
-        ('20:00', '20:00'),
-    )
-    h_final = models.CharField(
-        max_length=5, choices=horas_finales, default='10:00')
+    #grupo = models.CharField(max_length=3)
+    #dias = (('Lunes', 'Lunes'), ('Martes', 'Martes'), ('Miercoles', 'Miercoles'),
+    #        ('Jueves', 'Jueves'), ('Viernes', 'Viernes'), ('Sabado', 'Sabado'),)
+    #dia = models.CharField(max_length=10, choices=dias, default='',)
+    #horas_iniciales = (
+    #    ('8:00', '8:00'), ('9:00', '9:00'), ('10:00', '10:00'), ('11:00',
+    #                                                             '11:00'), ('12:00', '12:00'), ('13:00', '13:00'),
+    #    ('14:00', '14:00'), ('15:00', '15:00'), ('16:00',
+    #                                             '16:00'), ('17:00', '17:00'), ('18:00', '18:00'),
+    #)
+    #h_inicio = models.CharField(
+    #    max_length=5, choices=horas_iniciales, default='8:00')
+    #horas_finales = (
+    #    ('10:00', '10:00'), ('11:00', '11:00'), ('12:00', '12:00'), ('13:00', '13:00'),
+    #    ('14:00', '14:00'), ('15:00', '15:00'), ('16:00', '16:00'), ('17:00',
+    #                                                                 '17:00'), ('18:00', '18:00'), ('19:00', '19:00'),
+    #    ('20:00', '20:00'),
+    #)
+    #h_final = models.CharField(
+    #    max_length=5, choices=horas_finales, default='10:00')
 
     Programa = models.ForeignKey(
         Programas, null=False, blank=False, on_delete=models.CASCADE)
@@ -149,8 +150,10 @@ class Cursos(models.Model):
 class Nivel_asignatura(models.Model):
     nivel = models.IntegerField(primary_key=True, null=False, blank=False)
     descripcion = models.CharField(max_length=200)
-    Docente = models.ForeignKey(
-        Docentes, null=False, blank=False, on_delete=models.CASCADE)
+    horario_inicial = models.DateTimeField(null=True, blank=True, auto_now=False, auto_now_add=False)
+    horario_final = models.DateTimeField(null=True, blank=True, auto_now=False, auto_now_add=False)
+    #Docente = models.ForeignKey(
+    #    Docentes, null=False, blank=False, on_delete=models.CASCADE)
     asignatura = models.ForeignKey(
         Asignaturas, null=False, blank=False, on_delete=models.CASCADE)
 
@@ -172,13 +175,10 @@ class Nivel_Cursos(models.Model):
 
 class detalle_curso(models.Model):
     grupo = models.IntegerField(primary_key=True, null=False)
-    horario_inicial = models.DateField(
-        (""), auto_now=False, auto_now_add=False)
-    horario_final = models.DateField((""), auto_now=False, auto_now_add=False)
-    estudiante = models.ForeignKey(
-        Estudiantes,default="", null=False, blank=False, on_delete=models.CASCADE)
-    Nivel_Curso = models.ForeignKey(
-        Nivel_Cursos, null=False, blank=False, on_delete=models.CASCADE)
+    horario_inicial = models.DateTimeField(null=True, blank=True, auto_now=False, auto_now_add=False)
+    horario_final = models.DateTimeField(null=True, blank=True, auto_now=False, auto_now_add=False)
+    estudiante = models.ForeignKey(Estudiantes,default="", null=False, blank=False, on_delete=models.CASCADE)
+    Nivel_Curso = models.ForeignKey(Nivel_Cursos,default="", null=False, blank=False, on_delete=models.CASCADE)
 
 
 class usuario(models.Model):
@@ -212,8 +212,8 @@ class Pagos(models.Model):
                                                    'Mensualidad'), ('4', 'Otros'),
     )
     motivo = models.CharField(max_length=1, choices=motivos, default='')
-    Programa = models.ForeignKey(
-        Programas, null=False, blank=False, on_delete=models.CASCADE)
+    #Programa = models.ForeignKey(
+    #    Programas, null=False, blank=False, on_delete=models.CASCADE)
 
 #detalle_pago#########################################################################################################
 
@@ -223,7 +223,7 @@ class Detalle_Pagos(models.Model):
         unique_together = (('Estudiante', 'Pagos'),)
 
     monto = models.IntegerField(null=False, blank=False)
-    Fecha = models.DateTimeField(null=False)
+    Fecha = models.DateTimeField(null=True, blank=True, auto_now=False, auto_now_add=False)
     Estudiante = models.ForeignKey(
         Estudiantes, null=False, blank=False, on_delete=models.CASCADE)
     Pagos = models.ForeignKey(

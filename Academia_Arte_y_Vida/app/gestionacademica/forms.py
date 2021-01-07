@@ -40,9 +40,7 @@ class Cursos_Form(ModelForm):
         labels = {
             'cod_curso' : 'Codigo',
             'nom_curso' : 'Nombre',
-            'grupo' : 'Grupo',
-            'h_inicio':'Hora de inicio',
-            'h_final' : 'Hora final'
+            'programa' : 'Programa'
 
         }
         widgets = {
