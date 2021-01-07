@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&family=Ubuntu:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
+.pagina{
+    height: 900px;
+    
+}
+
+.btn{
+    background-color: rgb(197,148,255)!important;
+    border: none!important;
+}
+
+.eliminarBTN{
+    background-color: rgb(197,148,255)!important;
+}
+
+.editarBTN{
+    background-color:rgb(138,189,244)!important;
+}
+
+.buscador{
+    margin-left: 20px;
+    margin-right: 20px;
+    -webkit-box-shadow: 2px 7px 21px 4px rgba(0,0,0,0.21);
+    -moz-box-shadow: 2px 7px 21px 4px rgba(0,0,0,0.21);
+    box-shadow: 2px 7px 21px 4px rgba(0,0,0,0.21);
+}
+
+.seccion-1{
+    margin-right: 10px;
+    margin-left: 10px;
+    margin-bottom: 20px;
+    height: 100px;
+    display: flex;
+    flex-direction: row;
+}
+
+.info{
+    width: 100%;
+    height: 100%;
+    margin: 10px;
+    transition: transform .2s; /* Animation */
+}
+.info:hover{
+    transform: scale(1.01);
+    transition: transform .2s; /* Animation */
+}
+.info p{
+    text-align: center;
+    margin-top: 30px;
+    /* font-family: 'Staatliches', cursive; */
+    font-weight: 400;
+    font-size: 30px;
+    color: white;
+}
+
+.uno{
+     background: rgba(183,222,237,1); 
+    background: -moz-linear-gradient(left, rgba(183,222,237,1) 0%, rgba(113,206,239,1) 2%, rgba(198,148,255,1) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(183,222,237,1)), color-stop(2%, rgba(113,206,239,1)), color-stop(100%, rgba(198,148,255,1)));
+    background: -webkit-linear-gradient(left, rgba(183,222,237,1) 0%, rgba(113,206,239,1) 2%, rgba(198,148,255,1) 100%);
+    background: -o-linear-gradient(left, rgba(183,222,237,1) 0%, rgba(113,206,239,1) 2%, rgba(198,148,255,1) 100%);
+    background: -ms-linear-gradient(left, rgba(183,222,237,1) 0%, rgba(113,206,239,1) 2%, rgba(198,148,255,1) 100%);
+    background: linear-gradient(to right, rgba(183,222,237,1) 0%, rgba(113,206,239,1) 2%, rgba(198,148,255,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b7deed', endColorstr='#c694ff', GradientType=1 );
+    -webkit-box-shadow: 2px 7px 21px 4px rgba(0,0,0,0.21);
+    -moz-box-shadow: 2px 7px 21px 4px rgba(0,0,0,0.21);
+    box-shadow: 2px 7px 21px 4px rgba(0,0,0,0.21);
+}
+
+.dos{
+    background: rgba(255,213,107,1);
+    background: -moz-linear-gradient(left, rgba(255,213,107,1) 0%, rgba(227,113,237,1) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(255,213,107,1)), color-stop(100%, rgba(227,113,237,1)));
+    background: -webkit-linear-gradient(left, rgba(255,213,107,1) 0%, rgba(227,113,237,1) 100%);
+    background: -o-linear-gradient(left, rgba(255,213,107,1) 0%, rgba(227,113,237,1) 100%);
+    background: -ms-linear-gradient(left, rgba(255,213,107,1) 0%, rgba(227,113,237,1) 100%);
+    background: linear-gradient(to right, rgba(255,213,107,1) 0%, rgba(227,113,237,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffd56b', endColorstr='#e371ed', GradientType=1 );
+    -webkit-box-shadow: 2px 7px 21px 4px rgba(0,0,0,0.21);
+    -moz-box-shadow: 2px 7px 21px 4px rgba(0,0,0,0.21);
+    box-shadow: 2px 7px 21px 4px rgba(0,0,0,0.21);
+}
+
+.tres{
+    background: rgba(255,107,127,1);
+    background: -moz-linear-gradient(left, rgba(255,107,127,1) 0%, rgba(157,58,214,1) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(255,107,127,1)), color-stop(100%, rgba(157,58,214,1)));
+    background: -webkit-linear-gradient(left, rgba(255,107,127,1) 0%, rgba(157,58,214,1) 100%);
+    background: -o-linear-gradient(left, rgba(255,107,127,1) 0%, rgba(157,58,214,1) 100%);
+    background: -ms-linear-gradient(left, rgba(255,107,127,1) 0%, rgba(157,58,214,1) 100%);
+    background: linear-gradient(to right, rgba(255,107,127,1) 0%, rgba(157,58,214,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff6b7f', endColorstr='#9d3ad6', GradientType=1 );
+    -webkit-box-shadow: 2px 7px 21px 4px rgba(0,0,0,0.21);
+    -moz-box-shadow: 2px 7px 21px 4px rgba(0,0,0,0.21);
+    box-shadow: 2px 7px 21px 4px rgba(0,0,0,0.21);
+}
+
+.seccion-2{
+    margin: 20px;
+    height: 400px;
+    padding: 20px;
+    -webkit-box-shadow: 2px 7px 21px 4px rgba(0,0,0,0.21);
+    -moz-box-shadow: 2px 7px 21px 4px rgba(0,0,0,0.21);
+    box-shadow: 2px 7px 21px 4px rgba(0,0,0,0.21);
+    overflow-y: scroll;
+    background-color: white;
+}
+
+.seccion-2 table{
+    background-color: white!important;
+}
+.seccion-2 table thead tr th{
+    font-family: 'Ubuntu', sans-serif!important;
+    font-weight: 700!important; 
+}
+.seccion-2 table tbody tr{
+    font-family: 'Ubuntu', sans-serif!important; 
+}
+
+/* BUSCADOR */

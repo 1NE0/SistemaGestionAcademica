@@ -1,7 +1,7 @@
 from django.forms import ModelForm , Form
 from django import forms
 from Academia_Arte_y_Vida.app.gestionacademica import models
-from Academia_Arte_y_Vida.app.gestionacademica.models import Estudiantes,Inscripciones,Programas, Asignaturas, Cursos , usuario
+from Academia_Arte_y_Vida.app.gestionacademica.models import Estudiantes,Inscripciones,Programas, Asignaturas, Cursos , usuario,periodo
 from django.contrib.auth.models import User
 
 class Programas_Form(ModelForm):
@@ -18,15 +18,21 @@ class Asignaturas_Form(ModelForm):
     class Meta:
         model = Asignaturas
         fields = '__all__'
-"""
-class Horario_Form(ModelForm):
+
+class DateInput(forms.DateInput):
+    input_type = 'date'
+
+class periodo_form(ModelForm):
     class Meta:
-        model = Horarios
-        fields = '__all__'
+        model = models.periodo
+        fields = "Fecha_inicio","Fecha_final"
         widgets = {
-            
+            'Fecha_inicio': forms.DateInput(format=('%d/%m/%Y'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),
+            'Fecha_final': forms.DateInput(format=('%d/%m/%Y'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),
+            # 'Fecha_inicio': forms.DateInput(format=('%d/%m/%Y'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),
+            # 'Fecha_final': forms.DateInput(format=('%d/%m/%Y'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),
         }
-"""
+
 class Cursos_Form(ModelForm):
     class Meta:
         model = Cursos

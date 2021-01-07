@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path #
+from django.urls import path
 from django.conf.urls import url
 from Academia_Arte_y_Vida import settings
 from Academia_Arte_y_Vida.app.gestionacademica.views import *
@@ -30,15 +30,18 @@ urlpatterns = [
     url(r'^cursos/$', cursos, name="cursos"),
     url(r'^asignaturas/$', asignaturas, name="asignaturas"),
     url(r'^pagos/$', Pagos, name="pagos"),
-    url(r'^crearprograma/$',CrearPrograma, name="crearprograma"),
-    url(r'^listaprograma/$',lista_programas, name="listaprograma"),
-    url(r'^editarprograma/(?P<cod_programa>\w+)/$',editar_programa, name="editarprograma"),
-    url(r'^eliminarprograma/(?P<cod_programa>\w+)/$',eliminar_programa, name="eliminarprograma"),
-    url(r'^crearasignatura/$',CrearAsignatura, name="crearasignatura"),
-    url(r'^crearcurso/$',CrearCurso, name="crearcurso"),
-    url(r'^listacursos/$',lista_curso, name="listacursos"),
-    url(r'^editarcurso/(?P<cod_curso>\w+)$',Editar_curso, name="editarcurso"),
-    url(r'^eliminarcurso/(?P<cod_curso>\w+)$',Eliminar_Curso, name="eliminarcurso"),
+    url(r'^crearprograma/$', CrearPrograma, name="crearprograma"),
+    url(r'^listaprograma/$', lista_programas, name="listaprograma"),
+    url(r'^editarprograma/(?P<cod_programa>\w+)/$',
+        editar_programa, name="editarprograma"),
+    url(r'^eliminarprograma/(?P<cod_programa>\w+)/$',
+        eliminar_programa, name="eliminarprograma"),
+    url(r'^crearasignatura/$', CrearAsignatura, name="crearasignatura"),
+    url(r'^crearcurso/$', CrearCurso, name="crearcurso"),
+    url(r'^listacursos/$', lista_curso, name="listacursos"),
+    url(r'^editarcurso/(?P<cod_curso>\w+)$', Editar_curso, name="editarcurso"),
+    url(r'^eliminarcurso/(?P<cod_curso>\w+)$',
+        Eliminar_Curso, name="eliminarcurso"),
     url(r'^login/$', login_user, name="login"),
     url(r'^logout/$', logout_user, name="logout"),
     url(r'^registroPago/$', buscar, name="reguistropago"),
@@ -48,9 +51,14 @@ urlpatterns = [
     url(r'^registro/formInscripcion/$', crearInscripcion, name="crearinscripcion"),
     url(r'^primerpago/$', primerpago, name="primerpago"),
     url(r'^estudiantes/$', estudiantes, name="estudiantes"),
+    url(r'^estadisticas/$', estadisticas, name="estadisticas"),
     url(r'^quienes_somos/$', quienes_somos, name="quienes_somos"),
     url(r'^informacion_programas/$', programas_info, name="programas_info"),
     url(r'^administracion/$', administracion_staff, name="administracion"),
     url(r'^board_estudiante/$', board_estudiante, name="board_estudiante"),
     url(r'^inscripcion/$', primerpago, name="inscripcion"),
+    url(r'^docentes/$', docentes, name="docentes"),
+    #url(r'^pago/$', detalles_pagos, name="pago")
+    url(r'^fotos/$', fotos, name="fotos"),
+    url(r'^periodos/$', periodo, name="periodos"),
 ]

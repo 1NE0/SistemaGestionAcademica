@@ -12,8 +12,8 @@
             <link rel="stylesheet" href="{% static 'css/admin.css' %}">
             <!-- <script src="https://code.jquery.com/jquery-3.2.1.js"></script> -->
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-            <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
             <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+            <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
     </head>
@@ -56,54 +56,75 @@
                 <span class="nav-text">Estudiantes</span>
             </a>
         </li>
-
         <li class="darkerli">
-            <a href="">
-            <i class="fa fa-desktop fa-lg"></i>
+            <a id="btn7" href="{% url 'periodos'%}">
+            <i class="fa fa-align-left fa-lg"></i>
+            <span class="nav-text">Periodos</span>
+            </a>
+        </li>
+        <li class="darkerli">
+            <a id="btn2" href="{% url 'programas' %}">
+            <i class="fa fa-desktop fa-lg" id= "btnCargar">
+                <div class="container">
+                    <div class="container" id="contenido"></div>
+                </div>
+            </i>
             <span class="nav-text">Programas</span>
             </a>
         </li>
 
         <li class="darkerli">
-            <a href="">
-            <i class="fa fa-plane fa-lg"></i>
+            <a id="btn3" href="{% url 'admisiones' %}">
+            <i class="fa fa-plane fa-lg" id="btnCargar">
+                <div class="container">
+                    <div class="container" id="contenido"></div>
+                </div>
+            </i>
             <span class="nav-text">Inscripciones</span>
             </a>
         </li>
 
         <li class="darkerli">
-            <a href="">
-            <i class="fa fa-shopping-cart"></i>
+            <a id="btn4" href="{% url 'cursos' %}">
+            <i class="fa fa-shopping-cart" id="btnCargar">
+                <div class="container">
+                    <div class="container" id="contenido"></div>
+                </div>
+            </i>
             <span class="nav-text">Cursos</span>
             </a>
         </li>
 
         <li class="darkerli">
-            <a href="">
-            <i class="fa fa-microphone fa-lg"></i>
+            <a id="btn5" href="{% url 'asignaturas' %}">
+            <i class="fa fa-microphone fa-lg" id="btnCargar">
+                <div class="container">
+                    <div class="container" id="contenido"></div>
+                </div>
+            </i>
+            <span class="nav-text">Asignaturas</span>
+            </a>
+        </li>
+
+        <li class="darkerli">
+            <a id="btn6" href="{% url 'docentes' %}">
+            <i class="fa fa-flask fa-lg" id="btnCargar">
+                <div class="container">
+                    <div class="container" id="contenido"></div>
+                </div>
+            </i>
+            <span class="nav-text">Docentes</span>
+            </a>
+        </li>
+
+        <li class="darkerli">
+            <a  href="">
+            <i class="fa fa-picture-o fa-lg" id="btnCargar">
+                <div class="container"> 
+                    <div class="container" id="contenedor"></div>
+                </div>
+            </i>
             <span class="nav-text">Pagos</span>
-            </a>
-        </li>
-
-        <li class="darkerli">
-            <a href="">
-            <i class="fa fa-flask fa-lg"></i>
-            <span class="nav-text">Web Tools</span>
-            </a>
-        </li>
-
-        <li class="darkerli">
-            <a href="">
-            <i class="fa fa-picture-o fa-lg"></i>
-            <span class="nav-text">Art & Design</span>
-            </a>
-        </li>
-
-        <li class="darkerli">
-            <a href="">
-            <i class="fa fa-align-left fa-lg"></i>
-            <span class="nav-text">Magazines
-            </span>
             </a>
         </li>
 
