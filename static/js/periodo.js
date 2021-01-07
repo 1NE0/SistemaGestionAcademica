@@ -1,4 +1,10 @@
+
+
+
 $(document).ready(function () {  // cuando el documento esté listo
+
+  GenerarColores();
+
   $("#form_periodos").on("submit", function (e) {   // coger el formulario con id "form_periodos"
     
     e.preventDefault(); // PREVENIR QUE SE RECARGUE LA PAGINA
@@ -31,3 +37,9 @@ $(document).ready(function () {  // cuando el documento esté listo
   });
 });
 
+function GenerarColores(){
+  $.each($('.programa'),function(i,v){
+    var color = '#'+(Math.random()*0xFFFFFF<<0).toString(16);
+    $(v).css('background-color',color);
+  });
+}
