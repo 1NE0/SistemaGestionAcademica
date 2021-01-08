@@ -10,12 +10,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import Group, User
 from django.contrib.auth import authenticate, login, logout
 from Academia_Arte_y_Vida.app.gestionacademica.forms import *
-from Academia_Arte_y_Vida.app.gestionacademica.forms import login_form
 from django.contrib.auth.decorators import login_required
 from Academia_Arte_y_Vida.app.gestionacademica.models import *
 from Academia_Arte_y_Vida.app.gestionacademica import models
-from Academia_Arte_y_Vida.app.gestionacademica.models import Estudiantes, Pagos, Detalle_Pagos
-from Academia_Arte_y_Vida.app.gestionacademica.models import Estudiantes, Pagos, Detalle_Pagos, Programas
 import sweetify
 from datetime import datetime
 from django.shortcuts import redirect
@@ -33,14 +30,14 @@ from reportlab.pdfgen import canvas
 
 @login_required(login_url='/login/login.html')
 def estudiantes(request):
-    estudiantesLista = models.Estudiantes.objects.all()
+    estudiantesLista = Estudiantes.objects.all()
     return render(request, "administracion/estudiantes.html", {'estudiantes': estudiantesLista})
 
 @csrf_protect
 def periodo(request):
     csrfContext = RequestContext(request).flatten()
-    programas = models.Programas.objects.all()
-    periodos = models.periodo.objects.all()
+    programas = Programas.objects.all()
+    periodos = periodo.objects.all()
 
     if request.is_ajax() and request.method == 'GET':
         pass
@@ -125,6 +122,17 @@ def administracion_staff(request):
 def board_estudiante(request):
     return render(request, "board_estudiante/board.html")
 
+def perfil(request):
+    usuario = request.user
+    
+    docentes = models.Docentes.objects.all()
+    estudiantes = models.Estudiantes.objects.all()
+    usuarios = models.usuario.objects.all()
+
+    return render(request,"perfil/perfil.html" , {'estudiantes' : estudiantes, 'docentes' : docentes , 'usuarios' : usuarios})
+
+    
+    
 #  Programas -----------------------------------------------------------
 
 

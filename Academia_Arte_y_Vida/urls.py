@@ -60,5 +60,6 @@ urlpatterns = [
     url(r'^docentes/$', docentes, name="docentes"),
     #url(r'^pago/$', detalles_pagos, name="pago")
     url(r'^fotos/$', fotos, name="fotos"),
+    url(r'^perfil/$', perfil, name="perfil"),
     url(r'^periodos/$', periodo, name="periodos"),
 ]

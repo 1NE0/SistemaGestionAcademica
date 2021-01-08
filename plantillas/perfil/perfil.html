@@ -1,0 +1,60 @@
+{% load static %}
+<head>
+    {% include "complementos/nav.html" %}
+    <link rel="stylesheet" href="{% static 'css/perfil.css' %}">
+</head>
+
+<body>
+    <div class="contenido">
+        <div class="tarjeta">
+            <div class="imagen">
+
+            </div>
+            <div class="texto-contenido">
+                {% ifequal user.groups.all.0.name "director"%}
+                    <p>{{user.username}}</p>
+                {% endifequal %}
+                {% ifequal user.groups.all.0.name "usuarios"%}
+                    <p>
+                        {% for usuario in usuarios %}
+                            {% if usuario.user_id == user.id %}
+                                {{usuario.identificacion}} <br>
+                                {{usuario.apellidos}} <br>
+                                {{usuario.nombres}} <br>
+                                {{usuario.edad}} <br>
+                                {{usuario.sexo}} <br>
+                                {{usuario.telefono}} <br>
+                            {% endif %}
+                        {% endfor %}
+                    </p>
+                {% endifequal %}
+                {% ifequal user.groups.all.0.name "estudiantes"%}
+                    <p>
+                        {% for estudiante in estudiantes %}
+                            {% if estudiante.id == user.id %}
+                                {{estudiante.identificacion}} <br>
+                                {{estudiante.apellidos}} <br>
+                                {{estudiante.nombres}} <br>
+                                {{estudiante.edad}} <br>
+                                <p>sexo :</p>{{estudiante.sexo}} <br>
+                                <p>telefono </p>  {{estudiante.telefono}} <br>
+                            {% endif %}
+                        {% endfor %}
+                    </p>
+                {% endifequal %}
+                {% ifequal user.groups.all.0.name "estudiantes"%}
+                    <p>
+                        {% for docente in docentes %}
+                            {% if docente.id == user.id %}
+                                {{docente.apellidos}} <br>
+                                {{docente.nombres}} <br>
+                            {% endif %}
+                        {% endfor %}
+                    </p>
+                {% endifequal %}
+            </div>
+        </div>
+    </div>
+</body>
+
+{% include "complementos/footer.html" %}
