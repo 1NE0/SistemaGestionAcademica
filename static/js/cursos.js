@@ -1,21 +1,28 @@
 $(document).ready(function () {
-
+    $("#boton").on("click", function () {
+        var consulta = $("#buscar_curso").val();    
+    
     $('#buscar_curso').keyup(function (e) { //el KeyUp es para solicitar una petición Ajax 
                                         //cada vez que el usuario presione una tecla dentro del input
-        consulta = $("buscar_curso").val();
+        e.preventDefault();
+
+        console.log(consulta);
         $.ajax({
-            type: "GETs",
+            type: "GET",
             url: "/listacursos/",
-            data: {'nombre': consulta },
+            data: {nombre: consulta},
             dataType: "json",
-            success: function (data) {
-                console.log(data[0].nombre);
+            success: function (response) {
+                console.log("LO LOGREE")
+                console.log(response[0].fields.cod_curso)//data[0].nombre);
+                $("#table").DataTable();
             },
             error: function(response) {
                 console.log("ME MORI");
             }
         });
     });
+});
 });
 
 /*$(document).ready(function () {

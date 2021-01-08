@@ -62,7 +62,6 @@ def fotos(request):
 
 
 def cursos(request):
-    #if request.method == 'GET' and request.is_ajax():
     cursosLista = models.Cursos.objects.all()
 
     return render(request, "cursos.html", {'cursos': cursosLista})
@@ -256,12 +255,13 @@ def CrearCurso(request):
 #    return render(request, "lista_cursos.html", context)
 
 def lista_curso(request):
-    if request.is_ajax:
+    if request.is_ajax and request.method == "GET":
         print("soy un ajaxxx")
+        print(request.GET)
         cursos = models.Cursos.objects.filter(nom_curso = request.GET.get('nombre'))
-        data = serializers.serialize('json', cursos)
-        #print(data)
-        return HttpResponse(data, content_type='application/json')
+        data =  serializers.serialize('json', cursos)
+        print(type(data))
+        return HttpResponse(data, 'application/json') #content_type=True)
     return HttpResponse(data)
 
 @login_required(login_url='/login/login.html')

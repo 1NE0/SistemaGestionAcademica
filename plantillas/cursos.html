@@ -13,8 +13,7 @@
         <h1>Cursos</h1>
     {% if user.is_staff == 1 %}
     <div class="buscador">
-        <form class="form-search content-search navbar-form" action="{% url 'listacursos' %}" method="GET">
-            {% csrf_token %}
+        <form method="GET" class="form-search content-search navbar-form" action="{% url 'listacursos' %}">
             <div class="input-group">
                 <input id="buscar_curso" placeholder="Buscar cursos" name="nombre" class="form-control form-text" type="text" size="15" maxlength="128" />
                 <span class="input-group-btn">
