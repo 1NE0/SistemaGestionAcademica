@@ -1,12 +1,51 @@
-{% extends "base.html" %}
-{% block content %}
+{% load static %}
+    
+<div class="modal-dialog modal-lg" role="document" id="miModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title">Crear Curso</h2>
+            <button class="cerrar" onclick="cerrarModal()" type="button" data-dismiss = "modal" aria-label="Cerrar">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <form id="formCrearCurso" method="POST">
+            {% csrf_token %}
+            <div class="modal-body">
+                {{ form.as_p }}
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" onclick="cerrarModal()" type="button" data-dismiss="modal">Cancelar</button>
+                <button class="btn btn-primary" type="submit">Confirmar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!--<div class="modal hide" id="modalCurso"> 
+    <form id="formCrearCurso" method="POST" action=""> 
+        <div class="modal-header"> 
+            <h3>MODAL</h3> 
+        </div> 
+            <div class="modal-body"> 
+                {% csrf_token %} {{form.as_p}} 
+            </div> 
+        <div class="modal-footer"> 
+            <input class="btn btn-primary" type="submit" value="Save" /> 
+            <input name="cancel" class="btn" type="submit" value="Cancel"/> 
+        </div> 
+    </form> 
+</div>
+
+<script src="{% static 'js/cursos.js' %}"></script>
+
+
 <body>
     <div class="contenedor">
         <h3>Crear curso</h3>
         <form action="" method="POST">
             {% csrf_token %}
             {{ form }}
-            <input type="submit" value="Crear Curso">
+            <input id="crearCursito" type="submit" value="Crear Curso">
            
         </form>
     </div>
@@ -103,7 +142,4 @@
     }
 
 
-</style>
-
-
-{% endblock %}
+</style>-->
