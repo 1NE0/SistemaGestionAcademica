@@ -36,8 +36,8 @@ def estudiantes(request):
 @csrf_protect
 def periodo(request):
     csrfContext = RequestContext(request).flatten()
-    programas = Programas.objects.all()
-    periodos = periodo.objects.all()
+    programas = models.Programas.objects.all()
+    periodos = models.periodo.objects.all()
 
     if request.is_ajax() and request.method == 'GET':
         pass
