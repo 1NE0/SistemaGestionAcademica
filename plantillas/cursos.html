@@ -35,6 +35,7 @@
                 </tr>
             </thead>
             <tbody>
+                {% if cursos %}
                 {% for curso in cursos %}
                 <tr>
                     <td>
@@ -46,7 +47,10 @@
                     <td>{{ curso.Programa.nom_programa }}</td>
                     <td> </td>
                 </tr>
-                {% endfor %}           
+                {% endfor %}       
+                {% else %}
+                <h3>No hay registro de cursos</h3>
+                {% endif %}    
             </tbody>
           </table>
     </div>               

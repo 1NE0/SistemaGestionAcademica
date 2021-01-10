@@ -82,9 +82,9 @@ $(document).ready(function () {
             url: "/crearcurso/",
             data: data,
             dataType: "json",
-            processData: false,
-            success: function (response) { // evita que jQuery intente procesar algo que no puede
-                console.log('cogio el form')
+            processData: false, // evita que jQuery intente procesar algo que no puede
+            success: function (response) { 
+                console.log('cogio el form');
             },
             error: function (param) { 
 

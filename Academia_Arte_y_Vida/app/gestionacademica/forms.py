@@ -18,6 +18,14 @@ class Asignaturas_Form(ModelForm):
     class Meta:
         model = Asignaturas
         fields = '__all__'
+        labels = {
+            
+        }
+        widgets = {
+            'cod_asig': forms.TextInput(attrs={'class': 'form-control'}),
+            'nom_asig':forms.TextInput(attrs={'class': 'form-control'}),
+            'contenido_academico': forms.Textarea(attrs={'class': 'form-control'})
+        }
 
 class DateInput(forms.DateInput):
     input_type = 'date'
