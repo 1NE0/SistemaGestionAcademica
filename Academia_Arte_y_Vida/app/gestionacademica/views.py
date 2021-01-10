@@ -241,8 +241,24 @@ def CrearAsignatura(request):
 
 # Cursos ------------------------------------------------------------------
 
+#@login_required(login_url='/login/login.html')
+#def CrearCurso(request):
+#    form = Cursos_Form(request.POST or None)
+#    data = {}
+#    if request.is_ajax():
+#        if form.is_valid():
+#            print("MI FORM CURSO ES VALIDO")
+ #           form.save()
+ #           data['name'] = form.cleaned_data.get('cod_curso')
+ #           data['status'] = 'okkkk'
+ #           return HttpResponse(data)
+  #      return JsonResponse(request, data)  
+
+        
+
 @login_required(login_url='/login/login.html')
 def CrearCurso(request):
+    #if request.is_ajax():
     form = Cursos_Form(request.POST or None)
 
     if form.is_valid():
