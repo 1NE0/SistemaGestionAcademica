@@ -39,8 +39,8 @@ def estudiantes(request):
 @csrf_protect
 def periodo(request):
     csrfContext = RequestContext(request).flatten()
-    programas = Programas.objects.all()
-    periodos = periodo.objects.all()
+    programas = models.Programas.objects.all()
+    periodos = models.periodo.objects.all()
 
     if request.is_ajax() and request.method == 'GET':
         pass
@@ -62,7 +62,6 @@ def fotos(request):
 
 
 def cursos(request):
-    #if request.method == 'GET' and request.is_ajax():
     cursosLista = models.Cursos.objects.all()
 
     return render(request, "cursos.html", {'cursos': cursosLista})
@@ -245,8 +244,24 @@ def CrearAsignatura(request):
 
 # Cursos ------------------------------------------------------------------
 
+#@login_required(login_url='/login/login.html')
+#def CrearCurso(request):
+#    form = Cursos_Form(request.POST or None)
+#    data = {}
+#    if request.is_ajax():
+#        if form.is_valid():
+#            print("MI FORM CURSO ES VALIDO")
+ #           form.save()
+ #           data['name'] = form.cleaned_data.get('cod_curso')
+ #           data['status'] = 'okkkk'
+ #           return HttpResponse(data)
+  #      return JsonResponse(request, data)  
+
+        
+
 @login_required(login_url='/login/login.html')
 def CrearCurso(request):
+    #if request.is_ajax():
     form = Cursos_Form(request.POST or None)
 
     if form.is_valid():
@@ -267,12 +282,13 @@ def CrearCurso(request):
 #    return render(request, "lista_cursos.html", context)
 
 def lista_curso(request):
-    if request.is_ajax:
+    if request.is_ajax and request.method == "GET":
         print("soy un ajaxxx")
+        print(request.GET)
         cursos = models.Cursos.objects.filter(nom_curso = request.GET.get('nombre'))
-        data = serializers.serialize('json', cursos)
-        #print(data)
-        return HttpResponse(data, content_type='application/json')
+        data =  serializers.serialize('json', cursos)
+        print(type(data))
+        return HttpResponse(data, 'application/json') #content_type=True)
     return HttpResponse(data)
 
 @login_required(login_url='/login/login.html')

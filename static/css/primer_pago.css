@@ -1,5 +1,6 @@
 body{
     background-color: #131417;
+<<<<<<< HEAD
 }
 .contenido{
   padding: 200px;
@@ -34,3 +35,6 @@ body{
 
 .StripeElement--webkit-autofill {
   background-color: #fefde5 !important;}
+=======
+}
+>>>>>>> 2910e13f5dc2a37fcef6bc96b7cc4fe2e4b7c2a1
