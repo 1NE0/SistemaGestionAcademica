@@ -492,16 +492,14 @@ def primerpago(request):
     programa = models.Programas.objects.get(nom_programa=usuario.nom_programa)
 
     if request.POST:
-        cantidad = request.POST['cantidad']
-        nombre = request.POST['nombre']
-        email = request.POST['email']
+        email = usuario.correo
 
         # stripe
         intento = stripe.PaymentIntent.create(
-        amount=100*100,
+        amount=17*100,
         currency='usd',
         payment_method_types=['card'],
-        receipt_email=email,
+        receipt_email='seas19754@gmail.com',
         )
         stripe.PaymentIntent.confirm(
             intento["id"],
@@ -510,8 +508,7 @@ def primerpago(request):
         )
 
         redirect('index')
-    else:
-        redirect('index')
+    return render(request,"primer_pago/primer_pago.html",{'usuario':usuario})
 
 
         

@@ -33,6 +33,7 @@ var card = elements.create('card', {style: style});
 
 // Add an instance of the card Element into the `card-element` <div>.
 card.mount('#card-element');
+
 // Handle real-time validation errors from the card Element.
 card.on('change', function(event) {
   var displayError = document.getElementById('card-errors');
