@@ -13,7 +13,6 @@ from Academia_Arte_y_Vida.app.gestionacademica.forms import *
 from django.contrib.auth.decorators import login_required
 from Academia_Arte_y_Vida.app.gestionacademica.models import *
 from Academia_Arte_y_Vida.app.gestionacademica import models
-import sweetify
 from datetime import datetime
 from django.shortcuts import redirect
 from django.core import serializers
