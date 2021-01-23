@@ -45,3 +45,4 @@ var buttonpressed;  // crear esta variable para guardar el nombre del boton que 
 function prueba(){
     console.log("me ejecute");
 }
+

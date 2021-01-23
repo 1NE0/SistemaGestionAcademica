@@ -30,7 +30,7 @@ function abrirModal(url){
 }
 
 function cerrarModal() {
+  console.log("hola");
   $('#creacion').modal('hide');
-  $('#edicion').modal('hide');
   return false;
 }
