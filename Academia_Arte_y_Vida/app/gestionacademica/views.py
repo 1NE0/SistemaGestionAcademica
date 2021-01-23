@@ -501,24 +501,28 @@ def primerpago(request):
 
     return render(request, "primer_pago/primer_pago.html", {'usuario': usuario})
 
-from django.core.exceptions import ObjectDoesNotExist
+
 def crearPeriodo (request):
-    if request.method == 'POST':
+
+
+    if request.method == 'POST':   # SI ES UN POST, QUIERE DECIR QUE LE DIERON A ENVIAR FORMULARIO
         Fecha_ini = request.POST.get('Fecha_inicio')
         Fecha_fin = request.POST.get('Fecha_final')
+
+        # GUARDÉ LA LISTA DE PERIODOS, QUE TENGAN LA MISMA FECHA
         buscarPeriodo = models.periodo.objects.filter(Fecha_inicio=Fecha_ini,Fecha_final=Fecha_fin)
-        if buscarPeriodo.exists:
+        if buscarPeriodo.exists: # SI LA LISTA NO ESTÁ VACIA QUIERE DECIR QUE HAY PERIODOS YA REGISTRADOS CON ESTAS FECHAS
             #ya hay un periodo registrado
             print("YA SE ENCONTRO ESE PERIODO BOLUDOOOOO")
-            context = {'error_boludo' : 'error'}
-            return JsonResponse(context)
+            context = {'error_boludo' : 'error'}  # AQUI ARMO MI CONTEXTO CON EL ERROR
+            return JsonResponse(context)   # AQUI LO RETORNO, (ESTO ES LO QUE VA A ATRAPAR EL AJAX) NOTA: EN AJAX DEBE ESTAR ESPECIFICADO (dataType: "json")
         else:
             # si no se encuentra registrado
             periodo = models.periodo(Fecha_inicio=Fecha_ini,Fecha_final=Fecha_fin)
             periodo.save()
             
             
-
+    ################ AQUI SE MANEJA LA LOGICA PARA FECHAS ########################
     fecha_actual = datetime.now()
     mes_actual = fecha_actual.month
     dia_actual = fecha_actual.day
