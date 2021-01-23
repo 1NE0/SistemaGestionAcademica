@@ -511,7 +511,8 @@ def crearPeriodo (request):
 
         # GUARDÉ LA LISTA DE PERIODOS, QUE TENGAN LA MISMA FECHA
         buscarPeriodo = models.periodo.objects.filter(Fecha_inicio=Fecha_ini,Fecha_final=Fecha_fin)
-        if buscarPeriodo.exists: # SI LA LISTA NO ESTÁ VACIA QUIERE DECIR QUE HAY PERIODOS YA REGISTRADOS CON ESTAS FECHAS
+        print(buscarPeriodo.exists())
+        if buscarPeriodo.exists(): # SI LA LISTA NO ESTÁ VACIA QUIERE DECIR QUE HAY PERIODOS YA REGISTRADOS CON ESTAS FECHAS
             #ya hay un periodo registrado
             print("YA SE ENCONTRO ESE PERIODO BOLUDOOOOO")
             context = {'error_boludo' : 'error'}  # AQUI ARMO MI CONTEXTO CON EL ERROR
@@ -520,7 +521,8 @@ def crearPeriodo (request):
             # si no se encuentra registrado
             periodo = models.periodo(Fecha_inicio=Fecha_ini,Fecha_final=Fecha_fin)
             periodo.save()
-            
+            context = {'registrado' : 'true'}
+            return JsonResponse(context)
             
     ################ AQUI SE MANEJA LA LOGICA PARA FECHAS ########################
     fecha_actual = datetime.now()

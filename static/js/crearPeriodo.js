@@ -26,7 +26,7 @@ var buttonpressed;  // crear esta variable para guardar el nombre del boton que 
                 if(response['error_boludo'] == "error"){  // DESDE LA VISTA, YO MADE UN JSON, QUE DECIA "ERROR", SI YA SE ENCONTRABA UN PERIDOO REGISTRADO
                     console.log("CAPTURE EL JSON")
                     swal("Ocurrió un error :(", "Ya hay un periodo con esta fecha.", "error");
-                }else{    // SI EL JSON, NO ES UN ERROR, ENTONCES ES QUE NO ESTA REGISTRADO EL PERIODO
+                }else if(response['registrado'] == "true"){    // SI EL JSON, NO ES UN ERROR, ENTONCES ES QUE NO ESTA REGISTRADO EL PERIODO
                     swal("¡Bien hecho!", "Se registro correctamente el periodo", "success");
                 }
                 
