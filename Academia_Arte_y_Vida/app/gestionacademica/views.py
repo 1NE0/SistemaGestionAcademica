@@ -542,3 +542,7 @@ def crearPeriodo (request):
     if dia_recomendado < 9:
         dia_recomendado = "0" + str(dia_recomendado)
     return render(request,"crearPeriodo.html",{'fecha_actual' : fecha_actual,'fecha_recomendada' : fecha_recomendada,'mes_recomendado' : mes_recomendado,'dia_recomendado':dia_recomendado,'mes_actual' : mes_actual , 'dia_actual' : dia_actual})
+
+
+def borrar_periodo(request):
+    pass

@@ -3,6 +3,8 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="{% static 'js/crearPeriodo.js' %}"></script>
+<script src="{% static 'js/admin.js' %}"></script>
 
 <div class="modal-dialog modal-lg" role="document" id="miModal">
     <div class="modal-content">
@@ -12,7 +14,7 @@
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-            <script src="{% static 'js/crearPeriodo.js' %}"></script>
+            
             {% csrf_token %}
             <div class="modal-body">
                 <form  method="POST" action="{% url 'crearPeriodo' %}" id="form_periodos">
@@ -22,7 +24,7 @@
                     <label for="start">Fecha Final</label>
                     <input type="date" id="start" name="trip-start" value="{{fecha_recomendada.year}}-{{mes_recomendado}}-{{dia_recomendado}}" min="{{fecha_recomendada.year}}-{{mes_recomendado}}-{{dia_recomendado}}" max="">
                     <div class="modal-footer">
-                        <button type="Submit" value="Submit" class="btn btn-success registrar">registrar</button>
+                        <button type="Submit" value="Submit" class="btn btn-success registrar" onclick="prueba()">registrar</button>
                     </div>
                     
                 </form>

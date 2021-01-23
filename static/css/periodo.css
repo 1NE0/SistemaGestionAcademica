@@ -1,59 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
-.accordion-body{
-    height: auto!important;
-    display: inline-flex;
-    display: flex;
-    margin-top: 0;
-}
-
-.accordion{
-    background-color: white!important;
-}
-
-.accordion-collapse p{
-    text-align: center;
-    margin-top: 5px;
-    margin-bottom: 0px;
-}
 
 
-.cardio {
-    border-radius: 2px;
-    flex-direction: row;
-    height: 100px;
-    margin: 1rem;
-    width: auto;
-    /* background-image: url("https://picsum.photos/100/100/?random?image=2"); */
-    transition: transform .2s; /* Animation */
-  }
-  
-  .cardio:hover{
-    transform: scale(1.1);
-    transition: transform .2s; /* Animation */
-  }
-
-  .nombre{
-    background: #2fb3bd;
-    width: 200px!important;
-    height: 100px!important;
-  }
-
-  .contenido{
-    width: 400px;
-  }
-
-  .contenido p{
-    font-size: 12px;
-    margin: 5px;
-  }
   
   /* tabla fondo */
   .tabla-fondo{
     padding: 20px;
-    background-color: white;
-    overflow-y: scroll;
+    background-color: #ffffff;
+    height: 380px!important;
+    white-space: nowrap;
+    overflow-y: auto!important;
+    -webkit-box-shadow: 2px 7px 21px 4px rgba(0,0,0,0.21);
+    -moz-box-shadow: 2px 7px 21px 4px rgba(0,0,0,0.21);
+    box-shadow: 2px 7px 21px 4px rgba(0,0,0,0.21);
   }
 
+  .table{
+    
+  }
   /* PROGRAMAS */
   .programas-seccion{
     display: inline-flex;
@@ -86,6 +49,9 @@
       width: 100%;
       margin-bottom: 10px;
       background-color: rgb(9,38,56)!important;
+      -webkit-box-shadow: 2px 7px 21px 4px rgba(0,0,0,0.21);
+    -moz-box-shadow: 2px 7px 21px 4px rgba(0,0,0,0.21);
+    box-shadow: 2px 7px 21px 4px rgba(0,0,0,0.21);
       /* transition: .2s; */
   }
 
@@ -103,6 +69,9 @@
   }
   .seccion2{
       margin: 20px;
+      -webkit-box-shadow: 2px 7px 21px 4px rgba(0,0,0,0.21);
+    -moz-box-shadow: 2px 7px 21px 4px rgba(0,0,0,0.21);
+    box-shadow: 2px 7px 21px 4px rgba(0,0,0,0.21);
   }
 
   .seccion2 .titulo h2{

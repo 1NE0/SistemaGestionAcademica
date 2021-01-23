@@ -1,12 +1,8 @@
 
-function serializar(){
-    
-}
-
 
 
 $(document).ready(function() {
-
+    
     $('#btn1').on('click', function(e) {
         e.preventDefault(); // no recargue la pagina
         $("#contenedor-central").load('/estudiantes'); //cargar la vista "estudiantes" en el div con el id "contenedor" (no olvidarse del numeral adelante)
