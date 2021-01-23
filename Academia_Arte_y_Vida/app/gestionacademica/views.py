@@ -521,7 +521,9 @@ def crearPeriodo (request):
             # si no se encuentra registrado
             periodo = models.periodo(Fecha_inicio=Fecha_ini,Fecha_final=Fecha_fin)
             periodo.save()
-            context = {'registrado' : 'true'}
+            periodoAmandar = models.periodo.objects.get(Fecha_inicio=Fecha_ini,Fecha_final=Fecha_fin)
+            context = {'registrado' : 'true', 'fecha_inicio' : periodoAmandar.Fecha_inicio,'fecha_final' : periodoAmandar.Fecha_final}
+            
             return JsonResponse(context)
             
     ################ AQUI SE MANEJA LA LOGICA PARA FECHAS ########################

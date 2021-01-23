@@ -8,6 +8,7 @@ var buttonpressed;  // crear esta variable para guardar el nombre del boton que 
             e.preventDefault(); // PREVENIR QUE SE RECARGUE LA PAGINA
             var data = $("#form_periodos :input").serializeArray(); // COGER SUS INPUTS, Y SERIALIZARLOS EN JSON
             console.log(data); // use the console for debugging, F12 in Chrome, not alerts
+            
             $.ajax({
             url: $(this).attr("action"),  // URL A LA QUE SE REALIZA LA PETICION DEL FORM
             type: "POST",       // MODO DE ENVIO
@@ -22,12 +23,18 @@ var buttonpressed;  // crear esta variable para guardar el nombre del boton que 
                 console.log("reealizando...");
             },
             success: function(response){    // AL TERMINAR SATISFACTORIAMENTE
+                
                 // si todo sale bien
                 if(response['error_boludo'] == "error"){  // DESDE LA VISTA, YO MADE UN JSON, QUE DECIA "ERROR", SI YA SE ENCONTRABA UN PERIDOO REGISTRADO
                     console.log("CAPTURE EL JSON")
                     swal("Ocurrió un error :(", "Ya hay un periodo con esta fecha.", "error");
                 }else if(response['registrado'] == "true"){    // SI EL JSON, NO ES UN ERROR, ENTONCES ES QUE NO ESTA REGISTRADO EL PERIODO
                     swal("¡Bien hecho!", "Se registro correctamente el periodo", "success");
+
+                    // aqui agregar una fila
+                    let programas = ["musica","roberto"];
+                    console.log(response)
+                    agregarFila(response['fecha_inicio'],response['fecha_final']);
                 }
                 
                 
@@ -41,6 +48,15 @@ var buttonpressed;  // crear esta variable para guardar el nombre del boton que 
    })
 })
 
+
+function agregarFila(fecha_inicio,fecha_final){
+    var htmlTags = '<tr style="color:white;font-weight:bold;background-color:#092638;">'+
+                        '<td>' + fecha_inicio + '</td>'+
+                        '<td>' + fecha_final + '</td>'
+                    '</tr>';
+    $('#tablita tbody').append(htmlTags);
+    console.log("actualizando tabla")
+}
 
 function prueba(){
     console.log("me ejecute");
