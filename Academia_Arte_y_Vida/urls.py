@@ -62,4 +62,5 @@ urlpatterns = [
     url(r'^fotos/$', fotos, name="fotos"),
     url(r'^perfil/$', perfil, name="perfil"),
     url(r'^periodos/$', periodo, name="periodos"),
+    url(r'^crearPeriodo$', crearPeriodo, name="crearPeriodo"),
 ]

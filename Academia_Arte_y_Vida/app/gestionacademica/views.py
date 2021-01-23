@@ -13,7 +13,7 @@ from Academia_Arte_y_Vida.app.gestionacademica.forms import *
 from django.contrib.auth.decorators import login_required
 from Academia_Arte_y_Vida.app.gestionacademica.models import *
 from Academia_Arte_y_Vida.app.gestionacademica import models
-from datetime import datetime
+from datetime import datetime,timedelta
 from django.shortcuts import redirect
 from django.core import serializers
 from django.http import JsonResponse
@@ -37,14 +37,6 @@ def periodo(request):
     csrfContext = RequestContext(request).flatten()
     programas = models.Programas.objects.all()
     periodos = models.periodo.objects.all()
-
-    if request.is_ajax() and request.method == 'GET':
-        pass
-    if request.is_ajax() and request.method == 'POST':
-        Fecha_ini = request.POST.get('Fecha_inicio')
-        Fecha_fin = request.POST.get('Fecha_final')
-        periodo = models.periodo(Fecha_inicio=Fecha_ini,Fecha_final=Fecha_fin)
-        periodo.save()
     
     return render(request,"administracion/periodo.html" , {'periodos' : periodos , 'programas' : programas })
 
@@ -508,3 +500,39 @@ def primerpago(request):
         inscripcion.save()
 
     return render(request, "primer_pago/primer_pago.html", {'usuario': usuario})
+
+from django.core.exceptions import ObjectDoesNotExist
+def crearPeriodo (request):
+    if request.method == 'POST':
+        Fecha_ini = request.POST.get('Fecha_inicio')
+        Fecha_fin = request.POST.get('Fecha_final')
+        buscarPeriodo = models.periodo.objects.filter(Fecha_inicio=Fecha_ini,Fecha_final=Fecha_fin)
+        if buscarPeriodo.exists:
+            #ya hay un periodo registrado
+            print("YA SE ENCONTRO ESE PERIODO BOLUDOOOOO")
+            context = {'error_boludo' : 'error'}
+            return JsonResponse(context)
+        else:
+            # si no se encuentra registrado
+            periodo = models.periodo(Fecha_inicio=Fecha_ini,Fecha_final=Fecha_fin)
+            periodo.save()
+            
+            
+
+    fecha_actual = datetime.now()
+    mes_actual = fecha_actual.month
+    dia_actual = fecha_actual.day
+    if mes_actual < 9:
+        mes_actual = "0"+str(mes_actual)
+    if dia_actual < 9:
+        dia_actual = "0"+str(dia_actual)
+
+    ########################################
+    fecha_recomendada = fecha_actual + timedelta(days=120)
+    mes_recomendado = fecha_recomendada.month
+    dia_recomendado = fecha_recomendada.day
+    if mes_recomendado < 9:
+        mes_recomendado = "0" + str(mes_recomendado)
+    if dia_recomendado < 9:
+        dia_recomendado = "0" + str(dia_recomendado)
+    return render(request,"crearPeriodo.html",{'fecha_actual' : fecha_actual,'fecha_recomendada' : fecha_recomendada,'mes_recomendado' : mes_recomendado,'dia_recomendado':dia_recomendado,'mes_actual' : mes_actual , 'dia_actual' : dia_actual})
