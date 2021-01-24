@@ -24,6 +24,7 @@ from django.views.decorators.csrf import csrf_protect
 import io
 from django.http import FileResponse
 from reportlab.pdfgen import canvas
+from django.views.generic import ListView, View
 # Create your views here.
 
 
@@ -47,6 +48,72 @@ def periodo(request):
         periodo.save()
     
     return render(request,"administracion/periodo.html" , {'periodos' : periodos , 'programas' : programas })
+
+# --------------------------------------------------------------------
+
+class ProgramaCrud(ListView):
+    model = Programas
+    template_name='administracion/programas/crud.html'
+    context_object_name = 'programas'
+
+class CrearPrograma(View):
+    def  get(self, request):
+        codigo = request.GET.get('cod_programa', None)
+        nombre = request.GET.get('nom_programa', None)
+        contenido = request.GET.get('contenido_Aca', None)
+        #periodo = request.GET.get('periodo',None) 
+
+        obj = ProgramaCrud.objects.create(
+            cod_programa = codigo,
+            nom_programa= nombre,
+            contenido_Aca = contenido
+         #   periodo=periodo
+        )
+
+        programa = {'cod_programa':obj.cod_programa,'nom_programa':obj.nom_programa,'contenido_Aca':obj.contenido_Aca}
+
+        data = {
+            'programa':  programa
+        }
+        return JsonResponse(data)
+
+class UpdateCrudPrograma(View):
+    def  get(self, request):
+        codigo = request.GET.get('cod_programa', None)
+        nombre = request.GET.get('nom_programa', None)
+        contenido = request.GET.get('contenido_Aca', None)
+
+        obj = ProgramaCrud.objects.get(cod_programa=codigo)
+        obj.nom_programa = nombre
+        obj.contenido_Aca = contenido
+        
+        obj.save()
+
+        programa = {'cod_programa':obj.cod_programa,'nom_programa':obj.nom_programa,'contenido_Aca':obj.contenido_Aca}
+
+        data = {
+            'programa': programa
+        }
+        return JsonResponse(data)
+
+
+"""
+@csrf_protect
+def programas_Admin(request):
+    programas = models.Programas.objects.all()
+    
+    if request.is_ajax() and request.method == 'GET':
+        pass
+    if request.is_ajax() and request.method == 'POST':
+        codigo = request.POST.get('cod_programa')
+        nombre = request.POST.get('nom_programa')
+        contenido = request.POST.get('contenido_Aca')
+        #periodo = models.periodo.objects.all()
+        programa = models.Programas(cod_programa=codigo,nom_programa=nombre,contenido_Aca=contenido)
+        programa.save()
+
+    return render(request,"administracion/programas/programas.html",{'programas':programas})
+"""
 
 def asignaturas(request):
     asignaturasLista = Asignaturas.objects.all()
