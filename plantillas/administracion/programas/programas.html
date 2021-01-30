@@ -1,36 +1,24 @@
 {% load static %}
 
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <div class="pagina">
     <div class="seccion-1">
-        <p>
-            <a class="btn btn-primary add w-100" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                <i class="fas fa-plus-square" style="color: white;"></i>
-            </a>
-        </p>
-        <div class="collapse" id="collapseExample">
-            <div class="card card-body">
-                <form  method="POST" action="{% url 'programas' %}" id="form_programas">
-                    {% csrf_token %}
-                    
-                    <input type="text" id="start" name="trip-start" placeholder="codigo">
-                    
-                    <input type="text" id="start" name="trip-start" placeholder="nombre">
+        
+        <button onclick="abrirModal('{% url 'crearprograma' %}')" class="btn add" >Agregar Programa<i class="fas fa-plus-square" style="color: white;"></i></button>
+       
+    </div>
 
-                    <input type="text" id="start" name="trip-start" placeholder="contenido">
-                    
-                    <button type="Submit" value="Submit" class="btn btn-success crear">crear</button>
-                </form>
-            </div>
-        </div>
         <div class="seccion-2">
             
             <h1>Programas</h1>
 
             <div class="tabla-fondo">
-                <table class="table table-hover table-ligth">
+                <table class="table table-hover table-ligth" id="tabla">
                     <thead>
                         <tr>
                                     <th scope="col">Codigo</th>
@@ -59,8 +47,9 @@
             </div>
 
         </div>
-    </div>
+
+    <div class="modal fade" id="creacion" role="dialog"></div>
 
 </div>
 
-<script src="{% static 'js/programas.js' %}"></script>
+<script src="{% static 'js/programacrud.js' %}"></script>

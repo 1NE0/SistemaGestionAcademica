@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.conf import settings
 
 # Create your models here.
 
@@ -45,7 +46,7 @@ class Estudiantes(models.Model):
     # hacer la relacion a user
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     ciudad = models.ForeignKey(
-        ciudad, default="", null=True, blank=False, on_delete=models.CASCADE)
+        ciudad, default="", null=True, blank=True, on_delete=models.CASCADE)
 
 
 #clase programa########################################################################################################
@@ -54,7 +55,7 @@ class Programas(models.Model):
     nom_programa = models.CharField(max_length=30)
     contenido_Aca = models.CharField(max_length=500)
     periodo = models.ForeignKey(
-        periodo, default="", null=False, blank=False, on_delete=models.CASCADE)
+        periodo, default="", null=True, blank=True, on_delete=models.CASCADE)
     #Asignatura = models.ForeignKey(Asignaturas,null=True,blank=True,on_delete=models.CASCADE)
     # FALTA
 

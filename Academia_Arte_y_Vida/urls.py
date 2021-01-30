@@ -62,8 +62,10 @@ urlpatterns = [
     url(r'^fotos/$', fotos, name="fotos"),
     url(r'^perfil/$', perfil, name="perfil"),
     url(r'^periodos/$', periodo, name="periodos"),
-    #url(r'^programas/$', programas_Admin, name="programas"),
-    url(r'^programas/$',ProgramaCrud.as_view(), name="programas"),
-    url(r'^programas/crear/$', CrearPrograma, name="crearprograma"),
-    url(r'^programas/actualizar/$',UpdateCrudPrograma, name="actualizarprograma"),
+    url(r'^crearPeriodo$', crearPeriodo, name="crearPeriodo"),
+    #Programas
+    url(r'^programas/$', programas_Admin, name="programas"),
+    url(r'^programas/crear$', crearPrograma, name="crearprograma"),
+    
+
 ]
