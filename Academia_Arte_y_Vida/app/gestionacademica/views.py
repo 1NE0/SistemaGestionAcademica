@@ -13,7 +13,6 @@ from Academia_Arte_y_Vida.app.gestionacademica.forms import *
 from django.contrib.auth.decorators import login_required
 from Academia_Arte_y_Vida.app.gestionacademica.models import *
 from Academia_Arte_y_Vida.app.gestionacademica import models
-import sweetify
 from datetime import datetime
 from django.shortcuts import redirect
 from django.core import serializers
@@ -26,10 +25,6 @@ import io
 from django.http import FileResponse
 from reportlab.pdfgen import canvas
 # Create your views here.
-
-import stripe
-
-stripe.api_key = 'sk_test_51I7o6UF5sjTpkSyjCKQZ2sJGmsyAsSmMc9cMrwMPUCZ6mPQLAfz9XoenMYV94fnRc6Cyh2X9y4VnCTn3GWOMWJAP00QbxgvgDm'
 
 @login_required(login_url='/login/login.html')
 def estudiantes(request):
