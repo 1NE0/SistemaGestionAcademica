@@ -1,0 +1,22 @@
+.contenido{
+    width: 100%;
+    height: 1024px;
+    display: flex;
+    flex-direction: row;
+}
+
+.lista{
+    width: 50%;
+    height: 100%;
+    background-color: cornflowerblue;
+}
+
+.frame{
+    width: 50%;
+    height: 100%;
+}
+
+.frame iframe{
+    width: 100%;
+    height: 100%;
+}
