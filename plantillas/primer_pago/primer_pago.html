@@ -1,34 +1,84 @@
 {% load static %}
+<link rel="stylesheet" href="{% static 'css/primer_pago.css' %}">
 
-<h1>AQUI SE REALIZARÁ EL PAGO EN LINEA PARA USUARIOS NUEVOS</h1>
-<h3>Se conectará la api de nequi o la ke sea</h3>
-<h3>{{usuario.nombres}}</h3>
-
-<link rel="stylesheet" href="{% static 'css/primer_pago.css' %}" />
-<link rel="stylesheet" href="{% static 'css/botones.css' %}" />
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+<script src="https://js.stripe.com/v3/"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 
+<head>
+  {% include "complementos/nav.html" %}
+</head>
 
 
 <body>
-  
-  <link rel="stylesheet" href="{% static 'js/primer_pago.js' %}" />
-  <form action="" method="POST">
-    {% csrf_token %}
-    <button
-      id="botoncito"
-      onclick='swal("Good job!", "You clicked the button!", "success");'
-    >
-      sweetalert
-    </button>
-    <div class="btn-bg bg-5">
-      <div class="btn btn-5">
-        <a href="" type="submit" value=""
-          ><button href="">Simular primer pago</button></a
-        >
+  <div class="top">
+      <!-- separador de arriba -->
+  </div>
+  <div class="informacion">
+    <h2>¿COMO REALIZAR EL PAGO DE LA INSCRIPCION?</h2>
+    <div class="pasos">
+      <div class="paso paso1">
+        <i class="fas fa-money-check-alt iconos"></i>
+        <p>Dar click en pagar</p>
+        <p>y seguir los pasos.</p>
+      </div>
+      <div class="paso paso2">
+        <i class="fas fa-envelope-open-text iconos"></i>
+        <p>Ve a tu correo y copia el codigo </p>
+        <p>de la factura del pago.</p>
+      </div>
+      <div class="paso paso3">
+        <i class="fas fa-paste iconos"></i>
+        <p>Pega el codigo en el panel de</p>
+        <p>"Verificar pago"</p>
       </div>
     </div>
-  </form>
+  </div>
+  <div class="contenido">
+    
+    <div class="cardPagar card">
+      <div class="imgMercadoPago"> <!--imagen-->
+        <img src="https://k62.kn3.net/taringa/4/5/8/0/C/5/NadinaPedroso/5FA.png" alt="">
+      </div>
+      <div class="textoPagar">
+          <h3>PAGAR CON MERCADO PAGO</h3>
+          <p>Con esta opción podrás realizar el pago directamente, por distintos medios.</p>
+          <p>Tarjeta o efectivo? No te hagas esa pregunta. Pagar con Mercado Pago es elegir el medio que más te convenga.</p>
+      </div>
+      <div class="pagar"> <!-- boton pagar-->
+        <script src="https://www.mercadopago.com.co/integrations/v1/web-payment-checkout.js"data-preference-id="542435308-181b3b8e-d0c7-4f6d-ae21-b0b63d74df6d"></script>
+      </div>
+    </div>
+
+    <div class="separador"></div>
+
+    <div class="cardCodigo card">
+        <!-- esta es la carta para ingresar el codigo-->
+        <i class="fas fa-comments-dollar" style="font-size: 50px; color: black; text-align: center; margin-top: 20px;"></i>
+        <h3>INGRESAR EL CODIGO DEL PAGO</h3>
+        <p>Si ya realizaste el pago, revisa tu correo y busca el codigo de referencia</p>
+        <p>de tu factura.</p>
+        
+        <form action="{% url 'referenciaPago' %}" method="POST">{% csrf_token %}
+          <div class="inputDiv">
+            <div class="form__group">
+              <input type="text" class="form__input" id="name" name="codigo" placeholder="ejemplo: 123456789" required="" />
+              <label for="name" class="form__label">Codigo</label>
+            </div>
+          </div>
+          
+          <button type="submit" class="btn btn-info">Enviar</button>
+
+        </form>
+    </div>
+
+
+  </div>
+  
 </body>
+
+
+<script src="{% static 'js/primer_pago.js' %}"></script>

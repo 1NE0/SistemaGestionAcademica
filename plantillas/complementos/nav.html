@@ -45,15 +45,16 @@
       <nav class="perfil">
         <ul>
           <li class="item">
-            <a href=""
+            <a href="#"
               >{{user.username}}
               <i class="fas fa-user" style="margin-left: 10px"></i
             ></a>
+
             <ul>
               {% ifequal user.groups.all.0.name "director"%}
               <li><a href="{% url 'administracion'%}">Administracion</a></li>
               {% endifequal %} {% ifequal user.groups.all.0.name "usuarios"%}
-              <li><a href="{% url 'inscripcion' %}">Inscripcion</a></li>
+              <li><a href="{% url 'primerpago' %}">Inscripcion</a></li>
               {% endifequal %} {% ifequal user.groups.all.0.name "estudiantes"%}
               <li><a href="{% url 'board_estudiante' %}">Board</a></li>
               {% endifequal %}

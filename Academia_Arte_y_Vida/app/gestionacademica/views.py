@@ -26,7 +26,6 @@ from django.http import FileResponse
 from reportlab.pdfgen import canvas
 # Create your views here.
 
-
 @login_required(login_url='/login/login.html')
 def estudiantes(request):
     estudiantesLista = Estudiantes.objects.all()
@@ -479,29 +478,52 @@ def primerpago(request):
     usuario = models.usuario.objects.get(user=request.user.id)
     programa = models.Programas.objects.get(nom_programa=usuario.nom_programa)
 
-    print(models.periodo.periodo_actual().Fecha_final.month)
-    if request.method == "POST":
-        print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-        # TRANSFORMAR EL USUARIO EN ESTUDIANTE
-        estudiante = models.Estudiantes(ciudad=usuario.ciudad, identificacion=usuario.identificacion, tipo=usuario.tipo, nombres=usuario.nombres, apellidos=usuario.apellidos,
-                                        edad=usuario.edad, sexo=usuario.sexo, correo=usuario.correo, telefono=usuario.telefono, direccion=usuario.direccion, user=usuario.user)
-        estudiante.programa = programa
-        # AGREGARLO AL GRUPO "ESTUDIANTES"
-        group = Group.objects.get(name='estudiantes')
-        request.user.groups.add(group)
-        # GUARDAR EL ESTUDIANTE
-        estudiante.save()
-        # BORRAR EL USUARIO
-        usuario.delete()
+    if request.POST:
+        email = usuario.correo
 
-        # CREAR LA INSCRIPCION
-        inscripcion = Inscripciones(Estudiante=estudiante, periodo=periodo.periodo_actual(
-        ), Fecha_Realizacion=datetime.now(), Programa=programa)
-        inscripcion.save()
+        # stripe
+        intento = stripe.PaymentIntent.create(
+        amount=17*100,
+        currency='usd',
+        payment_method_types=['card'],
+        receipt_email='seas19754@gmail.com',
+        )
+        stripe.PaymentIntent.confirm(
+            intento["id"],
+            payment_method='pm_card_visa',
+
+        )
+
+        redirect('index')
+    return render(request,"primer_pago/primer_pago.html",{'usuario':usuario})
+
+
+        
+
+    # if request.method == "POST":
+    #     print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+    #     # TRANSFORMAR EL USUARIO EN ESTUDIANTE
+    #     estudiante = models.Estudiantes(ciudad=usuario.ciudad, identificacion=usuario.identificacion, tipo=usuario.tipo, nombres=usuario.nombres, apellidos=usuario.apellidos,
+    #                                     edad=usuario.edad, sexo=usuario.sexo, correo=usuario.correo, telefono=usuario.telefono, direccion=usuario.direccion, user=usuario.user)
+    #     estudiante.programa = programa
+    #     # AGREGARLO AL GRUPO "ESTUDIANTES"
+    #     group = Group.objects.get(name='estudiantes')
+    #     request.user.groups.add(group)
+    #     # GUARDAR EL ESTUDIANTE
+    #     estudiante.save()
+    #     # BORRAR EL USUARIO
+    #     usuario.delete()
+
+    #     # CREAR LA INSCRIPCION
+    #     inscripcion = Inscripciones(Estudiante=estudiante, periodo=periodo.periodo_actual(
+    #     ), Fecha_Realizacion=datetime.now(), Programa=programa)
+    #     inscripcion.save()
 
     return render(request, "primer_pago/primer_pago.html", {'usuario': usuario})
 
 
+def pago_realizado(request):
+    return render(request,"info/pago_realizado.html")
 def crearPeriodo (request):
 
 
@@ -548,3 +570,22 @@ def crearPeriodo (request):
 
 def borrar_periodo(request):
     pass
+
+
+
+
+def activarReferenciaDePago (request):
+
+    if request.method == 'POST':
+        codigo = request.POST.get('codigo')
+        userActual = request.user
+        usuario = models.usuario.objects.get(user=userActual)
+
+        # GUARDAR LA REFERENCIA DE PAGO
+        usuario.referenciaPago = codigo
+        usuario.pagoRealizado = True
+
+        print(usuario.referenciaPago)
+        usuario.save()
+
+        return render(request,"primer_pago/correcto.html")
