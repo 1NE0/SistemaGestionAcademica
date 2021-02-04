@@ -522,10 +522,8 @@ def primerpago(request):
     return render(request, "primer_pago/primer_pago.html", {'usuario': usuario})
 
 
-<<<<<<< HEAD
 def pago_realizado(request):
     return render(request,"info/pago_realizado.html")
-=======
 def crearPeriodo (request):
 
 
@@ -572,4 +570,3 @@ def crearPeriodo (request):
 
 def borrar_periodo(request):
     pass
->>>>>>> c637279d9ca8cfe94b087aada6010740250ad4aa
