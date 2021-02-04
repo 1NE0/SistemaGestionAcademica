@@ -206,6 +206,7 @@ class usuario(models.Model):
     telefono = models.CharField(max_length=12)
     direccion = models.CharField(default="",max_length=60, blank=False)
     nom_programa = models.CharField(default="",max_length=60, blank=False)
+    referenciaPago = models.IntegerField(null=True,blank=True)
     # hacer la relacion a user
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     ciudad = models.ForeignKey(
@@ -247,4 +248,6 @@ class actividades(models.Model):
 
     nivel_curso = models.ForeignKey(
         Nivel_Cursos, null=True, blank=True, on_delete=models.CASCADE)
-    
+
+
+

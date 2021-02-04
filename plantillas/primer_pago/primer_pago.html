@@ -62,15 +62,15 @@
         <p>Si ya realizaste el pago, revisa tu correo y busca el codigo de referencia</p>
         <p>de tu factura.</p>
         
-        <form action="">
+        <form action="{% url 'referenciaPago' %}" method="POST">{% csrf_token %}
           <div class="inputDiv">
             <div class="form__group">
-              <input type="text" class="form__input" id="name" placeholder="ejemplo: 123456789" required="" />
+              <input type="text" class="form__input" id="name" name="codigo" placeholder="ejemplo: 123456789" required="" />
               <label for="name" class="form__label">Codigo</label>
             </div>
           </div>
           
-          <a href="" class="btn btn-info">Enviar</a>
+          <button type="submit" class="btn btn-info">Enviar</button>
 
         </form>
     </div>

@@ -570,3 +570,22 @@ def crearPeriodo (request):
 
 def borrar_periodo(request):
     pass
+
+
+
+
+def activarReferenciaDePago (request):
+
+    if request.method == 'POST':
+        codigo = request.POST.get('codigo')
+        userActual = request.user
+        usuario = models.usuario.objects.get(user=userActual)
+
+        # GUARDAR LA REFERENCIA DE PAGO
+        usuario.referenciaPago = codigo
+        usuario.pagoRealizado = True
+
+        print(usuario.referenciaPago)
+        usuario.save()
+
+        return render(request,"primer_pago/correcto.html")
