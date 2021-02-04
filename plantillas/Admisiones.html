@@ -1,73 +1,19 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+
+{% load static %}
+<script src="{% static 'js/admisiones.js' %}"></script>
+<link rel="stylesheet" href="{% static 'css/admisiones.css' %}">
+
 <html>
-        {% block title %} 
-            
-    {% endblock %}
-{% block content %}
-
-{# esto es el contenido cambiante dentro de admisiones #}
-
         <body>
-                <div class="arriba">
-                        
-                        <!--  ESTO LE SALDRÁ AL DIRECTOR -->
-                        {% ifequal user.groups.all.0.name "director" %}
-                                
-                                        <!--Just the logo.. Don't mind this-->
-                                <h1>Usuarios que realizaron inscripcion</h1>
-                                 <hr>
-                        <!-- Aqui recorremos la lista de programas, esto solo lo vera el director academico-->
-                        {% for usuario in usuariosLista %}
-                        <form action="/primerpago/">
-                                <div class="card carta" style="width: 18rem;">
-                                        <img src="http://wallpapers4screen.com/Uploads/15-11-2017/37581/thumb2-geometry-3d-art-geometric-shapes-creative-purple-background.jpg" class="card-img-top" alt="fondo">
-                                        <div class="card-body">
-                                        <h5 class="card-title" name='nombreE'>{{usuario.nombres}}</h5>
-                                        <p class="card-text" >{{usuario.identificacion}}</p>
-                                        <input type="text" name="ident" value="{{usuario.identificacion}}">
-                                        
-                                        <button class="btn btn-primary" type="submit" >Efectuar primer pago</button>
-                                        
-                                        <!-- <a href="{% url 'primerpago' %}" class="btn btn-primary" type="submit">Efectuar primer pago</a> -->
-                                        </div>
-                                </div>
-                        </form>
-                        {% endfor %}
-                        
-
-                        {% else %}
-                        <div class="principal">
-                                <!-- A TODOS LES SALDRA ESTO -->
-                                
-                        </div>
-                {% endifequal %}
+                <h1>PAPICHULO</h1>
+                <div class="contenido">
+                        <div class="lista"></div>
+                        <div class="frame"><iframe src="https://mercadopago.com"></iframe></div>
                 </div>
                 
-                
-                <!-- <a href="{% url 'crearinscripcion' %}" class="text-white">Realizar inscripcion en linea</a> -->
 
         </body>
-
-        <style>
-                body{
-                        background: linear-gradient(60deg, rgba(84,58,183,1) 0%, rgba(0,172,193,1) 100%);
-                        padding-top: 0px;
-                }
-                body h1{
-                        margin-left: 50px;
-                        color:white;
-                }
-                
-                .arriba{
-                        padding-top: 100px;
-                }
-                .principal{
-                        height: 400px;
-                }
-                .carta{
-                        display: inline-flex;
-                        margin-left: 50px;
-                }
-        </style>
-{% endblock %}
 
 </html>

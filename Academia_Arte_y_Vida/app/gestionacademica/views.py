@@ -100,17 +100,17 @@ def Admision(request):
 
     return render(request, "Admisiones.html", {'usuariosLista': usuariosRegistrados})
 
-
+@login_required(login_url='/login/login.html')
 def estadisticas(request):
     return render(request,"administracion/estadisticas.html")
-
+@login_required(login_url='/login/login.html')
 def administracion_staff(request):
     return render(request, "administracion/admin.html")
 
-
+@login_required(login_url='/login/login.html')
 def board_estudiante(request):
     return render(request, "board_estudiante/board.html")
-
+@login_required(login_url='/login/login.html')
 def perfil(request):
     usuario = request.user
     
@@ -228,23 +228,6 @@ def CrearAsignatura(request):
 
     return render(request, "crearasignatura.html", context)
 
-
-# Cursos ------------------------------------------------------------------
-
-#@login_required(login_url='/login/login.html')
-#def CrearCurso(request):
-#    form = Cursos_Form(request.POST or None)
-#    data = {}
-#    if request.is_ajax():
-#        if form.is_valid():
-#            print("MI FORM CURSO ES VALIDO")
- #           form.save()
- #           data['name'] = form.cleaned_data.get('cod_curso')
- #           data['status'] = 'okkkk'
- #           return HttpResponse(data)
-  #      return JsonResponse(request, data)  
-
-        
 
 @login_required(login_url='/login/login.html')
 def CrearCurso(request):
@@ -496,30 +479,6 @@ def primerpago(request):
 
         redirect('index')
     return render(request,"primer_pago/primer_pago.html",{'usuario':usuario})
-
-
-        
-
-    # if request.method == "POST":
-    #     print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-    #     # TRANSFORMAR EL USUARIO EN ESTUDIANTE
-    #     estudiante = models.Estudiantes(ciudad=usuario.ciudad, identificacion=usuario.identificacion, tipo=usuario.tipo, nombres=usuario.nombres, apellidos=usuario.apellidos,
-    #                                     edad=usuario.edad, sexo=usuario.sexo, correo=usuario.correo, telefono=usuario.telefono, direccion=usuario.direccion, user=usuario.user)
-    #     estudiante.programa = programa
-    #     # AGREGARLO AL GRUPO "ESTUDIANTES"
-    #     group = Group.objects.get(name='estudiantes')
-    #     request.user.groups.add(group)
-    #     # GUARDAR EL ESTUDIANTE
-    #     estudiante.save()
-    #     # BORRAR EL USUARIO
-    #     usuario.delete()
-
-    #     # CREAR LA INSCRIPCION
-    #     inscripcion = Inscripciones(Estudiante=estudiante, periodo=periodo.periodo_actual(
-    #     ), Fecha_Realizacion=datetime.now(), Programa=programa)
-    #     inscripcion.save()
-
-    return render(request, "primer_pago/primer_pago.html", {'usuario': usuario})
 
 
 def pago_realizado(request):
