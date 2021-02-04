@@ -1,25 +1,26 @@
 {% load static %}
-<div class="programas">
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="{% static 'Academia_Arte_y_Vida/css/programas.css' %}">
-</div>
+    <link rel="stylesheet" href="{% static 'css/programas.css' %}">
+    <script src="{% static 'js/programas.js' %}"></script>
 
-{% for programa in programasLista %}
+    <div class="programas">
+      <div class="example-parent">
+        <h2>CURSOS SIN ASIGNAR A PERIODOS</h2>
+        <div class="example-origin" ondragover="onDragOver(event);" ondrop="onDrop(event);">
+          <div id="draggable-1"class="example-draggable" draggable="true" ondragstart="onDragStart(event);">draggable</div>
+          <div id="draggable-2"class="example-draggable" draggable="true" ondragstart="onDragStart(event);">draggable</div>
+          <div id="draggable-3"class="example-draggable" draggable="true" ondragstart="onDragStart(event);">draggable</div>
+          <div id="draggable-4"class="example-draggable" draggable="true" ondragstart="onDragStart(event);">draggable</div>
+          <div id="draggable-5"class="example-draggable" draggable="true" ondragstart="onDragStart(event);">draggable</div>
+        </div>
+        
+        <div class="contenedor-periodos">
+          <div class="titulo-periodo"><h2>PERIODO</h2></div>
+          <div class="example-dropzone" ondragover="onDragOver(event);" ondrop="onDrop(event);"></div>
+        </div>
+        
 
-<body>
-  <div class="container">
-    <h1>Programas Academicos</h1>
-    <div class="card" style="width: 18rem;">
-      <img src="..." class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">{{programa.nom_programa}}</h5>
-        <p class="card-text">{{programa.contenido_Aca}}</p>
-        <a href="#" class="btn btn-primary">Editar</a>
       </div>
     </div>
-
-  </div>
-</body>
-
-{% endfor %}

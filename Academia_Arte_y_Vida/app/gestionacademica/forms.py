@@ -1,7 +1,7 @@
 from django.forms import ModelForm , Form
 from django import forms
 from Academia_Arte_y_Vida.app.gestionacademica import models
-from Academia_Arte_y_Vida.app.gestionacademica.models import Estudiantes,Inscripciones,Programas, Asignaturas, Cursos , usuario,periodo
+from Academia_Arte_y_Vida.app.gestionacademica.models import *
 from django.contrib.auth.models import User
 
 class Programas_Form(ModelForm):
@@ -24,7 +24,7 @@ class DateInput(forms.DateInput):
 
 class periodo_form(ModelForm):
     class Meta:
-        model = models.periodo
+        model = periodo
         fields = "Fecha_inicio","Fecha_final"
         widgets = {
             'Fecha_inicio': forms.DateInput(format=('%d/%m/%Y'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),
@@ -79,10 +79,4 @@ class  form_Estudiante_nuevo(ModelForm):
             'direccion' : forms.TextInput(attrs={'class': 'form-control'}),
         }
 
-class form_Inscripcion(ModelForm):
-    class Meta:
-        model = Inscripciones
-        fields = [
-            'Programa'
-        ]
         

@@ -45,10 +45,11 @@
       <nav class="perfil">
         <ul>
           <li class="item">
-            <a href=""
+            <a href="#"
               >{{user.username}}
               <i class="fas fa-user" style="margin-left: 10px"></i
             ></a>
+
             <ul>
               {% ifequal user.groups.all.0.name "director"%}
               <li><a href="{% url 'administracion'%}">Administracion</a></li>
