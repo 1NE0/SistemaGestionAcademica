@@ -139,7 +139,7 @@ def asignarProgramas(request):
 
     for programa in listaProgramas:  #lo recorremos
         programaModel = models.Programas.objects.get(cod_programa=programa)
-        inscripcion = models.inscripcionPrograma.objects.create(cod_programa=programaModel,Id=random.randrange(100000),cod_periodo=models.periodo.periodo_actual())
+        inscripcion = models.inscripcionPrograma.objects.create(cod_programa=programaModel,Id=random.randrange(1000000),cod_periodo=models.periodo.periodo_actual())
         inscripcion.save()
         print(programa)
     
@@ -534,23 +534,30 @@ def aceptarUsuario(request):
 
     if request.method == 'POST':
         print(request.POST.get('codigoUsuario'))
-        codigo = request.POST.get('codigoUsuario')
+        codigo = request.POST.get('codigoUsuario')  # obtener el codigo del usuario de la peticion 
         
         #buscar el usuario para volverlo un estudiante
 
-        usuario = models.usuario.objects.get(identificacion=codigo)
-        programa = models.Programas.objects.get(nom_programa=usuario.nom_programa)
+        usuario = models.usuario.objects.get(identificacion=codigo)   # encontrar el objeto usuario con el codigo dado
+        programa = models.Programas.objects.get(nom_programa=usuario.nom_programa)   # encontrar el objeto programa con el nom_programa del usuario
+
+        # crear un estudiante con la informacion del usuario 
         estudiante = models.Estudiantes(ciudad=usuario.ciudad,identificacion=usuario.identificacion,
                                         tipo=usuario.tipo,nombres=usuario.nombres,apellidos=usuario.apellidos,edad=usuario.edad,
                                         sexo=usuario.sexo,correo=usuario.correo,telefono=usuario.telefono,direccion=usuario.direccion,user=usuario.user)
 
+
+        # guardar el estudiante y borrar el usuario
         estudiante.save()
         usuario.delete()
-        inscripcionAinscribirse = models.inscripcionPrograma.objects.get(cod_programa=programa.cod_programa,cod_periodo=models.periodo.periodo_actual().codigo)
-        print(inscripcionAinscribirse.Id)
-        inscripcion = models.InscripcionEstudiante(periodo=models.periodo.periodo_actual(),Fecha_Realizacion=datetime.now(),cod_inscripcionPrograma=inscripcionAinscribirse,Estudiante=estudiante)
-        inscripcion.save()
         
 
+        # obtener el programa al que se quiere inscribir el estudiante
+        programaAinscribirse = models.inscripcionPrograma.objects.get(cod_programa=programa.cod_programa,cod_periodo=models.periodo.periodo_actual().codigo)
+        
 
-        return render(request, "primer_pago/correcto.html")
+        # crear la inscripcion estudiante con la informacion dada
+        inscripcion = models.InscripcionEstudiante(periodo=models.periodo.periodo_actual(),Fecha_Realizacion=datetime.now(),cod_inscripcionPrograma=programaAinscribirse,Estudiante=estudiante)
+        inscripcion.save()
+
+        return HttpResponse("correcto")

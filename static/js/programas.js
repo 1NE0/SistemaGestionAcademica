@@ -1,6 +1,3 @@
-
-
-
 function onDragStart(event) {
     event
       .dataTransfer
