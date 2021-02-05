@@ -2,18 +2,40 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 
 {% load static %}
-<script src="{% static 'js/admisiones.js' %}"></script>
+
 <link rel="stylesheet" href="{% static 'css/admisiones.css' %}">
 
 <html>
         <body>
                 <h1>PAPICHULO</h1>
                 <div class="contenido">
-                        <div class="lista"></div>
+                        <div class="lista">
+                                <h1>holi</h1>
+                                <div class="row">
+                                        {% for usuario in usuariosLista %}
+                                                
+                                                <div class="col-sm-6" id="{{usuario.identificacion}}">
+                                                        <div class="card">
+                                                          <div class="card-body">
+                                                                        <form action="">{% csrf_token %}
+                                                                        <h5 class="card-title" id="{{usuario.identificacion}}">{{usuario.identificacion}}</h5>
+                                                                        <p class="card-text">{{usuario.referenciaPago}}</p>
+                                                                        <a class="botoncito" href="{% url 'aceptarUsuario' %}">Efectuar</a>
+                                                                        </form>
+                                                          </div>
+                                                        </div>
+                                                </div>
+                                        {% endfor %}
+                                </div>
+                                
+                                        
+                                        
+                                
+                        </div>
                         <div class="frame"><iframe src="https://mercadopago.com"></iframe></div>
                 </div>
                 
 
         </body>
-
+        <script src="{% static 'js/admisiones.js' %}"></script>
 </html>

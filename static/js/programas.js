@@ -1,3 +1,6 @@
+
+
+
 function onDragStart(event) {
     event
       .dataTransfer
@@ -27,3 +30,29 @@ function onDrop(event) {
     .dataTransfer
     .clearData();
   }
+
+
+
+  $(".botoncito").click(function(e){
+    e.preventDefault();
+    var listaProgramas = [];
+    $('.example-dropzone').children('div').each(function(obj){
+        listaProgramas.push($(this).attr('id'));
+    });
+    console.log(listaProgramas);
+     $.ajax({
+        method: 'POST',
+        url: '/asignarProgramas',
+        data: {
+                listaProgramas: listaProgramas,
+        },
+        success:function(response){
+             //this gets called when server returns an OK response
+             console.log('it worked!');
+             console.log(response);
+        },
+        error:function(response){
+             console.log("it didnt work");
+        }
+    });
+});

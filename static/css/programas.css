@@ -30,12 +30,16 @@
      /* flex-basis: 100%; 
     flex-grow: 1; */
     padding: 10px;
-    height: auto;
+    height: 150px;
     margin-left: 50px;
     margin-right: 50px;
     -webkit-box-shadow: 2px 7px 21px 4px rgba(0,0,0,0.21);
     -moz-box-shadow: 2px 7px 21px 4px rgba(0,0,0,0.21);
     box-shadow: 2px 7px 21px 4px rgba(0,0,0,0.21);
+  }
+
+  .example-origin:empty{
+    
   }
   
   .example-draggable {
@@ -47,10 +51,10 @@
     display: inline-flex;
     width: auto;
     height: 100px;
-    margin-left: 15px;
+    margin-left: 10px;
   }
   .contenedor-periodos{
-    height: 200px;
+    height: auto;
     margin-left: 50px;
     margin-right: 50px;
     margin-top: 50px;
@@ -60,13 +64,19 @@
   .contenedor-periodos h2{
       color: hsl(0, 0%, 100%);
       font-family: 'Montserrat', sans-serif!important;
-        font-weight: 900!important;
-        text-align: center;
+      font-weight: 900!important;
+      font-size: 20px;
+      text-align: center;
   }
   .example-dropzone {
     padding: 10px;
-    height: 100px;
+    height: 150px;
     -webkit-box-shadow: 2px 7px 21px 4px rgba(0,0,0,0.21);
     -moz-box-shadow: 2px 7px 21px 4px rgba(0,0,0,0.21);
     box-shadow: 2px 7px 21px 4px rgba(0,0,0,0.21);
+  }
+
+
+  button{
+    margin-bottom: 20px;
   }
