@@ -70,28 +70,10 @@ function abrirModal(url){
         $(this).modal('show');  // mostrar el modal
     });
 
-    //return false;  
+    return false;  
 }
 
-$(document).ready(function () {
-    $('#formCrearCurso').on("submit", function () {
-        var data = new FormData($('#formCrearCurso').get(0));
-        console.log(data);
-        $.ajax({
-            type: "POST",
-            url: "/crearcurso/",
-            data: data,
-            dataType: "json",
-            processData: false, // evita que jQuery intente procesar algo que no puede
-            success: function (response) { 
-                console.log('cogio el form');
-            },
-            error: function (param) { 
 
-             }
-        });
-      })
-});
 
 function cerrarModal() {
     $('#creacion').modal('hide');

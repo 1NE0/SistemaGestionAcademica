@@ -48,13 +48,37 @@ class Cursos_Form(ModelForm):
         labels = {
             'cod_curso' : 'Codigo',
             'nom_curso' : 'Nombre',
-            'programa' : 'Programa'
+        }
 
+
+class nivelCurso_form(ModelForm):
+    class Meta:
+        model = Nivel_Cursos
+        fields = ('nivel', 'descripcion', 'cod_Docente')
+        labels = {
+            'nivel': 'Nivel',
+            'descripcion' : 'Contenido del Curso',
+            'cod_Docente': 'Docente Encargado'
         }
         widgets = {
-            
+            'nivel': forms.IntegerField(max_value= 6),
+            'descripcion': forms.TextInput(attrs={'class': 'form-control'})
         }
 
+class detalleCurso_form(ModelForm):
+    class Meta:
+        model = detalle_curso
+        fields = ('grupo', 'horario_inicial', 'horario_final')
+        labels = {
+            'grupo': 'Grupo',
+            'horario_inicial' : 'Hora Inicial',
+            'horario_final': 'Hora Final'
+        }
+        widgets = {
+            'grupo': forms.IntegerField(max_value= 100),
+            'horario_inicial': forms.DateTimeInput(format=('%A:%I %p'), attrs={'class':'form-control'}),
+            'horario_final' : forms.DateTimeInput(format=('%A:%I %p'), attrs={'class':'form-control'})
+        }
 
 class login_form(forms.Form):
     username = forms.CharField()

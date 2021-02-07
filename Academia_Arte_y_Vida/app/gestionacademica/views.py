@@ -231,18 +231,48 @@ def CrearAsignatura(request):
 
 @login_required(login_url='/login/login.html')
 def CrearCurso(request):
-    #if request.is_ajax():
-    form = Cursos_Form(request.POST or None)
+    docenteEncargado = models.Docentes.objects.all()
+    
+    if request.method == 'POST':
+        codigo_curso = request.POST.get('cod_curso')
+        nombre_curso = request.POST.get('nom_curso')
 
-    if form.is_valid():
-        Codcurso = form.cleaned_data['cod_curso']
-        print("aaaaaaaaaaaaaaaaa" + Codcurso)
-        form.save()
-        return redirect("../../listacursos")
+        nivelcito = request.POST.get('nivel')
+        descripcion_curso = request.POST.get('descripcion')
+        docente = models.Docentes.objects.get(nombres=request.POST.get('combo_docente'))
 
-    context = {'form': form}
+        grupito = request.POST.get('grupo')
+        horario_ini = request.POST.get('horario_inicial')
+        horario_fin = request.POST.get('horario_final')
 
-    return render(request, "crearcurso.html", context)
+        buscarCurso = models.detalle_curso.objects.filter(grupo=grupito).filter(nivel=nivelcito).filter(nom_curso=nombre_curso)
+        print(buscarCurso.exists())
+        if buscarCurso.exists():
+            Context = {'ERROR' : 'error'}
+            return JsonResponse(Context)
+        else:
+            cursito = models.Cursos(cod_curso=codigo_curso, nom_curso=nombre_curso)
+            cursito.save()
+            
+            nivelCursito = models.Nivel_Cursos(nivel= nivelcito, descripcion=descripcion_curso, cod_Docente=docente)            
+            nivelCursito.cod_Curso = cursito
+            nivelCursito.save()
+
+            detalle = models.detalle_curso(grupo=grupito, horario_inicial=horario_ini, horario_final=horario_fin)
+            detalle.Nivel_Curso = nivelCursito
+            detalle.save()
+
+            #curso completo a mandar.
+            detalleMandado = models.detalle_curso.objects.get(grupo=grupito, horario_inicial= horario_ini, horario_final=horario_fin, Nivel_Curso=nivelCursito)
+            context = {'Registrado' : 'true', 'group': detalleMandado.grupo, 'hora_ini': detalleMandado.horario_inicial, 
+                                            'hora_fin': detalleMandado.horario_final, 'nivel_curso': detalleMandado.Nivel_Curso}
+
+
+            return JsonResponse(context)
+
+
+
+    return render(request, "crearcurso.html", print("HOLA"))
 
 
 #@login_required(login_url='/login/login.html')
