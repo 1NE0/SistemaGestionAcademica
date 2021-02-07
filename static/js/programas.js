@@ -27,3 +27,30 @@ function onDrop(event) {
     .dataTransfer
     .clearData();
   }
+
+
+
+  $(".botoncito").click(function(e){
+    e.preventDefault();
+    var listaProgramas = [];
+    $('.example-dropzone').children('div').each(function(obj){
+        listaProgramas.push($(this).attr('id'));
+    });
+    console.log(listaProgramas);
+     $.ajax({
+        method: 'POST',
+        url: '/asignarProgramas',
+        data: {
+                listaProgramas: listaProgramas,
+        },
+        success:function(response){
+             //this gets called when server returns an OK response
+             if(response == "actualizado"){
+              swal("¡" + response + " con éxito!", "Se ha actualizado correctamente el periodo :)", "success");
+             }
+        },
+        error:function(response){
+             swal("Ocurrió un error inesperado :(" , "Error");
+        }
+    });
+});

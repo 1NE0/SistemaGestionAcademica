@@ -65,4 +65,6 @@ urlpatterns = [
     url(r'^pago_realizado/$', pago_realizado, name="pago_realizado"),
     url(r'^crearPeriodo$', crearPeriodo, name="crearPeriodo"),
     url(r'^efectuarReferencia$',activarReferenciaDePago, name="referenciaPago"),
+    url(r'^aceptarUsuario$', aceptarUsuario, name="aceptarUsuario"),
+    url(r'^asignarProgramas$', asignarProgramas, name="asignarProgramas"),
 ]

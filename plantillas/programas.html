@@ -4,21 +4,30 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{% static 'css/programas.css' %}">
     <script src="{% static 'js/programas.js' %}"></script>
-
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    
     <div class="programas">
       <div class="example-parent">
         <h2>CURSOS SIN ASIGNAR A PERIODOS</h2>
         <div class="example-origin" ondragover="onDragOver(event);" ondrop="onDrop(event);">
-          <div id="draggable-1"class="example-draggable" draggable="true" ondragstart="onDragStart(event);">draggable</div>
-          <div id="draggable-2"class="example-draggable" draggable="true" ondragstart="onDragStart(event);">draggable</div>
-          <div id="draggable-3"class="example-draggable" draggable="true" ondragstart="onDragStart(event);">draggable</div>
-          <div id="draggable-4"class="example-draggable" draggable="true" ondragstart="onDragStart(event);">draggable</div>
-          <div id="draggable-5"class="example-draggable" draggable="true" ondragstart="onDragStart(event);">draggable</div>
+          {% for programa in programasSinMatricular %}
+          <div id="{{programa.cod_programa}}"class="example-draggable" draggable="true" ondragstart="onDragStart(event);">
+            <h2 style="margin-right: 20px;">{{programa.nom_programa}}</h2>
+          </div>
+          {% endfor %}
         </div>
         
         <div class="contenedor-periodos">
           <div class="titulo-periodo"><h2>PERIODO</h2></div>
-          <div class="example-dropzone" ondragover="onDragOver(event);" ondrop="onDrop(event);"></div>
+          <div class="example-dropzone" ondragover="onDragOver(event);" ondrop="onDrop(event);">
+              <!-- aqui se llenara con los programas a agregar-->
+              {% for programa in programasMatriculados %}
+                <div id="{{programa.cod_programa}}"class="example-draggable" draggable="true" ondragstart="onDragStart(event);">
+                  <h2 style="margin-right: 20px;">{{programa.nom_programa}}</h2>
+                </div>
+              {% endfor %}
+          </div>
+          <a class="btn btn-light botoncito" href="{% url 'asignarProgramas' %}"> Registrar</a>
         </div>
         
 
