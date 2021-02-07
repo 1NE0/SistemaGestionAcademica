@@ -25,6 +25,7 @@ import io
 from django.http import FileResponse
 from reportlab.pdfgen import canvas
 from django.views.decorators.csrf import csrf_exempt
+from django.core.exceptions import ObjectDoesNotExist
 # Create your views here.
 
 @login_required(login_url='/login')
@@ -129,22 +130,37 @@ def perfil(request):
 @login_required(login_url='/login')
 def Programas(request):
     programasLista = models.Programas.objects.all()
-    return render(request, "programas.html", {'programasLista': programasLista})
+    programasMatriculados = []  #guardaremos los programas que ya estan matriculados
+    programasSinMatricular = []
+    for programa in programasLista:
+        try:
+            inscripcion = models.inscripcionPrograma.objects.get(programa=programa,periodo=models.periodo.periodo_actual())
+            programasMatriculados.append(programa)
+        except models.inscripcionPrograma.DoesNotExist:
+            programasSinMatricular.append(programa)
+
+    return render(request, "programas.html", {'programasMatriculados': programasMatriculados , 'programasSinMatricular' : programasSinMatricular})
 
 
 import random
 @csrf_exempt
 def asignarProgramas(request):
     listaProgramas = request.POST.getlist('listaProgramas[]') #lista de programas enviados desde ajax
+    modo = "Guardado"
 
     for programa in listaProgramas:  #lo recorremos
         programaModel = models.Programas.objects.get(cod_programa=programa)
-        inscripcion = models.inscripcionPrograma.objects.create(cod_programa=programaModel,Id=random.randrange(1000000),cod_periodo=models.periodo.periodo_actual())
-        inscripcion.save()
-        print(programa)
-    
-    #data =  serializers.serialize('json', cursos)
-    return render(request,"guardarPrograma.html")
+        #verificar si ya se encuentra registrado
+        try:
+            inscripcion = models.inscripcionPrograma.objects.get(programa=programa,periodo=models.periodo.periodo_actual())
+            #si no sale error quiere decir que ya hay un programa matriculado
+            modo = "actualizado"
+        except:
+            #sino guarda la inscripcion
+            inscripcion = models.inscripcionPrograma.objects.create(cod_programa=programaModel,Id=random.randrange(1000000),cod_periodo=models.periodo.periodo_actual())
+            inscripcion.save()
+
+    return HttpResponse(modo)
 
 
 def Pagos(request):
@@ -529,6 +545,8 @@ def activarReferenciaDePago (request):
 
         return render(request,"primer_pago/correcto.html")
 
+
+
 @csrf_exempt
 def aceptarUsuario(request):
 
@@ -547,17 +565,19 @@ def aceptarUsuario(request):
                                         sexo=usuario.sexo,correo=usuario.correo,telefono=usuario.telefono,direccion=usuario.direccion,user=usuario.user)
 
 
-        # guardar el estudiante y borrar el usuario
-        estudiante.save()
-        usuario.delete()
+        # obtener el programa al que se quiere inscribir el estudiante en el periodo actual
         
+        try:
+            programaAinscribirse = models.inscripcionPrograma.objects.get(cod_programa=programa.cod_programa,cod_periodo=models.periodo.periodo_actual().codigo)
+            # guardar el estudiante y borrar el usuario
+            estudiante.save()
+            usuario.delete()
+            # crear la inscripcion estudiante con la informacion dada
+            inscripcion = models.InscripcionEstudiante(periodo=models.periodo.periodo_actual(),Fecha_Realizacion=datetime.now(),cod_inscripcionPrograma=programaAinscribirse,Estudiante=estudiante)
+            inscripcion.save()
+        except models.inscripcionPrograma.DoesNotExist:
+            print("El programa al que se quiere registrar el estudiante, no está disponible en este periodo")
 
-        # obtener el programa al que se quiere inscribir el estudiante
-        programaAinscribirse = models.inscripcionPrograma.objects.get(cod_programa=programa.cod_programa,cod_periodo=models.periodo.periodo_actual().codigo)
-        
-
-        # crear la inscripcion estudiante con la informacion dada
-        inscripcion = models.InscripcionEstudiante(periodo=models.periodo.periodo_actual(),Fecha_Realizacion=datetime.now(),cod_inscripcionPrograma=programaAinscribirse,Estudiante=estudiante)
-        inscripcion.save()
 
         return HttpResponse("correcto")
+
