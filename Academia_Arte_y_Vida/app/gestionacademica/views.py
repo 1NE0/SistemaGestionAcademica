@@ -157,7 +157,7 @@ def asignarProgramas(request):
             modo = "actualizado"
         except:
             #sino guarda la inscripcion
-            inscripcion = models.inscripcionPrograma.objects.create(cod_programa=programaModel,Id=random.randrange(1000000),cod_periodo=models.periodo.periodo_actual())
+            inscripcion = models.inscripcionPrograma.objects.create(programa=programaModel,Id=random.randrange(1000000),periodo=models.periodo.periodo_actual())
             inscripcion.save()
 
     return HttpResponse(modo)
@@ -581,3 +581,16 @@ def aceptarUsuario(request):
 
         return HttpResponse("correcto")
 
+
+@csrf_exempt
+def editarEstudiante(request):
+
+    listaEstudiante = request.POST.getlist('lista_estudiante[]')
+    estudiante = None
+    for estudianteIdentificacion in listaEstudiante:
+        estudiante = models.Estudiantes.objects.get(identificacion=estudianteIdentificacion)
+        
+        print("entreeee")
+    #print(estudiante.nombres)
+    return render(request, "editarEstudiante.html", {'estudiante' : estudiante})
+    

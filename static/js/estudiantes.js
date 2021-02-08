@@ -17,27 +17,53 @@ $(document).ready(function () {
 //     // cuando se haga click en el boton con ID "botoncito"
 //     e.preventDefault(); // no recargue la pagina
 //     nombre_input = $("#input_nombre").val(); // obtener el valor que se ingreso en el input con ID "input_nombre"
-//     $.ajax({
-//       url: "/buscarestudiante/", // a que vista va a pedir los datos
-//       type: "GET", // con que método se pediran
-//       data: {
-//         nombre: nombre_input, //el valor define lo que se va a colocar en la URL ejemplo : /buscarestudiante/?nombre=
-//       }, // lo que le asignamos es el nombre que acaba de dar el usuario en el input
-//       dataType: "json", // como lo va a mostrar, como un json
-//       success: function (response) {
-//         // si se hace todo bien, devolverá un objeto "response" que es el arreglo
-//         console.log(response[0].fields.nombres); // sacamos del json lo que necesitamos
-//         console.log(response[0].fields.apellidos);
-
-//         // poner en la tabla
-//       },
-//       error: function (error) {
-//         console.log(error);
-//       },
-//     });
+//     
 
 //     // ignorar
 //     return false;
 //     console.log("holi");
 //   });
 // });
+
+$('.editarBTN').click(function(e){
+    e.preventDefault();
+    var estudianteLista = [];
+    var identificacion = $(this).attr('id');
+    estudianteLista.push(identificacion);
+    $.ajax({
+      url: "/editarEstudiante", // a que vista va a pedir los datos
+      type: "POST", // con que método se pediran
+      data: {
+        lista_estudiante : estudianteLista, 
+      }, // lo que le asignamos es el nombre que acaba de dar el usuario en el input
+      success: function (response) {
+        
+      },
+      error: function (error) {
+        console.log(error);
+      },
+  });
+});
+
+// Abrir modal creacion
+function abrirModal(url){
+  jQuery.noConflict();         // hace que ignore cuando hay varias instancias de JQuery
+//    $('#miModal').modal('show');
+//      var url = $(this).data("#formCrearCurso");
+   $('#creacion').load(url, function(){
+       $(this).modal({
+           backdrop: 'static', // evita cerrar la ventana dando click fuera de ella.
+           keyboard: false     // evita cerrarla con esc.
+   
+       })
+       $(this).modal('show');  // mostrar el modal
+   });
+
+   //return false;  
+}
+
+function cerrarModal() {
+  $('#creacion').modal('hide');
+  $('#edicion').modal('hide');
+  return false;
+}
