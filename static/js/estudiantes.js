@@ -25,23 +25,36 @@ $('.eliminarBTN').click(function(e){
   var identificacion = $('.eliminarBTN').attr('id');
   estudiante.push(identificacion);
   console.log(estudiante);
-  $.ajax({
-    method: 'POST',
-    url: '/eliminarEstudiante',  // la url a la cual irá la peticion
-    data: {
-            estudiante: estudiante,   // parametros que se le mandaran a la vista
-    },
-    success:function(response){
-         if(response = "eliminado"){
-           swal("¡Fantástico!" , "Se ha eliminado con exito el estudiante" , "success");
-           $('.pagina').load('/estudiantes');
-         }
-    },
-    error:function(response){
-         swal("Ocurrió un error inesperado :(" , "error");
+  
+  swal({
+    title: "¿Estas seguro de querer eliminar este usuario?",
+    text: "Cuidado, Se eliminará el usuario permanentemente",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+  })
+  .then((confirmar) => {
+    if (confirmar) {    // si el director le da a confirmar
+      $.ajax({
+        method: 'POST',
+        url: '/eliminarEstudiante',  // la url a la cual irá la peticion
+        data: {
+                estudiante: estudiante,   // parametros que se le mandaran a la vista
+        },
+        success:function(response){
+             if(response = "eliminado"){
+               swal("¡Fantástico!" , "Se ha eliminado con exito el estudiante" , "success");
+               $('.pagina').load('/estudiantes');
+             }
+        },
+        error:function(response){
+             swal("Ocurrió un error inesperado :(" , "error");
+        }
+      });
+    } else {    // SI CANCELA EL MODAL 
+      swal("¡Puedes seguir revisando, no se realizó ninguna acción!");
     }
   });
-
 
 });
 
