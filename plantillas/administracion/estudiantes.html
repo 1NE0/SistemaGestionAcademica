@@ -48,7 +48,7 @@
                 <td>{{estudiante.identificacion}}</td>
                 <td>
                   <button class="btn btn-info eliminarBTN" id="{{estudiante.identificacion}}"><i class="fas fa-minus-circle" style="color: white;"></i></button>
-                  <button class="btn btn-info editarBTN" onclick="abrirModal('{% url 'editarEstudiante' %}')" id="{{estudiante.identificacion}}"><i class="fas fa-edit" style="color: white;" ></i></button>
+                  <button class="btn btn-info editarBTN" id="{{estudiante.identificacion}}"><i class="fas fa-edit" style="color: white;" ></i></button>
                 </td>
               </tr>
               {% endfor %}

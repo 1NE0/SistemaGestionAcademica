@@ -587,15 +587,30 @@ def aceptarUsuario(request):
 @csrf_exempt
 def editarEstudiante(request):
 
-    listaEstudiante = request.POST.getlist('lista_estudiante[]')
-    estudiante = None
-    for estudianteIdentificacion in listaEstudiante:
-        estudiante = models.Estudiantes.objects.get(identificacion=estudianteIdentificacion)
-        
-        print("entreeee")
-    #print(estudiante.nombres)
-    return render(request, "editarEstudiante.html", {'estudiante' : estudiante})
+    if request.method == 'POST':
+        print("estoy en POST")
+        identificacion = request.POST.get('estudiante')
+        print(identificacion)
+        estudianteActual = models.Estudiantes.objects.get(identificacion=identificacion)
+        return render(request, "editarEstudiante.html", {'estudiante' : estudianteActual})
+    return render(request,"editarEstudiante.html")
 
+
+def modalEditarEstudiante(request):
+    print(request.POST.get('identificacion'))
+
+    estudianteModificado = models.Estudiantes.objects.get(identificacion=request.POST.get('identificacion'))
+
+    estudianteModificado.nombres = request.POST.get('nombres')
+    estudianteModificado.apellidos = request.POST.get('apellidos')
+    estudianteModificado.edad = request.POST.get('edad')
+    estudianteModificado.sexo = request.POST.get('sexo')
+    estudianteModificado.correo = request.POST.get('correo')
+    estudianteModificado.telefono = request.POST.get('telefono')
+    estudianteModificado.direccion = request.POST.get('direccion')
+
+    estudianteModificado.save();
+    return HttpResponse("correcto")
 
 
 def pagos(request):
