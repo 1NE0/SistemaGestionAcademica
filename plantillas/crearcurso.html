@@ -13,11 +13,37 @@
         
             {% csrf_token %}
             <div class="modal-body">
-                <form id="formCrearCurso" method="POST" action="{% url 'crearcurso'%}">
-                    {% csrf_token %}
+                <form method="POST" id="formCrearCurso" action="{% url 'crearcurso' %}">
+                    {% csrf_token %} 
                     <hr> <h5>Paso 1</h5> <hr>
+                    {{ form_cursito }}
 
-                    <div class="form-group">
+                    <hr> <h5>Paso 2</h5> <hr>
+                    <label for="start" class="col-form-label">Nivel</label>
+                    <select name="" id="" class="form-control">
+                        <option value="01">01</option>
+                        <option value="02">02</option>
+                        <option value="03">03</option>
+                        <option value="04">04</option>
+                        <option value="05">05</option>
+                        <option value="06">06</option>                    
+                    </select>
+                    <label for="" class="col-form-label">Descripción</label>
+                    <input class="form-control" id="message-text"></input>
+                    <label for="" class="col-form-label">Docente Encargado</label>
+                    <select class="form-control" id="" name="combo_docente"> 
+                        {% for docente in listDocente %}
+                        <option>{{ docente.nombres }}</option>
+                        {% endfor %}
+                    </select>
+                
+                    
+              
+                    <hr> <h5>Paso 3</h5> <hr>
+                    
+                   
+
+                    <!--<div class="form-group">
                     <label for="start" class="col-form-label">Código</label>
                     <input type="text">
                     <label for="start" class="col-form-label">Nombre</label>
@@ -27,7 +53,7 @@
 
                     <div class="form-group">
                     <label for="start" class="col-form-label">Nivel</label>
-                    <select name="" id="">
+                    <select name="" id="" class="form-control">
                         <option value="01">01</option>
                         <option value="02">02</option>
                         <option value="03">03</option>
@@ -36,9 +62,9 @@
                         <option value="06">06</option>                    
                     </select>
                     <label for="" class="col-form-label">Docente Encargado</label>
-                    <select name="" id="">
+                    <select class="form-control" id="" name="combo_docente"> 
                         {% for docente in listDocente %}
-                        <option>{{ docenteEncargado.nombre }} </option>
+                        <option>{{ docente.nombres }} </option>
                         {% endfor %}
                     </select>
                     <label for="" class="col-form-label">Descripción</label>
@@ -51,10 +77,10 @@
                     <label for="" class="col-form-label">Hora Final</label>
                     <input type="time" class="form-control">
                    
-            </div>
+            </div>-->
             <div class="modal-footer">
                 <button class="btn btn-danger" onclick="cerrarModal()" type="button" data-dismiss="modal">Cancelar</button>
-                <button class="btn btn-primary" type="submit">Confirmar</button>
+                <button class="btn btn-primary enviar" type="button" value="submit" onclick="registrar();">Confirmar</button>
             </div>
         </form>
     </div>

@@ -49,20 +49,24 @@ class Cursos_Form(ModelForm):
             'cod_curso' : 'Codigo',
             'nom_curso' : 'Nombre',
         }
+        widgets = {
+            'cod_curso': forms.TextInput(attrs={'class': 'form-control'}),
+            'nom_curso': forms.TextInput(attrs={'class': 'form-control'})
+        }
 
 
 class nivelCurso_form(ModelForm):
     class Meta:
         model = Nivel_Cursos
-        fields = ('nivel', 'descripcion', 'cod_Docente')
+        fields = ('nivel', 'descripcion')
         labels = {
             'nivel': 'Nivel',
             'descripcion' : 'Contenido del Curso',
-            'cod_Docente': 'Docente Encargado'
+            #'cod_Docente': 'Docente Encargado'
         }
         widgets = {
-            'nivel': forms.IntegerField(max_value= 6),
-            'descripcion': forms.TextInput(attrs={'class': 'form-control'})
+            'nivel': forms.Select(attrs={'class': 'form-control'}, choices=[('op1','1'), ('op2','2'), ('op3','3'), ('op4','4')]),
+            'descripcion': forms.Textarea(attrs={'class': 'form-control'})
         }
 
 class detalleCurso_form(ModelForm):
@@ -75,9 +79,9 @@ class detalleCurso_form(ModelForm):
             'horario_final': 'Hora Final'
         }
         widgets = {
-            'grupo': forms.IntegerField(max_value= 100),
-            'horario_inicial': forms.DateTimeInput(format=('%A:%I %p'), attrs={'class':'form-control'}),
-            'horario_final' : forms.DateTimeInput(format=('%A:%I %p'), attrs={'class':'form-control'})
+            'grupo': forms.Select(attrs={'class': 'form-control'}, choices=[('op1','01'), ('op2','02'), ('op3','03'), ('op4','04')])
+            #'horario_inicial': forms.TimeField(input_formats=[('%A:%I %p')]),
+            #'horario_final' : forms.DateTimeInput(format=('%A:%I %p'), attrs={'class':'form-control'})
         }
 
 class login_form(forms.Form):

@@ -1,26 +1,15 @@
-$(document).ready(function () {
-var botonPresionado;
-    $('.registrar').click(function () { 
-    botonPresionado = $(this).attr('name')
-    
-    })
-    $('#formCrearCurso').on("submit", function () {
+/*$(function() {
+
+    $('#formCrearCurso').submit(function (e) { 
+        e.preventDefault();
         var data = $("#formCrearCurso :input").serializeArray();
         console.log(data);
 
         $.ajax({
             type: "POST",
-            url: $(this).attr("action"),
+            url: '/crearcurso', 
             data: {
                 csrfmiddlewaretoken: data[0].value,
-                cod_curso: data[1].value,
-                nom_curso: data[2].value,
-                nivel: data[3].value, 
-                descripcion: data[4].value,
-                cod_Docente: data[5].value,
-                grupo: data[6].value, 
-                horario_inicial: data[7].value,
-                horario_final: data[8].value,
             },
             dataType: "json",
             processData: false, // evita que jQuery intente procesar algo que no puede
@@ -40,4 +29,67 @@ var botonPresionado;
              },
         });
       })
+})
+
+
+$('.enviar').on('submit', function () {
+    alert('me abrooooo todo');
+
 });
+
+$(document).on('submit', '#formCrearCurso', function (e) {
+    e.preventDefault();
+        var datitca = $("#formCrearCurso :input").serializeArray();
+    $.ajax({
+        type: "POST",
+        url: "{% url 'crearcurso' %}",
+        data: 
+            { csrfmiddlewaretoken: data[0].value },
+            
+        dataType: "dataType",
+        success: function (response) {
+            console.log('cogio el form');
+            
+        },
+        error: function (response) {
+            console.log(response)
+        },
+    });
+    
+});*/
+
+function registrar(){
+    $.ajax({
+        type: "POST",
+        url: $("#formCrearCurso").attr('action'),
+        data: $("#formCrearCurso").serialize(),
+        dataType: "string",
+        success: function (response) {
+            alert('.....');
+        }
+    });
+}
+
+$(function() {
+
+    var inputs = $("#formCrearCurso :input").val().serialize();
+    console.log(inputs);
+    
+    $.ajax({
+        type: "POST",
+        url: $("#formCrearCurso").attr('action'),
+        data: {
+            csrfmiddlewaretoken: data[0].value,
+            nivel : inputs[1].value,
+            descripcion : inputs[2].value 
+        },
+        dataType: "json",
+        success: function (response) {
+            
+        }
+    });
+
+
+
+})
+
