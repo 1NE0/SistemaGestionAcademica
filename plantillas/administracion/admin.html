@@ -26,11 +26,9 @@
 
 </div>
 <nav class="main-menu">
-        <div>
-        <a class="logo" href="">
-        </a>
+    <div >
+        <img class="img-logo" src="https://i.ibb.co/J28cPwT/icN95Am.png"></img>
     </div>
-    <div class="settings"></div>
     <div class="scrollbar" id="style-1">
 
     <ul>
@@ -41,18 +39,13 @@
             </a>
         </li>
 
-        <li>
-        <a href="/logout">
-        <i class="fa fa-user fa-lg"></i>
-        <span class="nav-text">Salir</span>
-        </a>
-        </li>
+        
 
 
         </li>
             <li class="darkerlishadow">
             <a id="btn1" href="{% url 'estudiantes' %}">
-                <i class="fa fa-clock-o fa-lg" id="btnCargar">
+                <i class="fa fa-user-graduate fa-lg" id="btnCargar">
                     <!-- aqui se clickea -->
                     <div class="container">
                         <div class="container" id="contenido"></div>
@@ -63,13 +56,13 @@
         </li>
         <li class="darkerli">
             <a id="btn7" href="{% url 'periodos'%}">
-            <i class="fa fa-align-left fa-lg"></i>
+            <i class="fa fa-boxes fa-lg"></i>
             <span class="nav-text">Periodos</span>
             </a>
         </li>
         <li class="darkerli">
             <a id="btn2" href="{% url 'programas' %}">
-            <i class="fa fa-desktop fa-lg" id= "btnCargar">
+            <i class="fa fa-book fa-lg" id= "btnCargar">
                 <div class="container">
                     <div class="container" id="contenido"></div>
                 </div>
@@ -80,7 +73,7 @@
 
         <li class="darkerli">
             <a id="btn3" href="{% url 'admisiones' %}">
-            <i class="fa fa-plane fa-lg" id="btnCargar">
+            <i class="fa fa-file-alt fa-lg" id="btnCargar">
                 <div class="container">
                     <div class="container" id="contenido"></div>
                 </div>
@@ -91,7 +84,7 @@
 
         <li class="darkerli">
             <a id="btn4" href="{% url 'cursos' %}">
-            <i class="fa fa-shopping-cart" id="btnCargar">
+            <i class="fa fa-cubes fa-lg" id="btnCargar">
                 <div class="container">
                     <div class="container" id="contenido"></div>
                 </div>
@@ -102,7 +95,7 @@
 
         <li class="darkerli">
             <a id="btn5" href="{% url 'asignaturas' %}">
-            <i class="fa fa-microphone fa-lg" id="btnCargar">
+            <i class="fa fa-book-open fa-lg" id="btnCargar">
                 <div class="container">
                     <div class="container" id="contenido"></div>
                 </div>
@@ -113,7 +106,7 @@
 
         <li class="darkerli">
             <a id="btn6" href="{% url 'docentes' %}">
-            <i class="fa fa-flask fa-lg" id="btnCargar">
+            <i class="fa fa-chalkboard-teacher fa-lg" id="btnCargar">
                 <div class="container">
                     <div class="container" id="contenido"></div>
                 </div>
@@ -121,10 +114,9 @@
             <span class="nav-text">Docentes</span>
             </a>
         </li>
-
         <li class="darkerli">
             <a  id="btn8" href="{% url 'pagos' %}">
-            <i class="fa fa-picture-o fa-lg" id="btnCargar">
+            <i class="fa fa-money-bill-wave-alt fa-lg" id="btnCargar">
                 <div class="container"> 
                     <div class="container" id="contenedor"></div>
                 </div>
@@ -167,17 +159,12 @@
         </li>
 
 
-    <ul class="logout">
         <li>
-            <a href="m">
-            <i class="fa fa-lightbulb-o fa-lg"></i>
-            <span class="nav-text">
-            BLOG
-            </span>
-
-             </a>
+            <a href="/logout">
+            <i class="fa fa-user fa-lg"></i>
+            <span class="nav-text">Salir</span>
+            </a>
         </li>
-    </ul>
 </nav>
 
     <div id="contenedor-central" class="contenedor-central loader">
