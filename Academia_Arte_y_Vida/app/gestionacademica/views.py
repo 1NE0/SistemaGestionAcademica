@@ -248,9 +248,12 @@ def CrearCurso(request):
             print("preparando nivel...")
             selectDocente = models.Docentes.objects.get(nombres=request.POST.get('combo_docente'))
 
+            
             nivelcito = request.POST.get('nivel')
             descripcion_curso = request.POST.get('descripcion')
-            level = models.Nivel_Cursos(nivel = nivelcito, descripcion = descripcion_curso)
+            level = models.Nivel_Cursos(Id = "555", nivel = nivelcito, descripcion = descripcion_curso)
+
+            print("biem")
             level.cod_Docente = selectDocente
             level.cod_Curso = cursito
             level.save()

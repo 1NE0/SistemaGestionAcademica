@@ -71,8 +71,13 @@ function registrar(){
 }
 
 $(function() {
+var buttonpressed;  // crear esta variable para guardar el nombre del boton que se presionó
+   $('.enviar').click(function() {  // 
+         buttonpressed = $(this).attr('name')
+   })
 
-    var inputs = $("#formCrearCurso :input").val().serialize();
+    creandoCurso = this.registrar();
+    var inputs = $("#formCrearCurso :input").val().serialize() + this.creandoCurso
     console.log(inputs);
     
     $.ajax({
@@ -81,15 +86,14 @@ $(function() {
         data: {
             csrfmiddlewaretoken: data[0].value,
             nivel : inputs[1].value,
-            descripcion : inputs[2].value 
+            descripcion : inputs[2].value,
         },
         dataType: "json",
         success: function (response) {
-            
+            console.log("vamo bien")
         }
     });
 
-
-
 })
+
 
