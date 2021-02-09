@@ -72,4 +72,5 @@ urlpatterns = [
     url(r'^programasEstudiante$', programasEstudiante, name="programasEstudiante"),
     url(r'^cursosEstudiante$', cursosEstudiante, name="cursosEstudiante"),
     url(r'^modificarEstudiante$', modalEditarEstudiante, name="modificarEstudiante"),
+    url(r'^eliminarEstudiante$', eliminarEstudiante, name="eliminarEstudiante"),
 ]

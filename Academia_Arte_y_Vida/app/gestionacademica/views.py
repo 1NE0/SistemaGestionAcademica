@@ -612,6 +612,12 @@ def modalEditarEstudiante(request):
     estudianteModificado.save();
     return HttpResponse("correcto")
 
+@csrf_exempt
+def eliminarEstudiante(request):
+    identificacion = request.POST.get('estudiante[]')
+    estudiante = models.Estudiantes.objects.get(identificacion=identificacion)
+    estudiante.delete()
+    return HttpResponse("eliminado");
 
 def pagos(request):
     return render(request,"pagos.html")

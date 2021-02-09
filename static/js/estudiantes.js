@@ -19,6 +19,32 @@ $('.editarBTN').click(function(e){
     abrirModal('/editarEstudiante' , identificacion + "");
 });
 
+$('.eliminarBTN').click(function(e){
+  e.preventDefault();
+  var estudiante = [];
+  var identificacion = $('.eliminarBTN').attr('id');
+  estudiante.push(identificacion);
+  console.log(estudiante);
+  $.ajax({
+    method: 'POST',
+    url: '/eliminarEstudiante',  // la url a la cual irá la peticion
+    data: {
+            estudiante: estudiante,   // parametros que se le mandaran a la vista
+    },
+    success:function(response){
+         if(response = "eliminado"){
+           swal("¡Fantástico!" , "Se ha eliminado con exito el estudiante" , "success");
+           $('.pagina').load('/estudiantes');
+         }
+    },
+    error:function(response){
+         swal("Ocurrió un error inesperado :(" , "error");
+    }
+  });
+
+
+});
+
 // Abrir modal creacion
 function abrirModal(url , identificacion){
   jQuery.noConflict();         // hace que ignore cuando hay varias instancias de JQuery
