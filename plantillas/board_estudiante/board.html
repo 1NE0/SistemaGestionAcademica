@@ -45,7 +45,7 @@
 
         <li>
             <li class="darkerlishadow">
-            <a id="btn1" href="{% url 'estudiantes' %}">
+            <a id="btn1" href="">
                 <i class="fa fa-clock-o fa-lg" id="btnCargar">
                     <!-- aqui se clickea -->
                     <div class="container">
@@ -57,7 +57,7 @@
         </li>
 
         <li class="darkerli">
-            <a href="">
+            <a id="btn2" href="{% url 'programasEstudiante' %}">
             <i class="fa fa-desktop fa-lg"></i>
             <span class="nav-text">Programas</span>
             </a>
@@ -71,7 +71,7 @@
         </li>
 
         <li class="darkerli">
-            <a href="">
+            <a id="btn4" href="{% url 'cursosEstudiante' %}">
             <i class="fa fa-shopping-cart"></i>
             <span class="nav-text">Cursos</span>
             </a>
@@ -158,5 +158,5 @@
     </div>
 
 </body>
-        <script src="{% static 'js/admin.js' %}"></script>
+        <script src="{% static 'js/board.js' %}"></script>
 </html>

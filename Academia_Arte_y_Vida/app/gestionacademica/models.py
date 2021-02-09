@@ -68,8 +68,8 @@ class inscripcionPrograma(models.Model):
     Id = models.IntegerField(primary_key=True,default=0,null=False,blank=False)
 
     # relaciones
-    cod_programa = models.ForeignKey(Programas,null=False,blank=False, on_delete= models.CASCADE)
-    cod_periodo = models.ForeignKey(periodo,null=False,blank=False, on_delete= models.CASCADE, default="999")
+    programa = models.ForeignKey(Programas,null=False,blank=False, on_delete= models.CASCADE)
+    periodo = models.ForeignKey(periodo,null=False,blank=False, on_delete= models.CASCADE, default="999")
     
 
 class InscripcionEstudiante(models.Model):
