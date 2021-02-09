@@ -67,4 +67,10 @@ urlpatterns = [
     url(r'^efectuarReferencia$',activarReferenciaDePago, name="referenciaPago"),
     url(r'^aceptarUsuario$', aceptarUsuario, name="aceptarUsuario"),
     url(r'^asignarProgramas$', asignarProgramas, name="asignarProgramas"),
+    url(r'^editarEstudiante$', editarEstudiante, name="editarEstudiante"),
+    url(r'^pagos$', pagos, name="pagos"),
+    url(r'^programasEstudiante$', programasEstudiante, name="programasEstudiante"),
+    url(r'^cursosEstudiante$', cursosEstudiante, name="cursosEstudiante"),
+    url(r'^modificarEstudiante$', modalEditarEstudiante, name="modificarEstudiante"),
+    url(r'^eliminarEstudiante$', eliminarEstudiante, name="eliminarEstudiante"),
 ]

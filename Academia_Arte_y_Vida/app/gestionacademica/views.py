@@ -634,8 +634,10 @@ def aceptarUsuario(request):
         # obtener el programa al que se quiere inscribir el estudiante en el periodo actual
         
         try:
-            programaAinscribirse = models.inscripcionPrograma.objects.get(cod_programa=programa.cod_programa,cod_periodo=models.periodo.periodo_actual().codigo)
+            programaAinscribirse = models.inscripcionPrograma.objects.get(programa=programa.cod_programa,periodo=models.periodo.periodo_actual().codigo)
             # guardar el estudiante y borrar el usuario
+            group = Group.objects.get(name='estudiantes')
+            estudiante.user.groups.add(group)
             estudiante.save()
             usuario.delete()
             # crear la inscripcion estudiante con la informacion dada
@@ -647,3 +649,54 @@ def aceptarUsuario(request):
 
         return HttpResponse("correcto")
 
+
+@csrf_exempt
+def editarEstudiante(request):
+
+    if request.method == 'POST':
+        print("estoy en POST")
+        identificacion = request.POST.get('estudiante')
+        print(identificacion)
+        estudianteActual = models.Estudiantes.objects.get(identificacion=identificacion)
+        return render(request, "editarEstudiante.html", {'estudiante' : estudianteActual})
+    return render(request,"editarEstudiante.html")
+
+
+def modalEditarEstudiante(request):
+    print(request.POST.get('identificacion'))
+
+    estudianteModificado = models.Estudiantes.objects.get(identificacion=request.POST.get('identificacion'))
+
+    estudianteModificado.nombres = request.POST.get('nombres')
+    estudianteModificado.apellidos = request.POST.get('apellidos')
+    estudianteModificado.edad = request.POST.get('edad')
+    estudianteModificado.sexo = request.POST.get('sexo')
+    estudianteModificado.correo = request.POST.get('correo')
+    estudianteModificado.telefono = request.POST.get('telefono')
+    estudianteModificado.direccion = request.POST.get('direccion')
+
+    estudianteModificado.save();
+    return HttpResponse("correcto")
+
+@csrf_exempt
+def eliminarEstudiante(request):
+    identificacion = request.POST.get('estudiante[]')
+    estudiante = models.Estudiantes.objects.get(identificacion=identificacion)
+    estudiante.delete()
+    return HttpResponse("eliminado");
+
+def pagos(request):
+    return render(request,"pagos.html")
+
+
+
+
+
+
+#    BOARD DEL ESTUDIANTE
+
+def programasEstudiante(request):
+    return render(request, "board_estudiante/programasEstudiante.html")
+
+def cursosEstudiante(request):
+    return render(request,"board_estudiante/cursosEstudiante.html")

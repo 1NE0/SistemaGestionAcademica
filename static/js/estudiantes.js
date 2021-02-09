@@ -12,32 +12,76 @@ $(document).ready(function () {
   });                     
 });
 
-// $(document).ready(function () {
-//   $("#botoncito").on("click", function (e) {
-//     // cuando se haga click en el boton con ID "botoncito"
-//     e.preventDefault(); // no recargue la pagina
-//     nombre_input = $("#input_nombre").val(); // obtener el valor que se ingreso en el input con ID "input_nombre"
-//     $.ajax({
-//       url: "/buscarestudiante/", // a que vista va a pedir los datos
-//       type: "GET", // con que método se pediran
-//       data: {
-//         nombre: nombre_input, //el valor define lo que se va a colocar en la URL ejemplo : /buscarestudiante/?nombre=
-//       }, // lo que le asignamos es el nombre que acaba de dar el usuario en el input
-//       dataType: "json", // como lo va a mostrar, como un json
-//       success: function (response) {
-//         // si se hace todo bien, devolverá un objeto "response" que es el arreglo
-//         console.log(response[0].fields.nombres); // sacamos del json lo que necesitamos
-//         console.log(response[0].fields.apellidos);
 
-//         // poner en la tabla
-//       },
-//       error: function (error) {
-//         console.log(error);
-//       },
-//     });
+$('.editarBTN').click(function(e){
+    e.preventDefault();
+    var identificacion = $(this).attr('id');
+    abrirModal('/editarEstudiante' , identificacion + "");
+});
 
-//     // ignorar
-//     return false;
-//     console.log("holi");
-//   });
-// });
+$('.eliminarBTN').click(function(e){
+  e.preventDefault();
+  var estudiante = [];
+  var identificacion = $('.eliminarBTN').attr('id');
+  estudiante.push(identificacion);
+  console.log(estudiante);
+  
+  swal({
+    title: "¿Estas seguro de querer eliminar este usuario?",
+    text: "Cuidado, Se eliminará el usuario permanentemente",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+  })
+  .then((confirmar) => {
+    if (confirmar) {    // si el director le da a confirmar
+      $.ajax({
+        method: 'POST',
+        url: '/eliminarEstudiante',  // la url a la cual irá la peticion
+        data: {
+                estudiante: estudiante,   // parametros que se le mandaran a la vista
+        },
+        success:function(response){
+             if(response = "eliminado"){
+               swal("¡Fantástico!" , "Se ha eliminado con exito el estudiante" , "success");
+               $('.pagina').load('/estudiantes');
+             }
+        },
+        error:function(response){
+             swal("Ocurrió un error inesperado :(" , "error");
+        }
+      });
+    } else {    // SI CANCELA EL MODAL 
+      swal("¡Puedes seguir revisando, no se realizó ninguna acción!");
+    }
+  });
+
+});
+
+// Abrir modal creacion
+function abrirModal(url , identificacion){
+  jQuery.noConflict();         // hace que ignore cuando hay varias instancias de JQuery
+  arreglo = {'estudiante' : identificacion}; // guardar la identificacion en un arreglo
+//    $('#miModal').modal('show');
+//      var url = $(this).data("#formCrearCurso");
+    $('#creacion').load(url,arreglo, function(){ // cargar el html en el modal con el parametro
+      $(this).modal({
+          backdrop: 'static', // evita cerrar la ventana dando click fuera de ella.
+          keyboard: false     // evita cerrarla con esc.
+
+      })
+      $(this).modal('show');  // mostrar el modal
+    });
+
+    
+   
+   //return false;  
+}
+
+function cerrarModal() {
+  $('#creacion').modal('hide');
+  $('#edicion').modal('hide');
+
+  $('.pagina').load('/estudiantes');
+  return false;
+}
