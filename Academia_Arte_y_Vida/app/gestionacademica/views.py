@@ -568,8 +568,10 @@ def aceptarUsuario(request):
         # obtener el programa al que se quiere inscribir el estudiante en el periodo actual
         
         try:
-            programaAinscribirse = models.inscripcionPrograma.objects.get(cod_programa=programa.cod_programa,cod_periodo=models.periodo.periodo_actual().codigo)
+            programaAinscribirse = models.inscripcionPrograma.objects.get(programa=programa.cod_programa,periodo=models.periodo.periodo_actual().codigo)
             # guardar el estudiante y borrar el usuario
+            group = Group.objects.get(name='estudiantes')
+            estudiante.user.groups.add(group)
             estudiante.save()
             usuario.delete()
             # crear la inscripcion estudiante con la informacion dada
@@ -593,4 +595,21 @@ def editarEstudiante(request):
         print("entreeee")
     #print(estudiante.nombres)
     return render(request, "editarEstudiante.html", {'estudiante' : estudiante})
-    
+
+
+
+def pagos(request):
+    return render(request,"pagos.html")
+
+
+
+
+
+
+#    BOARD DEL ESTUDIANTE
+
+def programasEstudiante(request):
+    return render(request, "board_estudiante/programasEstudiante.html")
+
+def cursosEstudiante(request):
+    return render(request,"board_estudiante/cursosEstudiante.html")
