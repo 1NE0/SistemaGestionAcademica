@@ -28,6 +28,7 @@ body
 }
 
 
+
 .settings {
   
   height:73px; 
@@ -121,11 +122,34 @@ font-size:20px;
 }
 
 .main-menu:hover, nav.main-menu.expanded {
-    width:200px;
+    width:250px;
     overflow:hidden;
     opacity:1;
     z-index: 100!important;
 }
+
+.img-logo{
+    height: 60px;
+    width: 60px;
+    margin-bottom: 100px;
+    text-align: center;
+    -webkit-transition: background-color 2s ease-out;
+    -moz-transition: background-color 2s ease-out;
+    -o-transition: background-color 2s ease-out;
+    transition: background-color 2s ease-out;
+}
+
+.main-menu:hover .img-logo{
+    height: 250px;
+    width: 250px;
+
+    margin-bottom: 5px;
+    -webkit-transition: background-color 2s ease-out;
+    -moz-transition: background-color 2s ease-out;
+    -o-transition: background-color 2s ease-out;
+    transition: background-color 2s ease-out;
+}
+
 
 .main-menu>ul {
 margin:7px 0;
@@ -211,6 +235,8 @@ margin:7px 0;
     overflow:visible;
   
 }
+
+
 
 
 /* Logo Hover Property */
