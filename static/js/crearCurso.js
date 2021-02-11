@@ -90,7 +90,7 @@ var buttonpressed;  // crear esta variable para guardar el nombre del boton que 
         },
         dataType: "json",
         success: function (response) {
-            console.log("vamo bien")
+            console.log(response)
         }
     });
 
