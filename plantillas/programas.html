@@ -7,29 +7,5 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     
     <div class="programas">
-      <div class="example-parent">
-        <h2>CURSOS SIN ASIGNAR A PERIODOS</h2>
-        <div class="example-origin" ondragover="onDragOver(event);" ondrop="onDrop(event);">
-          {% for programa in programasSinMatricular %}
-          <div id="{{programa.cod_programa}}"class="example-draggable" draggable="true" ondragstart="onDragStart(event);">
-            <h2 style="margin-right: 20px;">{{programa.nom_programa}}</h2>
-          </div>
-          {% endfor %}
-        </div>
-        
-        <div class="contenedor-periodos">
-          <div class="titulo-periodo"><h2>PERIODO</h2></div>
-          <div class="example-dropzone" ondragover="onDragOver(event);" ondrop="onDrop(event);">
-              <!-- aqui se llenara con los programas a agregar-->
-              {% for programa in programasMatriculados %}
-                <div id="{{programa.cod_programa}}"class="example-draggable" draggable="true" ondragstart="onDragStart(event);">
-                  <h2 style="margin-right: 20px;">{{programa.nom_programa}}</h2>
-                </div>
-              {% endfor %}
-          </div>
-          <a class="btn btn-light botoncito" href="{% url 'asignarProgramas' %}"> Registrar</a>
-        </div>
-        
-
-      </div>
+      <h1>Programas</h1>
     </div>

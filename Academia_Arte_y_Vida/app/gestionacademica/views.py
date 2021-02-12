@@ -40,8 +40,18 @@ def periodo(request):
     periodos = models.periodo.objects.all()
     periodoActual = models.periodo.periodo_actual()
 
+    #programas
+    programasLista = models.Programas.objects.all()
+    programasMatriculados = []  #guardaremos los programas que ya estan matriculados
+    programasSinMatricular = []
+    for programa in programasLista:
+        try:
+            inscripcion = models.inscripcionPrograma.objects.get(programa=programa,periodo=models.periodo.periodo_actual())
+            programasMatriculados.append(programa)
+        except models.inscripcionPrograma.DoesNotExist:
+            programasSinMatricular.append(programa)
 
-    return render(request,"administracion/periodo.html" , {'periodos' : periodos , 'programas' : programas , 'periodoActual' : periodoActual})
+    return render(request,"administracion/periodo.html" , {'periodos' : periodos , 'programas' : programas , 'periodoActual' : periodoActual , 'programasMatriculados' : programasMatriculados , 'programasSinMatricular' : programasSinMatricular})
 
 def asignaturas(request):
     asignaturasLista = Asignaturas.objects.all()

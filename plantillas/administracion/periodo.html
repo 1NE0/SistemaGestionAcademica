@@ -14,14 +14,36 @@
     <div class="seccion2">
 
         <div class="titulo">
-            <h2>PERIODOS</h2>
-        </div>
-
-        <div class="tabla-fondo">
-            <h2>Periodo actual:</h2>
-            {{periodoActual.Fecha_inicio}} - {{periodoActual.Fecha_final}}
+            <h2>PROGRAMAS POR ASIGNAR A UN PERIODO</h2>
         </div>
     </div>
+            <div class="programas">
+                <div class="example-parent">
+                  <div class="example-origin" ondragover="onDragOver(event);" ondrop="onDrop(event);">
+                    {% for programa in programasSinMatricular %}
+                    <div id="{{programa.cod_programa}}"class="example-draggable" draggable="true" ondragstart="onDragStart(event);">
+                      <h2 style="margin-right: 20px;">{{programa.nom_programa}}</h2>
+                    </div>
+                    {% endfor %}
+                  </div>
+                  
+                  <div class="contenedor-periodos">
+                    <div class="titulo-periodo"><h2>PERIODO ACTUAL : {{periodoActual.Fecha_inicio}} - {{periodoActual.Fecha_final}}</h2></div>
+                    <div class="example-dropzone" ondragover="onDragOver(event);" ondrop="onDrop(event);">
+                        <!-- aqui se llenara con los programas a agregar-->
+                        {% for programa in programasMatriculados %}
+                          <div id="{{programa.cod_programa}}"class="example-draggable" draggable="true" ondragstart="onDragStart(event);">
+                            <h2 style="margin-right: 20px;">{{programa.nom_programa}}</h2>
+                          </div>
+                        {% endfor %}
+                    </div>
+                    <a class="btn btn-light botoncito" href="{% url 'asignarProgramas' %}"> Registrar</a>
+                  </div>
+                  
+          
+                </div>
+        </div>
+    
     <div class="modal fade" id="creacion" role="dialog"></div>
 </div>
 
