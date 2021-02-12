@@ -4,7 +4,7 @@ $(document).ready(function () {  // cuando el documento esté listo
   GenerarColores();
 });
 
-function GenerarColores(){
+function GenerarColores(){  // YA NO SE USA, PUEDE SERVIR PARA OTRA COSA
   $.each($('.programa'),function(i,v){
     var color = '#'+(Math.random()*0xFFFFFF<<0).toString(16);
     $(v).css('background-color',color);
@@ -39,10 +39,16 @@ function cerrarModal() {
 }
 
 
-function onDragStart(event) {
+
+
+
+// AQUI ESTA LA LOGICA PARA EL DROG AND DROP
+
+
+function onDragStart(event) {   // CUANDO SE COMIENZA A ARRASTRAR
   event
     .dataTransfer
-    .setData('text/plain', event.target.id);
+    .setData('text/plain', event.target.id);   // AQUI POR LO QUE ENTIENDO SE ROTA EL ID DEL OBJETO DE DONDE SE ARRASTRA
 
   // cuando se empice a arrastrar el elemento
   // event
@@ -51,17 +57,17 @@ function onDragStart(event) {
   // .backgroundColor = 'black';
 }
 
-function onDragOver(event) {
+function onDragOver(event) {   // MIENTRAS SE ARRASTRA, PREVENIR QUE SE RECARGUE LA PAGINA
   event.preventDefault();
 }
 
-function onDrop(event) {
-  const id = event
+function onDrop(event) {   // CUANDO SE SUELTE
+  const id = event // EL OBJETO QUE REALIZA LA OPCION
     .dataTransfer
-    .getData('text');
+    .getData('text');   
   
-  const draggableElement = document.getElementById(id);
-  const dropzone = event.target; // el evento se genera en el dropzone
+  const draggableElement = document.getElementById(id);  // LO BUSCAMOS EN EL DOCUMENTO
+  const dropzone = event.target; // EL TARGET HACE REFERENCIA A DONDE VA A SOLTAR EL ELEMENTO, OSEA EL DROPZONE = PANEL DESTINO
   dropzone.appendChild(draggableElement); // agregarle el elemento que estamos arrastrando
 
   event  // borrar la transferencia

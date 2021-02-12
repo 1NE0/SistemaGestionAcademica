@@ -18,8 +18,11 @@
         </div>
     </div>
             <div class="programas">
-                <div class="example-parent">
-                  <div class="example-origin" ondragover="onDragOver(event);" ondrop="onDrop(event);">
+                <div class="example-parent">   <!-- el area general -->
+
+                  <div class="example-origin" ondragover="onDragOver(event);" ondrop="onDrop(event);"> <!-- el panel de origen -->
+
+                    <!-- aqui dentro se pueden objetos de clase example-draggable que son los programas -->
                     {% for programa in programasSinMatricular %}
                     <div id="{{programa.cod_programa}}"class="example-draggable" draggable="true" ondragstart="onDragStart(event);">
                       <h2 style="margin-right: 20px;">{{programa.nom_programa}}</h2>
@@ -27,8 +30,10 @@
                     {% endfor %}
                   </div>
                   
-                  <div class="contenedor-periodos">
+
+                  <div class="contenedor-periodos"> <!--  un panel que cree -->
                     <div class="titulo-periodo"><h2>PERIODO ACTUAL : {{periodoActual.Fecha_inicio}} - {{periodoActual.Fecha_final}}</h2></div>
+                    <!-- este que sigue, es el destino de los objetos arrastrables -->
                     <div class="example-dropzone" ondragover="onDragOver(event);" ondrop="onDrop(event);">
                         <!-- aqui se llenara con los programas a agregar-->
                         {% for programa in programasMatriculados %}
