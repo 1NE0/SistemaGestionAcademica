@@ -30,10 +30,15 @@ $(".botoncito").click(function(e){
                 },
                 success:function(response){
                      //     SINO SALE NINGUN ERROR
-                     swal("¡se realizó con exito la acción!", {
+                     if(response == "Incorrecto"){
+                      swal("Ha ocurrido un error :(" , "El programa al que se quiere registrar el estudiante, no está disponible en este periodo" , "error");
+                     }else{
+                      swal("¡se realizó con exito la acción!", {
                         icon: "success",
                       });
                       $('#' + codigoUsuario).remove();  // remover el div que tiene la informacion del usuario a inscribirse 
+                     }
+                     
                 },
                 error:function(response){
                      swal("Ocurrió un error inesperado :(" , "error");

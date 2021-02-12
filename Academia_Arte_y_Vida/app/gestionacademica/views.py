@@ -9,6 +9,7 @@ from django.contrib.auth.hashers import check_password
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import Group, User
 from django.contrib.auth import authenticate, login, logout
+from django.utils import tree
 from Academia_Arte_y_Vida.app.gestionacademica.forms import *
 from django.contrib.auth.decorators import login_required
 from Academia_Arte_y_Vida.app.gestionacademica.models import *
@@ -154,12 +155,25 @@ def Programas(request):
     return render(request, "programas.html", {'programasMatriculados': programasMatriculados , 'programasSinMatricular' : programasSinMatricular})
 
 
+
 import random
 @csrf_exempt
-def asignarProgramas(request):
+def asignarProgramas(request):  #asignar programas a periodos
     listaProgramas = request.POST.getlist('listaProgramas[]') #lista de programas enviados desde ajax
+    inscripcionesRegistradas = models.inscripcionPrograma.objects.filter(periodo=models.periodo.periodo_actual())
     modo = "Guardado"
+    if inscripcionesRegistradas.exists:
+        for inscripcionRegistrada in inscripcionesRegistradas:
+            estaContenido = False
+            for programa in listaProgramas:
+                if programa == inscripcionRegistrada.programa.nom_programa:
+                    estaContenido = True
+            if estaContenido == False:
+                print("Elimine la inscripcion")
+                modo = "actualizado"
+                inscripcionRegistrada.delete()
 
+    
     for programa in listaProgramas:  #lo recorremos
         programaModel = models.Programas.objects.get(cod_programa=programa)
         #verificar si ya se encuentra registrado
@@ -168,9 +182,11 @@ def asignarProgramas(request):
             #si no sale error quiere decir que ya hay un programa matriculado
             modo = "actualizado"
         except:
-            #sino guarda la inscripcion
+            #sino esta registrada, guarda la inscripcion
+            
             inscripcion = models.inscripcionPrograma.objects.create(programa=programaModel,Id=random.randrange(1000000),periodo=models.periodo.periodo_actual())
             inscripcion.save()
+    
 
     return HttpResponse(modo)
 
@@ -331,7 +347,7 @@ def lista_curso(request):
         data =  serializers.serialize('json', cursos)
         print(type(data))
         return HttpResponse(data, 'application/json') #content_type=True)
-    return HttpResponse(data)
+    return HttpResponse("valido")
 
 @login_required(login_url='/login')
 def Editar_curso(request, cod_curso):
@@ -408,7 +424,7 @@ def buscarEstudiante(request):
         print(data)
         # return HttpResponse(data)
         return  HttpResponse(data, 'application/json')
-    return HttpResponse(data)
+    return HttpResponse("activo")
 
 #logica pagos#####################################################################################
 
@@ -529,27 +545,8 @@ def crearInscripcion(request):
 
 
 @login_required(login_url='/login')
-def primerpago(request):
+def primerpago(request):       # no se està utilizando
     usuario = models.usuario.objects.get(user=request.user.id)
-    programa = models.Programas.objects.get(nom_programa=usuario.nom_programa)
-
-    if request.POST:
-        email = usuario.correo
-
-        # stripe
-        intento = stripe.PaymentIntent.create(
-        amount=17*100,
-        currency='usd',
-        payment_method_types=['card'],
-        receipt_email='seas19754@gmail.com',
-        )
-        stripe.PaymentIntent.confirm(
-            intento["id"],
-            payment_method='pm_card_visa',
-
-        )
-
-        redirect('index')
     return render(request,"primer_pago/primer_pago.html",{'usuario':usuario})
 
 
@@ -664,13 +661,14 @@ def aceptarUsuario(request):
             inscripcion.save()
         except models.inscripcionPrograma.DoesNotExist:
             print("El programa al que se quiere registrar el estudiante, no está disponible en este periodo")
+            return HttpResponse("Incorrecto")
 
 
         return HttpResponse("correcto")
 
 
 @csrf_exempt
-def editarEstudiante(request):
+def editarEstudiante(request):   #abrir el modal
 
     if request.method == 'POST':
         print("estoy en POST")
@@ -681,7 +679,7 @@ def editarEstudiante(request):
     return render(request,"editarEstudiante.html")
 
 
-def modalEditarEstudiante(request):
+def modalEditarEstudiante(request):    # logica de editar el estudiante
     print(request.POST.get('identificacion'))
 
     estudianteModificado = models.Estudiantes.objects.get(identificacion=request.POST.get('identificacion'))
@@ -706,11 +704,6 @@ def eliminarEstudiante(request):
 
 def pagos(request):
     return render(request,"pagos.html")
-
-
-
-
-
 
 #    BOARD DEL ESTUDIANTE
 
