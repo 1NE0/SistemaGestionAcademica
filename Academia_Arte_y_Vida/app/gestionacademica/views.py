@@ -38,8 +38,10 @@ def periodo(request):
     csrfContext = RequestContext(request).flatten()
     programas = models.Programas.objects.all()
     periodos = models.periodo.objects.all()
-    
-    return render(request,"administracion/periodo.html" , {'periodos' : periodos , 'programas' : programas })
+    periodoActual = models.periodo.periodo_actual()
+
+
+    return render(request,"administracion/periodo.html" , {'periodos' : periodos , 'programas' : programas , 'periodoActual' : periodoActual})
 
 def asignaturas(request):
     asignaturasLista = Asignaturas.objects.all()
@@ -549,11 +551,18 @@ def crearPeriodo (request):
 
 
     if request.method == 'POST':   # SI ES UN POST, QUIERE DECIR QUE LE DIERON A ENVIAR FORMULARIO
+        codigo = random.randrange(1000000)
+
+        try:
+            periodoVerificar = models.periodo.objects.get(codigo=codigo)
+        except models.periodo.DoesNotExist:
+            codigo += 1
+        
         Fecha_ini = request.POST.get('Fecha_inicio')
         Fecha_fin = request.POST.get('Fecha_final')
 
         # GUARDÉ LA LISTA DE PERIODOS, QUE TENGAN LA MISMA FECHA
-        buscarPeriodo = models.periodo.objects.filter(Fecha_inicio=Fecha_ini,Fecha_final=Fecha_fin)
+        buscarPeriodo = models.periodo.objects.filter(codigo=codigo,Fecha_inicio=Fecha_ini,Fecha_final=Fecha_fin)
         print(buscarPeriodo.exists())
         if buscarPeriodo.exists(): # SI LA LISTA NO ESTÁ VACIA QUIERE DECIR QUE HAY PERIODOS YA REGISTRADOS CON ESTAS FECHAS
             #ya hay un periodo registrado

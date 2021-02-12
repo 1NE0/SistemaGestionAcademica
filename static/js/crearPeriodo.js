@@ -31,10 +31,8 @@ var buttonpressed;  // crear esta variable para guardar el nombre del boton que 
                 }else if(response['registrado'] == "true"){    // SI EL JSON, NO ES UN ERROR, ENTONCES ES QUE NO ESTA REGISTRADO EL PERIODO
                     swal("¡Bien hecho!", "Se registro correctamente el periodo", "success");
 
-                    // aqui agregar una fila
-                    let programas = ["musica","roberto"];
-                    console.log(response)
-                    agregarFila(response['fecha_inicio'],response['fecha_final']);
+                    // actualizar pagina
+                    
                 }
                 
                 

@@ -18,41 +18,8 @@
         </div>
 
         <div class="tabla-fondo">
-            <table class="table table-hover table-ligth" id="tablita">
-                <thead>
-                    <tr>
-                                <th scope="col">Fecha inicio</th>
-                                <th scope="col">Fecha Final</th>
-                                <th scope="col">Programas</th>
-                                <th scope="col">Accion</th>
-                    </tr>
-                </thead>
-                <tbody>     {% for periodoSelect in periodos %}
-
-                                <tr>
-                                        <th scope="row">{{periodoSelect.Fecha_inicio}}</th>
-                                        <td>{{periodoSelect.Fecha_final}}</td>
-                                        <td class="programas-seccion">
-                                                {% for programaSelect in programas%}
-                                                    {% comment %} AQUI VAN LOS PROGRAMAS DEL PERIODO {% endcomment %}
-
-                                                    {% if programaSelect.periodo == periodoSelect %}
-                                                        <div class="programa">
-                                                            <p>{{programaSelect.nom_programa}}</p>
-                                                        </div>
-                                                    {% endif %}
-                                                    
-                                                {% endfor %}
-                                        </td>
-                                        <td> 
-                                            <button>borrar</button>
-                                            <button>editar</button>
-                                        </td>
-                                </tr>
-
-                            {% endfor %}
-                </tbody>
-            </table>
+            <h2>Periodo actual:</h2>
+            {{periodoActual.Fecha_inicio}} - {{periodoActual.Fecha_final}}
         </div>
     </div>
     <div class="modal fade" id="creacion" role="dialog"></div>

@@ -32,5 +32,8 @@ function abrirModal(url){
 function cerrarModal() {
   console.log("hola");
   $('#creacion').modal('hide');
+
+  // actualizar informacion
+  $('.paginita').load('/periodos');
   return false;
 }
