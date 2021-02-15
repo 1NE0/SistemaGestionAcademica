@@ -56,44 +56,53 @@ $(document).on('submit', '#formCrearCurso', function (e) {
         },
     });
     
-});*/
+});
 
 function registrar(){
+
     $.ajax({
         type: "POST",
         url: $("#formCrearCurso").attr('action'),
         data: $("#formCrearCurso").serialize(),
-        dataType: "string",
-        success: function (response) {
-            alert('.....');
-        }
-    });
-}
-
-$(function() {
-var buttonpressed;  // crear esta variable para guardar el nombre del boton que se presionó
-   $('.enviar').click(function() {  // 
-         buttonpressed = $(this).attr('name')
-   })
-
-    creandoCurso = this.registrar();
-    var inputs = $("#formCrearCurso :input").val().serialize() + this.creandoCurso
-    console.log(inputs);
-    
-    $.ajax({
-        type: "POST",
-        url: $("#formCrearCurso").attr('action'),
-        data: {
-            csrfmiddlewaretoken: data[0].value,
-            nivel : inputs[1].value,
-            descripcion : inputs[2].value,
-        },
         dataType: "json",
         success: function (response) {
+            swal("Registrado");
+        }
+    });
+}*/
+
+$(function() {
+var buttonpressed; 
+   $('.enviar').click(function() {  
+         buttonpressed = $(this).attr('name')
+   })
+   $('#formCrearCurso').on('submit', function(e) {
+       e.preventDefault();
+       var inputs = $("#formCrearCurso :input").serializeArray();
+        console.log(inputs);
+    
+        $.ajax({
+        type: "POST",
+        url: $("#formCrearCurso").attr("action"),
+        data: {
+            csrfmiddlewaretoken: data[0].value
+            /*cod_Curso : data[1].value,
+            nom_Curso : data[2].value*/
+        },
+        dataType: "string",
+        beforeSend: function(response){   // ANTES QUE SE EJECUTE, O MIENTRAS SE EJECUTA
+            // antes de enviar la peticion
+            console.log("reealizando...");
+        },
+        success: function (response) {
+            console.log(response)
+        },
+        error: function (response) {
             console.log(response)
         }
     });
 
+   })
 })
 
 
