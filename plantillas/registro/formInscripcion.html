@@ -54,6 +54,12 @@
         </fieldset>
         <fieldset class="section" id="section2">
           <h3>Contacto</h3>
+          <!-- SELECCIONAR DEPARTAMENTO -->
+          <select  class="form-control" id="exampleFormControlSelect1" name="departamento">
+            {% for depart in departamentos %}
+            <option>{{ depart.nombre }} </option>
+            {% endfor %}
+          </select>
           <!-- SELECCIONAR CIUDAD -->
           <select  class="form-control" id="exampleFormControlSelect1" name="ciudad">
             {% for ciudad in ciudades %}
@@ -61,12 +67,7 @@
             {% endfor %}
           </select>
 
-          <!-- SELECCIONAR DEPARTAMENTO -->
-          <select  class="form-control" id="exampleFormControlSelect1" name="departamento">
-            {% for depart in departamentos %}
-            <option>{{ depart.nombre }} </option>
-            {% endfor %}
-          </select>
+          
           <!-- INGRESAR DIRECCION -->
           <input type="text" name="direccion" placeholder="Direccion">
           <!-- INGRESAR TELEFONO -->
