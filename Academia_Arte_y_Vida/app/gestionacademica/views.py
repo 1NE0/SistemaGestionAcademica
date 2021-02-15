@@ -450,7 +450,12 @@ def crearInscripcion(request):
     form_est = form_Estudiante_nuevo(request.POST)
     departamentos = models.departamento.objects.all()
     ciudades = models.ciudad.objects.all()
+    tipos = []
 
+    for tipoTupla in models.Estudiantes.tipos_doc:
+            tipos.append(tipoTupla[1])
+    
+    print(tipos)
     if form_est.is_valid():
         print(request.POST.get('identificacion'))
         # GUARDAMOS EL USUARIO (estudiante sin registrarse)
@@ -463,7 +468,12 @@ def crearInscripcion(request):
         # CODIFICAR LA CONTRASEÑA
         print(contraseña)
         # CREAR UN USER PARA LOGEARSE
+        verificarUsuarioRepetido = models.User.objects.get(username=usuario)
+        if verificarUsuarioRepetido != None:
+            return HttpResponse ("Usuario Repetido")
         usercito = User.objects.create_user(usuario, correo, contraseña)
+        
+
         # El usuario puede acceder a las secciones de administración.
         usercito.is_staff = False
         usercito.set_password = contraseña
@@ -501,7 +511,70 @@ def crearInscripcion(request):
         messages.success(request, '¡Usuario creado Satisfactoriamente!')
         return render(request, "index.html")
 
-    return render(request, "registro/formInscripcion.html", {'form': form_est, 'objprograma': programas, 'objdepartamentos': departamentos, 'objciudades': ciudades})
+    return render(request, "registro/formInscripcion.html", {'form': form_est, 'programas': programas, 'departamentos': departamentos, 'ciudades': ciudades , 'tiposDocumentos' : tipos})
+
+def registrarInscripcion(request):
+    print("entre al registrarInscripcion")
+    identificacion = request.POST.get('identificacion')
+    tipoDocumento = request.POST.get('tipoDocumento')
+    nombres = request.POST.get('nombres')
+    apellidos = request.POST.get('apellidos')
+    edad = request.POST.get('edad')
+    genero = request.POST.get('genero')
+    programa = request.POST.get('programa')
+    ciudad = request.POST.get('ciudad')
+    departamento = request.POST.get('departamento')
+    direccion = request.POST.get('departamento')
+    telefono = request.POST.get('telefono')
+    correo = request.POST.get('correo')
+
+    username = request.POST.get('username')
+    password = request.POST.get('password')
+    password2 = request.POST.get('password2')
+
+    #CREAR EL USUARIO DE LOGEO
+    try:
+        verificarUsuarioRepetido = models.User.objects.get(username=username)
+        print("soy un usuario repetido")
+        return HttpResponse("Username ya usado")
+    except User.DoesNotExist:
+        usercito = User.objects.create_user(username, correo, password)
+
+    # PERMISOS DEL USER
+    usercito.is_staff = False
+    usercito.set_password = password
+    group = Group.objects.get(name='usuarios')
+    usercito.groups.add(group)
+
+    # OBTENER EL PROGRAMA QUE SELECCIONO
+    print(request.POST.get('programa'))
+    programaSelect = models.Programas.objects.get(nom_programa=programa)
+
+    # OBTENER LA CIUDAD QUE SELECCIONÓ
+    ciudadSelect = models.ciudad.objects.get(nombre=ciudad)
+    # OBTENER EL DEPARTAMENTO QUE SELECCIONÓ
+    departamentoSlect = models.departamento.objects.get(nombre=departamento)
+    ciudadSelect.departamento = departamentoSlect
+    #CREAR EL USUARIO CON TODA LA INFORMACION
+    usuarioRegistrado = models.usuario(identificacion=identificacion
+                                        ,tipo=tipoDocumento
+                                        ,nombres=nombres
+                                        ,apellidos=apellidos
+                                        ,edad=edad
+                                        ,sexo=genero
+                                        ,correo=correo
+                                        ,telefono=telefono
+                                        ,direccion=direccion
+                                        ,user=usercito
+                                        ,ciudad=ciudadSelect
+                                        ,nom_programa=programaSelect.nom_programa)
+    print(usuarioRegistrado.nombres)
+    usercito.save()
+    login(request, usercito)
+    usuarioRegistrado.save()
+    
+
+    return HttpResponse("correcto")
 
 
 @login_required(login_url='/login')

@@ -49,6 +49,7 @@ urlpatterns = [
     url(r'^pago/$', agregarpago, name="pago"),
     url(r'^historiaPago/$', historiaPagos, name="historiapago"),
     url(r'^registro/formInscripcion/$', crearInscripcion, name="crearinscripcion"),
+    url(r'^registrarInscripcion/$', registrarInscripcion, name="registrarInscripcion"),
     url(r'^primerpago/$', primerpago, name="primerpago"),
     url(r'^estudiantes/$', estudiantes, name="estudiantes"),
     url(r'^estadisticas/$', estadisticas, name="estadisticas"),
