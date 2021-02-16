@@ -785,3 +785,28 @@ def programasEstudiante(request):
 
 def cursosEstudiante(request):
     return render(request,"board_estudiante/cursosEstudiante.html")
+
+
+@csrf_exempt
+def verificarUsername(request):
+    user = request.POST.get('username')
+    
+    try:
+        usuario = models.User.objects.get(username=user)
+        return HttpResponse("noDisponible")
+    except models.User.DoesNotExist:
+        return HttpResponse("disponible")
+
+@csrf_exempt
+def verificarIdentificacion(request):
+    identificacion = request.POST.get('identificacion')
+
+    try:
+        usuario = models.usuario.objects.get(identificacion=identificacion)
+        return HttpResponse("noDisponible")
+    except models.usuario.DoesNotExist:
+        try:
+            estudiante = models.Estudiantes.objects.get(identificacion=identificacion)
+            return HttpResponse("noDisponible")
+        except models.Estudiantes.DoesNotExist:
+            return HttpResponse("disponible")
