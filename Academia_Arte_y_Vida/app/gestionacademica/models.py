@@ -55,14 +55,7 @@ class Programas(models.Model):
     cod_programa = models.CharField(primary_key=True, max_length=10)
     nom_programa = models.CharField(max_length=30)
     contenido_Aca = models.CharField(max_length=500)
-<<<<<<< HEAD
-    periodo = models.ForeignKey(
-        periodo, default="", null=True, blank=True, on_delete=models.CASCADE)
-    #Asignatura = models.ForeignKey(Asignaturas,null=True,blank=True,on_delete=models.CASCADE)
-    # FALTA
-=======
     
->>>>>>> c637279d9ca8cfe94b087aada6010740250ad4aa
 
     def _str_(self):
         return "{0}".format(self.nom_programa)
@@ -213,6 +206,7 @@ class usuario(models.Model):
     telefono = models.CharField(max_length=12)
     direccion = models.CharField(default="",max_length=60, blank=False)
     nom_programa = models.CharField(default="",max_length=60, blank=False)
+    referenciaPago = models.IntegerField(null=True,blank=True)
     # hacer la relacion a user
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     ciudad = models.ForeignKey(
@@ -254,4 +248,6 @@ class actividades(models.Model):
 
     nivel_curso = models.ForeignKey(
         Nivel_Cursos, null=True, blank=True, on_delete=models.CASCADE)
-    
+
+
+

@@ -62,10 +62,13 @@ urlpatterns = [
     url(r'^fotos/$', fotos, name="fotos"),
     url(r'^perfil/$', perfil, name="perfil"),
     url(r'^periodos/$', periodo, name="periodos"),
+    url(r'^pago_realizado/$', pago_realizado, name="pago_realizado"),
     url(r'^crearPeriodo$', crearPeriodo, name="crearPeriodo"),
     #Programas
     url(r'^programas/$', programas_Admin, name="programas"),
     url(r'^programas/crear$', crearPrograma, name="crearprograma"),
     
-
+    url(r'^efectuarReferencia$',activarReferenciaDePago, name="referenciaPago"),
+    url(r'^aceptarUsuario$', aceptarUsuario, name="aceptarUsuario"),
+    url(r'^asignarProgramas$', asignarProgramas, name="asignarProgramas"),
 ]

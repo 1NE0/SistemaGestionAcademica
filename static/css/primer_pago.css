@@ -1,3 +1,176 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i');
+
 body{
-    background-color: #131417;
+    background: #e6e6e6!important;
+    overflow-y: scroll;
 }
+.contenido{
+    margin-left: 200px;
+    margin-right: 200px;
+    padding-top: 80px;
+    border-radius: 10px;
+    height: auto;
+    padding-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+}
+
+/*  CARD DE PAGO  */
+.imgMercadoPago{
+    text-align: center;
+    padding-right: 10px;
+    padding-top: 40px;
+    padding-bottom: 30px;
+}
+
+.textoPagar h3{
+    font-family: 'Montserrat', sans-serif!important;
+    font-weight: 700;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.textoPagar p{
+    font-family: 'Montserrat', sans-serif!important;
+    margin-top: 10px;
+    margin: 10px 20px;
+    text-align: center;
+}
+
+.imgMercadoPago img{
+    width: 194.4px;
+    height: 50.8px;
+}
+
+/* CARTA DE VERIFICACION DE PAGO */
+.cardPagar{
+    height: auto;
+    width: 50%;
+    display: flex!important;
+    -webkit-box-shadow: 1px 10px 48px -11px rgba(176,176,176,1);
+    -moz-box-shadow: 1px 10px 48px -11px rgba(176,176,176,1);
+    box-shadow: 1px 10px 48px -11px rgba(176,176,176,1);
+}
+
+.cardCodigo h3{
+    font-family: 'Montserrat', sans-serif!important;
+    font-weight: 700;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.cardCodigo p{
+    font-family: 'Montserrat', sans-serif!important;
+    text-align: center;
+}
+
+.pagar{
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+
+
+.separador{
+    width: 10.3%;
+}
+.cardCodigo{
+    height: auto;
+    width: 50%;
+    background-color: #ffffff!important;
+    display: flex!important;
+    -webkit-box-shadow: 1px 10px 48px -11px rgba(176,176,176,1);
+    -moz-box-shadow: 1px 10px 48px -11px rgba(176,176,176,1);
+    box-shadow: 1px 10px 48px -11px rgba(176,176,176,1);
+}
+
+.cardCodigo a{
+    width: 100%!important;
+    border-radius: 0%!important;
+    margin-bottom: 0px;
+    bottom: 0px;
+}
+
+.top{
+    padding-top: 100px;
+}
+
+
+/*  PASOS */
+
+.informacion{
+    width: 100%;
+    height: auto;
+    background-color: hsl(198, 100%, 17%);
+}
+
+.informacion h2{
+    font-family: 'Montserrat', sans-serif!important;
+    text-align: center;
+    font-weight: 900;
+    color: white;
+    padding-top: 20px;
+}
+
+.pasos{
+    display: flex;
+    flex-direction: row;
+    margin: 30px 100px;
+    padding-bottom: 30px;
+}
+
+.pasos p{
+    font-family: 'Montserrat', sans-serif!important;
+    margin-top: 10px;
+    font-weight: 500;
+    color: white;
+    line-height: 3px;
+}
+
+.iconos{
+    font-size: 60px!important;
+    color: white;
+}
+
+.paso{
+    width: 33%;
+    text-align: center;
+}
+
+.inputDiv{
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.form__label {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.2rem;
+    margin-left: 2rem;
+    margin-top: 0.7rem;
+    display: block;
+    transition: all 0.3s;
+    transform: translateY(0rem);
+  }
+  
+  .form__input {
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    font-size: 1.2rem;
+      margin: 0 auto;
+    padding: 1.5rem 2rem;
+    border-radius: 0.2rem;
+    background-color: #d8d8d8;
+    border: none;
+    width: 90%;
+    display: block;
+    border-bottom: 0.3rem solid transparent;
+    transition: all 0.3s;
+  }
+  
+  .form__input:placeholder-shown + .form__label {
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transform: translateY(-4rem);
+    transform: translateY(-4rem);
+  }
+  
