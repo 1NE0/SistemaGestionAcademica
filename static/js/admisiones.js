@@ -11,23 +11,45 @@ $('#formsito').on('submit', function(e) {
 
 $(".botoncito").click(function(e){
     e.preventDefault();
-    codigoUsuario = $(this).siblings('h5').attr('id');
+    codigoUsuario = $(this).siblings('h5').attr('id');  // obtener el hermano de este objeto
     console.log(codigoUsuario);
-    
-    $.ajax({
-        method: 'POST',
-        url: '/aceptarUsuario',
-        data: {
-                codigoUsuario: codigoUsuario,
-                
-        },
-        success:function(response){
-             //this gets called when server returns an OK response
-             console.log('it worked!');
-             console.log(response);
-        },
-        error:function(response){
-             console.log("it didnt work");
+    swal({
+        title: "¿Estas seguro de aceptar el pago de este usuario?",
+        text: "transformarás este usuario en un estudiante de la academia",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((confirmar) => {
+        if (confirmar) {    // si el director le da a confirmar
+            $.ajax({
+                method: 'POST',
+                url: '/aceptarUsuario',  // la url a la cual irá la peticion
+                data: {
+                        codigoUsuario: codigoUsuario,   // parametros que se le mandaran a la vista
+                },
+                success:function(response){
+                     //     SINO SALE NINGUN ERROR
+                     if(response == "Incorrecto"){
+                      swal("Ha ocurrido un error :(" , "El programa al que se quiere registrar el estudiante, no está disponible en este periodo" , "error");
+                     }else{
+                      swal("¡se realizó con exito la acción!", {
+                        icon: "success",
+                      });
+                      $('#' + codigoUsuario).remove();  // remover el div que tiene la informacion del usuario a inscribirse 
+                     }
+                     
+                },
+                error:function(response){
+                     swal("Ocurrió un error inesperado :(" , "error");
+                }
+            });
+          
+        } else {    // SI CANCELA EL MODAL 
+          swal("¡Puedes seguir revisando, no se realizó ninguna acción!");
         }
-    });
+      });
+
+
+    
 });

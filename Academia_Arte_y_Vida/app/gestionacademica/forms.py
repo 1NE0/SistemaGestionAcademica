@@ -18,6 +18,14 @@ class Asignaturas_Form(ModelForm):
     class Meta:
         model = Asignaturas
         fields = '__all__'
+        labels = {
+            
+        }
+        widgets = {
+            'cod_asig': forms.TextInput(attrs={'class': 'form-control'}),
+            'nom_asig':forms.TextInput(attrs={'class': 'form-control'}),
+            'contenido_academico': forms.Textarea(attrs={'class': 'form-control'})
+        }
 
 class DateInput(forms.DateInput):
     input_type = 'date'
@@ -40,13 +48,41 @@ class Cursos_Form(ModelForm):
         labels = {
             'cod_curso' : 'Codigo',
             'nom_curso' : 'Nombre',
-            'programa' : 'Programa'
-
         }
         widgets = {
-            
+            'cod_curso': forms.TextInput(attrs={'class': 'form-control'}),
+            'nom_curso': forms.TextInput(attrs={'class': 'form-control'})
         }
 
+
+class nivelCurso_form(ModelForm):
+    class Meta:
+        model = Nivel_Cursos
+        fields = ('nivel', 'descripcion')
+        labels = {
+            'nivel': 'Nivel',
+            'descripcion' : 'Contenido del Curso',
+            #'cod_Docente': 'Docente Encargado'
+        }
+        widgets = {
+            'nivel': forms.Select(attrs={'class': 'form-control'}, choices=[('op1','1'), ('op2','2'), ('op3','3'), ('op4','4')]),
+            'descripcion': forms.Textarea(attrs={'class': 'form-control'})
+        }
+
+class detalleCurso_form(ModelForm):
+    class Meta:
+        model = detalle_curso
+        fields = ('grupo', 'horario_inicial', 'horario_final')
+        labels = {
+            'grupo': 'Grupo',
+            'horario_inicial' : 'Hora Inicial',
+            'horario_final': 'Hora Final'
+        }
+        widgets = {
+            'grupo': forms.Select(attrs={'class': 'form-control'}, choices=[('op1','01'), ('op2','02'), ('op3','03'), ('op4','04')])
+            #'horario_inicial': forms.TimeField(input_formats=[('%A:%I %p')]),
+            #'horario_final' : forms.DateTimeInput(format=('%A:%I %p'), attrs={'class':'form-control'})
+        }
 
 class login_form(forms.Form):
     username = forms.CharField()

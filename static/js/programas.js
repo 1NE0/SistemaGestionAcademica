@@ -43,11 +43,12 @@ function onDrop(event) {
         },
         success:function(response){
              //this gets called when server returns an OK response
-             console.log('it worked!');
-             console.log(response);
+             if(response == "actualizado"){
+              swal("¡" + response + " con éxito!", "Se ha actualizado correctamente el periodo :)", "success");
+             }
         },
         error:function(response){
-             console.log("it didnt work");
+             swal("Ocurrió un error inesperado :(" , "Error");
         }
     });
 });

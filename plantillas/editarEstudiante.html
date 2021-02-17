@@ -1,0 +1,110 @@
+{% load static %}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous"/>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="{% static 'css/editarEstudiante.css' %}">
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<div class="modal-dialog modal-lg" role="document" id="miModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title">Editar a {{estudiante.nombres}}</h2>
+            
+            <button class="cerrar" onclick="cerrarModal()" type="button" data-dismiss = "modal" aria-label="Cerrar">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        
+        
+                <form class="formEditarEstudiante" method="POST" action="{% url 'modificarEstudiante' %}">
+                        {% csrf_token %}
+                        <div class="modal-body">
+                            <label for="identificacion">Identificacion</label>
+                            <input name="identificacion" id="inputId" type="text" placeholder="identificacion">
+
+                            <label for="nombres">Nombres</label>
+                            <input name="nombres" id="inputNombres" type="text" placeholder="nombres">
+
+                            <label for="apellidos">Apellidos</label>
+                            <input name="apellidos" id="inputApellidos" type="text" placeholder="apellidos">
+                            
+                            <label for="edad">Edad</label>
+                            <input name="edad" id="inputEdad" type="text" placeholder="Edad">
+
+                            <label for="sexo">Sexo</label>
+                            <input name="sexo" id="inputSexo" type="text" placeholder="M/F/O">
+
+                            <label for="correo">Correo</label>
+                            <input name="correo" id="inputCorreo" type="email" placeholder="Correo">
+
+                            <label for="telefono">Telefono</label>
+                            <input name="telefono" id="inputTelefono" type="text" placeholder="Telefono">
+
+                            <label for="direccion">Direccion</label>
+                            <input name="direccion" id="inputDireccion" type="text" placeholder="Direccion">
+                        </div>
+                        
+
+                        <div class="modal-footer">
+                            <button class="btn btn-danger" onclick="cerrarModal()" type="button" data-dismiss="modal">Cancelar</button>
+                            <button class="btn btn-primary" type="Submit" value="Submit">Confirmar</button>
+                        </div>
+                    </form>
+           
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function(){
+
+        $('#inputId').val("{{estudiante.identificacion}}");
+        $('#inputNombres').val("{{estudiante.nombres}}");
+        $('#inputApellidos').val("{{estudiante.apellidos}}");
+        $('#inputEdad').val("{{estudiante.edad}}");
+        $('#inputSexo').val("{{estudiante.sexo}}");
+        $('#inputCorreo').val("{{estudiante.correo}}");
+        $('#inputTelefono').val("{{estudiante.telefono}}");
+        $('#inputDireccion').val("{{estudiante.direccion}}");
+
+
+        $('.formEditarEstudiante').on("submit", function (e) {
+            e.preventDefault();
+            var data = $(".formEditarEstudiante :input").serializeArray(); // COGER SUS INPUTS, Y SERIALIZARLOS EN JSON
+            console.log(data);
+            console.log(data[0].value);
+            $.ajax({
+                type: "POST",
+                url: $(this).attr("action"),
+                dataType: "html",
+                data: {
+                    csrfmiddlewaretoken: data[0].value,
+                     identificacion: data[1].value,
+                    nombres: data[2].value,
+                    apellidos: data[3].value,
+                    edad: data[4].value,
+                    sexo: data[5].value,
+                    correo: data[6].value,
+                    telefono: data[7].value,
+                    direccion: data[8].value,
+                },
+                success: function (response) { // evita que jQuery intente procesar algo que no puede
+                    if(response == "correcto"){
+                        swal("¡Fantástico!","Se actualizó correctamente a {{estudiante.nombres}} :)", "success");
+                        console.log($('.modal-dialog').parent().parent().attr('id'));
+                    }
+                },
+                error: function (param) { 
+
+                }
+            });
+        })
+    });
+
+    
+</script>
+
+
+
+<!-- <script src="{% static 'js/editarEstudiante.js' %}"></script> -->

@@ -1,7 +1,6 @@
 {% load static %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
-
 <link rel="stylesheet" href="{% static 'css/periodo.css' %}" />
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -10,52 +9,46 @@
 <!-- Acordeon -->
 <div class="paginita">
     <div class="seccion1">
-        <button onclick="abrirModal('{% url 'crearPeriodo' %}')" class="btn add" style="color: white;" >Agregar Periodo <i class="fas fa-plus-square" style="color: white;"></i></button>
+        <button onclick="abrirModal('{% url 'crearPeriodo' %}');" class="btn add" style="color: white;" >Agregar Periodo <i class="fas fa-plus-square" style="color: white;"></i></button>
     </div>
     <div class="seccion2">
 
         <div class="titulo">
-            <h2>PERIODOS</h2>
-        </div>
-
-        <div class="tabla-fondo">
-            <table class="table table-hover table-ligth" id="tablita">
-                <thead>
-                    <tr>
-                                <th scope="col">Fecha inicio</th>
-                                <th scope="col">Fecha Final</th>
-                                <th scope="col">Programas</th>
-                                <th scope="col">Accion</th>
-                    </tr>
-                </thead>
-                <tbody>     {% for periodoSelect in periodos %}
-
-                                <tr>
-                                        <th scope="row">{{periodoSelect.Fecha_inicio}}</th>
-                                        <td>{{periodoSelect.Fecha_final}}</td>
-                                        <td class="programas-seccion">
-                                                {% for programaSelect in programas%}
-                                                    {% comment %} AQUI VAN LOS PROGRAMAS DEL PERIODO {% endcomment %}
-
-                                                    {% if programaSelect.periodo == periodoSelect %}
-                                                        <div class="programa">
-                                                            <p>{{programaSelect.nom_programa}}</p>
-                                                        </div>
-                                                    {% endif %}
-                                                    
-                                                {% endfor %}
-                                        </td>
-                                        <td> 
-                                            <button>borrar</button>
-                                            <button>editar</button>
-                                        </td>
-                                </tr>
-
-                            {% endfor %}
-                </tbody>
-            </table>
+            <h2>PROGRAMAS POR ASIGNAR A UN PERIODO</h2>
         </div>
     </div>
+            <div class="programas">
+                <div class="example-parent">   <!-- el area general -->
+
+                  <div class="example-origin" ondragover="onDragOver(event);" ondrop="onDrop(event);"> <!-- el panel de origen -->
+
+                    <!-- aqui dentro se pueden objetos de clase example-draggable que son los programas -->
+                    {% for programa in programasSinMatricular %}
+                    <div id="{{programa.cod_programa}}"class="example-draggable" draggable="true" ondragstart="onDragStart(event);">
+                      <h2 style="margin-right: 20px;">{{programa.nom_programa}}</h2>
+                    </div>
+                    {% endfor %}
+                  </div>
+                  
+
+                  <div class="contenedor-periodos"> <!--  un panel que cree -->
+                    <div class="titulo-periodo"><h2>PERIODO ACTUAL : {{periodoActual.Fecha_inicio}} - {{periodoActual.Fecha_final}}</h2></div>
+                    <!-- este que sigue, es el destino de los objetos arrastrables -->
+                    <div class="example-dropzone" ondragover="onDragOver(event);" ondrop="onDrop(event);">
+                        <!-- aqui se llenara con los programas a agregar-->
+                        {% for programa in programasMatriculados %}
+                          <div id="{{programa.cod_programa}}"class="example-draggable" draggable="true" ondragstart="onDragStart(event);">
+                            <h2 style="margin-right: 20px;">{{programa.nom_programa}}</h2>
+                          </div>
+                        {% endfor %}
+                    </div>
+                    <a class="btn btn-light botoncito" href="{% url 'asignarProgramas' %}"> Registrar</a>
+                  </div>
+                  
+          
+                </div>
+        </div>
+    
     <div class="modal fade" id="creacion" role="dialog"></div>
 </div>
 

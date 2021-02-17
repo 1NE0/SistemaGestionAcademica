@@ -28,6 +28,7 @@ body
 }
 
 
+
 .settings {
   
   height:73px; 
@@ -121,11 +122,37 @@ font-size:20px;
 }
 
 .main-menu:hover, nav.main-menu.expanded {
-    width:200px;
+    width:250px;
     overflow:hidden;
     opacity:1;
     z-index: 100!important;
 }
+
+.img-logo{
+    height: 60px;
+    width: 60px;
+    text-align: center;
+    -webkit-transition: all 2s ease-out;
+    -moz-transition: all 2s ease-out;
+    -o-transition: all 2s ease-out;
+    transition: all ease-out;
+}
+.espacio-img{
+    width: 100px;
+    height: 100px;
+    margin-bottom: 20px;
+}
+.main-menu:hover .img-logo{
+    height: 100px;
+    width: 100px;
+    text-align: center;
+    margin-left: 70px;
+    -webkit-transition: all 2s ease-out;
+    -moz-transition: all 2s ease-out;
+    -o-transition: all 2s ease-out;
+    transition: all ease-out;
+}
+
 
 .main-menu>ul {
 margin:7px 0;
@@ -211,6 +238,8 @@ margin:7px 0;
     overflow:visible;
   
 }
+
+
 
 
 /* Logo Hover Property */

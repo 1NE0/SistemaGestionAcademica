@@ -1,9 +1,7 @@
 {% load static %}
-
-    <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous"/>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{% static 'css/cursos.css' %}">
@@ -35,6 +33,7 @@
                 </tr>
             </thead>
             <tbody>
+                {% if cursos %}
                 {% for curso in cursos %}
                 <tr>
                     <td>
@@ -46,7 +45,10 @@
                     <td>{{ curso.Programa.nom_programa }}</td>
                     <td> </td>
                 </tr>
-                {% endfor %}           
+                {% endfor %}       
+                {% else %}
+                <h3>No hay registro de cursos</h3>
+                {% endif %}    
             </tbody>
           </table>
     </div>               
