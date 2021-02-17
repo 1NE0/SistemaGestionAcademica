@@ -816,3 +816,7 @@ def verificarIdentificacion(request):
             return HttpResponse("noDisponible")
         except models.Estudiantes.DoesNotExist:
             return HttpResponse("disponible")
+
+
+
+
