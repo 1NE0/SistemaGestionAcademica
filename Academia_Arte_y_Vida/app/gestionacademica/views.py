@@ -66,6 +66,7 @@ def fotos(request):
 def cursos(request):
     cursosLista = models.Cursos.objects.all()
 
+    
     return render(request, "cursos.html", {'cursos': cursosLista})
 
 def docentes(request):
@@ -263,13 +264,12 @@ def CrearCurso(request):
     
     if request.method == "POST" and request.is_ajax:
         print("ENTREEEEEEEEEEE AL IF jeje")
-
         codigo = request.POST.get('cod_curso')
         nombre = request.POST.get('nom_curso')
-
+        print(codigo)
         curso = models.Cursos(cod_curso= codigo, nom_curso=nombre)
         curso.save()
-
+        return HttpResponse("correcto")
         #cursoMandado = models.Cursos.objects.get(cod_curso=codigo, nom_curso=nombre)
         #Context = {'añadido' : 'true', 'codigoCurso': cursoMandado.cod_curso, 'nombreCurso': cursoMandado.nom_curso}
 
@@ -296,7 +296,7 @@ def CrearCurso(request):
             #level_curso.cod_Curso = cursito
 
             #level_curso.save()
-
+    
     return render(request, "crearcurso.html")
 
 def lista_curso(request):

@@ -54,6 +54,12 @@ $(document).ready(function () {
                 $(this).show();
         });
     });
+
+    $('.botoncito').on('click' , function(){
+        var codigo = $(this).attr('id');
+        console.log(codigo);
+        
+    })
 });
 
 // Abrir modal creacion
@@ -78,6 +84,10 @@ function abrirModal(url){
 function cerrarModal() {
     $('#creacion').modal('hide');
     $('#edicion').modal('hide');
+
+    // actualizar contenido
+
+    $('.contenido').load('/cursos');
     return false;
 }
 

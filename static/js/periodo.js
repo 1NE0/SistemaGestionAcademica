@@ -86,7 +86,7 @@ $(".botoncito").click(function(e){
   console.log(listaProgramas);
    $.ajax({
       method: 'POST',
-      url: '/asignarProgramas',
+      url: '/asignarProgramas', // holi
       data: {
               listaProgramas: listaProgramas,
       },

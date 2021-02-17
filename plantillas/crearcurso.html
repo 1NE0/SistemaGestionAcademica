@@ -1,7 +1,5 @@
 {% load static %}
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
 <div class="modal-dialog modal-lg" role="document" id="miModal">
     <div class="modal-content">
         <div class="modal-header">
@@ -17,9 +15,9 @@
                     {% csrf_token %} 
                     <div class="form-group">
                     <label for="start" class="col-form-label">Código</label>
-                    <input type="text" class="form-control w-50">
+                    <input name="cod_curso" type="text" class="form-control w-50">
                     <label for="start" class="col-form-label">Nombre</label>
-                    <input type="text" class="form-control w-50">
+                    <input name="nom_curso" type="text" class="form-control w-50">
 
                     <!--<hr> <h5>Paso 2</h5> <hr>
                     </div>
@@ -53,7 +51,7 @@
             </div>-->
             <div class="modal-footer">
                 <button class="btn btn-danger" onclick="cerrarModal()" type="button" data-dismiss="modal">Cancelar</button>  
-                <button class="btn btn-primary enviar" type="button" value="submit">Confirmar</button>           
+                <button class="btn btn-primary enviar" type="submit" value="submit">Confirmar</button>           
             </div>
         </form>
     </div>

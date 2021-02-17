@@ -77,6 +77,7 @@ var buttonpressed;
          buttonpressed = $(this).attr('name')
    })
    $('#formCrearCurso').on('submit', function(e) {
+       console.log("me envie");
        e.preventDefault();
        var inputs = $("#formCrearCurso :input").serializeArray();
         console.log(inputs);
@@ -85,17 +86,20 @@ var buttonpressed;
         type: "POST",
         url: $("#formCrearCurso").attr("action"),
         data: {
-            csrfmiddlewaretoken: data[0].value
-            /*cod_Curso : data[1].value,
-            nom_Curso : data[2].value*/
+            csrfmiddlewaretoken:inputs[0].value,
+            cod_curso: inputs[1].value,
+            nom_curso: inputs[2].value
         },
-        dataType: "string",
+        dataType: "html",
         beforeSend: function(response){   // ANTES QUE SE EJECUTE, O MIENTRAS SE EJECUTA
             // antes de enviar la peticion
             console.log("reealizando...");
         },
         success: function (response) {
-            console.log(response)
+            if(response == "correcto"){
+                swal("Correcto!", "El curso se ha registrado con éxito.", "success");
+            }
+            console.log(response);
         },
         error: function (response) {
             console.log(response)
