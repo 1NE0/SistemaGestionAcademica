@@ -23,7 +23,7 @@ function abrirModal(url){
     return false;
   }
 
-  $(function(){
+  $(document).ready(function(){
 
     var buttonpressed;
     $('.crear').click(function(){
@@ -32,6 +32,7 @@ function abrirModal(url){
     $('#form_programas').on('submit',function(e){
         e.preventDefault();
         var data = $("#form_programas :input").serializeArray();
+        console.log(data);
 
         $.ajax({
           url : $(this).attr('action'),
@@ -40,14 +41,14 @@ function abrirModal(url){
             csrfmiddlewaretoken: data[0].value,
             cod_programa: data[1].value,
             nom_programa: data[2].value,
-            contenido_Aca: data[3].value
+            contenido_Aca: data[3].value,
           },
           dataType: "json",
           beforeSend: function(response){
             console.log("realizando..");
           },
           success: function(response){
-            agregarFila(response['cod_programa'],response['nom_programa'],response['contenido_Aca']);
+            swal("Programa creado","Se creó el programa de manera exitosa","success");
           },
           error: function(response){
             console.log(response)
@@ -56,7 +57,6 @@ function abrirModal(url){
         });
 
     })
-
   })
 
 function agregarFila(cod_programa,nom_programa,contenido_Aca){
