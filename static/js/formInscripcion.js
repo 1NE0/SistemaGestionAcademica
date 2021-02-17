@@ -4,8 +4,17 @@
 $(document).ready(function(){
     textoVerficacionId = $('.identificacionVerificada');
     textoVerficacionIdNo = $('.identificacionNoVerificada');
+    botonRegistrar = $('.registrar');
+    botonRegistrarOcultar = $('.NoRegistrar');
+
+    botonRegistrar.hide();
+    botonRegistrarOcultar.show();
+    
     textoVerficacionIdNo.hide();
     textoVerficacionId.hide();
+
+
+
     $('.boton').attr("disabled", true);
 
     $(".form-wrapper .button").click(function(){
@@ -154,18 +163,21 @@ $(document).ready(function(){
 
     });
 
-    
     $('fieldset input').on("blur" , function(){
       console.log("entreee");
-      var section = $(this).parents('fieldset');
-      var check = checkCampos(section);
+      var form = $('.form-wrapper');
+      var check = checkCampos(form);
       if(check) {
           console.log("estan llenos");
-          $('#boton').attr("disabled", false);
+          // habilitar boton
+          $('.registrar').show();
+          $('.NoRegistrar').hide();
       }
       else {
         console.log("no estan llenos");
-        $('#boton').attr("disabled", true);
+        //deshabilitar boton
+        $('.registrar').hide();
+        $('.NoRegistrar').show();
       }
     });
 

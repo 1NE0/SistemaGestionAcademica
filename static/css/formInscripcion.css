@@ -198,3 +198,9 @@ html, body{
 .identificacionNoVerificada{
   margin-bottom: 1px!important;
 }
+
+
+.NoRegistrar{
+  background-color: rgb(197, 197, 197);
+  color: #818181;
+}

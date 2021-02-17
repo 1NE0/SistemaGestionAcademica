@@ -51,7 +51,7 @@
               {% endfor %}
           </select>
 
-          <div class="boton button btn btn-success boton1" id="boton">Siguiente</div>
+          <div class="boton button btn btn-success boton1" disabled="false" id="boton1">Siguiente</div>
 
         </fieldset>
         <fieldset class="section" id="section2">
@@ -85,8 +85,8 @@
           <input type="password" name="password" id="password" placeholder="Contraseña">
           <input type="password" name="password2" id="password2" placeholder="Re ingresar contraseña">
 
-          <button type="submit">registrarse</button>
-          
+          <button type="submit" class="registrar btn-success btn">registrarse</button>
+          <div class="NoRegistrar btn-warning btn">registrarse</div>
         </fieldset>
         
       </form>
@@ -96,5 +96,4 @@
  
 
  <script src="{% static 'js/formInscripcion.js' %}"></script>
- <script src="{% static 'js/button.js' %}"></script>
 </body>
