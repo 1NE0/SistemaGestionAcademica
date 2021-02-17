@@ -247,16 +247,22 @@ def eliminar_programa(request, cod_programa):
 
 @login_required(login_url='/login')
 def CrearAsignatura(request):
-    form = Asignaturas_Form(request.POST or None)
+    docentes = models.Docentes.objects.all()
+    return render(request, "crearAsignatura.html", {'docentes' : docentes})
 
-    if form.is_valid():
-        form.save()
 
-    context = {
-        'form': form
-    }
+def crudAsignatura(request):
+    codigo = request.POST.get('codigo')
+    nombre = request.POST.get('nombre')
+    descripcion = request.POST.get('descripcion')
+    docente = request.POST.get('docente')
 
-    return render(request, "crearasignatura.html", context)
+    # buscar el docente
+
+    docenteObj = models.Docentes.objects.get(nombres=docente)
+    asignatura = models.Asignaturas(cod_asig=codigo , nom_asig = nombre , descripcion=descripcion , Docente=docenteObj)
+
+    return HttpResponse("correcto");
 
 
 @login_required(login_url='/login')
@@ -745,3 +751,32 @@ def programasEstudiante(request):
 
 def cursosEstudiante(request):
     return render(request,"board_estudiante/cursosEstudiante.html")
+
+
+@csrf_exempt
+def verificarUsername(request):
+    user = request.POST.get('username')
+    
+    try:
+        usuario = models.User.objects.get(username=user)
+        return HttpResponse("noDisponible")
+    except models.User.DoesNotExist:
+        return HttpResponse("disponible")
+
+@csrf_exempt
+def verificarIdentificacion(request):
+    identificacion = request.POST.get('identificacion')
+
+    try:
+        usuario = models.usuario.objects.get(identificacion=identificacion)
+        return HttpResponse("noDisponible")
+    except models.usuario.DoesNotExist:
+        try:
+            estudiante = models.Estudiantes.objects.get(identificacion=identificacion)
+            return HttpResponse("noDisponible")
+        except models.Estudiantes.DoesNotExist:
+            return HttpResponse("disponible")
+
+
+
+

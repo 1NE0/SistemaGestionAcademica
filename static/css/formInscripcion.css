@@ -86,19 +86,22 @@ html, body{
     width: 103.6%;
   }
   
+  /* titulo o header */
   
   .steps li{
     display: inline-block;
-    margin: 20px;
-    color: #ccc;
-    padding-bottom: 5px;
+    margin: 10px 30px;
+    color: rgb(212, 212, 212);
+    padding: 10px 20px;
   }
   
   .steps li.is-active{
     border-bottom: 1px solid #3498db;
-    color: #3498db;
+    padding: 10px 20px;
+    color: #1b1b1b;
+
   }
-  
+
   /* FORM */
   
   .form-wrapper .section{
@@ -164,6 +167,7 @@ html, body{
 
   .form-wrapper select,
   .form-wrapper input[type="number"],
+  .form-wrapper input[type="email"],
   .form-wrapper input[type="text"],
   .form-wrapper input[type="password"]{
     display: block;
@@ -177,51 +181,26 @@ html, body{
     font-family: 'Open Sans', sans-serif !important;
   }
   
-  .form-wrapper input[type="radio"]{
-    display: none;
-  }
-  
-  .form-wrapper input[type="radio"] + label{
-    display: block;
-    border: 1px solid #ccc;
-    width: 100%;
-    max-width: 100%;
-    padding: 10px;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    cursor: pointer;
-    position: relative;
-  }
-  
-  .form-wrapper input[type="radio"] + label:before{
-    content: "✔";
-    position: absolute;
-    right: -10px;
-    top: -10px;
-    width: 30px;
-    height: 30px;
-    line-height: 30px;
-    border-radius: 100%;
-    background-color: #3498db;
-    color: #fff;
-    display: none;
-  }
-  
-  .form-wrapper input[type="radio"]:checked + label:before{
-    display: block;
-  }
-  
-  .form-wrapper input[type="radio"] + label h4{
-    margin: 15px;
-    color: #ccc;
-  }
-  
-  .form-wrapper input[type="radio"]:checked + label{
-    border: 1px solid #3498db;
-  }
-  
-  .form-wrapper input[type="radio"]:checked + label h4{
-    color: #3498db;
-  }
-  
+/* VERIFICACIONES */
+
+.userVerificado{
+  border: 2px solid greenyellow!important;
+}
+
+.userRepetido{
+  border: 2px solid red!important;
+}
+
+.identificacionVerificada{
+    margin-bottom: 1px!important;
+}
+
+.identificacionNoVerificada{
+  margin-bottom: 1px!important;
+}
+
+
+.NoRegistrar{
+  background-color: rgb(197, 197, 197);
+  color: #818181;
+}

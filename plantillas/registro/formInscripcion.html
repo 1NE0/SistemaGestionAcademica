@@ -11,12 +11,12 @@
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
   <link rel="stylesheet" href="{% static 'css/formInscripcion.css' %}">
-
+  <link rel="stylesheet" href="{% static 'css/button.css' %}">
 <body>
   <div class="container">
     <div class="wrapper">
       <ul class="steps">
-        <a href="#"><li class="is-active" id="1">Datos Personales</li></a>
+        <a href="#"><li class="is-active" id="1" class="inner">Datos Personales</li></a>
         <a href="#"><li class="" id="2">Contacto y residencia</li></a>
         <a href="#"><li class="" id="3">Datos de acceso</li></a>
       </ul>
@@ -30,10 +30,12 @@
             <option>{{ tipoDoc}} </option>
             {% endfor %}
           </select>
-          <input type="number" name="identificacion"  placeholder="Identificacion">
-          <input type="text" name="nombres"  placeholder="Nombres">
-          <input type="text" name="apellidos" placeholder="Apellidos">
-          <input type="number" name="edad" placeholder="Edad">
+          <p class="identificacionVerificada">La identificacion está disponible</p>
+          <p class="identificacionNoVerificada">La identificacion ya se encuentra registrada</p>
+          <input type="number" class="identificacion" name="identificacion" min="1111111" max="9999999999" placeholder="Identificacion">
+          <input type="text" class="nombres" name="nombres"  placeholder="Nombres">
+          <input type="text" class="apellidos" name="apellidos" placeholder="Apellidos">
+          <input type="number" class="edad" name="edad" placeholder="Edad">
 
           <!-- SELECCIONAR GENERO -->
           <select  class="form-control" id="exampleFormControlSelect1"name="genero">
@@ -49,11 +51,17 @@
               {% endfor %}
           </select>
 
-          <div class="boton button btn btn-success">Siguiente</div>
+          <div class="boton button btn btn-success boton1" disabled="false" id="boton1">Siguiente</div>
 
         </fieldset>
         <fieldset class="section" id="section2">
           <h3>Contacto</h3>
+          <!-- SELECCIONAR DEPARTAMENTO -->
+          <select  class="form-control" id="exampleFormControlSelect1" name="departamento">
+            {% for depart in departamentos %}
+            <option>{{ depart.nombre }} </option>
+            {% endfor %}
+          </select>
           <!-- SELECCIONAR CIUDAD -->
           <select  class="form-control" id="exampleFormControlSelect1" name="ciudad">
             {% for ciudad in ciudades %}
@@ -61,12 +69,7 @@
             {% endfor %}
           </select>
 
-          <!-- SELECCIONAR DEPARTAMENTO -->
-          <select  class="form-control" id="exampleFormControlSelect1" name="departamento">
-            {% for depart in departamentos %}
-            <option>{{ depart.nombre }} </option>
-            {% endfor %}
-          </select>
+          
           <!-- INGRESAR DIRECCION -->
           <input type="text" name="direccion" placeholder="Direccion">
           <!-- INGRESAR TELEFONO -->
@@ -74,15 +77,16 @@
           <!-- INGRESAR EMAIL -->
           <input type="email" name="correo" placeholder="Email">
 
-          <div class="boton button btn btn-success">Siguiente</div>
+          <div class="boton button btn btn-success boton2">Siguiente</div>
         </fieldset>
         <fieldset class="section" id="section3">
           <h3></h3>
-          <input type="text" name="username" placeholder="Username">
+          <input type="text" name="username" class="username"placeholder="Username">
           <input type="password" name="password" id="password" placeholder="Contraseña">
           <input type="password" name="password2" id="password2" placeholder="Re ingresar contraseña">
-          <button type="submit">Registrarse</button>
-          
+
+          <button type="submit" class="registrar btn-success btn">registrarse</button>
+          <div class="NoRegistrar btn-warning btn">registrarse</div>
         </fieldset>
         
       </form>

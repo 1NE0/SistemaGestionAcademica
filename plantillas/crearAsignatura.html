@@ -1,0 +1,42 @@
+{% load static %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+
+<div class="modal-dialog modal-lg" role="document" id="miModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title">Crear Nueva Asignatura</h2>
+            <button class="cerrar" onclick="cerrarModal()" type="button" data-dismiss = "modal" aria-label="Cerrar">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <form action="{% url 'crudAsignatura' %}" method="POST" id="formCrear">{% csrf_token %}
+            <div class="modal-body">
+               
+                        <input type="text" name="codigo" placeholder="ingrese el codigo">
+                        <input type="text" name="nombre" placeholder="ingrese el el nombre">
+                        <input type="text" name="descripcion" placeholder="descripcion">
+
+                        <select  class="form-control" id="exampleFormControlSelect1" name="docente">
+                            {% for docente in docentes %}
+                                <option>{{ docente.nombres }} </option>
+                            {% endfor %}
+                        </select>
+                
+                        
+                    
+            </div>
+                
+            <div class="modal-footer">
+                    <button class="btn btn-danger" onclick="cerrarModal()" type="button" data-dismiss="modal">Cancelar</button>
+                    <button class="btn btn-primary enviar" type="submit" value="submit">Confirmar</button>
+                
+            </div>
+        </form>
+    </div>
+
+    <script src="{% static 'js/crearAsignatura.js' %}"></script>
+</div>
+
+

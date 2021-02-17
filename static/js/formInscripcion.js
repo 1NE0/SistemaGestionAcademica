@@ -1,4 +1,22 @@
+
+
+
 $(document).ready(function(){
+    textoVerficacionId = $('.identificacionVerificada');
+    textoVerficacionIdNo = $('.identificacionNoVerificada');
+    botonRegistrar = $('.registrar');
+    botonRegistrarOcultar = $('.NoRegistrar');
+
+    botonRegistrar.hide();
+    botonRegistrarOcultar.show();
+    
+    textoVerficacionIdNo.hide();
+    textoVerficacionId.hide();
+
+
+
+    $('.boton').attr("disabled", true);
+
     $(".form-wrapper .button").click(function(){
       var boton = $(this);
       var sectionActivo = boton.parents('.section');
@@ -8,8 +26,6 @@ $(document).ready(function(){
       sectionActivo.removeClass("is-active").next().addClass("is-active");
       headerActivo.removeClass("is-active");
       headerSiguiente.addClass("is-active");
-
-
     });
 
     $(".steps a").click(function(e){
@@ -43,8 +59,8 @@ $(document).ready(function(){
                     edad: data[5].value,
                     genero: data[6].value,
                     programa: data[7].value,
-                    ciudad: data[8].value,
-                    departamento: data[9].value,
+                    departamento: data[8].value,
+                    ciudad: data[9].value,
                     direccion: data[10].value,
                     telefono: data[11].value,
                     correo: data[12].value,
@@ -74,5 +90,120 @@ $(document).ready(function(){
         });
       });
 
+
+      // verificar el user
+    $('.form-wrapper .username').on("blur",function() {
+
+      var username = $(this).val();		
+      var dataString = 'username='+username;
+
+      if(username != ""){
+        $.ajax({
+          type: "POST",
+          url: "/verificarUser/",
+          data: dataString,
+          dataType: "html",
+          success: function(data) {
+              if(data == "disponible"){
+                $('.username').addClass("userVerificado");
+                $('.username').removeClass("userRepetido");
+              }else if(data == "noDisponible"){
+                $('.username').addClass("userRepetido");
+                $('.username').removeClass("userVerificado");
+              }
+          },
+          error: function(data){
+            console.log("error");
+          }
+      });
+      }else{
+        $('.username').removeClass("userRepetido");
+        $('.username').removeClass("userVerificado");
+      }
+      
+
+    });
+
+    // verificar el user
+    $('.form-wrapper .identificacion').on("blur",function() {
+
+      var identificacion = $(this).val();		
+      var dataString = 'identificacion='+identificacion;
+
+      if(identificacion != ""){
+        $.ajax({
+          type: "POST",
+          url: "/verificarIdentificacion/",
+          data: dataString,
+          dataType: "html",
+          success: function(data) {
+              if(data == "disponible"){
+                textoVerficacionId.show();
+                textoVerficacionIdNo.hide();
+                $('.identificacion').addClass("userVerificado");
+                $('.identificacion').removeClass("userRepetido");
+              }else if(data == "noDisponible"){
+                textoVerficacionId.hide();
+                textoVerficacionIdNo.show();
+                $('.identificacion').addClass("userRepetido");
+                $('.identificacion').removeClass("userVerificado");
+              }
+          },
+          error: function(data){
+            console.log("error");
+          }
+      });
+      }else{
+        textoVerficacionIdNo.hide();
+        textoVerficacionId.hide();
+        $('.identificacion').removeClass("userRepetido");
+        $('.identificacion').removeClass("userVerificado");
+      }
+      
+
+    });
+
+    $('fieldset input').on("blur" , function(){
+      console.log("entreee");
+      var form = $('.form-wrapper');
+      var check = checkCampos(form);
+      if(check) {
+          console.log("estan llenos");
+          // habilitar boton
+          $('.registrar').show();
+          $('.NoRegistrar').hide();
+      }
+      else {
+        console.log("no estan llenos");
+        //deshabilitar boton
+        $('.registrar').hide();
+        $('.NoRegistrar').show();
+      }
+    });
+
+    //Función para comprobar los campos de texto
+    function checkCampos(obj) {
+      var camposRellenados = true;
+      obj.find("input").each(function() {
+      var $this = $(this);
+          if( $this.val().length <= 0 ) {
+              camposRellenados = false;
+              return false;
+          }
+      });
+      if(camposRellenados == false) {
+          return false;
+      }
+      else {
+          return true;
+      }
+    }
+    
+    
+
+    
+
+
+      
   });
   

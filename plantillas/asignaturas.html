@@ -1,35 +1,25 @@
 {% load static %}
     <link rel="stylesheet" href="{% static 'css/asignaturas.css' %}">
+    <!-- scripts para jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+    <!-- font awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <!-- bootstrap estilos -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous"/>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+  
+    <!-- Seewt Alert -->
+     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  
 
+    
 <div class="principal">
     <h1>ASIGNATURAS</h1>
-<!-- SI ES UN DIRECTOR -->
-    <div class="programa">
-        <div class="form-group">
-            <!--<h3 class="title">Seleccione el programa academico</h3>
-            <label for=""> Escoja el programa academico al que quiere añadir asignaturas.</label>
-            <select class="form-control" name="programas">
-              {% for programas in objprograma %}
-              <option>{{ programas.nom_programa }} </option>
-              {% endfor %}
-            </select>-->
-        </div>    
-    </div> 
-    {% if user.is_superuser == 1 %}
-        <a class="btn btn-light" href="{% url 'crearasignatura' %}" >Crear Asignatura</a>
-        <!-- Aqui recorremos la lista de cursos, esto solo lo vera el director academico-->
-        {% for asignatura in asignaturas %}
-            <div class="card carta" style="width: 18rem;">
-                <img src="http://wallpapers4screen.com/Uploads/15-11-2017/37581/thumb2-geometry-3d-art-geometric-shapes-creative-purple-background.jpg" class="card-img-top" alt="fondo">
-                <div class="card-body">
-                <h5 class="card-title">{{asignatura.nom_asig}}</h5>
-                <p class="card-text">Codigo de la asignatura: {{asignatura.cod_asig}}</p>
-                <a href="#" class="btn btn-primary">Ir a la asignatura</a>
-                </div>
-            </div>
-        {% endfor %}
-    {% endif %}
-    </div>
+    <button onclick="abrirModal('{% url 'crearAsignatura' %}');" class="btn add" style="color: white;" >Agregar Asignatura <i class="fas fa-plus-square" style="color: white;"></i></button>
+    <div class="modal fade" id="creacion" role="dialog"></div>
 </div>
-    
+
+<script src="{% static 'js/asignaturas.js' %}"></script>
+
    
