@@ -126,6 +126,11 @@ def administracion_staff(request):
 @login_required(login_url='/login')
 def board_estudiante(request):
     return render(request, "board_estudiante/board.html")
+
+@login_required(login_url='/login')
+def board_docente(request):
+    return render(request, "board_docente/panel.html")
+
 @login_required(login_url='/login')
 def perfil(request):
     usuario = request.user
@@ -739,7 +744,7 @@ def eliminarEstudiante(request):
     identificacion = request.POST.get('estudiante[]')
     estudiante = models.Estudiantes.objects.get(identificacion=identificacion)
     estudiante.delete()
-    return HttpResponse("eliminado");
+    return HttpResponse("eliminado")
 
 def pagos(request):
     return render(request,"pagos.html")
@@ -751,6 +756,24 @@ def programasEstudiante(request):
 
 def cursosEstudiante(request):
     return render(request,"board_estudiante/cursosEstudiante.html")
+
+def asignaturasEstudiante(request):
+    return render(request, "board_estudiante/asignaturasEstudiante.html")
+
+def pagosEstudiante(request):
+    return render(request, "board_estudiante/pagosEstudiante.html")
+
+
+#    BOARD DEL DOCENTE
+def cursosDocente(request):
+    return render(request, "board_docente/cursosDocente.html")
+
+def asignaturasDocente(request):
+    return render(request, "board_docente/asignaturasDocente.html")
+
+def actividadesDocente(request):
+    return render(request, "board_docente/actividadesDocente.html")
+    
 
 
 @csrf_exempt
