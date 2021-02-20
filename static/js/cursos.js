@@ -82,12 +82,55 @@ function abrirModal(url){
 
 
 function cerrarModal() {
-    $('#creacion').modal('hide');
+    modalcito = $('#miModal').parents('#creacion');
+    console.log(modalcito.attr('id'));
+    modalcito.modal('hide');
     $('#edicion').modal('hide');
-
     // actualizar contenido
-
     $('.contenido').load('/cursos');
     return false;
 }
 
+
+
+
+/* TODO SOBRE EL CRUD */
+
+$(function() {
+    var buttonpressed; 
+       $('.enviar').click(function() {  
+             buttonpressed = $(this).attr('name')
+       })
+       $('#formCrearCurso').on('submit', function(e) {
+           console.log("me envie");
+           e.preventDefault();
+           var inputs = $("#formCrearCurso :input").serializeArray();
+            console.log(inputs);
+        
+            $.ajax({
+            type: "POST",
+            url: $("#formCrearCurso").attr("action"),
+            data: {
+                csrfmiddlewaretoken:inputs[0].value,
+                cod_curso: inputs[1].value,
+                nom_curso: inputs[2].value
+            },
+            dataType: "html",
+            beforeSend: function(response){   // ANTES QUE SE EJECUTE, O MIENTRAS SE EJECUTA
+                // antes de enviar la peticion
+                console.log("reealizando...");
+            },
+            success: function (response) {
+                if(response == "correcto"){
+                    swal("Correcto!", "El curso se ha registrado con éxito.", "success");
+                }
+                console.log(response);
+            },
+            error: function (response) {
+                console.log(response)
+            }
+        });
+    
+       })
+    })
+    
