@@ -1,51 +1,7 @@
-/*$(document).ready(function () {
-   // $("#boton").on("click", function () {  
-    
-    $('#buscar_curso').keyup(function (e) { // KeyUp es para solicitar una petición Ajax 
-                                            // cada vez que el usuario presione una tecla dentro del input
-        e.preventDefault();
-        var consulta = $("#buscar_curso").val();  
-        console.log(consulta);
-        $.ajax({
-            type: "GET",
-            url: "/listacursos/",
-            data: {nombre: consulta},
-            dataType: "json",
-            success: function (response) {
-                console.log("LO LOGREE")
-                console.log(response[0].fields.cod_curso) 
-                console.log(response[0].fields.nom_curso)
-
-                //listarlos en una tabla
-                $("#table").DataTable({
-                    responsive: true,
-                    autoWidth: false,   // respeta los anchos de colum que especifique
-                    destroy: true,      // reiniar la tabla
-                    deferRender: true,  //agiliza la carga de los datos si son muchos
-                    ajax: {
-                        type: "GET",
-                        url: "/listacursos/",
-                        data: { nombre : consulta },
-                        dataSrc: "",
-                    },
-                    columns: [
-                        {"data": "Accion"},
-                        {"data": "cod_curso"},
-                        {"data": "nom_curso"},
-                        {"data": "Programa"} 
-                    ],
-                })
-            },
-            error: function(response) {
-                console.log("ME MORI");
-            }
-        });
-    });
-});*/
-//});
 
 $(document).ready(function () {
-    $("#buscar_curso").keyup(function () { 
+    $("#buscar_curso").keyup(function () { // KeyUp es para solicitar una petición Ajax 
+                                            // cada vez que el usuario presione una tecla dentro del input
         _this = this;
         $.each($("#table tbody tr"), function () { 
             if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1)
