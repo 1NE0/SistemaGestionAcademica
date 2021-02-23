@@ -109,17 +109,17 @@ def programas_info(request):
     return render(request, "info/programas_info.html")
 
 
-@login_required(login_url='/login')
+
 def Admision(request):
 
     usuariosConPago = models.usuario.objects.filter(pagoRealizado=True)
     print(usuariosConPago)
     return render(request, "Admisiones.html", {'usuariosLista': usuariosConPago})
 
-@login_required(login_url='/login')
+
 def estadisticas(request):
     return render(request,"administracion/estadisticas.html")
-@login_required(login_url='/login')
+
 def administracion_staff(request):
     return render(request, "administracion/admin.html")
 
@@ -146,7 +146,7 @@ def perfil(request):
 #  Programas -----------------------------------------------------------
 
 
-@login_required(login_url='/login')
+
 def Programas(request):
     programasLista = models.Programas.objects.all()
     programasMatriculados = []  #guardaremos los programas que ya estan matriculados
@@ -201,7 +201,7 @@ def Pagos(request):
     return render(request, 'pagos.html')
 
 
-@login_required(login_url='/login')
+
 def CrearPrograma(request):
     form = Programas_Form(request.POST or None)
 
@@ -215,14 +215,13 @@ def CrearPrograma(request):
     return render(request, "CrearPrograma.html", context)
 
 
-@login_required(login_url='/login')
 def lista_programas(request):
     programas = models.Programas.objects.all()
     context = {'programas': programas}
     return render(request, 'lista_programas.html', context)
 
 
-@login_required(login_url='/login')
+
 def editar_programa(request, cod_programa):
     programa = models.Programas.objects.get(cod_programa=cod_programa)
     if request.method == 'GET':
@@ -238,7 +237,6 @@ def editar_programa(request, cod_programa):
     return render(request, "CrearPrograma.html", context)
 
 
-@login_required(login_url='/login')
 def eliminar_programa(request, cod_programa):
     programa = models.Programas.objects.get(cod_programa=cod_programa)
     if request.method == 'POST':
@@ -250,7 +248,6 @@ def eliminar_programa(request, cod_programa):
 
 # Asignaturas ----------------------------------------------------------
 
-@login_required(login_url='/login')
 def CrearAsignatura(request):
     docentes = models.Docentes.objects.all()
     return render(request, "crearAsignatura.html", {'docentes' : docentes})
@@ -270,7 +267,6 @@ def crudAsignatura(request):
     return HttpResponse("correcto");
 
 
-@login_required(login_url='/login')
 def CrearCurso(request):
     
     if request.method == "POST" and request.is_ajax:
@@ -294,7 +290,7 @@ def lista_curso(request):
         return HttpResponse(data, 'application/json') #content_type=True)
     return HttpResponse("valido")
 
-@login_required(login_url='/login')
+
 def Editar_curso(request, cod_curso):
     curso = models.Cursos.objects.get(cod_curso=cod_curso)
     if request.method == 'GET':
@@ -310,7 +306,6 @@ def Editar_curso(request, cod_curso):
     return render(request, "crearcurso.html", context)
 
 
-@login_required(login_url='/login')
 def Eliminar_Curso(request, cod_curso):
     curso = models.Cursos.objects.get(cod_curso=cod_curso)
     if request.method == 'POST':
@@ -558,6 +553,9 @@ def registrarInscripcion(request):
     login(request, usercito)
     usuarioRegistrado.save()
     
+    #enviar correo
+    #enviarCorreo("sebastian" , "juan.ortiz.alzate@correounivalle.edu.co" , "una pruebita")
+
 
     return HttpResponse("correcto")
 
@@ -841,3 +839,40 @@ def verificarIdentificacion(request):
 
 
 
+from django.template.loader import render_to_string
+from django.core.mail import EmailMessage
+
+def enviarCorreo(name,email,message):
+
+    body = {
+                'name': name,
+                'email': email,
+                'message': message,
+            }
+        
+
+    email_message = EmailMessage(
+            subject='Mensaje de usuario',
+            body=body,
+            from_email=email,
+            to=['seas19754@gmail.com'],
+        )
+    email_message.content_subtype = 'html'
+    email_message.send()
+
+
+@csrf_exempt
+def obtenerEstadisticas(request):
+    estudiantesMatriculados = models.Estudiantes.objects.all().count()
+    programasTotales = models.Programas.objects.all().count()
+    usuariosTotales = models.usuario.objects.all().count()
+    cursosTotales = models.Cursos.objects.all().count()
+    asignaturasTotales = models.Asignaturas.objects.all().count()
+    docentesTotales = models.Docentes.objects.all().count()
+
+    arreglo = { 'estudiantesCantidad' : estudiantesMatriculados , 'programasTotales' : programasTotales , 'usuariosTotales' : usuariosTotales , 'cursosTotales' : cursosTotales , 'asignaturasTotales' : asignaturasTotales , 'docentesTotales' : docentesTotales}
+    data = json.dumps(arreglo)
+
+
+    
+    return JsonResponse(data,safe=False)
