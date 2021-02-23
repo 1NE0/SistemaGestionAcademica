@@ -109,14 +109,14 @@ def programas_info(request):
     return render(request, "info/programas_info.html")
 
 
-@login_required(login_url='/login')
+
 def Admision(request):
 
     usuariosConPago = models.usuario.objects.filter(pagoRealizado=True)
     print(usuariosConPago)
     return render(request, "Admisiones.html", {'usuariosLista': usuariosConPago})
 
-@login_required(login_url='/login')
+
 def estadisticas(request):
     return render(request,"administracion/estadisticas.html")
 @login_required(login_url='/login')
@@ -146,7 +146,7 @@ def perfil(request):
 #  Programas -----------------------------------------------------------
 
 
-@login_required(login_url='/login')
+
 def Programas(request):
     programasLista = models.Programas.objects.all()
     programasMatriculados = []  #guardaremos los programas que ya estan matriculados
@@ -201,7 +201,7 @@ def Pagos(request):
     return render(request, 'pagos.html')
 
 
-@login_required(login_url='/login')
+
 def CrearPrograma(request):
     form = Programas_Form(request.POST or None)
 
@@ -215,14 +215,13 @@ def CrearPrograma(request):
     return render(request, "CrearPrograma.html", context)
 
 
-@login_required(login_url='/login')
 def lista_programas(request):
     programas = models.Programas.objects.all()
     context = {'programas': programas}
     return render(request, 'lista_programas.html', context)
 
 
-@login_required(login_url='/login')
+
 def editar_programa(request, cod_programa):
     programa = models.Programas.objects.get(cod_programa=cod_programa)
     if request.method == 'GET':
@@ -238,7 +237,6 @@ def editar_programa(request, cod_programa):
     return render(request, "CrearPrograma.html", context)
 
 
-@login_required(login_url='/login')
 def eliminar_programa(request, cod_programa):
     programa = models.Programas.objects.get(cod_programa=cod_programa)
     if request.method == 'POST':
@@ -250,7 +248,6 @@ def eliminar_programa(request, cod_programa):
 
 # Asignaturas ----------------------------------------------------------
 
-@login_required(login_url='/login')
 def CrearAsignatura(request):
     docentes = models.Docentes.objects.all()
     return render(request, "crearAsignatura.html", {'docentes' : docentes})
@@ -270,7 +267,6 @@ def crudAsignatura(request):
     return HttpResponse("correcto");
 
 
-@login_required(login_url='/login')
 def CrearCurso(request):
     
     if request.method == "POST" and request.is_ajax:
@@ -320,7 +316,7 @@ def lista_curso(request):
         return HttpResponse(data, 'application/json') #content_type=True)
     return HttpResponse("valido")
 
-@login_required(login_url='/login')
+
 def Editar_curso(request, cod_curso):
     curso = models.Cursos.objects.get(cod_curso=cod_curso)
     if request.method == 'GET':
@@ -336,7 +332,6 @@ def Editar_curso(request, cod_curso):
     return render(request, "crearcurso.html", context)
 
 
-@login_required(login_url='/login')
 def Eliminar_Curso(request, cod_curso):
     curso = models.Cursos.objects.get(cod_curso=cod_curso)
     if request.method == 'POST':
