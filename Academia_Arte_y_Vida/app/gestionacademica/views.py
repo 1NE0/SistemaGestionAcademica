@@ -589,6 +589,29 @@ def registrarInscripcion(request):
 
 
 @login_required(login_url='/login')
+def crearDocente(request):
+
+    identificacion = request.POST.get('id')
+    tipoDoc = request.POST.get('tipoDocumento')
+    nombres = request.POST.get('nombres')
+    apellidos =request.POST.get('apellidos')
+    edad = request.POST.get('edad')
+    genero = request.POST.get('genero')
+    correoElectronico = request.POST.get('correo')
+    telefono = request.POST.get('telefono')
+    direccion = request.POST.get('direccion')
+    ciudad = request.POST.get('ciudad')
+
+    username = request.POST.get('username')
+    password = request.POST.get('password')
+
+    ciudadSeleccionada = models.ciudad.objects.get(nombre = ciudad)
+
+    return render(request, "administracion/crearDocente.html")
+
+
+
+@login_required(login_url='/login')
 def primerpago(request):       # no se està utilizando
     usuario = models.usuario.objects.get(user=request.user.id)
     return render(request,"primer_pago/primer_pago.html",{'usuario':usuario})

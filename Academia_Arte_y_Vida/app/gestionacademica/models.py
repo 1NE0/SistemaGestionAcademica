@@ -91,7 +91,6 @@ class Docentes(models.Model):
                                                                     'Cedula de Extranjeria'), ('4', 'Certificado Cabildo '), ('5', 'Pasaporte'),
     )
     identificacion = models.IntegerField(primary_key=True)
-    pagoRealizado = models.BooleanField(default=False)
     tipo = models.CharField(max_length=20, choices=tipos_doc, default='2')
     nombres = models.CharField(max_length=30)
     apellidos = models.CharField(max_length=30)

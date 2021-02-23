@@ -58,6 +58,7 @@ urlpatterns = [
     url(r'^administracion/$', administracion_staff, name="administracion"),
     url(r'^inscripcion/$', primerpago, name="inscripcion"),
     url(r'^docentes/$', docentes, name="docentes"),
+    url(r'^crearDocente/$', crearDocente, name="crearDocente"),
     #url(r'^pago/$', detalles_pagos, name="pago")
     url(r'^fotos/$', fotos, name="fotos"),
     url(r'^perfil/$', perfil, name="perfil"),
