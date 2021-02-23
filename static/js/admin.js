@@ -70,6 +70,12 @@ $(document).ready(function() {
         $("#contenedor-central").html('<h1 style="text-align:center;padding-top:300px;color:cyan">Cargando<h1>');
     });
 
+    $('#btn9').on('click', function(est) {
+        est.preventDefault();
+        $("#contenedor-central").load('/estadisticas');
+        $("#contenedor-central").html('<h1 style="text-align:center;padding-top:300px;color:cyan">Cargando<h1>');
+    });
+
 });
 
 

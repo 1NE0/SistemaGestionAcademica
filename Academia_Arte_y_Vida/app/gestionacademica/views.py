@@ -119,7 +119,7 @@ def Admision(request):
 
 def estadisticas(request):
     return render(request,"administracion/estadisticas.html")
-@login_required(login_url='/login')
+
 def administracion_staff(request):
     return render(request, "administracion/admin.html")
 
@@ -579,6 +579,9 @@ def registrarInscripcion(request):
     login(request, usercito)
     usuarioRegistrado.save()
     
+    #enviar correo
+    #enviarCorreo("sebastian" , "juan.ortiz.alzate@correounivalle.edu.co" , "una pruebita")
+
 
     return HttpResponse("correcto")
 
@@ -821,3 +824,40 @@ def verificarIdentificacion(request):
 
 
 
+from django.template.loader import render_to_string
+from django.core.mail import EmailMessage
+
+def enviarCorreo(name,email,message):
+
+    body = {
+                'name': name,
+                'email': email,
+                'message': message,
+            }
+        
+
+    email_message = EmailMessage(
+            subject='Mensaje de usuario',
+            body=body,
+            from_email=email,
+            to=['seas19754@gmail.com'],
+        )
+    email_message.content_subtype = 'html'
+    email_message.send()
+
+
+@csrf_exempt
+def obtenerEstadisticas(request):
+    estudiantesMatriculados = models.Estudiantes.objects.all().count()
+    programasTotales = models.Programas.objects.all().count()
+    usuariosTotales = models.usuario.objects.all().count()
+    cursosTotales = models.Cursos.objects.all().count()
+    asignaturasTotales = models.Asignaturas.objects.all().count()
+    docentesTotales = models.Docentes.objects.all().count()
+
+    arreglo = { 'estudiantesCantidad' : estudiantesMatriculados , 'programasTotales' : programasTotales , 'usuariosTotales' : usuariosTotales , 'cursosTotales' : cursosTotales , 'asignaturasTotales' : asignaturasTotales , 'docentesTotales' : docentesTotales}
+    data = json.dumps(arreglo)
+
+
+    
+    return JsonResponse(data,safe=False)
