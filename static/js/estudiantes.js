@@ -1,5 +1,6 @@
 
 $(document).ready(function () {
+  
   $("#input_nombre").keyup(function () {
     _this = this;
     // Muestra solo los TR, oculta el resto de ellos
@@ -11,6 +12,8 @@ $(document).ready(function () {
     });
   });                     
 });
+
+
 
 
 $('.editarBTN').click(function(e){
@@ -84,4 +87,14 @@ function cerrarModal() {
 
   $('.pagina').load('/estudiantes');
   return false;
+}
+
+
+function cerrarModal() {
+  console.log("cerrando");
+  $(this).modal('hide');
+  $(this).modal('hide');
+  
+  return false;
+  
 }

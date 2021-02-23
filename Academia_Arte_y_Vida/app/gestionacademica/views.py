@@ -95,6 +95,7 @@ def fotos(request):
 def cursos(request):
     cursosLista = models.Cursos.objects.all()
 
+    
     return render(request, "cursos.html", {'cursos': cursosLista})
 
 def docentes(request):
@@ -154,6 +155,11 @@ def administracion_staff(request):
 @login_required(login_url='/login')
 def board_estudiante(request):
     return render(request, "board_estudiante/board.html")
+
+@login_required(login_url='/login')
+def board_docente(request):
+    return render(request, "board_docente/panel.html")
+
 @login_required(login_url='/login')
 def perfil(request):
     usuario = request.user
@@ -295,84 +301,43 @@ def crudAsignatura(request):
 
 @login_required(login_url='/login')
 def CrearCurso(request):
-    form_curso = Cursos_Form(request.POST)
-    docentes = models.Docentes.objects.all()
-    #form_level = nivelCurso_form(request.POST)
     
     if request.method == "POST" and request.is_ajax:
         print("ENTREEEEEEEEEEE AL IF jeje")
+        codigo = request.POST.get('cod_curso')
+        nombre = request.POST.get('nom_curso')
+        print(codigo)
+        curso = models.Cursos(cod_curso= codigo, nom_curso=nombre)
+        curso.save()
+        return HttpResponse("correcto")
+        #cursoMandado = models.Cursos.objects.get(cod_curso=codigo, nom_curso=nombre)
+        #Context = {'añadido' : 'true', 'codigoCurso': cursoMandado.cod_curso, 'nombreCurso': cursoMandado.nom_curso}
 
-        if form_curso.is_valid:
-            cursito = form_curso.save()
-            cursito.save()
+        #console.log(Context)
+        #return JsonResponse(Context)
 
+        
             #obtenemos el docente
             #level_curso = form_level.save(commit=False)
-            print("preparando nivel...")
-            selectDocente = models.Docentes.objects.get(nombres=request.POST.get('combo_docente'))
+            #print("preparando nivel...")
+            #selectDocente = models.Docentes.objects.get(nombres=request.POST.get('combo_docente'))
 
             
-            nivelcito = request.POST.get('nivel')
-            descripcion_curso = request.POST.get('descripcion')
-            level = models.Nivel_Cursos(Id = "555", nivel = nivelcito, descripcion = descripcion_curso)
+            #nivelcito = request.POST.get('nivel')
+            #descripcion_curso = request.POST.get('descripcion')
+            #level = models.Nivel_Cursos(Id = "555", nivel = nivelcito, descripcion = descripcion_curso)
 
-            print("biem")
-            level.cod_Docente = selectDocente
-            level.cod_Curso = cursito
-            level.save()
+            #level.cod_Docente = selectDocente
+            #level.cod_Curso = cursito
+            #level.save()
 
 
             #level_curso.cod_Docente = selectDocente
             #level_curso.cod_Curso = cursito
 
             #level_curso.save()
-
-            print("GUARDO EL CURSO CON EL NIVEL JEJE")
-
-    return render(request, "crearcurso.html", {'form_cursito':form_curso, 'listDocente': docentes})
-
-#def CrearCurso(request):
-#    docentes = models.Docentes.objects.all()
-
-#    if request.method == "POST" and request.is_ajax:
-        
-#        print("entre al if")
-#        codigo_curso = request.POST.get('cod_curso')
-#        nombre_curso = request.POST.get('nom_curso')
-
-#        nivelcito = request.POST.get('nivel')
-#        descripcion_curso = request.POST.get('descripcion')
-#        selectDocente = models.Docentes.objects.get(nombres=request.POST.get('combo_docente'))
-
-#        grupito = request.POST.get('grupo')
-#        horario_ini = request.POST.get('horario_inicial')
-#        horario_fin = request.POST.get('horario_final')
-
-#        buscarCurso = models.detalle_curso.objects.filter(grupo=grupito).filter(nivel=nivelcito).filter(nom_curso=nombre_curso)
-#        print(buscarCurso.exists())
-#        if buscarCurso.exists():
-#            Context = {'ERROR' : 'error'}
-#            return JsonResponse(Context)
-#        else:
-#            cursito = models.Cursos(cod_curso=codigo_curso, nom_curso=nombre_curso)
-#            cursito.save()
-            
-#            nivelCursito = models.Nivel_Cursos(nivel= nivelcito, descripcion=descripcion_curso, cod_Docente=selectDocente)            
-#            nivelCursito.cod_Curso = cursito
-#            nivelCursito.save()
-
-#            detalle = models.detalle_curso(grupo=grupito, horario_inicial=horario_ini, horario_final=horario_fin)
-#            detalle.Nivel_Curso = nivelCursito
-#            detalle.save()
-
-            #curso completo a mandar.
-#            detalleMandado = models.detalle_curso.objects.get(grupo=grupito, horario_inicial= horario_ini, horario_final=horario_fin, Nivel_Curso=nivelCursito)
-#            context = {'Registrado' : 'true', 'group': detalleMandado.grupo, 'hora_ini': detalleMandado.horario_inicial, 
-#                                            'hora_fin': detalleMandado.horario_final, 'nivel_curso': detalleMandado.Nivel_Curso}
-
-#            return JsonResponse(context)
-        
-#    return render(request, "crearcurso.html", {'listDocente': docentes})
+    
+    return render(request, "crearcurso.html")
 
 def lista_curso(request):
     if request.is_ajax and request.method == "GET":
@@ -653,6 +618,29 @@ def registrarInscripcion(request):
 
 
 @login_required(login_url='/login')
+def crearDocente(request):
+
+    identificacion = request.POST.get('id')
+    tipoDoc = request.POST.get('tipoDocumento')
+    nombres = request.POST.get('nombres')
+    apellidos =request.POST.get('apellidos')
+    edad = request.POST.get('edad')
+    genero = request.POST.get('genero')
+    correoElectronico = request.POST.get('correo')
+    telefono = request.POST.get('telefono')
+    direccion = request.POST.get('direccion')
+    ciudad = request.POST.get('ciudad')
+
+    username = request.POST.get('username')
+    password = request.POST.get('password')
+
+    ciudadSeleccionada = models.ciudad.objects.get(nombre = ciudad)
+
+    return render(request, "administracion/crearDocente.html")
+
+
+
+@login_required(login_url='/login')
 def primerpago(request):       # no se està utilizando
     usuario = models.usuario.objects.get(user=request.user.id)
     return render(request,"primer_pago/primer_pago.html",{'usuario':usuario})
@@ -808,7 +796,7 @@ def eliminarEstudiante(request):
     identificacion = request.POST.get('estudiante[]')
     estudiante = models.Estudiantes.objects.get(identificacion=identificacion)
     estudiante.delete()
-    return HttpResponse("eliminado");
+    return HttpResponse("eliminado")
 
 def pagos(request):
     return render(request,"pagos.html")
@@ -820,6 +808,24 @@ def programasEstudiante(request):
 
 def cursosEstudiante(request):
     return render(request,"board_estudiante/cursosEstudiante.html")
+
+def asignaturasEstudiante(request):
+    return render(request, "board_estudiante/asignaturasEstudiante.html")
+
+def pagosEstudiante(request):
+    return render(request, "board_estudiante/pagosEstudiante.html")
+
+
+#    BOARD DEL DOCENTE
+def cursosDocente(request):
+    return render(request, "board_docente/cursosDocente.html")
+
+def asignaturasDocente(request):
+    return render(request, "board_docente/asignaturasDocente.html")
+
+def actividadesDocente(request):
+    return render(request, "board_docente/actividadesDocente.html")
+    
 
 
 @csrf_exempt

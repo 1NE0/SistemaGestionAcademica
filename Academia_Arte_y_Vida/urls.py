@@ -56,9 +56,9 @@ urlpatterns = [
     url(r'^quienes_somos/$', quienes_somos, name="quienes_somos"),
     url(r'^informacion_programas/$', programas_info, name="programas_info"),
     url(r'^administracion/$', administracion_staff, name="administracion"),
-    url(r'^board_estudiante/$', board_estudiante, name="board_estudiante"),
     url(r'^inscripcion/$', primerpago, name="inscripcion"),
     url(r'^docentes/$', docentes, name="docentes"),
+    url(r'^crearDocente/$', crearDocente, name="crearDocente"),
     #url(r'^pago/$', detalles_pagos, name="pago")
     url(r'^fotos/$', fotos, name="fotos"),
     url(r'^perfil/$', perfil, name="perfil"),
@@ -76,9 +76,21 @@ urlpatterns = [
     url(r'^pagos$', pagos, name="pagos"),
     url(r'^verificarUser/$', verificarUsername, name="verificarUsername"),
     url(r'^verificarIdentificacion/$', verificarIdentificacion, name="verificarIdentificacion"),
-    url(r'^programasEstudiante$', programasEstudiante, name="programasEstudiante"),
-    url(r'^cursosEstudiante$', cursosEstudiante, name="cursosEstudiante"),
     url(r'^modificarEstudiante$', modalEditarEstudiante, name="modificarEstudiante"),
     url(r'^eliminarEstudiante$', eliminarEstudiante, name="eliminarEstudiante"),
     url(r'^crudAsignatura$', crudAsignatura, name="crudAsignatura"),
+
+    # board estudiante
+    url(r'^board_estudiante/$', board_estudiante, name="board_estudiante"),
+    url(r'^programasEstudiante$', programasEstudiante, name="programasEstudiante"),
+    url(r'^cursosEstudiante$', cursosEstudiante, name="cursosEstudiante"),
+    url(r'^asignaturasEstudiante$', asignaturasEstudiante, name="asignaturasEstudiante"),
+    url(r'^pagosEstudiante$', pagosEstudiante, name="pagosEstudiante"),
+
+    # board docente
+    url(r'^board_docente/$', board_docente, name="board_docente"),
+    url(r'^cursosDocente$', cursosDocente, name="cursosDocente"),
+    url(r'^asignaturasDocente$', asignaturasDocente, name="asignaturasDocente"),
+    url(r'^actividadesDocente$', actividadesDocente, name="actividadesDocente"),
+
 ]
