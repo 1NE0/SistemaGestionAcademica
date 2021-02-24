@@ -5,20 +5,23 @@
 <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
 <link rel="stylesheet" href="{% static 'css/estadisticas.css' %}">
 
-<h1> estadisticas </h1>
+<h1 class="titulo"> estadisticas </h1>
 
 
 
 <div class="cards">
-    <div class="panelEstudiantes">
-        <div class="chart-container estudiantes">
+    
+    <div class="panel panelEstudiantes">
+        <h2>Estadisticas generales</h2>
+        <div class="chart-container grafico">
             <canvas id="myChart"></canvas>
         </div>
     </div>
 
-    <div class="panelEstudiantes">
-        <div class="chart-container estudiantes">
-            <canvas id="myChart"></canvas>
+    <div class="panel panelPeriodos">
+        <h2>Estudiantes matriculados en los ultimos 5 periodos</h2>
+        <div class="chart-container grafico">
+            <canvas id="myChart2"></canvas>
         </div>
     </div>
 

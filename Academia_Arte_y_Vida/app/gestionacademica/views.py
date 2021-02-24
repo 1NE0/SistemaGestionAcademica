@@ -855,6 +855,8 @@ def obtenerEstadisticas(request):
     asignaturasTotales = models.Asignaturas.objects.all().count()
     docentesTotales = models.Docentes.objects.all().count()
 
+    periodosTotales = models.periodo.objects.all()
+    
     arreglo = { 'estudiantesCantidad' : estudiantesMatriculados , 'programasTotales' : programasTotales , 'usuariosTotales' : usuariosTotales , 'cursosTotales' : cursosTotales , 'asignaturasTotales' : asignaturasTotales , 'docentesTotales' : docentesTotales}
     data = json.dumps(arreglo)
 
