@@ -89,4 +89,6 @@ urlpatterns = [
     url(r'^asignaturasDocente$', asignaturasDocente, name="asignaturasDocente"),
     url(r'^actividadesDocente$', actividadesDocente, name="actividadesDocente"),
 
+  
+
 ]

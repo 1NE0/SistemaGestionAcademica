@@ -63,6 +63,8 @@ def fotos(request):
     return render(request, "fotos/fotos.html")
 
 
+
+
 def cursos(request):
     cursosLista = models.Cursos.objects.all()
 
