@@ -121,7 +121,7 @@ def Admision(request):
 
 def estadisticas(request):
     return render(request,"administracion/estadisticas.html")
-@login_required(login_url='/login')
+
 def administracion_staff(request):
     return render(request, "administracion/admin.html")
 
@@ -279,32 +279,6 @@ def CrearCurso(request):
         curso = models.Cursos(cod_curso= codigo, nom_curso=nombre)
         curso.save()
         return HttpResponse("correcto")
-        #cursoMandado = models.Cursos.objects.get(cod_curso=codigo, nom_curso=nombre)
-        #Context = {'añadido' : 'true', 'codigoCurso': cursoMandado.cod_curso, 'nombreCurso': cursoMandado.nom_curso}
-
-        #console.log(Context)
-        #return JsonResponse(Context)
-
-        
-            #obtenemos el docente
-            #level_curso = form_level.save(commit=False)
-            #print("preparando nivel...")
-            #selectDocente = models.Docentes.objects.get(nombres=request.POST.get('combo_docente'))
-
-            
-            #nivelcito = request.POST.get('nivel')
-            #descripcion_curso = request.POST.get('descripcion')
-            #level = models.Nivel_Cursos(Id = "555", nivel = nivelcito, descripcion = descripcion_curso)
-
-            #level.cod_Docente = selectDocente
-            #level.cod_Curso = cursito
-            #level.save()
-
-
-            #level_curso.cod_Docente = selectDocente
-            #level_curso.cod_Curso = cursito
-
-            #level_curso.save()
     
     return render(request, "crearcurso.html")
 
@@ -581,32 +555,107 @@ def registrarInscripcion(request):
     login(request, usercito)
     usuarioRegistrado.save()
     
+    #enviar correo
+    #enviarCorreo("sebastian" , "juan.ortiz.alzate@correounivalle.edu.co" , "una pruebita")
+
 
     return HttpResponse("correcto")
 
+################### CRUD DOCENTE #####################
 
-@login_required(login_url='/login')
 def crearDocente(request):
 
-    identificacion = request.POST.get('id')
-    tipoDoc = request.POST.get('tipoDocumento')
-    nombres = request.POST.get('nombres')
-    apellidos =request.POST.get('apellidos')
-    edad = request.POST.get('edad')
-    genero = request.POST.get('genero')
-    correoElectronico = request.POST.get('correo')
-    telefono = request.POST.get('telefono')
-    direccion = request.POST.get('direccion')
-    ciudad = request.POST.get('ciudad')
+    print ("holi")
 
-    username = request.POST.get('username')
-    password = request.POST.get('password')
+    ciudades = models.ciudad.objects.all()
+    tipos = []
 
-    ciudadSeleccionada = models.ciudad.objects.get(nombre = ciudad)
+    for tipo in models.Docentes.tipos_doc:
+        tipos.append(tipo[1])
 
-    return render(request, "administracion/crearDocente.html")
+    print(tipos)
+
+    if request.method == "POST" and request.is_ajax:
+
+        tipoDocumento = request.POST.get('tipoDocumento')
+        identificacion = request.POST.get('id')
+        nombres = request.POST.get('nombres')
+        apellidos =request.POST.get('apellidos')
+        edad = request.POST.get('edad')
+        genero = request.POST.get('genero')
+        telefono = request.POST.get('telefono')
+        ciudad = request.POST.get('ciudad')
+        direccion = request.POST.get('direccion')
+        correoElectronico = request.POST.get('correo')
+
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        #obtenemos la ciudad
+        
 
 
+    return render(request, "administracion/docentes.html", {'ciudades': ciudades, 'tiposDocs': tipos})
+
+def añadirDocente(request):
+
+    if request.method == "POST" and request.is_ajax:
+        print("ENTREEEEEEEEEEE AL IF jeje")
+
+        tipoDocumento = request.POST.get('tipoDocumento')
+        identificacion = request.POST.get('id')
+        nombres = request.POST.get('nombres')
+        apellidos =request.POST.get('apellidos')
+        edad = request.POST.get('edad')
+        genero = request.POST.get('genero')
+        telefono = request.POST.get('telefono')
+        ciudad = request.POST.get('ciudad')
+        direccion = request.POST.get('direccion')
+        correoElectronico = request.POST.get('correo')
+
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        #CREAR EL USUARIO DE LOGEO
+        try:
+            verificarUsuarioRepetido = models.User.objects.get(username=username)
+            print("Usuario repetido")
+            return HttpResponse("Username ya usado")
+        except User.DoesNotExist:
+            usercito = User.objects.create_user(username, correo, password)
+
+        usercito.is_staff = False
+        usercito.set_password = password
+        grupo = Group.objects.get(name = 'docentes')
+        usercito.groups.add(grupo)
+
+        ciudadSeleccionada = models.ciudad.objects.get(nombre = ciudad)
+
+        docenteAñadido = models.Docentes(identificacion=identificacion,
+                                        tipo=tipoDocumento,
+                                        nombres=nombres,
+                                        apellidos=apellidos,
+                                        edad=edad,
+                                        sexo= genero,
+                                        correo=correoElectronico,
+                                        telefono=telefono,
+                                        direccion=direccion,
+                                        user = usercito,
+                                        ciudad = ciudadSeleccionada)
+
+        usercito.save()
+        docenteAñadido.save()
+        return HttpResponse("correcto")
+
+def lista_docente(request):
+    if request.is_ajax and request.method == "GET":
+        print("SOY AJAXX")
+        print(request.GET)
+        docentes = models.Docentes.objects.filter(nombres = request.GET.get('nombres'))
+        data =  serializers.serialize('json', cursos)
+        print(type(data))
+        return HttpResponse(data, 'application/json')
+    return HttpResponse("valido")
 
 @login_required(login_url='/login')
 def primerpago(request):       # no se està utilizando
@@ -823,3 +872,42 @@ def verificarIdentificacion(request):
 
 
 
+from django.template.loader import render_to_string
+from django.core.mail import EmailMessage
+
+def enviarCorreo(name,email,message):
+
+    body = {
+                'name': name,
+                'email': email,
+                'message': message,
+            }
+        
+
+    email_message = EmailMessage(
+            subject='Mensaje de usuario',
+            body=body,
+            from_email=email,
+            to=['seas19754@gmail.com'],
+        )
+    email_message.content_subtype = 'html'
+    email_message.send()
+
+
+@csrf_exempt
+def obtenerEstadisticas(request):
+    estudiantesMatriculados = models.Estudiantes.objects.all().count()
+    programasTotales = models.Programas.objects.all().count()
+    usuariosTotales = models.usuario.objects.all().count()
+    cursosTotales = models.Cursos.objects.all().count()
+    asignaturasTotales = models.Asignaturas.objects.all().count()
+    docentesTotales = models.Docentes.objects.all().count()
+
+    periodosTotales = models.periodo.objects.all()
+    
+    arreglo = { 'estudiantesCantidad' : estudiantesMatriculados , 'programasTotales' : programasTotales , 'usuariosTotales' : usuariosTotales , 'cursosTotales' : cursosTotales , 'asignaturasTotales' : asignaturasTotales , 'docentesTotales' : docentesTotales}
+    data = json.dumps(arreglo)
+
+
+    
+    return JsonResponse(data,safe=False)
