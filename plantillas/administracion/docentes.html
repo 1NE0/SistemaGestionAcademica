@@ -26,9 +26,10 @@
                                     <div class="accordion-body">
                                       <div class="form-group">
                                         <label for="inputState" class="form-label">Tipo de Documento</label>
-                                        <select name="tipoDocumento" id="inputState" class="form-select">
-                                          <option selected>Cedula de Ciudadanía</option>
-                                          <option selected>Cédula de Extranjería</option>
+                                        <select name="tipoDocumento" class="form-select">
+                                          {% for tipo in tiposDocs %}
+                                          <option selected>{{ tipo }}</option>
+                                          {% endfor %}
                                         </select>
                 
                                         <label for="inputAddress" class="form-label">Identificacion</label>
@@ -40,7 +41,7 @@
                                         <label for="inputCity" class="form-label">Edad</label>
                                         <input type="number" class="form-control" name="edad">
                                         <label for="inputState" class="form-label">Género</label>
-                                        <select name="genero" id="inputState" class="form-select">
+                                        <select name="genero"  class="form-select">
                                           <option selected>Femenino</option>
                                           <option selected>Masculino</option>
                                         </select>
@@ -61,7 +62,7 @@
                                         <label for="inputCity" class="form-label">Teléfono</label>
                                         <input type="text" class="form-control" name="telefono">
                                         <label for="inputState" class="form-label">Ciudad</label>
-                                        <select name="ciudad" id="inputState" class="form-select">
+                                        <select name="ciudad" class="form-select">
                                           {% for ciudad in ciudades %}
                                           <option>{{ ciudad.nombre }}</option>
                                           {% endfor %}
@@ -107,5 +108,3 @@
                 <h3 class="tituloIzq">BUSCAR DOCENTE</h3>
             </div>
     </div>
-
-<script  src="{% static 'js/crearDocente.js' %}"></script>

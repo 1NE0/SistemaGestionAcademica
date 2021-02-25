@@ -559,15 +559,48 @@ def registrarInscripcion(request):
 
     return HttpResponse("correcto")
 
+################### CRUD DOCENTE #####################
 
-@login_required(login_url='/login')
 def crearDocente(request):
+
+    print ("holi")
+
     ciudades = models.ciudad.objects.all()
+    tipos = []
+
+    for tipo in models.Docentes.tipos_doc:
+        tipos.append(tipo[1])
+
+    print(tipos)
+
+    if request.method == "POST" and request.is_ajax:
+
+        tipoDocumento = request.POST.get('tipoDocumento')
+        identificacion = request.POST.get('id')
+        nombres = request.POST.get('nombres')
+        apellidos =request.POST.get('apellidos')
+        edad = request.POST.get('edad')
+        genero = request.POST.get('genero')
+        telefono = request.POST.get('telefono')
+        ciudad = request.POST.get('ciudad')
+        direccion = request.POST.get('direccion')
+        correoElectronico = request.POST.get('correo')
+
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        #obtenemos la ciudad
+        
+
+
+    return render(request, "administracion/docentes.html", {'ciudades': ciudades, 'tiposDocs': tipos})
+
+def añadirDocente(request):
 
     if request.method == "POST" and request.is_ajax:
         print("ENTREEEEEEEEEEE AL IF jeje")
 
-        tipoDoc = request.POST.get('tipoDocumento')
+        tipoDocumento = request.POST.get('tipoDocumento')
         identificacion = request.POST.get('id')
         nombres = request.POST.get('nombres')
         apellidos =request.POST.get('apellidos')
@@ -597,7 +630,7 @@ def crearDocente(request):
         ciudadSeleccionada = models.ciudad.objects.get(nombre = ciudad)
 
         docenteAñadido = models.Docentes(identificacion=identificacion,
-                                        tipo=tipoDoc,
+                                        tipo=tipoDocumento,
                                         nombres=nombres,
                                         apellidos=apellidos,
                                         edad=edad,
@@ -611,8 +644,6 @@ def crearDocente(request):
         usercito.save()
         docenteAñadido.save()
         return HttpResponse("correcto")
-
-    return render(request, "administracion/docentes.html", { 'ciudad': ciudades})
 
 def lista_docente(request):
     if request.is_ajax and request.method == "GET":
