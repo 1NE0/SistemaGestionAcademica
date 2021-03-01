@@ -9,11 +9,13 @@
     <link rel="stylesheet" href="{% static 'css/cursos.css' %}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    
+    <script src="{% static 'js/cursos.js' %}"></script>
 
 <div class="contenido">
-    {% if user.is_staff == 1 %}
-    <div class="buscador">
+
+    <button onclick="abrirModal('{% url 'crearcurso' %}')"  class="btn btn-dark boton" >Crear curso</button>
+    
+    <!-- <div class="buscador">
         <form method="GET" class="form-search content-search navbar-form" action="{% url 'listacursos' %}">
             <div class="input-group">
                 <input id="buscar_curso" placeholder="Buscar cursos" name="nombre" class="form-control form-text" type="text" size="15" maxlength="128" />
@@ -22,43 +24,51 @@
                 </span>
             </div>
         </form>
-    </div>
-    <div class="listado">
-        <table class="table table-hover" id="table">
-            <thead class="table-dark">
-                <tr>
-                    <th>Accion</th>
-                    <th>Codigo_Curso</th>
-                    <th>Nombre del curso</th>
-                    <th>Programa</th>
-                    <th>Periodo</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% if cursos %}
-                {% for curso in cursos %}
-                <tr>
-                    <td>
-                        <button type="button" id="{{curso.cod_curso}}" class="btn btn-dark botoncito">Editar</button>
-                        <button type="button" class="btn btn-dark botoncito">Eliminar</button>
-                    </td>
-                    <td>{{ curso.cod_curso }}</td>
-                    <td>{{ curso.nom_curso }}</td>
-                    <td>{{ curso.Programa.nom_programa }}</td>
-                    <td> </td>
-                </tr>
-                {% endfor %}       
-                {% else %}
-                <h3>No hay registro de cursos</h3>
-                {% endif %}    
-            </tbody>
-          </table>
-    </div>               
-    {% endif %}
+    </div> -->
+    
+    <!-- drog and drop -->
+
+
+   
     <hr>
-    <button onclick="abrirModal('{% url 'crearcurso' %}')"  class="btn btn-dark" >Crear curso</button>
+    
+</div>
+<div class="cursos">
+    <div class="example-parent">   <!-- el area general -->
+        <div class="cursos-origin">
+            <div class="example-origin" ondragover="onDragOver(event);" ondrop="onDrop(event);"> <!-- el panel de origen -->
+                <!-- aqui dentro se pueden objetos de clase example-draggable que son los programas -->
+                {% for curso in cursos %}
+                <div id="{{curso.cod_curso}}"class="example-draggable" draggable="true" ondragstart="onDragStart(event);">
+                    <h2 style="margin-right: 20px;">{{curso.nom_curso}}</h2>
+                  </div>
+                {% endfor %}
+              </div>
+        </div>
+
+        <div class="programas">
+            <div class="titulo"><h1>PROGRAMAS MATRICULADOS ESTE PERIODO</h1></div>
+            <div class="grid">
+                <!-- programas matriculados -->
+                {% for programa in programas%}
+                <div class="card carta">
+                    <h2>{{programa.programa.nom_programa}}</h2>
+                    <!-- zona de recepcion -->
+                    <div class="example-dropzone" ondragover="onDragOver(event);" ondrop="onDrop(event);">
+                        <!-- aqui se llenara con los programas a agregar-->
+                        
+                    </div>
+                    <button class="{{programa.programa.cod_programa}} btn btn-primary">Guardar</button>
+                </div>
+                {% endfor %}
+                </div>
+            </div>
+    </div>
+</div>
 
 
     <div class="modal fade" id="creacion" role="dialog"></div>
+
+    
 </div>
-<script src="{% static 'js/cursos.js' %}"></script>
+

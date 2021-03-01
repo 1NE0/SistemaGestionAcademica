@@ -64,10 +64,17 @@ def fotos(request):
 
 
 def cursos(request):
-    cursosLista = models.Cursos.objects.all()
+    cursos = models.Cursos.objects.all()
+    InscripcionesProgramasMatriculados = models.inscripcionPrograma.objects.filter(periodo=models.periodo.periodo_actual())
+    cursosSinMatricular = []
+    cursosMatriculados = []
+
+
+
+
 
     
-    return render(request, "cursos.html", {'cursos': cursosLista})
+    return render(request, "cursos.html", {'programas': InscripcionesProgramasMatriculados , 'cursos' : cursos})
 
 def docentes(request):
     docentesLista = models.Docentes.objects.all()
