@@ -54,7 +54,7 @@ $(document).ready(function() {
 
     $('#btn6').on('click', function(prof) {
         prof.preventDefault();
-        $("#contenedor-central").load('/docentes');
+        $("#contenedor-central").load('/crearDocente');
         $("#contenedor-central").html('<h1 style="text-align:center;padding-top:300px;color:cyan">Cargando<h1>');
     });
 

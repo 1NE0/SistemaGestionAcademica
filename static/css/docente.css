@@ -1,0 +1,32 @@
+
+.bloque{
+    display: flex;
+    padding-top: 20px;
+}
+
+.izquierda{
+    width: 50%;
+    margin-left: 0px!important;
+    background-color:cadetblue;
+   
+
+}
+
+.derecha{
+    width: 50%;
+    height: 500px;
+    background-color: black;
+    
+}
+
+.tituloPrincipal{
+    text-align: center;
+    margin-top: 30px;
+
+    width: 100%;
+    height: auto;
+}
+
+.tituloIzq{
+    text-align: center;
+}
