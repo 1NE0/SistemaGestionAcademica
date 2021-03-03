@@ -11,64 +11,68 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="{% static 'js/cursos.js' %}"></script>
 
-<div class="contenido">
 
-    <button onclick="abrirModal('{% url 'crearcurso' %}')"  class="btn btn-dark boton" >Crear curso</button>
-    
-    <!-- <div class="buscador">
-        <form method="GET" class="form-search content-search navbar-form" action="{% url 'listacursos' %}">
-            <div class="input-group">
-                <input id="buscar_curso" placeholder="Buscar cursos" name="nombre" class="form-control form-text" type="text" size="15" maxlength="128" />
-                <span class="input-group-btn">
-                    <button id="boton" value="buscar" type="submit" class="btn btn-dark"><span class="fas fa-search" style="color: white;" aria-hidden="true"></span></button>
-                </span>
-            </div>
-        </form>
-    </div> -->
-    
-    <!-- drog and drop -->
+<div class="pagina">
+    <div class="contenido">
 
-
-   
-    <hr>
+        <button onclick="abrirModal('{% url 'crearcurso' %}')"  class="btn btn-dark boton" >Crear curso</button>
+        
+        <!-- <div class="buscador">
+            <form method="GET" class="form-search content-search navbar-form" action="{% url 'listacursos' %}">
+                <div class="input-group">
+                    <input id="buscar_curso" placeholder="Buscar cursos" name="nombre" class="form-control form-text" type="text" size="15" maxlength="128" />
+                    <span class="input-group-btn">
+                        <button id="boton" value="buscar" type="submit" class="btn btn-dark"><span class="fas fa-search" style="color: white;" aria-hidden="true"></span></button>
+                    </span>
+                </div>
+            </form>
+        </div> -->
+        
+        <!-- drog and drop -->
     
-</div>
-<div class="cursos">
-    <div class="example-parent">   <!-- el area general -->
-        <div class="cursos-origin">
-            <div class="example-origin" ondragover="onDragOver(event);" ondrop="onDrop(event);"> <!-- el panel de origen -->
-                <!-- aqui dentro se pueden objetos de clase example-draggable que son los programas -->
-                {% for curso in cursos %}
-                <div id="{{curso.cod_curso}}"class="example-draggable" draggable="true" ondragstart="onDragStart(event);">
-                    <h2 style="margin-right: 20px;">{{curso.nom_curso}}</h2>
+    
+       
+        <hr>
+        
+    </div>
+    <div class="cursos">
+        <div class="example-parent">   <!-- el area general -->
+            <div class="cursos-origin">
+                <div class="example-origin" ondragover="onDragOver(event);" ondrop="onDrop(event);"> <!-- el panel de origen -->
+                    <!-- aqui dentro se pueden objetos de clase example-draggable que son los programas -->
+                    {% for curso in cursos %}
+                    <div id="{{curso.cod_curso}}"class="example-draggable" draggable="true" ondragstart="onDragStart(event);">
+                        <h2 style="margin-right: 20px;">{{curso.nom_curso}}</h2>
+                      </div>
+                    {% endfor %}
                   </div>
-                {% endfor %}
-              </div>
-        </div>
-
-        <div class="programas">
-            <div class="titulo"><h1>PROGRAMAS MATRICULADOS ESTE PERIODO</h1></div>
-            <div class="grid">
-                <!-- programas matriculados -->
-                {% for programa in programas%}
-                <div class="card carta">
-                    <h2>{{programa.programa.nom_programa}}</h2>
-                    <!-- zona de recepcion -->
-                    <div class="example-dropzone" ondragover="onDragOver(event);" ondrop="onDrop(event);">
-                        <!-- aqui se llenara con los programas a agregar-->
-                        
-                    </div>
-                    <button class="{{programa.programa.cod_programa}} btn btn-primary">Guardar</button>
-                </div>
-                {% endfor %}
-                </div>
             </div>
+    
+            <div class="programas">
+                <div class="titulo"><h1>PROGRAMAS MATRICULADOS ESTE PERIODO</h1></div>
+                <div class="grid">
+                    <!-- programas matriculados -->
+                    {% for programa in programas%}
+                    <div class="card carta">
+                        <h2>{{programa.programa.nom_programa}}</h2>
+                        <!-- zona de recepcion -->
+                        <div class="example-dropzone" ondragover="onDragOver(event);" ondrop="onDrop(event);">
+                            <!-- aqui se llenara con los programas a agregar-->
+                            
+                        </div>
+                        <a class="btn btn-primary botonGuardar" id="{{programa.programa.cod_programa}}">Guardar</a>
+                    </div>
+                    {% endfor %}
+                    </div>
+                </div>
+        </div>
+    </div>
+    
+    
+        <div class="modal fade" id="creacion" role="dialog"></div>
+    
+        
     </div>
 </div>
 
-
-    <div class="modal fade" id="creacion" role="dialog"></div>
-
-    
-</div>
 

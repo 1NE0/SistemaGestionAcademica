@@ -40,7 +40,7 @@ function onDragStart(event) {   // CUANDO SE COMIENZA A ARRASTRAR
 $(function() {
     var buttonpressed; 
 
-       
+      
 
 
        $('.enviar').click(function() {  
@@ -80,6 +80,47 @@ $(function() {
     });
 
 
+// GUARDAR PERIODO
+
+$('.btn').click(function(e){
+  e.preventDefault();
+
+  var codigoPrograma = $(this).attr('id');
+  // que hacer despues de hacer click en guardar
+  var listaCursos = [];
+  console.log($(this).siblings('.example-dropzone').attr('class'));
+
+  $(this).siblings('.example-dropzone').children('.example-draggable').each(function(){  // recorrer los hijos del dropzone, que en este caso son los cursos
+    listaCursos.push($(this).attr('id'));  // los guardamos en la lista antes creada
+  });
+
+  // mandarlos a la vista
+  $.ajax({
+    type: "POST",
+    url: '/guardarCursoPrograma/',
+    data: {
+        listaCursos : listaCursos,
+        programa: codigoPrograma,
+    },
+    dataType: "html",
+    beforeSend: function(response){   // ANTES QUE SE EJECUTE, O MIENTRAS SE EJECUTA
+        // antes de enviar la peticion
+        console.log("reealizando...");
+    },
+    success: function (response) {
+        if(response == "correcto"){
+            swal("Correcto!", "El curso se ha registrado con éxito.", "success");
+        }
+        console.log(response);
+    },
+    error: function (response) {
+        console.log(response)
+    }
+  }); 
+
+
+});
+
 // Abrir modal creacion
 function abrirModal(url , identificacion){
   jQuery.noConflict();
@@ -102,6 +143,6 @@ function cerrarModal() {
   console.log("antes");
   $('.modal').modal('hide');
   console.log("despues");
-  $('.contenido').load('/cursos');
+  $('.contenido').parents('.contenedor-central').load('/cursos');
   return false;
 }

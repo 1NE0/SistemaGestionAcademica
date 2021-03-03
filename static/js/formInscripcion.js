@@ -107,6 +107,7 @@ $(document).ready(function(){
               if(data == "disponible"){
                 $('.username').addClass("userVerificado");
                 $('.username').removeClass("userRepetido");
+                
               }else if(data == "noDisponible"){
                 $('.username').addClass("userRepetido");
                 $('.username').removeClass("userVerificado");

@@ -918,3 +918,26 @@ def obtenerEstadisticas(request):
 
     
     return JsonResponse(data,safe=False)
+
+
+@csrf_exempt
+def guardarCursoPrograma(request):
+
+    cursos = request.POST.getlist('listaCursos[]')
+    #programa = models.Programas.objects.get(cod_programa=request.POST.get('programa'))
+    
+    # ENCONTRAR LA INSCRIPCION DEL PROGRAMA AL PERIODO ACTUAL
+    #inscripcionDelPrograma = models.inscripcionPrograma.objects.get(programa=programa,periodo=models.periodo.periodo_actual())
+    
+    # AGREGAR A ESTA INSCRIPCION, TODOS LOS CURSOS
+
+    for curso in cursos:
+        cursoModel = models.Cursos.objects.get(cod_curso=curso)
+        # CREAR LA INSCRIPCION CURSO
+        #inscripcionCurso = models.InscripcionCurso(Id=random.randrange(0,1000000),nivel_curso=cursoModel.)
+
+
+
+    return HttpResponse('hola')
+
+    pass

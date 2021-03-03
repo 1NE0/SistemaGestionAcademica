@@ -91,4 +91,8 @@ urlpatterns = [
     #estadisticas
     url(r'^obtenerEstadisticas$', obtenerEstadisticas, name="obtenerEstadisticas"),
     url(r'^estadisticas/$', estadisticas, name="estadisticas"),
+
+    #guardar cursos en programas
+    url(r'^guardarCursoPrograma/$', guardarCursoPrograma, name="guardarCursoPrograma"),
+    
 ]

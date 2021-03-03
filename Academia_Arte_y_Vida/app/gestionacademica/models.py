@@ -48,6 +48,7 @@ class Estudiantes(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     ciudad = models.ForeignKey(
         ciudad, default="", null=True, blank=False, on_delete=models.CASCADE)
+    
 
 
 #clase programa########################################################################################################
@@ -55,7 +56,7 @@ class Programas(models.Model):
     cod_programa = models.CharField(primary_key=True, max_length=10)
     nom_programa = models.CharField(max_length=30)
     contenido_Aca = models.CharField(max_length=500)
-    
+    duracion = models.IntegerField(null=False,blank=False)
 
     def _str_(self):
         return "{0}".format(self.nom_programa)
@@ -184,9 +185,18 @@ class detalle_curso(models.Model):
     horario_final = models.DateTimeField(null=True, blank=True, auto_now=False, auto_now_add=False)
 
     #relaciones
-    cod_estudiante = models.ForeignKey(Estudiantes,default="", null=False, blank=False, on_delete=models.CASCADE)
+    
     Nivel_Curso = models.ForeignKey(Nivel_Cursos,default="", null=False, blank=False, on_delete=models.CASCADE)
 
+
+# inscripcion del estudiante en el detalle_curso
+
+class inscripcionEstudianteCurso(models.Model):
+    
+    detalle_curso = models.ForeignKey(detalle_curso,default="nulo", null=False, blank=False, on_delete=models.CASCADE)
+    estudiante = models.ForeignKey(Estudiantes,default="nulo", null=False, blank=False, on_delete=models.CASCADE)
+
+    
 
 class usuario(models.Model):
     tipos_doc = (

@@ -32,6 +32,10 @@
     transform: translateY(100px);
 }
 
+.content p, h3{
+    font-size: 12px;
+    color: black;
+}
 
 .content i{
     font-size: 50px;
