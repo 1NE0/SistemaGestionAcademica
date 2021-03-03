@@ -36,7 +36,6 @@ function abrirModal(url){
         e.preventDefault();
         var data = $("#form_programas :input").serializeArray();
         console.log(data);
-
         $.ajax({
           url : $(this).attr('action'),
           type: "POST",
@@ -45,6 +44,7 @@ function abrirModal(url){
             cod_programa: data[1].value,
             nom_programa: data[2].value,
             contenido_Aca: data[3].value,
+            duracion: data[4].value,
           },
           dataType: "html",
           beforeSend: function(response){
@@ -54,7 +54,12 @@ function abrirModal(url){
             if(response == "correcto"){
             swal("Programa creado","Se creó el programa de manera exitosa","success");
             }
+            
             console.log(response)
+
+            cerrarModal();
+
+
           },
           error: function(response){
             console.log(response)

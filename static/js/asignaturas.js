@@ -30,6 +30,7 @@ $(document).ready(function(){
 
 function cerrarModal() {
     console.log("cerrando..."); 
+    jQuery.noConflict(); 
     $('#creacion').modal('hide');
     $('.principal').load('asignaturas');
     return false;

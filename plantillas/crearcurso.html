@@ -1,5 +1,6 @@
 {% load static %}
 
+<link rel="stylesheet" href="{% static 'css/crearcurso.css' %}">
 
 <div class="modal-dialog modal-lg" role="document" id="miModal">
     <div class="modal-content">
@@ -14,13 +15,35 @@
             <div class="modal-body">
                 <form method="POST" id="formCrearCurso" action="{% url 'crearcurso' %}">
                     {% csrf_token %} 
-                    <div class="form-group">
-                    <label for="start" class="col-form-label">Código</label>
-                    <input name="cod_curso" type="text" class="form-control w-50">
-                    <label for="start" class="col-form-label">Nombre</label>
-                    <input name="nom_curso" type="text" class="form-control w-50">
+                     
+                    <div class="content">
+                        <div class="izquierda">
+                            <label for="start" class="">Código</label>
+                            <input name="cod_curso" type="text" class="form-control">
+                            <label for="start" class="">Nombre</label>
+                            <input name="nom_curso" type="text" class="form-control">
 
-                    
+                            <!-- nivel -->
+                            <label for="start" class="">Nivel</label>
+                            <select class="form-select mt-1" aria-label="Seleccione el nivel del curso">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
+
+                            <!-- descripcion -->
+                            <label for="start" class="">Descripcion</label>
+                            <input name="cod_curso" type="text" class="form-control">
+                        </div>
+                        <div class="derecha">
+                            <select class="form-select mt-1" aria-label="Seleccione el nivel del curso">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
+                        </div>
+                    </div>
+
                    
             </div> 
             <div class="modal-footer">

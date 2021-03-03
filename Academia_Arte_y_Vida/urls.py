@@ -52,7 +52,6 @@ urlpatterns = [
     url(r'^registrarInscripcion/$', registrarInscripcion, name="registrarInscripcion"),
     url(r'^primerpago/$', primerpago, name="primerpago"),
     url(r'^estudiantes/$', estudiantes, name="estudiantes"),
-    url(r'^estadisticas/$', estadisticas, name="estadisticas"),
     url(r'^quienes_somos/$', quienes_somos, name="quienes_somos"),
     url(r'^informacion_programas/$', programas_info, name="programas_info"),
     url(r'^administracion/$', administracion_staff, name="administracion"),
@@ -97,4 +96,11 @@ urlpatterns = [
     url(r'^asignaturasDocente$', asignaturasDocente, name="asignaturasDocente"),
     url(r'^actividadesDocente$', actividadesDocente, name="actividadesDocente"),
 
+    #estadisticas
+    url(r'^obtenerEstadisticas$', obtenerEstadisticas, name="obtenerEstadisticas"),
+    url(r'^estadisticas/$', estadisticas, name="estadisticas"),
+
+    #guardar cursos en programas
+    url(r'^guardarCursoPrograma/$', guardarCursoPrograma, name="guardarCursoPrograma"),
+    
 ]

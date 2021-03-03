@@ -54,7 +54,7 @@ $(document).ready(function() {
 
     $('#btn6').on('click', function(prof) {
         prof.preventDefault();
-        $("#contenedor-central").load('/docentes');
+        $("#contenedor-central").load('/crearDocente');
         $("#contenedor-central").html('<h1 style="text-align:center;padding-top:300px;color:cyan">Cargando<h1>');
     });
 
@@ -67,6 +67,12 @@ $(document).ready(function() {
     $('#btn8').on('click', function(prof) {
         prof.preventDefault();
         $("#contenedor-central").load('/pagos');
+        $("#contenedor-central").html('<h1 style="text-align:center;padding-top:300px;color:cyan">Cargando<h1>');
+    });
+
+    $('#btn9').on('click', function(est) {
+        est.preventDefault();
+        $("#contenedor-central").load('/estadisticas');
         $("#contenedor-central").html('<h1 style="text-align:center;padding-top:300px;color:cyan">Cargando<h1>');
     });
 

@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Yantramanav:wght@900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bungee&family=Yantramanav:wght@900&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i');
+@import url(//fonts.googleapis.com/css?family=Lato:300:400);
+
+
+.contenidos{
+    display: flex;
+    justify-content: center;
+    background: black;
+    height: auto;
+    position: static; 
+    z-index: 100;  
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    
+
+    }
+
+    .contenidos .info{
+        display: flex;
+        justify-content: flex-start;
+        flex-direction: column;
+        width: auto;
+        margin: 8px;
+        
+
+        
+        
+    }
+
+    .info a {
+        text-decoration: none;
+        color: white;
+        font-family: ;
+        margin: 6px;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 15px;
+    }
+
+    .info a:hover {
+        text-decoration: none;
+        color: #1687a7;
+        
+        
+       
+    }
+
+    .info p{
+        text-decoration: none;
+        color: white;
+        margin: 6px;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 15px;
+    }
+
+    .info h3{
+        text-decoration: none;
+        color: white;
+        font-family: 'Yantramanav', sans-serif;
+        margin-bottom: none;
+        text-align: center;
+    }
+
+    
+
+    hr{
+        background-color:#1687a7 ;
+        width: 100%;
+            
+        
+
+        
+        
+    }
+
+
+    .derechos{
+        width: 100%;
+        height: 12px;
+        background: gray;
+        display: inline-flex;
+        position: absolute;
+        
+    }
+
+
+    @media (max-width: 768px){
+        .contenidos{
+            display: flex;
+            flex-direction: column;
+            width: auto;
+            justify-content: center;
+        }
+
+        .contenidos .info{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+        }   
+ 
+
+    }
+  
