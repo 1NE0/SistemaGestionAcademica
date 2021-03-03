@@ -2,7 +2,7 @@
 
 
 function onDragStart(event) {   // CUANDO SE COMIENZA A ARRASTRAR
-    console.log("hola");
+    
     event
       .dataTransfer
       .setData('text/plain', event.target.id);   // AQUI POR LO QUE ENTIENDO SE ROTA EL ID DEL OBJETO DE DONDE SE ARRASTRA
@@ -40,9 +40,6 @@ function onDragStart(event) {   // CUANDO SE COMIENZA A ARRASTRAR
 $(function() {
     var buttonpressed; 
 
-      
-
-
        $('.enviar').click(function() {  
              buttonpressed = $(this).attr('name')
        })
@@ -51,6 +48,7 @@ $(function() {
            e.preventDefault();
            var inputs = $("#formCrearCurso :input").serializeArray();
             console.log(inputs);
+          
         
             $.ajax({
             type: "POST",
@@ -58,12 +56,19 @@ $(function() {
             data: {
                 csrfmiddlewaretoken:inputs[0].value,
                 cod_curso: inputs[1].value,
-                nom_curso: inputs[2].value
+                nom_curso: inputs[2].value,
+                nivel: inputs[3].value,
+                descripcion: inputs[4].value,
+                docente: inputs[5].value,
+                grupo: inputs[6].value,
+                dia: inputs[7].value,
+                hora_inicial: inputs[8].value,
+                hora_final: inputs[9].value
             },
             dataType: "html",
             beforeSend: function(response){   // ANTES QUE SE EJECUTE, O MIENTRAS SE EJECUTA
                 // antes de enviar la peticion
-                console.log("reealizando...");
+                console.log(" esperando...");
             },
             success: function (response) {
                 if(response == "correcto"){
@@ -82,7 +87,7 @@ $(function() {
 
 // GUARDAR PERIODO
 
-$('.btn').click(function(e){
+$('.botonGuardar').click(function(e){
   e.preventDefault();
 
   var codigoPrograma = $(this).attr('id');
@@ -105,7 +110,7 @@ $('.btn').click(function(e){
     dataType: "html",
     beforeSend: function(response){   // ANTES QUE SE EJECUTE, O MIENTRAS SE EJECUTA
         // antes de enviar la peticion
-        console.log("reealizando...");
+        console.log("realizando envio de cursos...");
     },
     success: function (response) {
         if(response == "correcto"){

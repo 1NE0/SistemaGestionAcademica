@@ -281,10 +281,28 @@ def CrearCurso(request):
     if request.method == "POST" and request.is_ajax:
         print("ENTREEEEEEEEEEE AL IF jeje")
         codigo = request.POST.get('cod_curso')
-        nombre = request.POST.get('nom_curso')
-        print(codigo)
-        curso = models.Cursos(cod_curso= codigo, nom_curso=nombre)
+        nombre_curso = request.POST.get('nom_curso')
+        nivel = request.POST.get('nivel')
+        descripcion = request.POST.get('descripcion')
+        docenteIdSelect = request.POST.get('docente')
+        grupo = request.POST.get('grupo')
+        dia = request.POST.get('dia')
+        hora_inicial = request.POST.get('hora_inicial')
+        hora_final = request.POST.get('nom_final')
+
+        docente = models.Docentes.objects.get(identificacion=docenteIdSelect)
+        curso = models.Cursos(cod_curso= codigo, nom_curso=nombre_curso)
         curso.save()
+        # crear un nivel del curso
+        nivelCurso = models.Nivel_Cursos(Id=random.randrange(0,1000000),nivel=nivel,descripcion=descripcion,cod_Curso=curso,cod_Docente=docente)
+        
+        #crear un detalle
+        detalleCurso = models.detalle_curso(grupo=grupo,dia=dia,horaInicio=hora_inicial,horaFinal=hora_final,Nivel_Curso=nivelCurso)
+
+
+        #guardar todo
+        nivelCurso.save()
+        detalleCurso.save()
         return HttpResponse("correcto")
     
     return render(request, "crearcurso.html", {'docentes' : docentes})
