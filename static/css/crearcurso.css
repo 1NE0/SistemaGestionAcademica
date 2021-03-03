@@ -5,7 +5,7 @@
 
 
 .izquierda{
-    padding-right: 5px;
+    padding-right: 10px;
 }
 
 .content{
@@ -15,5 +15,5 @@
 }
 
 .derecha{
-    background-color:rgb(216, 216, 216);
+    background-color: white;
 }

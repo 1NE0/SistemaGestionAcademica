@@ -125,8 +125,9 @@ class Nivel_asignatura(models.Model):
     Id = models.IntegerField(primary_key=True)
     nivel = models.IntegerField(null=False, blank=False)
     descripcion = models.CharField(max_length=200)
-    horario_inicial = models.DateTimeField(null=True, blank=True, auto_now=False, auto_now_add=False)
-    horario_final = models.DateTimeField(null=True, blank=True, auto_now=False, auto_now_add=False)
+    dia = models.CharField(max_length=100,null=True,blank=False)
+    horaInicio = models.CharField(max_length=100,null=True , blank=True)
+    horaFinal = models.CharField(max_length=100,null=True,blank=True)
     #relaciones
     cod_asignatura = models.ForeignKey(
         Asignaturas, null=False, blank=False, on_delete=models.CASCADE)
@@ -181,8 +182,10 @@ class InscripcionCurso(models.Model):
 
 class detalle_curso(models.Model):
     grupo = models.IntegerField(null=False , blank=False)
-    horario_inicial = models.DateTimeField(null=True, blank=True, auto_now=False, auto_now_add=False)
-    horario_final = models.DateTimeField(null=True, blank=True, auto_now=False, auto_now_add=False)
+    
+    dia = models.CharField(max_length=100,null=True,blank=False)
+    horaInicio = models.CharField(max_length=100,null=True , blank=True)
+    horaFinal = models.CharField(max_length=100,null=True,blank=True)
 
     #relaciones
     

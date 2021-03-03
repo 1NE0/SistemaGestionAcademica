@@ -36,11 +36,17 @@
                             <input name="cod_curso" type="text" class="form-control">
                         </div>
                         <div class="derecha">
-                            <select class="form-select mt-1" aria-label="Seleccione el nivel del curso">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
+                            <label for="start" class="">Docente</label>
+                            <select  class="form-control" id="exampleFormControlSelect1" name="docente">
+                                {% for docente in docentes %}
+                                    <option>{{ docente.nombres }} </option>
+                                {% endfor %}
                             </select>
+                            <label for="start" class="">Grupo</label>
+                            <input name="grupo" type="text" class="form-control">
+                            <label for="start" class="">Horario inicial</label>
+                            <input type="time">
+
                         </div>
                     </div>
 

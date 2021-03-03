@@ -277,7 +277,7 @@ def crudAsignatura(request):
 
 
 def CrearCurso(request):
-    
+    docentes = models.Docentes.objects.all()
     if request.method == "POST" and request.is_ajax:
         print("ENTREEEEEEEEEEE AL IF jeje")
         codigo = request.POST.get('cod_curso')
@@ -287,7 +287,7 @@ def CrearCurso(request):
         curso.save()
         return HttpResponse("correcto")
     
-    return render(request, "crearcurso.html")
+    return render(request, "crearcurso.html", {'docentes' : docentes})
 
 def lista_curso(request):
     if request.is_ajax and request.method == "GET":
