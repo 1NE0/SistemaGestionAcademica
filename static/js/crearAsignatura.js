@@ -2,7 +2,7 @@ $(document).ready(function(){
     $('#formCrear').on('submit', function(e) {
         e.preventDefault();
 
-
+ 
         var data = $("#formCrear :input").serializeArray(); // COGER SUS INPUTS, Y SERIALIZARLOS EN JSON
         console.log(data);
 
@@ -24,10 +24,10 @@ $(document).ready(function(){
             },
             success: function(response){    // AL TERMINAR SATISFACTORIAMENTE
                 
-                
-                    swal("Registrado exitosamente :)", "Se ha registrado correctamente la asignatura", "success");
-                
-                
+                    if(response == "correcto"){
+                        swal("Registrado exitosamente :)", "Se ha registrado correctamente la asignatura", "success");
+                    }
+                 
                 
             },
             error: function (response) {

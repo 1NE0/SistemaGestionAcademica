@@ -57,17 +57,19 @@ def periodo(request):
 # --------------------------------------------------------------------
 
 
-@csrf_protect
+# Panel administrativo: Programa
+
+
 def programas_Admin(request):
+
     programas = models.Programas.objects.all()
     
     return render(request,"administracion/programas/programas.html",{'programas':programas})
 
+@login_required(login_url='/login')
+def crearPrograma (request): 
 
-
-def crearPrograma (request):
-
-    if request.method == 'POST':   # SI ES UN POST, QUIERE DECIR QUE LE DIERON A ENVIAR FORMULARIO        
+    if request.method == "POST" and request.is_ajax:   # SI ES UN POST, QUIERE DECIR QUE LE DIERON A ENVIAR FORMULARIO        
         codigo = request.POST.get('cod_programa')
         nombre = request.POST.get('nom_programa')
         contenido = request.POST.get('contenido_Aca')
@@ -76,16 +78,43 @@ def crearPrograma (request):
 
         programa.save()
 
-        context = {'programa':programa}
-
-        return JsonResponse(context)
+        return HttpResponse("correcto")
     
     return render(request,"administracion/programas/crear.html")
+"""
+@csrf_exempt
+def editarPrograma(request):
+
+    if request.method == 'POST':
+        codigo = request.POST.get('programa')
+
+        programaEditar = models.Programas.objects.get(cod_programa=codigo)
+        return render(request,"administracion/programas/editar.html",{'programa': programaEditar})
+    return render(request,"administracion/programas/editar.html")
+
+
+def modalEditarPrograma(request):
+    programa = models.Programas.objects.get(cod_programa=request.POST.get('cod_programa'))
+
+    programa.nom_programa = request.POST.get('nom_programa')
+    programa.contenido_Aca = request.POST.get('contenido_Aca')
+
+    programa.save()
+    return HttpResponse("correcto")
+"""
+ 
+@csrf_exempt
+def EliminarPrograma(request):
+    codigo = request.POST.get('programa[]')
+    programa = models.Programas.objects.get(cod_programa=codigo)
+    programa.delete()
+    return HttpResponse("eliminado")
 
 
 def asignaturas(request):
-    asignaturasLista = Asignaturas.objects.all()
-    return render(request, "asignaturas.html", {'asignaturas': asignaturasLista})
+    asignaturas = Asignaturas.objects.all()
+    docentes = Docentes.objects.all()
+    return render(request, "asignaturas.html", {'asignaturas': asignaturas, 'docentes':docentes})
 
 
 def fotos(request):
@@ -229,7 +258,7 @@ def asignarProgramas(request):  #asignar programas a periodos
 def Pagos(request):
     return render(request, 'pagos.html')
 
-
+"""
 @login_required(login_url='/login')
 def CrearPrograma(request):
     form = Programas_Form(request.POST or None)
@@ -242,7 +271,7 @@ def CrearPrograma(request):
     }
 
     return render(request, "CrearPrograma.html", context)
-
+"""
 
 @login_required(login_url='/login')
 def lista_programas(request):
@@ -286,17 +315,21 @@ def CrearAsignatura(request):
 
 
 def crudAsignatura(request):
-    codigo = request.POST.get('codigo')
-    nombre = request.POST.get('nombre')
-    descripcion = request.POST.get('descripcion')
-    docente = request.POST.get('docente')
 
-    # buscar el docente
+    if request.method == 'POST' and request.is_ajax:
+        codigo = request.POST.get('codigo')
+        nombre = request.POST.get('nombre')
+        descripcion = request.POST.get('descripcion')
+        docente = request.POST.get('docente')
+        # buscar el docente
+        docenteObj = models.Docentes.objects.get(nombres=docente)
+        asignatura = models.Asignaturas(cod_asig=codigo , nom_asig = nombre , descripcion=descripcion , Docente=docenteObj)
 
-    docenteObj = models.Docentes.objects.get(nombres=docente)
-    asignatura = models.Asignaturas(cod_asig=codigo , nom_asig = nombre , descripcion=descripcion , Docente=docenteObj)
+        asignatura.save()
 
-    return HttpResponse("correcto");
+        return HttpResponse("correcto")
+    
+    return render(request,"crearasignatura.html")
 
 
 @login_required(login_url='/login')

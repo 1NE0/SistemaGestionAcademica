@@ -1,0 +1,53 @@
+{% load static %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+<!-- font awesome -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+<!-- bootstrap estilos -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous"/>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+
+<div class="modal-dialog modal-lg" role="document" id="miModal">
+
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title">Editar</h2>
+            <button class="cerrar" onclick="cerrarModal()" type="button" data-dismiss = "modal" aria-label="Cerrar">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <form class="formEditarPrograma" method="POST" action="{% url 'modificarprograma' %}">
+            {% csrf_token %}
+            <div class="modal-body">
+                <input type="text" name="codigo" id="codigo" placeholder="codigo">
+                <br>
+                <input type="text" name="nombre" id="nombre" placeholder="nombre">
+                <br>
+                <input type="text" name="contenido" id="contenido" placeholder="contenido">
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" type="submit" value="submit">Guardar</button>
+            </div>
+        </form>
+
+    </div>
+
+    <div class="modal fade" id="creacion" role="dialog"></div>
+
+    <script src="{% static 'js/programacrud.js' %}"></script>
+
+</div>
+
+
+<script>
+
+        $(document).ready(function(){
+            $('#codigo').val("{{programa.cod_programa}}");
+            $('#nombre').val("{{programa.nom_programa}}");
+            $('#contenido').val("{{programa.contenido_Aca}}");
+
+            $('.formEditarPrograma').on
+
+        })
+</script>

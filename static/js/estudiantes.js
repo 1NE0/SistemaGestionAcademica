@@ -17,7 +17,7 @@ $(document).ready(function () {
 
 
 $('.editarBTN').click(function(e){
-    e.preventDefault();
+    e.preventDefault(); 
     var identificacion = $(this).attr('id');
     abrirModal('/editarEstudiante' , identificacion + "");
 });
@@ -76,7 +76,7 @@ function abrirModal(url , identificacion){
       $(this).modal('show');  // mostrar el modal
     });
 
-    
+     
    
    //return false;  
 }

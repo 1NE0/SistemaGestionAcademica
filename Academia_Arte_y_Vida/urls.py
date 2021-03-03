@@ -32,10 +32,10 @@ urlpatterns = [
     url(r'^pagos/$', Pagos, name="pagos"),
     #url(r'^crearprograma/$', CrearPrograma, name="crearprograma"),
     url(r'^listaprograma/$', lista_programas, name="listaprograma"),
-    url(r'^editarprograma/(?P<cod_programa>\w+)/$',
-        editar_programa, name="editarprograma"),
-    url(r'^eliminarprograma/(?P<cod_programa>\w+)/$',
-        eliminar_programa, name="eliminarprograma"),
+    #url(r'^editarprograma/(?P<cod_programa>\w+)/$',
+     #   editar_programa, name="editarprograma"),
+    #url(r'^eliminarprograma/(?P<cod_programa>\w+)/$',
+     #   eliminar_programa, name="eliminarprograma"),
     url(r'^crearasignatura$', CrearAsignatura, name="crearAsignatura"),
     url(r'^crearcurso/$', CrearCurso, name="crearcurso"),
     url(r'^listacursos/$', lista_curso, name="listacursos"),
@@ -59,16 +59,20 @@ urlpatterns = [
     url(r'^inscripcion/$', primerpago, name="inscripcion"),
     url(r'^docentes/$', docentes, name="docentes"),
     url(r'^crearDocente/$', crearDocente, name="crearDocente"),
-    #url(r'^pago/$', detalles_pagos, name="pago")
+    #url(r'^pago/$', detalles_pagos, name="pago") 
     url(r'^fotos/$', fotos, name="fotos"),
     url(r'^perfil/$', perfil, name="perfil"),
     url(r'^periodos/$', periodo, name="periodos"),
     url(r'^pago_realizado/$', pago_realizado, name="pago_realizado"),
     url(r'^crearPeriodo$', crearPeriodo, name="crearPeriodo"),
     #Programas
-    url(r'^programas/$', programas_Admin, name="programas"),
-    url(r'^programas/crear$', crearPrograma, name="crearprograma"),
-    
+    url(r'^programas/$', programas_Admin, name="programas"), 
+    url(r'^crearprograma$', crearPrograma, name="crearprograma"),
+    #url(r'^editarprograma$', editarPrograma, name="editarprograma"),
+    #url(r'^Modaleditarprograma$', modalEditarPrograma, name="modificarprograma"),
+    url(r'^eliminarprograma$', EliminarPrograma, name="eliminarprograma"),
+
+
     url(r'^efectuarReferencia$',activarReferenciaDePago, name="referenciaPago"),
     url(r'^aceptarUsuario$', aceptarUsuario, name="aceptarUsuario"),
     url(r'^asignarProgramas$', asignarProgramas, name="asignarProgramas"),
@@ -79,7 +83,7 @@ urlpatterns = [
     url(r'^modificarEstudiante$', modalEditarEstudiante, name="modificarEstudiante"),
     url(r'^eliminarEstudiante$', eliminarEstudiante, name="eliminarEstudiante"),
     url(r'^crudAsignatura$', crudAsignatura, name="crudAsignatura"),
-
+  
     # board estudiante
     url(r'^board_estudiante/$', board_estudiante, name="board_estudiante"),
     url(r'^programasEstudiante$', programasEstudiante, name="programasEstudiante"),

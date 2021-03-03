@@ -1,9 +1,9 @@
 
-
-
 $(document).ready(function(){
     $('#formCrear').on('submit', function(e) {
         e.preventDefault();
+        
+ 
     });
 });
 
@@ -29,7 +29,9 @@ $(document).ready(function(){
 }
 
 function cerrarModal() {
+    console.log("cerrando..."); 
     $('#creacion').modal('hide');
+    $('.principal').load('asignaturas');
     return false;
 }
 

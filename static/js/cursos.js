@@ -107,7 +107,7 @@ $(function() {
            var inputs = $("#formCrearCurso :input").serializeArray();
             console.log(inputs);
         
-            $.ajax({
+            $.ajax({ 
             type: "POST",
             url: $("#formCrearCurso").attr("action"),
             data: {
