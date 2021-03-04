@@ -66,17 +66,13 @@ def fotos(request):
 
 
 def cursos(request):
-    cursos = models.Cursos.objects.all()
     InscripcionesProgramasMatriculados = models.inscripcionPrograma.objects.filter(periodo=models.periodo.periodo_actual())
-    cursosSinMatricular = []
-    cursosMatriculados = []
-
-
-
+    periodo = models.periodo.periodo_actual()
+    detalles = models.detalle_curso.objects.filter(periodo=models.periodo.periodo_actual())
 
 
     
-    return render(request, "cursos.html", {'programas': InscripcionesProgramasMatriculados , 'cursos' : cursos})
+    return render(request, "cursos.html", {'programas': InscripcionesProgramasMatriculados , 'cursos' : detalles})
 
 def docentes(request):
     docentesLista = models.Docentes.objects.all()
@@ -288,16 +284,16 @@ def CrearCurso(request):
         grupo = request.POST.get('grupo')
         dia = request.POST.get('dia')
         hora_inicial = request.POST.get('hora_inicial')
-        hora_final = request.POST.get('nom_final')
+        hora_final = request.POST.get('hora_final')
 
         docente = models.Docentes.objects.get(identificacion=docenteIdSelect)
         curso = models.Cursos(cod_curso= codigo, nom_curso=nombre_curso)
         curso.save()
         # crear un nivel del curso
-        nivelCurso = models.Nivel_Cursos(Id=random.randrange(0,1000000),nivel=nivel,descripcion=descripcion,cod_Curso=curso,cod_Docente=docente)
+        nivelCurso = models.Nivel_Cursos(Id=random.randrange(0,1000000),nivel=nivel,descripcion=descripcion,Curso=curso,Docente=docente,periodo=models.periodo.periodo_actual())
         
         #crear un detalle
-        detalleCurso = models.detalle_curso(grupo=grupo,dia=dia,horaInicio=hora_inicial,horaFinal=hora_final,Nivel_Curso=nivelCurso)
+        detalleCurso = models.detalle_curso(grupo=grupo,dia=dia,horaInicio=hora_inicial,horaFinal=hora_final,Nivel_Curso=nivelCurso,periodo=models.periodo.periodo_actual())
 
 
         #guardar todo
@@ -317,33 +313,6 @@ def lista_curso(request):
         return HttpResponse(data, 'application/json') #content_type=True)
     return HttpResponse("valido")
 
-
-def Editar_curso(request, cod_curso):
-    curso = models.Cursos.objects.get(cod_curso=cod_curso)
-    if request.method == 'GET':
-        form = Cursos_Form(instance=curso)
-    else:
-        form = Cursos_Form(request.POST, instance=curso)
-        if form.is_valid():
-            form.save()
-        return redirect("../../listacursos")
-
-    context = {'form': form}
-
-    return render(request, "crearcurso.html", context)
-
-
-def Eliminar_Curso(request, cod_curso):
-    curso = models.Cursos.objects.get(cod_curso=cod_curso)
-    if request.method == 'POST':
-        curso.delete()
-        return redirect("../../listacursos")
-    context = {'curso': curso}
-    return render(request, "eliminar_curso.html", context)
-
-
-def is_member(user):
-    return user.groups.filter(name='director').exists()
 
 @csrf_protect
 def login_user(request):
@@ -958,4 +927,4 @@ def guardarCursoPrograma(request):
 
     return HttpResponse('hola')
 
-    pass
+    

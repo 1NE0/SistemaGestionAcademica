@@ -155,10 +155,11 @@ class Nivel_Cursos(models.Model):
     descripcion = models.CharField(max_length=200)
 
     #relaciones
-    cod_Curso = models.ForeignKey(
+    Curso = models.ForeignKey(
         Cursos, null=False, blank=False, on_delete=models.CASCADE)
-    cod_Docente = models.ForeignKey(
+    Docente = models.ForeignKey(
         Docentes, null=False, blank=False, on_delete=models.CASCADE)
+    periodo = models.ForeignKey(periodo,default="", null=False, blank=False, on_delete=models.CASCADE)
 
     def _str_(self):
         return "({1})({2})".format(self.Curso, self.nivel)
@@ -170,11 +171,7 @@ class InscripcionCurso(models.Model):
     # relaciones
     nivel_curso = models.ForeignKey(Nivel_Cursos, null=False, blank=False, on_delete=models.CASCADE)
     Id_inscripcionPrograma = models.ForeignKey(inscripcionPrograma, null=False, blank=False, on_delete=models.CASCADE)
-    
-
-
-
-
+    periodo = models.ForeignKey(periodo,default="", null=False, blank=False, on_delete=models.CASCADE)
 
 
 #detalle curso#########################################################################################################
@@ -190,7 +187,7 @@ class detalle_curso(models.Model):
     #relaciones
     
     Nivel_Curso = models.ForeignKey(Nivel_Cursos,default="", null=False, blank=False, on_delete=models.CASCADE)
-
+    periodo = models.ForeignKey(periodo,default="", null=False, blank=False, on_delete=models.CASCADE)
 
 # inscripcion del estudiante en el detalle_curso
 
