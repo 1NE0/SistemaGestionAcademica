@@ -40,6 +40,7 @@ function onDragStart(event) {   // CUANDO SE COMIENZA A ARRASTRAR
 $(function() {
     var buttonpressed; 
 
+       ///////////////////////////////////////////////////////////
        $('.enviar').click(function() {  
              buttonpressed = $(this).attr('name')
        })
@@ -86,11 +87,12 @@ $(function() {
     });
 
 
-// GUARDAR PERIODO
-
+// GUARDAR PROGRAMA
+$(this).children('span').hide();
 $('.botonGuardar').click(function(e){
   e.preventDefault();
-
+  $(this).addClass("text-nowrap");
+  $(this).children('span').show();
   var codigoPrograma = $(this).attr('id');
   // que hacer despues de hacer click en guardar
   var listaCursos = [];
@@ -114,10 +116,12 @@ $('.botonGuardar').click(function(e){
         console.log("realizando envio de cursos...");
     },
     success: function (response) {
-        if(response == "correcto"){
-            swal("Correcto!", "El curso se ha registrado con éxito.", "success");
+        if(response == 'Perfecto'){
+            swal("Correcto!", "El programa se ha guardado con éxito.", "success");
         }
-        console.log(response);
+
+        $('.contenido').parents('.contenedor-central').load('/cursos');
+        
     },
     error: function (response) {
         console.log(response)

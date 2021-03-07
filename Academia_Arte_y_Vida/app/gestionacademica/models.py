@@ -188,6 +188,7 @@ class detalle_curso(models.Model):
     
     Nivel_Curso = models.ForeignKey(Nivel_Cursos,default="", null=False, blank=False, on_delete=models.CASCADE)
     periodo = models.ForeignKey(periodo,default="", null=False, blank=False, on_delete=models.CASCADE)
+    Inscripcion_programa = models.ForeignKey(inscripcionPrograma,null=True,on_delete=models.CASCADE)
 
 # inscripcion del estudiante en el detalle_curso
 
