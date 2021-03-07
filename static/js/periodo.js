@@ -150,6 +150,8 @@ $(".botoncito").click(function(e){
            //this gets called when server returns an OK response
            if(response == "actualizado"){
             swal("¡" + response + " con éxito!", "Se ha actualizado correctamente el periodo :)", "success");
+           }else if(response == "guardado"){
+            swal("¡" + response + " con éxito!", "Se ha guardado correctamente el periodo :)", "success");
            }
       },
       error:function(response){

@@ -66,10 +66,13 @@ def fotos(request):
 
 
 def cursos(request):
-    cursosLista = models.Cursos.objects.all()
+    InscripcionesProgramasMatriculados = models.inscripcionPrograma.objects.filter(periodo=models.periodo.periodo_actual())
+    periodo = models.periodo.periodo_actual()
+    detalles = models.detalle_curso.objects.filter(periodo=models.periodo.periodo_actual())
+
 
     
-    return render(request, "cursos.html", {'cursos': cursosLista})
+    return render(request, "cursos.html", {'programas': InscripcionesProgramasMatriculados , 'cursos' : detalles})
 
 def docentes(request):
     docentesLista = models.Docentes.objects.all()
@@ -270,17 +273,35 @@ def crudAsignatura(request):
 
 
 def CrearCurso(request):
-    
+    docentes = models.Docentes.objects.all()
     if request.method == "POST" and request.is_ajax:
         print("ENTREEEEEEEEEEE AL IF jeje")
         codigo = request.POST.get('cod_curso')
-        nombre = request.POST.get('nom_curso')
-        print(codigo)
-        curso = models.Cursos(cod_curso= codigo, nom_curso=nombre)
+        nombre_curso = request.POST.get('nom_curso')
+        nivel = request.POST.get('nivel')
+        descripcion = request.POST.get('descripcion')
+        docenteIdSelect = request.POST.get('docente')
+        grupo = request.POST.get('grupo')
+        dia = request.POST.get('dia')
+        hora_inicial = request.POST.get('hora_inicial')
+        hora_final = request.POST.get('hora_final')
+
+        docente = models.Docentes.objects.get(identificacion=docenteIdSelect)
+        curso = models.Cursos(cod_curso= codigo, nom_curso=nombre_curso)
         curso.save()
+        # crear un nivel del curso
+        nivelCurso = models.Nivel_Cursos(Id=random.randrange(0,1000000),nivel=nivel,descripcion=descripcion,Curso=curso,Docente=docente,periodo=models.periodo.periodo_actual())
+        
+        #crear un detalle
+        detalleCurso = models.detalle_curso(grupo=grupo,dia=dia,horaInicio=hora_inicial,horaFinal=hora_final,Nivel_Curso=nivelCurso,periodo=models.periodo.periodo_actual())
+
+
+        #guardar todo
+        nivelCurso.save()
+        detalleCurso.save()
         return HttpResponse("correcto")
     
-    return render(request, "crearcurso.html")
+    return render(request, "crearcurso.html", {'docentes' : docentes})
 
 def lista_curso(request):
     if request.is_ajax and request.method == "GET":
@@ -292,33 +313,6 @@ def lista_curso(request):
         return HttpResponse(data, 'application/json') #content_type=True)
     return HttpResponse("valido")
 
-
-def Editar_curso(request, cod_curso):
-    curso = models.Cursos.objects.get(cod_curso=cod_curso)
-    if request.method == 'GET':
-        form = Cursos_Form(instance=curso)
-    else:
-        form = Cursos_Form(request.POST, instance=curso)
-        if form.is_valid():
-            form.save()
-        return redirect("../../listacursos")
-
-    context = {'form': form}
-
-    return render(request, "crearcurso.html", context)
-
-
-def Eliminar_Curso(request, cod_curso):
-    curso = models.Cursos.objects.get(cod_curso=cod_curso)
-    if request.method == 'POST':
-        curso.delete()
-        return redirect("../../listacursos")
-    context = {'curso': curso}
-    return render(request, "eliminar_curso.html", context)
-
-
-def is_member(user):
-    return user.groups.filter(name='director').exists()
 
 @csrf_protect
 def login_user(request):
@@ -911,3 +905,26 @@ def obtenerEstadisticas(request):
 
     
     return JsonResponse(data,safe=False)
+
+
+@csrf_exempt
+def guardarCursoPrograma(request):
+
+    cursos = request.POST.getlist('listaCursos[]')
+    #programa = models.Programas.objects.get(cod_programa=request.POST.get('programa'))
+    
+    # ENCONTRAR LA INSCRIPCION DEL PROGRAMA AL PERIODO ACTUAL
+    #inscripcionDelPrograma = models.inscripcionPrograma.objects.get(programa=programa,periodo=models.periodo.periodo_actual())
+    
+    # AGREGAR A ESTA INSCRIPCION, TODOS LOS CURSOS
+
+    for curso in cursos:
+        cursoModel = models.Cursos.objects.get(cod_curso=curso)
+        # CREAR LA INSCRIPCION CURSO
+        #inscripcionCurso = models.InscripcionCurso(Id=random.randrange(0,1000000),nivel_curso=cursoModel.)
+
+
+
+    return HttpResponse('hola')
+
+    

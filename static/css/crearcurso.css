@@ -1,0 +1,19 @@
+.izquierda, .derecha{
+    width: 50%;
+    height: auto;
+}
+
+
+.izquierda{
+    padding-right: 10px;
+}
+
+.content{
+    display: inline-flex;
+    width: 100%;
+    height: 300px;
+}
+
+.derecha{
+    background-color: white;
+}

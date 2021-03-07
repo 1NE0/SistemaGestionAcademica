@@ -69,20 +69,7 @@ class nivelCurso_form(ModelForm):
             'descripcion': forms.Textarea(attrs={'class': 'form-control'})
         }
 
-class detalleCurso_form(ModelForm):
-    class Meta:
-        model = detalle_curso
-        fields = ('grupo', 'horario_inicial', 'horario_final')
-        labels = {
-            'grupo': 'Grupo',
-            'horario_inicial' : 'Hora Inicial',
-            'horario_final': 'Hora Final'
-        }
-        widgets = {
-            'grupo': forms.Select(attrs={'class': 'form-control'}, choices=[('op1','01'), ('op2','02'), ('op3','03'), ('op4','04')])
-            #'horario_inicial': forms.TimeField(input_formats=[('%A:%I %p')]),
-            #'horario_final' : forms.DateTimeInput(format=('%A:%I %p'), attrs={'class':'form-control'})
-        }
+
 
 class login_form(forms.Form):
     username = forms.CharField()

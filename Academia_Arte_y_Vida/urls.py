@@ -39,9 +39,6 @@ urlpatterns = [
     url(r'^crearasignatura$', CrearAsignatura, name="crearAsignatura"),
     url(r'^crearcurso/$', CrearCurso, name="crearcurso"),
     url(r'^listacursos/$', lista_curso, name="listacursos"),
-    url(r'^editarcurso/(?P<cod_curso>\w+)$', Editar_curso, name="editarcurso"),
-    url(r'^eliminarcurso/(?P<cod_curso>\w+)$',
-        Eliminar_Curso, name="eliminarcurso"),
     url(r'^login/$', login_user, name="login"),
     url(r'^logout/$', logout_user, name="logout"),
     url(r'^registroPago/$', buscar, name="reguistropago"),
@@ -91,4 +88,8 @@ urlpatterns = [
     #estadisticas
     url(r'^obtenerEstadisticas$', obtenerEstadisticas, name="obtenerEstadisticas"),
     url(r'^estadisticas/$', estadisticas, name="estadisticas"),
+
+    #guardar cursos en programas
+    url(r'^guardarCursoPrograma/$', guardarCursoPrograma, name="guardarCursoPrograma"),
+    
 ]
