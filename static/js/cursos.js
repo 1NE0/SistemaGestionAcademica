@@ -87,10 +87,11 @@ $(function() {
 
 
 // GUARDAR PROGRAMA
-
+$(this).children('span').hide();
 $('.botonGuardar').click(function(e){
   e.preventDefault();
-
+  $(this).addClass("text-nowrap");
+  $(this).children('span').show();
   var codigoPrograma = $(this).attr('id');
   // que hacer despues de hacer click en guardar
   var listaCursos = [];
@@ -117,6 +118,8 @@ $('.botonGuardar').click(function(e){
         if(response == 'Perfecto'){
             swal("Correcto!", "El programa se ha guardado con éxito.", "success");
         }
+
+        $('.contenido').parents('.contenedor-central').load('/cursos');
         
     },
     error: function (response) {
