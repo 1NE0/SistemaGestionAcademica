@@ -22,15 +22,15 @@ $(document).ready(function() {
         $("#contenedor-central").html('<h1 style="text-align:center;padding-top:300px;color:cyan">Cargando<h1>');
     });
 
-    $('#btn4').on('click', function(pagos){
-        pagos.preventDefault();
-        $("#contenedor-central").load('/pagosEstudiante');
+    $('#btn4').on('click', function(prof) {
+        prof.preventDefault();
+        $("#contenedor-central").load('');
         $("#contenedor-central").html('<h1 style="text-align:center;padding-top:300px;color:cyan">Cargando<h1>');
     });
 
-    $('#btn5').on('click', function(prof) {
-        prof.preventDefault();
-        $("#contenedor-central").load('');
+    $('#btn5').on('click', function(pagos){
+        pagos.preventDefault();
+        $("#contenedor-central").load('/pagosEstudiante');
         $("#contenedor-central").html('<h1 style="text-align:center;padding-top:300px;color:cyan">Cargando<h1>');
     });
 
