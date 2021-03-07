@@ -29,9 +29,9 @@
             <div class="cursos-origin">
                 <div class="example-origin" ondragover="onDragOver(event);" ondrop="onDrop(event);"> <!-- el panel de origen -->
                     <!-- aqui dentro se pueden objetos de clase example-draggable que son los programas -->
-                    {% for curso in cursos %}
-                    <div id="{{curso.Nivel_Curso.Curso.cod_curso}}"class="example-draggable" draggable="true" ondragstart="onDragStart(event);">
-                        <h5 id="" style="margin-right: 20px;"><strong>{{curso.Nivel_Curso.Curso.nom_curso}}{{curso.Nivel_Curso.nivel}}</strong>  <br>  grupo:{{curso.grupo}}</h2>
+                    {% for detalle in sinMatricula %}
+                    <div id="{{detalle.Nivel_Curso.Id}}"class="example-draggable" draggable="true" ondragstart="onDragStart(event);">
+                        <h5 id="" style="margin-right: 20px;"><strong>{{detalle.Nivel_Curso.Curso.nom_curso}}{{detalle.Nivel_Curso.nivel}}</strong>  <br>  grupo:{{detalle.grupo}}</h2>
                       </div>
                     {% endfor %}
                   </div>
@@ -46,10 +46,16 @@
                         <h2>{{programa.programa.nom_programa}}</h2>
                         <!-- zona de recepcion -->
                         <div class="example-dropzone" ondragover="onDragOver(event);" ondrop="onDrop(event);">
-                            <!-- aqui se llenara con los programas a agregar-->
-                            
+                            <!-- aqui se llenara con los cursos/detallescurso a agregar-->
+                            {% for curso in cursos %}
+                                {% if curso.Inscripcion_programa_id == programa.Id %}
+                                    <div id="{{curso.Nivel_Curso.Id}}"class="example-draggable" draggable="true" ondragstart="onDragStart(event);">
+                                        <h5 id="" style="margin-right: 20px;"><strong>{{curso.Nivel_Curso.Curso.nom_curso}}{{curso.Nivel_Curso.nivel}}</strong>  <br>  grupo:{{curso.grupo}}</h2>
+                                    </div>
+                                {% endif%}
+                            {% endfor %}
                         </div>
-                        <a class="btn btn-primary botonGuardar" id="{{programa.programa.cod_programa}}">Guardar</a>
+                        <a class="btn btn-primary botonGuardar" id="{{programa.Id}}">Guardar</a>
                     </div>
                     {% endfor %}
                     </div>
