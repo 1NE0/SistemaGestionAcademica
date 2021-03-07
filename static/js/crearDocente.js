@@ -41,6 +41,9 @@ $(function() {
                     }
                     console.log(response);
                 },
+                error: function (){
+                    console.log(response)
+                },
             });
         })
 })
