@@ -559,39 +559,11 @@ def registrarInscripcion(request):
 
 def crearDocente(request):
 
-    print ("holi")
-
     ciudades = models.ciudad.objects.all()
     tipos = []
 
     for tipo in models.Docentes.tipos_doc:
         tipos.append(tipo[1])
-
-    print(tipos)
-
-    if request.method == "POST" and request.is_ajax:
-
-        tipoDocumento = request.POST.get('tipoDocumento')
-        identificacion = request.POST.get('id')
-        nombres = request.POST.get('nombres')
-        apellidos =request.POST.get('apellidos')
-        edad = request.POST.get('edad')
-        genero = request.POST.get('genero')
-        telefono = request.POST.get('telefono')
-        ciudad = request.POST.get('ciudad')
-        direccion = request.POST.get('direccion')
-        correoElectronico = request.POST.get('correo')
-
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-
-        #obtenemos la ciudad
-        
-
-
-    return render(request, "administracion/docentes.html", {'ciudades': ciudades, 'tiposDocs': tipos})
-
-def añadirDocente(request):
 
     if request.method == "POST" and request.is_ajax:
         print("ENTREEEEEEEEEEE AL IF jeje")
@@ -605,8 +577,8 @@ def añadirDocente(request):
         telefono = request.POST.get('telefono')
         ciudad = request.POST.get('ciudad')
         direccion = request.POST.get('direccion')
+        
         correoElectronico = request.POST.get('correo')
-
         username = request.POST.get('username')
         password = request.POST.get('password')
 
@@ -616,7 +588,7 @@ def añadirDocente(request):
             print("Usuario repetido")
             return HttpResponse("Username ya usado")
         except User.DoesNotExist:
-            usercito = User.objects.create_user(username, correo, password)
+            usercito = User.objects.create_user(username, correoElectronico, password)
 
         usercito.is_staff = False
         usercito.set_password = password
@@ -640,6 +612,9 @@ def añadirDocente(request):
         usercito.save()
         docenteAñadido.save()
         return HttpResponse("correcto")
+
+    return render(request, "administracion/docentes.html", {'ciudades': ciudades, 'tiposDocs': tipos})
+
 
 def lista_docente(request):
     if request.is_ajax and request.method == "GET":
