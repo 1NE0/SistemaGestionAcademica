@@ -39,7 +39,12 @@ function onDragStart(event) {   // CUANDO SE COMIENZA A ARRASTRAR
 
 $(function() {
     var buttonpressed; 
-
+    $.notify(
+      "Arrastre y suelte los cursos que desee agregar al programa",
+      { position: "right bottom" ,
+        showDuration: 400,
+        autoHideDelay: 15000}
+    );
        ///////////////////////////////////////////////////////////
        $('.enviar').click(function() {  
              buttonpressed = $(this).attr('name')
