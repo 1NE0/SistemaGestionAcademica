@@ -78,7 +78,7 @@ def cursos(request):
         else:
             conMatricula.append(detalle)
     
-    return render(request, "cursos.html", {'programas': InscripcionesProgramasMatriculados, 'conMatricula' : conMatricula, 'sinMatricula' : sinMatricula})
+    return render(request, "cursos.html", {'programas': InscripcionesProgramasMatriculados, 'conMatricula' : conMatricula, 'sinMatricula' : sinMatricula , 'inscripcionesTotales' : detalles})
 
 def docentes(request):
     docentesLista = models.Docentes.objects.all()
@@ -280,6 +280,7 @@ def crudAsignatura(request):
 
 def CrearCurso(request):
     docentes = models.Docentes.objects.all()
+    detalles = models.InscripcionCurso.objects.all()
     if request.method == "POST" and request.is_ajax:
         print("ENTREEEEEEEEEEE AL IF jeje")
         codigo = request.POST.get('cod_curso')
@@ -311,7 +312,7 @@ def CrearCurso(request):
         detalleCurso.save()
         return HttpResponse("correcto")
     
-    return render(request, "crearcurso.html", {'docentes' : docentes})
+    return render(request, "crearcurso.html", {'docentes' : docentes , 'detalles' : detalles})
 
 def lista_curso(request):
     if request.is_ajax and request.method == "GET":

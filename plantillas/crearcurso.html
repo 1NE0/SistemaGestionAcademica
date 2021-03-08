@@ -10,8 +10,8 @@
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        <form method="POST" id="formCrearCurso" action="{% url 'crearcurso' %}">
-            {% csrf_token %}
+        
+            
             <div class="modal-body">
                     
                 
@@ -21,10 +21,13 @@
                         <p>agrega contenido (nivel y detalle) a un curso que ya has creado.</p>
                         <div class="contenedor-cursos">
                             <h1>Seleccion un curso al que deseas agregar algún nivel y/o detalle.</h1>
-                               {% for curso in cursos %}
-                                <input type="radio" name="color" id="teal" />
-                                <label for="teal"><span class="teal">Hola</span></label>
+
+                            <select class="form-select mt-1" aria-label="Seleccione el curso" name="nivel">
+                               {% for inscripcionC in detalles %}
+                                    <option value="{{inscripcionC.curso.nom_curso}}">{{inscripcionC.curso.nom_curso}}</option>
                                 {% endfor %}
+                            </select>
+                            
                         </div>
                         <div>
                             <form action="">
@@ -32,7 +35,9 @@
                             </form>
                         </div>
                     </div>
-                    
+
+                <form method="POST" id="formCrearCurso" action="{% url 'crearcurso' %}">
+                    {% csrf_token %}
                     <div class="acc-btn"><h1>Crear un curso nuevo</h1></div>
                     <div class="acc-content">
                         <div class="content">
@@ -79,6 +84,8 @@
     
                                 <label for="start" class="">Horario inicial</label>
                                 <input type="time" id="appt" name="hora_final" min="09:00" max="18:00" required>
+
+
                                 <button class="btn btn-primary enviar" type="submit" value="submit">Confirmarr</button>   
                             </div>
                         </div>
