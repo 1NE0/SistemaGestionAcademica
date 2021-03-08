@@ -5,7 +5,7 @@
 <div class="modal-dialog modal-lg" role="document" id="miModal">
     <div class="modal-content">
         <div class="modal-header">
-            <h2 class="modal-title">Crear Nuevo Curso</h2>
+            <h2 class="modal-title" style="color: black;">Crear Nuevo Curso</h2>
             <button class="cerrar" onclick="cerrarModal()" type="button" data-dismiss = "modal" aria-label="Cerrar">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -13,61 +13,86 @@
         <form method="POST" id="formCrearCurso" action="{% url 'crearcurso' %}">
             {% csrf_token %}
             <div class="modal-body">
-                
                     
-                    <div class="content">
-                        <div class="izquierda">
-                            <label for="start" class="">Código</label>
-                            <input name="cod_curso" type="text" class="form-control">
-                            <label for="start" class="">Nombre</label>
-                            <input name="nom_curso" type="text" class="form-control">
-
-                            <!-- nivel -->
-                            <label for="start" class="">Nivel</label>
-                            <select class="form-select mt-1" aria-label="Seleccione el nivel del curso" name="nivel">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                            </select>
-
-                            <!-- descripcion -->
-                            <label for="start" class="">Descripcion</label>
-                            <input name="descripcion" type="text" class="form-control">
-                        </div>
-                        <div class="derecha">
-                            <label for="start" class="">Docente</label>
-                            <select  class="form-control" id="exampleFormControlSelect1" name="docente">
-                                {% for docente in docentes %}
-                                    <option value="{{docente.identificacion}}">{{ docente.nombres }} </option>
+                
+                <div class="acc-container">
+                    <div class="acc-btn"><h1>Agregar contenido a un curso ya existente</h1></div>
+                    <div class="acc-content">
+                        <p>agrega contenido (nivel y detalle) a un curso que ya has creado.</p>
+                        <div class="contenedor-cursos">
+                            <h1>Seleccion un curso al que deseas agregar algún nivel y/o detalle.</h1>
+                               {% for curso in cursos %}
+                                <input type="radio" name="color" id="teal" />
+                                <label for="teal"><span class="teal">Hola</span></label>
                                 {% endfor %}
-                            </select>
-                            <label for="start" class="">Grupo</label>
-                            <input name="grupo" type="text" class="form-control ">
+                        </div>
+                        <div>
+                            <form action="">
 
-                            <label for="start" class="">Dia</label>
-                            <select class="form-select mb-4" aria-label="Seleccione el dia" name="dia">
-                                <option value="lunes">lunes</option>
-                                <option value="martes">martes</option>
-                                <option value="miercoles">miercoles</option>
-                                <option value="jueves">jueves</option>
-                                <option value="viernes">viernes</option>
-                                <option value="sabado">sabado</option>
-                            </select>
-
-                            <label for="start" class="">Hora inicial</label>
-                            <input type="time" id="appt" name="hora_inicial" min="09:00" max="18:00" required>
-
-                            <label for="start" class="">Horario inicial</label>
-                            <input type="time" id="appt" name="hora_final" min="09:00" max="18:00" required>
-
+                            </form>
                         </div>
                     </div>
+                    
+                    <div class="acc-btn"><h1>Crear un curso nuevo</h1></div>
+                    <div class="acc-content">
+                        <div class="content">
+                            <div class="izquierda">
+                                <label for="start" class="">Código</label>
+                                <input name="cod_curso" type="text" class="form-control">
+                                <label for="start" class="">Nombre</label>
+                                <input name="nom_curso" type="text" class="form-control">
+    
+                                <!-- nivel -->
+                                <label for="start" class="">Nivel</label>
+                                <select class="form-select mt-1" aria-label="Seleccione el nivel del curso" name="nivel">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                </select>
+    
+                                <!-- descripcion -->
+                                <label for="start" class="">Descripcion</label>
+                                <input name="descripcion" type="text" class="form-control">
+                            </div>
+                            <div class="derecha">
+                                <label for="start" class="">Docente</label>
+                                <select  class="form-control" id="exampleFormControlSelect1" name="docente">
+                                    {% for docente in docentes %}
+                                        <option value="{{docente.identificacion}}">{{ docente.nombres }} </option>
+                                    {% endfor %}
+                                </select>
+                                <label for="start" class="">Grupo</label>
+                                <input name="grupo" type="text" class="form-control ">
+    
+                                <label for="start" class="">Dia</label>
+                                <select class="form-select mb-4" aria-label="Seleccione el dia" name="dia">
+                                    <option value="lunes">lunes</option>
+                                    <option value="martes">martes</option>
+                                    <option value="miercoles">miercoles</option>
+                                    <option value="jueves">jueves</option>
+                                    <option value="viernes">viernes</option>
+                                    <option value="sabado">sabado</option>
+                                </select>
+    
+                                <label for="start" class="">Hora inicial</label>
+                                <input type="time" id="appt" name="hora_inicial" min="09:00" max="18:00" required>
+    
+                                <label for="start" class="">Horario inicial</label>
+                                <input type="time" id="appt" name="hora_final" min="09:00" max="18:00" required>
+                                <button class="btn btn-primary enviar" type="submit" value="submit">Confirmarr</button>   
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    
+                    
+                    
 
                    
             </div>
             <div class="modal-footer">
                 <button class="btn btn-danger" onclick="cerrarModal()" type="button" data-dismiss="modal">Cancelar</button>  
-                <button class="btn btn-primary enviar" type="submit" value="submit">Confirmarr</button>           
+                        
             </div>
         </form>
     </div>

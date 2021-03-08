@@ -69,15 +69,16 @@ def cursos(request):
     InscripcionesProgramasMatriculados = models.inscripcionPrograma.objects.filter(periodo=models.periodo.periodo_actual())
     periodo = models.periodo.periodo_actual()
     detalles = models.detalle_curso.objects.filter(periodo=models.periodo.periodo_actual())
-
     sinMatricula = []
+    conMatricula = []
 
     for detalle in detalles:
-        if detalle.Inscripcion_programa_id == None:
+        if detalle.Nivel_Curso.inscripcion_curso.Id_inscripcionPrograma == None:
             sinMatricula.append(detalle)
-            
+        else:
+            conMatricula.append(detalle)
     
-    return render(request, "cursos.html", {'programas': InscripcionesProgramasMatriculados, 'cursos' : detalles, 'sinMatricula' : sinMatricula})
+    return render(request, "cursos.html", {'programas': InscripcionesProgramasMatriculados, 'conMatricula' : conMatricula, 'sinMatricula' : sinMatricula})
 
 def docentes(request):
     docentesLista = models.Docentes.objects.all()
@@ -273,7 +274,7 @@ def crudAsignatura(request):
 
     docenteObj = models.Docentes.objects.get(nombres=docente)
     asignatura = models.Asignaturas(cod_asig=codigo , nom_asig = nombre , descripcion=descripcion , Docente=docenteObj)
-
+    asignatura.save()
     return HttpResponse("correcto");
 
 
@@ -293,15 +294,19 @@ def CrearCurso(request):
 
         docente = models.Docentes.objects.get(identificacion=docenteIdSelect)
         curso = models.Cursos(cod_curso= codigo, nom_curso=nombre_curso)
-        curso.save()
+        
+        inscripcionCurso = models.InscripcionCurso(Id=random.randrange(0,1000000),curso = curso)
+
         # crear un nivel del curso
-        nivelCurso = models.Nivel_Cursos(Id=random.randrange(0,1000000),nivel=nivel,descripcion=descripcion,Curso=curso,Docente=docente,periodo=models.periodo.periodo_actual())
+        nivelCurso = models.Nivel_Cursos(Id=random.randrange(0,1000000),nivel=nivel,descripcion=descripcion,inscripcion_curso=inscripcionCurso)
         
         #crear un detalle
-        detalleCurso = models.detalle_curso(grupo=grupo,dia=dia,horaInicio=hora_inicial,horaFinal=hora_final,Nivel_Curso=nivelCurso,periodo=models.periodo.periodo_actual())
+        detalleCurso = models.detalle_curso(grupo=grupo,dia=dia,horaInicio=hora_inicial,horaFinal=hora_final,Nivel_Curso=nivelCurso,Docente=docente,periodo=models.periodo.periodo_actual())
 
 
         #guardar todo
+        curso.save()
+        inscripcionCurso.save()
         nivelCurso.save()
         detalleCurso.save()
         return HttpResponse("correcto")
@@ -890,34 +895,25 @@ def obtenerEstadisticas(request):
 @csrf_exempt
 def guardarCursoPrograma(request):
 
-    cursos = request.POST.getlist('listaCursos[]')
+    inscripcionCursos = request.POST.getlist('listaCursos[]')
     programa = request.POST.get('programa')  # obtener la inscripcion del programa
     # AGREGAR A ESTA INSCRIPCION, TODOS LOS CURSOS
     programaInscripcion = models.inscripcionPrograma.objects.get(Id=programa)
 
-    for inscripcionC in models.InscripcionCurso.objects.filter(periodo_id=models.periodo.periodo_actual()):
-        if inscripcionC.Id_inscripcionPrograma_id == programaInscripcion.Id:
-            
-            for detalle in models.detalle_curso.objects.filter(periodo=models.periodo.periodo_actual()):
-                if detalle.Nivel_Curso_id == inscripcionC.nivel_curso_id:
-                    print("aqui se pone NULL")
-                    detalle.Inscripcion_programa_id = None
-                    detalle.save()
-            inscripcionC.delete()
+    # BORRAR LAS INSCRIPCIONES PARA VOLVERLAS A GUARDAR (ES COMO ACTUALIZAR)    
+    for inscripcion in models.InscripcionCurso.objects.filter():
+        if inscripcion.Id_inscripcionPrograma == programaInscripcion:
+            inscripcion.Id_inscripcionPrograma = None
+            inscripcion.save()
 
+
+    # HACER LA RELACION DE LA INSCRIPCION CURSO, CON LA INSCRIPCION PROGRAMA
+    for inscripcion in inscripcionCursos:
+        print(inscripcion)
+        inscripcionC = models.InscripcionCurso.objects.get(Id=inscripcion)
+        inscripcionC.Id_inscripcionPrograma = programaInscripcion
+        inscripcionC.save()
     
-    for curso in cursos:
-        nivel = models.Nivel_Cursos.objects.get(Id=curso)
-        for detalle in detalle_curso.objects.all():
-            if detalle.Nivel_Curso == nivel:
-                detalle.Inscripcion_programa = programaInscripcion
-                detalle.save()
-        # CREAR LA INSCRIPCION CURSO
-        inscripcionCurso = models.InscripcionCurso(Id=random.randrange(0,1000000),nivel_curso=nivel,Id_inscripcionPrograma=programaInscripcion,periodo=programaInscripcion.periodo)
-        inscripcionCurso.save()
-
-
-
     return HttpResponse('Perfecto')
 
     

@@ -10,8 +10,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="{% static 'js/cursos.js' %}"></script>
-    <script src="{% static 'js/notify.js' %}"></script>
-    <script src="{% static 'js/notify.min.js' %}"></script>
+   
 
 <div class="pagina">
     <div class="contenido">
@@ -29,8 +28,8 @@
                 <div class="example-origin" ondragover="onDragOver(event);" ondrop="onDrop(event);"> <!-- el panel de origen -->
                     <!-- aqui dentro se pueden objetos de clase example-draggable que son los programas -->
                     {% for detalle in sinMatricula %}
-                    <div id="{{detalle.Nivel_Curso.Id}}"class="example-draggable" draggable="true" ondragstart="onDragStart(event);">
-                        <h5 id="" style="margin-right: 20px;"><strong>{{detalle.Nivel_Curso.Curso.nom_curso}}{{detalle.Nivel_Curso.nivel}}</strong>  <br>  grupo:{{detalle.grupo}}</h2>
+                    <div id="{{detalle.Nivel_Curso.inscripcion_curso.Id}}"class="example-draggable" draggable="true" ondragstart="onDragStart(event);">
+                        <h5 id="" style="margin-right: 20px;"><strong>{{detalle.Nivel_Curso.inscripcion_curso.curso.nom_curso}}{{detalle.Nivel_Curso.nivel}}</strong>  <br>  grupo:{{detalle.grupo}}</h2>
                       </div>
                     {% endfor %}
                   </div>
@@ -40,16 +39,16 @@
                 <div class="titulo"><h1>PROGRAMAS MATRICULADOS ESTE PERIODO</h1></div>
                 <div class="grid">
                     <!-- programas matriculados -->
-                    {% for programa in programas%}
+                    {% for programa in programas %}
                     <div class="card carta">
                         <h2>{{programa.programa.nom_programa}}</h2>
                         <!-- zona de recepcion -->
                         <div class="example-dropzone" ondragover="onDragOver(event);" ondrop="onDrop(event);">
                             <!-- aqui se llenara con los cursos/detallescurso a agregar-->
-                            {% for curso in cursos %}
-                                {% if curso.Inscripcion_programa_id == programa.Id %}
-                                    <div id="{{curso.Nivel_Curso.Id}}"class="example-draggable" draggable="true" ondragstart="onDragStart(event);">
-                                        <h5 id="" style="margin-right: 20px;"><strong>{{curso.Nivel_Curso.Curso.nom_curso}}{{curso.Nivel_Curso.nivel}}</strong>  <br>  grupo:{{curso.grupo}}</h2>
+                            {% for detalle in conMatricula %}
+                                {% if detalle.Nivel_Curso.inscripcion_curso.Id_inscripcionPrograma.Id == programa.Id %}
+                                    <div id="{{detalle.Nivel_Curso.inscripcion_curso.Id}}"class="example-draggable" draggable="true" ondragstart="onDragStart(event);">
+                                        <h5 id="" style="margin-right: 20px;"><strong>{{detalle.Nivel_Curso.inscripcion_curso.curso.nom_curso}}{{detalle.Nivel_Curso.nivel}}</strong>  <br>  grupo:{{detalle.grupo}}</h2>
                                     </div>
                                 {% endif%}
                             {% endfor %}
@@ -64,7 +63,6 @@
     
     
         <div class="modal fade" id="creacion" role="dialog"></div>
-    
         
     </div>
 </div>
