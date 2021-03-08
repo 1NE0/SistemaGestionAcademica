@@ -655,6 +655,15 @@ def crearDocente(request):
 
     return render(request, "administracion/docentes.html", {'ciudades': ciudades, 'tiposDocs': tipos})
 
+def lista_docente(request):
+    if request.is_ajax and request.method == "GET":
+        print("SOY AJAXX")
+        print(request.GET)
+        docentes = models.Docentes.objects.filter(nombres = request.GET.get('nombres'))
+        data =  serializers.serialize('json', cursos)
+        print(type(data))
+        return HttpResponse(data, 'application/json')
+    return HttpResponse("valido")
 
 def lista_docente(request):
     if request.is_ajax and request.method == "GET":
