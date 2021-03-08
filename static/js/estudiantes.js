@@ -82,19 +82,10 @@ function abrirModal(url , identificacion){
 }
 
 function cerrarModal() {
-  $('#creacion').modal('hide');
-  $('#edicion').modal('hide');
-
+  jQuery.noConflict();  
+  console.log("antes");
+  $('.modal').modal('hide');
+  console.log("despues");
   $('.pagina').load('/estudiantes');
   return false;
-}
-
-
-function cerrarModal() {
-  console.log("cerrando");
-  $(this).modal('hide');
-  $(this).modal('hide');
-  
-  return false;
-  
 }

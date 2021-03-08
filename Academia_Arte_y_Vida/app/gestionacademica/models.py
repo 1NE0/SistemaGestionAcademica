@@ -47,7 +47,8 @@ class Estudiantes(models.Model):
     # hacer la relacion a user
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     ciudad = models.ForeignKey(
-        ciudad, default="", null=True, blank=True, on_delete=models.CASCADE)
+        ciudad, default="", null=True, blank=False, on_delete=models.CASCADE)
+    
 
 
 #clase programa########################################################################################################
@@ -55,7 +56,7 @@ class Programas(models.Model):
     cod_programa = models.CharField(primary_key=True, max_length=10)
     nom_programa = models.CharField(max_length=30)
     contenido_Aca = models.CharField(max_length=500)
-    
+    duracion = models.IntegerField(null=False,blank=False)
 
     def _str_(self):
         return "{0}".format(self.nom_programa)
@@ -124,8 +125,9 @@ class Nivel_asignatura(models.Model):
     Id = models.IntegerField(primary_key=True)
     nivel = models.IntegerField(null=False, blank=False)
     descripcion = models.CharField(max_length=200)
-    horario_inicial = models.DateTimeField(null=True, blank=True, auto_now=False, auto_now_add=False)
-    horario_final = models.DateTimeField(null=True, blank=True, auto_now=False, auto_now_add=False)
+    dia = models.CharField(max_length=100,null=True,blank=False)
+    horaInicio = models.CharField(max_length=100,null=True , blank=True)
+    horaFinal = models.CharField(max_length=100,null=True,blank=True)
     #relaciones
     cod_asignatura = models.ForeignKey(
         Asignaturas, null=False, blank=False, on_delete=models.CASCADE)
@@ -147,46 +149,51 @@ class Cursos(models.Model):
         return "({0}) {1} [{2}]".format(self.cod_curso, self.nom_curso, self.dia, self.h_inicio)
 
 #nivel curso###########################################################################################################
-class Nivel_Cursos(models.Model):
-    Id = models.IntegerField(primary_key=True)
-    nivel = models.IntegerField(null=False, blank=False)
-    descripcion = models.CharField(max_length=200)
-
-    #relaciones
-    cod_Curso = models.ForeignKey(
-        Cursos, null=False, blank=False, on_delete=models.CASCADE)
-    cod_Docente = models.ForeignKey(
-        Docentes, null=False, blank=False, on_delete=models.CASCADE)
-
-    def _str_(self):
-        return "({1})({2})".format(self.Curso, self.nivel)
 
 
 class InscripcionCurso(models.Model):
     Id = models.IntegerField(primary_key=True,null=False, blank=False)
 
     # relaciones
-    nivel_curso = models.ForeignKey(Nivel_Cursos, null=False, blank=False, on_delete=models.CASCADE)
-    Id_inscripcionPrograma = models.ForeignKey(inscripcionPrograma, null=False, blank=False, on_delete=models.CASCADE)
-    
+    Id_inscripcionPrograma = models.ForeignKey(inscripcionPrograma, null=True, blank=True, on_delete=models.CASCADE)
+    curso = models.ForeignKey(Cursos, null=False, blank=False, on_delete=models.CASCADE)
 
+class Nivel_Cursos(models.Model):
+    Id = models.IntegerField(primary_key=True)
+    nivel = models.IntegerField(null=False, blank=False)
+    descripcion = models.CharField(max_length=200)
 
+    #relaciones
 
+    inscripcion_curso = models.ForeignKey(InscripcionCurso,default="999", null=False, blank=False, on_delete=models.CASCADE)
 
-
+    def _str_(self):
+        return "({1})({2})".format(self.Curso, self.nivel)
 
 #detalle curso#########################################################################################################
 
 
 class detalle_curso(models.Model):
     grupo = models.IntegerField(null=False , blank=False)
-    horario_inicial = models.DateTimeField(null=True, blank=True, auto_now=False, auto_now_add=False)
-    horario_final = models.DateTimeField(null=True, blank=True, auto_now=False, auto_now_add=False)
+    
+    dia = models.CharField(max_length=100,null=True,blank=False)
+    horaInicio = models.CharField(max_length=100,null=True , blank=True)
+    horaFinal = models.CharField(max_length=100,null=True,blank=True)
 
     #relaciones
-    cod_estudiante = models.ForeignKey(Estudiantes,default="", null=False, blank=False, on_delete=models.CASCADE)
+    Docente = models.ForeignKey(
+        Docentes, null=False, blank=False, on_delete=models.CASCADE)
+    periodo = models.ForeignKey(periodo,default="", null=False, blank=False, on_delete=models.CASCADE)
     Nivel_Curso = models.ForeignKey(Nivel_Cursos,default="", null=False, blank=False, on_delete=models.CASCADE)
 
+# inscripcion del estudiante en el detalle_curso
+
+class inscripcionEstudianteCurso(models.Model):
+    
+    detalle_curso = models.ForeignKey(detalle_curso,default="nulo", null=False, blank=False, on_delete=models.CASCADE)
+    estudiante = models.ForeignKey(Estudiantes,default="nulo", null=False, blank=False, on_delete=models.CASCADE)
+
+    
 
 class usuario(models.Model):
     tipos_doc = (

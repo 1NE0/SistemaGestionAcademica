@@ -65,20 +65,20 @@ def programas_Admin(request):
 
 
 
-def crearPrograma (request):
+@login_required(login_url='/login')
+def crearPrograma (request): 
 
-    if request.method == 'POST':   # SI ES UN POST, QUIERE DECIR QUE LE DIERON A ENVIAR FORMULARIO        
+    if request.method == "POST" and request.is_ajax:   # SI ES UN POST, QUIERE DECIR QUE LE DIERON A ENVIAR FORMULARIO        
         codigo = request.POST.get('cod_programa')
         nombre = request.POST.get('nom_programa')
         contenido = request.POST.get('contenido_Aca')
+        duracion = request.POST.get('duracion')
 
-        programa = models.Programas(cod_programa=codigo,nom_programa=nombre,contenido_Aca=contenido)
+        programa = models.Programas(cod_programa=codigo,nom_programa=nombre,contenido_Aca=contenido,duracion=duracion)
 
         programa.save()
 
-        context = {'programa':programa}
-
-        return JsonResponse(context)
+        return HttpResponse("correcto")
     
     return render(request,"administracion/programas/crear.html")
 
@@ -92,11 +92,22 @@ def fotos(request):
     return render(request, "fotos/fotos.html")
 
 
-def cursos(request):
-    cursosLista = models.Cursos.objects.all()
 
+
+def cursos(request):
+    InscripcionesProgramasMatriculados = models.inscripcionPrograma.objects.filter(periodo=models.periodo.periodo_actual())
+    periodo = models.periodo.periodo_actual()
+    detalles = models.detalle_curso.objects.filter(periodo=models.periodo.periodo_actual())
+    sinMatricula = []
+    conMatricula = []
+
+    for detalle in detalles:
+        if detalle.Nivel_Curso.inscripcion_curso.Id_inscripcionPrograma == None:
+            sinMatricula.append(detalle)
+        else:
+            conMatricula.append(detalle)
     
-    return render(request, "cursos.html", {'cursos': cursosLista})
+    return render(request, "cursos.html", {'programas': InscripcionesProgramasMatriculados, 'conMatricula' : conMatricula, 'sinMatricula' : sinMatricula , 'inscripcionesTotales' : detalles})
 
 def docentes(request):
     docentesLista = models.Docentes.objects.all()
@@ -138,17 +149,17 @@ def programas_info(request):
     return render(request, "info/programas_info.html")
 
 
-@login_required(login_url='/login')
+
 def Admision(request):
 
     usuariosConPago = models.usuario.objects.filter(pagoRealizado=True)
     print(usuariosConPago)
     return render(request, "Admisiones.html", {'usuariosLista': usuariosConPago})
 
-@login_required(login_url='/login')
+
 def estadisticas(request):
     return render(request,"administracion/estadisticas.html")
-@login_required(login_url='/login')
+
 def administracion_staff(request):
     return render(request, "administracion/admin.html")
 
@@ -175,7 +186,7 @@ def perfil(request):
 #  Programas -----------------------------------------------------------
 
 
-@login_required(login_url='/login')
+
 def Programas(request):
     programasLista = models.Programas.objects.all()
     programasMatriculados = []  #guardaremos los programas que ya estan matriculados
@@ -230,7 +241,7 @@ def Pagos(request):
     return render(request, 'pagos.html')
 
 
-@login_required(login_url='/login')
+
 def CrearPrograma(request):
     form = Programas_Form(request.POST or None)
 
@@ -244,14 +255,13 @@ def CrearPrograma(request):
     return render(request, "CrearPrograma.html", context)
 
 
-@login_required(login_url='/login')
 def lista_programas(request):
     programas = models.Programas.objects.all()
     context = {'programas': programas}
     return render(request, 'lista_programas.html', context)
 
 
-@login_required(login_url='/login')
+
 def editar_programa(request, cod_programa):
     programa = models.Programas.objects.get(cod_programa=cod_programa)
     if request.method == 'GET':
@@ -267,7 +277,6 @@ def editar_programa(request, cod_programa):
     return render(request, "CrearPrograma.html", context)
 
 
-@login_required(login_url='/login')
 def eliminar_programa(request, cod_programa):
     programa = models.Programas.objects.get(cod_programa=cod_programa)
     if request.method == 'POST':
@@ -279,7 +288,6 @@ def eliminar_programa(request, cod_programa):
 
 # Asignaturas ----------------------------------------------------------
 
-@login_required(login_url='/login')
 def CrearAsignatura(request):
     docentes = models.Docentes.objects.all()
     return render(request, "crearAsignatura.html", {'docentes' : docentes})
@@ -295,49 +303,45 @@ def crudAsignatura(request):
 
     docenteObj = models.Docentes.objects.get(nombres=docente)
     asignatura = models.Asignaturas(cod_asig=codigo , nom_asig = nombre , descripcion=descripcion , Docente=docenteObj)
-
+    asignatura.save()
     return HttpResponse("correcto");
 
 
-@login_required(login_url='/login')
 def CrearCurso(request):
-    
+    docentes = models.Docentes.objects.all()
+    detalles = models.InscripcionCurso.objects.all()
     if request.method == "POST" and request.is_ajax:
         print("ENTREEEEEEEEEEE AL IF jeje")
         codigo = request.POST.get('cod_curso')
-        nombre = request.POST.get('nom_curso')
-        print(codigo)
-        curso = models.Cursos(cod_curso= codigo, nom_curso=nombre)
-        curso.save()
-        return HttpResponse("correcto")
-        #cursoMandado = models.Cursos.objects.get(cod_curso=codigo, nom_curso=nombre)
-        #Context = {'añadido' : 'true', 'codigoCurso': cursoMandado.cod_curso, 'nombreCurso': cursoMandado.nom_curso}
+        nombre_curso = request.POST.get('nom_curso')
+        nivel = request.POST.get('nivel')
+        descripcion = request.POST.get('descripcion')
+        docenteIdSelect = request.POST.get('docente')
+        grupo = request.POST.get('grupo')
+        dia = request.POST.get('dia')
+        hora_inicial = request.POST.get('hora_inicial')
+        hora_final = request.POST.get('hora_final')
 
-        #console.log(Context)
-        #return JsonResponse(Context)
-
+        docente = models.Docentes.objects.get(identificacion=docenteIdSelect)
+        curso = models.Cursos(cod_curso= codigo, nom_curso=nombre_curso)
         
-            #obtenemos el docente
-            #level_curso = form_level.save(commit=False)
-            #print("preparando nivel...")
-            #selectDocente = models.Docentes.objects.get(nombres=request.POST.get('combo_docente'))
+        inscripcionCurso = models.InscripcionCurso(Id=random.randrange(0,1000000),curso = curso)
 
-            
-            #nivelcito = request.POST.get('nivel')
-            #descripcion_curso = request.POST.get('descripcion')
-            #level = models.Nivel_Cursos(Id = "555", nivel = nivelcito, descripcion = descripcion_curso)
-
-            #level.cod_Docente = selectDocente
-            #level.cod_Curso = cursito
-            #level.save()
+        # crear un nivel del curso
+        nivelCurso = models.Nivel_Cursos(Id=random.randrange(0,1000000),nivel=nivel,descripcion=descripcion,inscripcion_curso=inscripcionCurso)
+        
+        #crear un detalle
+        detalleCurso = models.detalle_curso(grupo=grupo,dia=dia,horaInicio=hora_inicial,horaFinal=hora_final,Nivel_Curso=nivelCurso,Docente=docente,periodo=models.periodo.periodo_actual())
 
 
-            #level_curso.cod_Docente = selectDocente
-            #level_curso.cod_Curso = cursito
-
-            #level_curso.save()
+        #guardar todo
+        curso.save()
+        inscripcionCurso.save()
+        nivelCurso.save()
+        detalleCurso.save()
+        return HttpResponse("correcto")
     
-    return render(request, "crearcurso.html")
+    return render(request, "crearcurso.html", {'docentes' : docentes , 'detalles' : detalles})
 
 def lista_curso(request):
     if request.is_ajax and request.method == "GET":
@@ -349,34 +353,6 @@ def lista_curso(request):
         return HttpResponse(data, 'application/json') #content_type=True)
     return HttpResponse("valido")
 
-@login_required(login_url='/login')
-def Editar_curso(request, cod_curso):
-    curso = models.Cursos.objects.get(cod_curso=cod_curso)
-    if request.method == 'GET':
-        form = Cursos_Form(instance=curso)
-    else:
-        form = Cursos_Form(request.POST, instance=curso)
-        if form.is_valid():
-            form.save()
-        return redirect("../../listacursos")
-
-    context = {'form': form}
-
-    return render(request, "crearcurso.html", context)
-
-
-@login_required(login_url='/login')
-def Eliminar_Curso(request, cod_curso):
-    curso = models.Cursos.objects.get(cod_curso=cod_curso)
-    if request.method == 'POST':
-        curso.delete()
-        return redirect("../../listacursos")
-    context = {'curso': curso}
-    return render(request, "eliminar_curso.html", context)
-
-
-def is_member(user):
-    return user.groups.filter(name='director').exists()
 
 @csrf_protect
 def login_user(request):
@@ -613,32 +589,82 @@ def registrarInscripcion(request):
     login(request, usercito)
     usuarioRegistrado.save()
     
+    #enviar correo
+    #enviarCorreo("sebastian" , "juan.ortiz.alzate@correounivalle.edu.co" , "una pruebita")
+
 
     return HttpResponse("correcto")
 
+################### CRUD DOCENTE #####################
 
-@login_required(login_url='/login')
 def crearDocente(request):
 
-    identificacion = request.POST.get('id')
-    tipoDoc = request.POST.get('tipoDocumento')
-    nombres = request.POST.get('nombres')
-    apellidos =request.POST.get('apellidos')
-    edad = request.POST.get('edad')
-    genero = request.POST.get('genero')
-    correoElectronico = request.POST.get('correo')
-    telefono = request.POST.get('telefono')
-    direccion = request.POST.get('direccion')
-    ciudad = request.POST.get('ciudad')
+    ciudades = models.ciudad.objects.all()
+    tipos = []
 
-    username = request.POST.get('username')
-    password = request.POST.get('password')
+    for tipo in models.Docentes.tipos_doc:
+        tipos.append(tipo[1])
 
-    ciudadSeleccionada = models.ciudad.objects.get(nombre = ciudad)
+    if request.method == "POST" and request.is_ajax:
+        print("ENTREEEEEEEEEEE AL IF jeje")
 
-    return render(request, "administracion/crearDocente.html")
+        tipoDocumento = request.POST.get('tipoDocumento')
+        identificacion = request.POST.get('id')
+        nombres = request.POST.get('nombres')
+        apellidos =request.POST.get('apellidos')
+        edad = request.POST.get('edad')
+        genero = request.POST.get('genero')
+        telefono = request.POST.get('telefono')
+        ciudad = request.POST.get('ciudad')
+        direccion = request.POST.get('direccion')
+        
+        correoElectronico = request.POST.get('correo')
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        #CREAR EL USUARIO DE LOGEO
+        try:
+            verificarUsuarioRepetido = models.User.objects.get(username=username)
+            print("Usuario repetido")
+            return HttpResponse("Username ya usado")
+        except User.DoesNotExist:
+            usercito = User.objects.create_user(username, correoElectronico, password)
+
+        usercito.is_staff = False
+        usercito.set_password = password
+        grupo = Group.objects.get(name = 'docentes')
+        usercito.groups.add(grupo)
+
+        ciudadSeleccionada = models.ciudad.objects.get(nombre = ciudad)
+
+        docenteAñadido = models.Docentes(identificacion=identificacion,
+                                        tipo=tipoDocumento,
+                                        nombres=nombres,
+                                        apellidos=apellidos,
+                                        edad=edad,
+                                        sexo= genero,
+                                        correo=correoElectronico,
+                                        telefono=telefono,
+                                        direccion=direccion,
+                                        user = usercito,
+                                        ciudad = ciudadSeleccionada)
+
+        usercito.save()
+        docenteAñadido.save()
+        return HttpResponse("correcto")
+
+    return render(request, "administracion/docentes.html", {'ciudades': ciudades, 'tiposDocs': tipos})
 
 
+def lista_docente(request):
+    if request.is_ajax and request.method == "GET":
+        print("SOY AJAXX")
+        print(request.GET)
+        docentes = models.Docentes.objects.filter(nombres = request.GET.get('nombres'))
+        data =  serializers.serialize('json', cursos)
+        print(type(data))
+        return HttpResponse(data, 'application/json')
+    return HttpResponse("valido")
 
 @login_required(login_url='/login')
 def primerpago(request):       # no se està utilizando
@@ -855,3 +881,69 @@ def verificarIdentificacion(request):
 
 
 
+from django.template.loader import render_to_string
+from django.core.mail import EmailMessage
+
+def enviarCorreo(name,email,message):
+
+    body = {
+                'name': name,
+                'email': email,
+                'message': message,
+            }
+        
+
+    email_message = EmailMessage(
+            subject='Mensaje de usuario',
+            body=body,
+            from_email=email,
+            to=['seas19754@gmail.com'],
+        )
+    email_message.content_subtype = 'html'
+    email_message.send()
+
+
+@csrf_exempt
+def obtenerEstadisticas(request):
+    estudiantesMatriculados = models.Estudiantes.objects.all().count()
+    programasTotales = models.Programas.objects.all().count()
+    usuariosTotales = models.usuario.objects.all().count()
+    cursosTotales = models.Cursos.objects.all().count()
+    asignaturasTotales = models.Asignaturas.objects.all().count()
+    docentesTotales = models.Docentes.objects.all().count()
+
+    periodosTotales = models.periodo.objects.all()
+    
+    arreglo = { 'estudiantesCantidad' : estudiantesMatriculados , 'programasTotales' : programasTotales , 'usuariosTotales' : usuariosTotales , 'cursosTotales' : cursosTotales , 'asignaturasTotales' : asignaturasTotales , 'docentesTotales' : docentesTotales}
+    data = json.dumps(arreglo)
+
+
+    
+    return JsonResponse(data,safe=False)
+
+
+@csrf_exempt
+def guardarCursoPrograma(request):
+
+    inscripcionCursos = request.POST.getlist('listaCursos[]')
+    programa = request.POST.get('programa')  # obtener la inscripcion del programa
+    # AGREGAR A ESTA INSCRIPCION, TODOS LOS CURSOS
+    programaInscripcion = models.inscripcionPrograma.objects.get(Id=programa)
+
+    # BORRAR LAS INSCRIPCIONES PARA VOLVERLAS A GUARDAR (ES COMO ACTUALIZAR)    
+    for inscripcion in models.InscripcionCurso.objects.filter():
+        if inscripcion.Id_inscripcionPrograma == programaInscripcion:
+            inscripcion.Id_inscripcionPrograma = None
+            inscripcion.save()
+
+
+    # HACER LA RELACION DE LA INSCRIPCION CURSO, CON LA INSCRIPCION PROGRAMA
+    for inscripcion in inscripcionCursos:
+        print(inscripcion)
+        inscripcionC = models.InscripcionCurso.objects.get(Id=inscripcion)
+        inscripcionC.Id_inscripcionPrograma = programaInscripcion
+        inscripcionC.save()
+    
+    return HttpResponse('Perfecto')
+
+    
