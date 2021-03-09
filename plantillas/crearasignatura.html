@@ -1,105 +1,42 @@
+{% load static %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-{% extends "base.html" %}
 
-{% block content %}
 
-    <div class="asignatura">
-        <h3>Crear asignatura</h3>
-    <form action="" method="POST">
-        {% csrf_token %}
-        {{ form }}
-        <input type="submit" value="Crear Asignatura">
-    </form>
+<div class="modal-dialog modal-lg" role="document" id="miModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title">Crear Nueva Asignatura</h2>
+            <button class="cerrar" onclick="cerrarModal()" type="button" data-dismiss = "modal" aria-label="Cerrar">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <form action="{% url 'crudAsignatura' %}" method="POST" id="formCrear">{% csrf_token %}
+            <div class="modal-body">
+               
+                        <input type="text" name="codigo" placeholder="ingrese el codigo">
+                        <input type="text" name="nombre" placeholder="ingrese el el nombre">
+                        <input type="text" name="descripcion" placeholder="descripcion">
+
+                        <select  class="form-control" id="exampleFormControlSelect1" name="docente">
+                            {% for docente in docentes %}
+                                <option>{{ docente.nombres }} </option>
+                            {% endfor %}
+                        </select>
+                
+                        
+                    
+            </div>
+                
+            <div class="modal-footer">
+                    <button class="btn btn-danger" onclick="cerrarModal()" type="button" data-dismiss="modal">Cancelar</button>
+                    <button class="btn btn-primary enviar" type="submit" value="submit">Confirmar</button>
+                
+            </div>
+        </form>
     </div>
 
-    <style>
-    *{
-        margin: 0;
-        padding: 0;
-        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-        background: #3282b8;
-    }
-    
-    h3{
-        color: white;
-        text-align: center;
-        font-size: 40px;
-        margin-top: 2%;
-        margin-bottom: 2%;
-    }
-    
-    
-    label{
-        color: white;
-        font-size: 17px;
-        display: block;
-    }
-
-    .asignatura{
-        width: 70%;
-        margin-left: 15%;
-        margin-top: 5%;
-        border: 1px solid white;
-       
-    }  
-  
-    form{
-        text-align:  center;
-    }
-    .asignatura label[for="id_horario"]
-
-    .asignatura input[name="horario"]{
-        margin-left: 10%;
-    }
-    .asignatura select[name="Programa"]{
-        color: white;
-        background: #146194;
-        border-bottom: 2px solid white;
-        margin-bottom: 2%;
-    }
-    .asignatura select[name="Docente"]{
-        color: white;
-        background: #146194;
-        border-bottom: 2px solid white;
-    }
-    
-    .asignatura input[type="text"]{
-        display: block;
-        color: white;
-        border: none;
-        background: #146194;
-        border-bottom: 2px solid white;
-        
-        width: 30%;
-        height: 25px;
-        margin-bottom: 3%;
-        margin-left: 35%;
-    }
-    
-    
-    .asignatura input[type="number"]{
-        background: #146194;
-        color: white;
-
-    }
-    
-    .asignatura input[type="submit"]{
-        display: block;
-        background: #146194;
-        color: white;
-        font-size: 15px;
-        font-weight: bold;
-        margin-top: 5%;
-        margin-bottom: 5%;
-        margin-left: 42%;
-        padding: 5px;
-    }
-    
-    .asignatura input[type="submit"]:hover{
-        background: white;
-        color: #3282b8;
-    }
-    </style>
+    <script src="{% static 'js/crearAsignatura.js' %}"></script>
+</div>
 
 
-{% endblock %}

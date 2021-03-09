@@ -1,8 +1,6 @@
 function onDragStart(event) {
-    event
-      .dataTransfer
-      .setData('text/plain', event.target.id);
-
+   //   .dataTransfer
+     // .setData('text/plain', event.target.id);
     // cuando se empice a arrastrar el elemento
     // event
     // .currentTarget

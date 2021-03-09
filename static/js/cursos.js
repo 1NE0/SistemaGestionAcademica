@@ -38,8 +38,20 @@ function onDragStart(event) {   // CUANDO SE COMIENZA A ARRASTRAR
 /* TODO SOBRE EL CRUD */
 
 $(function() {
-    var buttonpressed; 
+  $('.acc-btn').click(function(){
+    if ( $(this).next().is( ":hidden" ) ) {
+      $('.acc-content').slideUp('selected');
+      $(this).next().slideDown('selected');
+    } else {
+      $(this).next().slideUp('selected');
+    };
 
+    
+  
+});
+
+
+    var buttonpressed; 
        ///////////////////////////////////////////////////////////
        $('.enviar').click(function() {  
              buttonpressed = $(this).attr('name')
@@ -74,6 +86,7 @@ $(function() {
             success: function (response) {
                 if(response == "correcto"){
                     swal("Correcto!", "El curso se ha registrado con éxito.", "success");
+                    $('.contenido').parents('.contenedor-central').load('/cursos');
                 }
                 console.log(response);
             },
@@ -153,6 +166,14 @@ function cerrarModal() {
   console.log("antes");
   $('.modal').modal('hide');
   console.log("despues");
-  $('.contenido').parents('.contenedor-central').load('/cursos');
+  
   return false;
 }
+
+
+/*  acordion */
+
+/* acordion */
+
+
+

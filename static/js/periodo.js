@@ -90,7 +90,7 @@ function cerrarModal() {
   $('#creacion').modal('hide');
 
   // actualizar informacion
-  $('.paginita').load('/periodos');
+  
   return false;
 }
 
@@ -135,6 +135,8 @@ function onDrop(event) {   // CUANDO SE SUELTE
 
 $(".botoncito").click(function(e){
   e.preventDefault();
+  $(this).addClass("text-nowrap");
+  $(this).children('span').show();
   var listaProgramas = [];
   $('.example-dropzone').children('div').each(function(obj){
       listaProgramas.push($(this).attr('id'));
@@ -153,6 +155,7 @@ $(".botoncito").click(function(e){
            }else if(response == "guardado"){
             swal("¡" + response + " con éxito!", "Se ha guardado correctamente el periodo :)", "success");
            }
+           $('.paginita').load('/periodos');
       },
       error:function(response){
            swal("Ocurrió un error inesperado :(" , "Error");
