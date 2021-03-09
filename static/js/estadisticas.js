@@ -2,7 +2,7 @@ var ctx = document.getElementById('myChart').getContext('2d');
 var ctx2 = document.getElementById('myChart2').getContext('2d');
 console.log("hola");
 
-
+ 
 $(document).ready(function (){
     $.ajax({
         url: '/obtenerEstadisticas',  // URL A LA QUE SE REALIZA LA PETICION DEL FORM

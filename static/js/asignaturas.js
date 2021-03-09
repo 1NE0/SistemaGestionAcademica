@@ -31,6 +31,7 @@ $(document).ready(function(){
 function cerrarModal() {
     jQuery.noConflict(); 
     $('#creacion').modal('hide');
+    $('.principal').load('/asignaturas');
     return false;
 }
 
