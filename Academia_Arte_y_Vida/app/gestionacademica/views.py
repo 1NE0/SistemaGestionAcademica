@@ -274,7 +274,7 @@ def crudAsignatura(request):
     docenteObj = models.Docentes.objects.get(nombres=docente)
     asignatura = models.Asignaturas(cod_asig=codigo , nom_asig = nombre , descripcion=descripcion , Docente=docenteObj)
 
-    return HttpResponse("correcto");
+    return HttpResponse("correcto")
 
 
 def CrearCurso(request):

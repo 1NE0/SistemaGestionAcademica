@@ -106,7 +106,20 @@
 
             <div class="derecha">
                 <h3 class="tituloIzq">BUSCAR DOCENTE</h3>
+                <div class="buscador">
+                  <form method="GET" action="{% url 'listaDocente' %}" id="buscarForm">
+                    <div class="input-group mb-3">
+                      <input type="text" class="form-control" name="nombre" id="input_nombre_docente" placeholder="Buscar Docente" aria-describedby="basic-addon2">
+                      <div class="input-group-append">
+                        <button class="btn btn-info" type="submit" value="buscar" id="botoncito"><i class="fas fa-search" style="color: white;"></i></button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+
+                
             </div>
-    </div>
+          </div>
 
     <script src="{% static 'js/crearDocente.js' %}"></script>
+  

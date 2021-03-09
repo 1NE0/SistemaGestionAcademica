@@ -47,3 +47,20 @@ $(function() {
             });
         })
 })
+
+
+/* buscar docente */
+
+$(document).ready(function () {
+  
+    $("#input_nombre_docente").keyup(function () {
+      _this = this;
+      // Muestra solo los TR, oculta el resto de ellos
+      $.each($("#tabla tbody tr"), function () {
+        if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1) // si la fila contiene algun caracter del input
+          $(this).hide(); // ocultar
+        else 
+          $(this).show();  // mostrar
+      });
+    });                     
+  });
