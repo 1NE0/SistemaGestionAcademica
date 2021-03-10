@@ -58,8 +58,7 @@
         <!-- esta es la carta para ingresar el codigo-->
         <i class="fas fa-comments-dollar" style="font-size: 50px; color: black; text-align: center; margin-top: 20px;"></i>
         <h3>INGRESAR EL CODIGO DEL PAGO</h3>
-        <p>Si ya realizaste el pago, revisa tu correo y busca el codigo de referencia</p>
-        <p>de tu factura.</p>
+        <p>Si ya realizaste el pago, revisa tu correo y busca el código de referencia de tu factura.</p>
         
         <form action="{% url 'referenciaPago' %}" method="POST">{% csrf_token %}
           <div class="inputDiv">

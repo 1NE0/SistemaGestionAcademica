@@ -14,10 +14,20 @@
             </div>
             <div class="texto-contenido">
                 {% ifequal user.groups.all.0.name "director"%}
-                    <p>{{user.username}}</p>
+
+                <div class="card w-100 h-100 bg-light mb-3">
+                    <div class="card-body col-12 my-3 pt-3 shadow-none">
+                      <h5 class="card-header text-center text-dark"><strong>{{user.username}}</strong></h5> <br>
+                      <p class="card-text">                           
+            
+                        </p>
+                    </div>
+                    <button type="button" class="btn btn-secondary cerrar" aria-label="Close">Cerrar</button>
+                  </div>
                 {% endifequal %}
+
+
                 {% ifequal user.groups.all.0.name "usuarios"%}
-                    
                         <div class="card w-100 h-100 bg-light mb-3">
                             <div class="card-body col-12 my-3 pt-3 shadow-none">
                                 {% for usuario in usuarios %}
@@ -37,24 +47,33 @@
                             </div>
                             <button type="button" class="btn btn-secondary cerrar" aria-label="Close">Cerrar</button>
                           </div>
-                        
-                    
                 {% endifequal %}
+
+
                 {% ifequal user.groups.all.0.name "estudiantes"%}
-                    <p>
-                        {% for estudiante in estudiantes %}
-                            {% if estudiante.id == user.id %}
-                                {{estudiante.identificacion}} <br>
-                                {{estudiante.apellidos}} <br>
-                                {{estudiante.nombres}} <br>
-                                {{estudiante.edad}} <br>
-                                <p>sexo :</p>{{estudiante.sexo}} <br>
-                                <p>telefono </p>  {{estudiante.telefono}} <br>
-                            {% endif %}
-                        {% endfor %}
-                    </p>
+                          <div class="card w-100 h-100 bg-light mb-3">
+                            <div class="card-body col-12 my-3 pt-3 shadow-none">
+                                {% for estudiante in estudiantes %}
+                                    {% if estudiante.user_id == user.id %}
+                              <h5 class="card-header text-center text-dark"><strong>{{estudiante.nombres}} {{estudiante.apellidos}} </strong></h5> <br>
+                              <p class="card-text">
+                                   <label for=""><strong>Número de identificación: </strong></label> {{estudiante.identificacion}} <br>                                   
+                                   <label for=""><strong>Edad: </strong></label> {{estudiante.edad}} <br>
+                                   <label for=""><strong>Género: </strong></label> {{estudiante.sexo}} <br>
+                                   <label for=""><strong>Departamento: </strong></label> {{estudiante.ciudad.departamento.nombre}} <br>
+                                   <label for=""><strong>Ciudad: </strong> </label> {{estudiante.ciudad.nombre}} <br>
+                                   <label for=""><strong>Dirección de residencia: </strong></label> {{estudiante.direccion}} <br>
+                                   <label for=""><strong>Teléfono de contacto: </strong></label> {{estudiante.telefono}} <br>
+                                   <label for=""><strong>Correo electrónico: </strong></label> {{estudiante.correo}} <br>
+                                {% endif %}
+                            {% endfor %}</p>
+                            </div>
+                            <button type="button" class="btn btn-secondary cerrar" aria-label="Close">Cerrar</button>
+                          </div>
                 {% endifequal %}
-                {% ifequal user.groups.all.0.name "estudiantes"%}
+
+
+                {% ifequal user.groups.all.0.name "docentes"%}
                     <p>
                         {% for docente in docentes %}
                             {% if docente.id == user.id %}

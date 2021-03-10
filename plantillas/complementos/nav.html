@@ -56,7 +56,7 @@
               {% endifequal %} {% ifequal user.groups.all.0.name "usuarios"%}
               <li><a href="{% url 'primerpago' %}">Inscripcion</a></li>
               {% endifequal %} {% ifequal user.groups.all.0.name "estudiantes"%}
-              <li><a href="{% url 'board_estudiante' %}">Board</a></li>
+              <li><a href="{% url 'board_estudiante' %}">Panel</a></li>
               {% endifequal %} {% ifequal user.groups.all.0.name "docentes"%}
               <li><a href="{% url 'board_docente' %}">Panel</a></li>
               {% endifequal %}
