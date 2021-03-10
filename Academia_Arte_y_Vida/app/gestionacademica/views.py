@@ -599,6 +599,7 @@ def registrarInscripcion(request):
 
 def crearDocente(request):
 
+    docentes = models.Docentes.objects.all()
     ciudades = models.ciudad.objects.all()
     tipos = []
 
@@ -653,27 +654,20 @@ def crearDocente(request):
         docenteAñadido.save()
         return HttpResponse("correcto")
 
-    return render(request, "administracion/docentes.html", {'ciudades': ciudades, 'tiposDocs': tipos})
+    return render(request, "administracion/docentes.html", {'docentes': docentes,'ciudades': ciudades, 'tiposDocs': tipos})
 
 def lista_docente(request):
-    if request.is_ajax and request.method == "GET":
+    
+    if request.is_ajax:
         print("SOY AJAXX")
         print(request.GET)
-        docentes = models.Docentes.objects.filter(nombres = request.GET.get('nombres'))
-        data =  serializers.serialize('json', cursos)
+        docentes = models.Docentes.objects.filter(nombres = request.GET.get('nombre'))
+        data =  serializers.serialize('json', docentes)
         print(type(data))
-        return HttpResponse(data, 'application/json')
-    return HttpResponse("valido")
+        return HttpResponse(data)
+    return HttpResponse("activo")
 
-def lista_docente(request):
-    if request.is_ajax and request.method == "GET":
-        print("SOY AJAXX")
-        print(request.GET)
-        docentes = models.Docentes.objects.filter(nombres = request.GET.get('nombres'))
-        data =  serializers.serialize('json', cursos)
-        print(type(data))
-        return HttpResponse(data, 'application/json')
-    return HttpResponse("valido")
+#############################################
 
 @login_required(login_url='/login')
 def primerpago(request):       # no se està utilizando

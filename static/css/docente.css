@@ -17,8 +17,9 @@
 
 .derecha{
     width: 50%;
+    margin-left: 0px!important;
     height: 500px;
-    background-color: white;
+    background-color: transparent;
     
 }
 
@@ -37,4 +38,27 @@
 
 .tituloIzq{
     text-align: center;
+    color:  rgb(102, 102, 102);
+}
+
+.tituloDerecha{
+    text-align: center;
+    color : rgb(102, 102, 102);
+}
+
+.buscador{
+    padding-top: 32px;
+}
+
+.btn{
+    background-color: rgb(197,148,255)!important;
+    border: none!important;
+}
+
+.eliminarBTN{
+    background-color: rgb(197,148,255)!important;
+}
+
+.editarBTN{
+    background-color:rgb(138,189,244)!important;
 }
