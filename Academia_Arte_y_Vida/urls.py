@@ -55,6 +55,7 @@ urlpatterns = [
     url(r'^inscripcion/$', primerpago, name="inscripcion"),
     url(r'^docentes/$', docentes, name="docentes"),
     url(r'^crearDocente/$', crearDocente, name="crearDocente"),
+    url(r'^listaDocente/$', lista_docente, name="listaDocente"),
     #url(r'^pago/$', detalles_pagos, name="pago")
     url(r'^fotos/$', fotos, name="fotos"),
     url(r'^perfil/$', perfil, name="perfil"),
@@ -79,7 +80,6 @@ urlpatterns = [
     # board estudiante
     url(r'^board_estudiante/$', board_estudiante, name="board_estudiante"),
     url(r'^programasEstudiante$', programasEstudiante, name="programasEstudiante"),
-    url(r'^cursosEstudiante$', cursosEstudiante, name="cursosEstudiante"),
     url(r'^asignaturasEstudiante$', asignaturasEstudiante, name="asignaturasEstudiante"),
     url(r'^pagosEstudiante$', pagosEstudiante, name="pagosEstudiante"),
 
@@ -87,7 +87,7 @@ urlpatterns = [
     url(r'^board_docente/$', board_docente, name="board_docente"),
     url(r'^cursosDocente$', cursosDocente, name="cursosDocente"),
     url(r'^asignaturasDocente$', asignaturasDocente, name="asignaturasDocente"),
-    url(r'^actividadesDocente$', actividadesDocente, name="actividadesDocente"),
+
 
     #estadisticas
     url(r'^obtenerEstadisticas$', obtenerEstadisticas, name="obtenerEstadisticas"),

@@ -131,6 +131,7 @@ $('.botonGuardar').click(function(e){
     success: function (response) {
         if(response == 'Perfecto'){
             swal("Correcto!", "El programa se ha guardado con éxito.", "success");
+            $('.principal').load('/asignaturas');
         }
 
         $('.contenido').parents('.contenedor-central').load('/cursos');

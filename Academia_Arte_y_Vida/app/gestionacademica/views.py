@@ -29,7 +29,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core.exceptions import ObjectDoesNotExist
 # Create your views here.
 
-@login_required(login_url='/login')
+
 def estudiantes(request):
     estudiantesLista = Estudiantes.objects.all()
     return render(request, "administracion/estudiantes.html", {'estudiantes': estudiantesLista})
@@ -364,17 +364,11 @@ def lista_curso(request):
 
 @csrf_protect
 def login_user(request):
-    csrfContext = RequestContext(request).flatten()
     if request.POST:
         username = request.POST['username']
         password = request.POST['password']
         
-        # usuario = User.objects.get(username=username)
-        # print("el usuario encontrado es" + usuario.username)
-        # boole = check_password(password, usuario.password)
-
         user = authenticate(username=username, password=password)
-
         if user is not None:
             if user.is_active:
                 login(request, user)
@@ -386,10 +380,15 @@ def login_user(request):
                 return render(request, "index.html", {'user': user})
         else:
             #  Retornar a una pagina de error
-            print("entreeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
-            return render(request, "login/login.html", {'user': user} , csrfContext)
-        print("entreeeee otraaaa vezzzzzz")
-    return render(request, 'login/login.html' , csrfContext)
+            try:
+                user = models.User.objects.get(username=username)
+                # si lo encuentra quiere decir que el problema está en la contraseña
+                return HttpResponse("contraseñaIncorrecta")
+            except User.DoesNotExist:
+                # no está registrado
+                return HttpResponse("usuarioNoExiste")
+        
+    return render(request, 'login/login.html')
 
 
 def logout_user(request):
@@ -607,6 +606,7 @@ def registrarInscripcion(request):
 
 def crearDocente(request):
 
+    docentes = models.Docentes.objects.all()
     ciudades = models.ciudad.objects.all()
     tipos = []
 
@@ -661,27 +661,20 @@ def crearDocente(request):
         docenteAñadido.save()
         return HttpResponse("correcto")
 
-    return render(request, "administracion/docentes.html", {'ciudades': ciudades, 'tiposDocs': tipos})
+    return render(request, "administracion/docentes.html", {'docentes': docentes,'ciudades': ciudades, 'tiposDocs': tipos})
 
 def lista_docente(request):
-    if request.is_ajax and request.method == "GET":
+    
+    if request.is_ajax:
         print("SOY AJAXX")
         print(request.GET)
-        docentes = models.Docentes.objects.filter(nombres = request.GET.get('nombres'))
-        data =  serializers.serialize('json', cursos)
+        docentes = models.Docentes.objects.filter(nombres = request.GET.get('nombre'))
+        data =  serializers.serialize('json', docentes)
         print(type(data))
-        return HttpResponse(data, 'application/json')
-    return HttpResponse("valido")
+        return HttpResponse(data)
+    return HttpResponse("activo")
 
-def lista_docente(request):
-    if request.is_ajax and request.method == "GET":
-        print("SOY AJAXX")
-        print(request.GET)
-        docentes = models.Docentes.objects.filter(nombres = request.GET.get('nombres'))
-        data =  serializers.serialize('json', cursos)
-        print(type(data))
-        return HttpResponse(data, 'application/json')
-    return HttpResponse("valido")
+#############################################
 
 @login_required(login_url='/login')
 def primerpago(request):       # no se està utilizando
@@ -849,9 +842,6 @@ def pagos(request):
 def programasEstudiante(request):
     return render(request, "board_estudiante/programasEstudiante.html")
 
-def cursosEstudiante(request):
-    return render(request,"board_estudiante/cursosEstudiante.html")
-
 def asignaturasEstudiante(request):
     return render(request, "board_estudiante/asignaturasEstudiante.html")
 
@@ -866,8 +856,6 @@ def cursosDocente(request):
 def asignaturasDocente(request):
     return render(request, "board_docente/asignaturasDocente.html")
 
-def actividadesDocente(request):
-    return render(request, "board_docente/actividadesDocente.html")
     
 
 

@@ -1,4 +1,19 @@
 
+/* buscar docente */
+
+$(document).ready(function () {
+
+    $("#input_nombre_docente").on('keyup',function () {
+      _this = this;
+      // Muestra solo los TR, oculta el resto de ellos
+      $.each($("#tabla tbody tr"), function () {
+        if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1) // si la fila contiene algun caracter del input
+          $(this).hide(); // ocultar
+        else 
+          $(this).show();  // mostrar
+      });
+    });                     
+  });
 
 /* crud creación */
 
@@ -38,7 +53,8 @@ $(function() {
                 success: function (response) {
                     if(response == "correcto"){
                         swal("Bien!", "El docente se ha registrado con éxito.", "success");
-                    }
+                        $('.bloque').parents('#contenedor-central').load('/crearDocente');
+                      }
                     console.log(response);
                 },
                 error: function (response){
@@ -47,3 +63,6 @@ $(function() {
             });
         })
 })
+
+
+/* Editar y Eliminar docentes */

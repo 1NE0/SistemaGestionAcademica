@@ -1,16 +1,24 @@
 {% load static %}
 
-<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-<!-- BS JavaScript -->
-<link rel="stylesheet" href="{% static 'css/docente.css' %}">
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+ <!-- scripts para jquery -->
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+ <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+ <!-- font awesome -->
+ <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+ <!-- bootstrap estilos -->
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous"/>
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+ <!-- Seewt Alert -->
+ <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+ <!-- hoja de estilo -->
+ <link rel="stylesheet" href="{% static 'css/docente.css' %}">
 
 
 <h3 class="tituloPrincipal">GESTIONAR DOCENTES</h3>
         <div class="bloque">
             <div class="izquierda">
                 <div class="container">
-                    <h3 class="tituloIzq">FORMULARIO</h3>
+                    <h3 class="tituloIzq">REGISTRAR NUEVO DOCENTE</h3>
                     {% csrf_token %}
                     <div class="row">
                         <form class="row g-3" method="POST" id="formCrearDocente" action="{% url 'crearDocente' %}">
@@ -105,8 +113,45 @@
             </div>
 
             <div class="derecha">
-                <h3 class="tituloIzq">BUSCAR DOCENTE</h3>
+                <h3 class="tituloDerecha">BUSCAR</h3>
+                <div class="buscador">
+                  <form method="GET" action="{% url 'listaDocente' %}" id="buscarForm">
+                    <div class="input-group mb-3">
+                      <input type="text" class="form-control" name="nombre" id="input_nombre_docente" placeholder="Buscar Docente" aria-describedby="basic-addon2">
+                      <div class="input-group-append">
+                        <button class="btn btn-info" type="submit" value="buscar" id="botoncito"><i class="fas fa-search" style="color: white;"></i></button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="sub-bloque-derecha">
+                  <table class="table table-hover table-ligth" id="tabla">
+                    <thead>
+                      <tr>
+    
+                        <th scope="col">Nombres</th>
+                        <th scope="col">Apellidos</th>
+                        <th scope="col">Acción</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for docente in docentes %}
+                      <tr>
+                        <th scope="row">{{docente.id}}</th>
+                        <td>{{docente.nombres}}</td>
+                        <td>{{docente.apellidos}}</td>
+                        <td>
+                          <button class="btn btn-info eliminarBTN" id=""><i class="fas fa-minus-circle" style="color: white;"></i></button>
+                          <button class="btn btn-info editarBTN" id=""><i class="fas fa-edit" style="color: white;" ></i></button>
+                        </td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                </div>
+
+                
             </div>
-    </div>
+          </div>
 
     <script src="{% static 'js/crearDocente.js' %}"></script>
+  
