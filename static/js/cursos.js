@@ -156,7 +156,7 @@ function abrirModal(url , identificacion){
       $(this).modal('show');  // mostrar el modal
     });
 
-    
+     
    
    //return false;  
 }
