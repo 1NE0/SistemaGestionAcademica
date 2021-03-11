@@ -1,20 +1,22 @@
-.galery {
-  padding-top: 100px;
-  display: grid;
-  grid-gap: 12px;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  grid-template-rows: repeat(2, 1fr);
+
+.container{
+    padding-top: 60px;
 }
-.galery .item {
-  transition: opacity 0.5s ease;
-  opacity: 0.4;
-  height: 200px;
+
+body{
+    background-color: rgb(145, 211, 219);
 }
-.galery .item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+
+.titulo_principal{
+    margin-top: 20px;
+    text-align: center;
+    
 }
-.galery .item:hover {
-  opacity: 1;
+.subtitulo{
+    margin-top: 30px;
+    text-align: center;
+}
+
+.carticas{
+    margin-top: 30px;
 }
