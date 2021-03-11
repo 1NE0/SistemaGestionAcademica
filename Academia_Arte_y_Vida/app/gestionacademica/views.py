@@ -834,9 +834,6 @@ def pagos(request):
 def programasEstudiante(request):
     return render(request, "board_estudiante/programasEstudiante.html")
 
-def cursosEstudiante(request):
-    return render(request,"board_estudiante/cursosEstudiante.html")
-
 def asignaturasEstudiante(request):
     return render(request, "board_estudiante/asignaturasEstudiante.html")
 
@@ -851,8 +848,6 @@ def cursosDocente(request):
 def asignaturasDocente(request):
     return render(request, "board_docente/asignaturasDocente.html")
 
-def actividadesDocente(request):
-    return render(request, "board_docente/actividadesDocente.html")
     
 
 
