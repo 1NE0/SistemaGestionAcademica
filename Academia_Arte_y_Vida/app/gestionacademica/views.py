@@ -356,17 +356,11 @@ def lista_curso(request):
 
 @csrf_protect
 def login_user(request):
-    csrfContext = RequestContext(request).flatten()
     if request.POST:
         username = request.POST['username']
         password = request.POST['password']
         
-        # usuario = User.objects.get(username=username)
-        # print("el usuario encontrado es" + usuario.username)
-        # boole = check_password(password, usuario.password)
-
         user = authenticate(username=username, password=password)
-
         if user is not None:
             if user.is_active:
                 login(request, user)
@@ -378,10 +372,15 @@ def login_user(request):
                 return render(request, "index.html", {'user': user})
         else:
             #  Retornar a una pagina de error
-            print("entreeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
-            return render(request, "login/login.html", {'user': user} , csrfContext)
-        print("entreeeee otraaaa vezzzzzz")
-    return render(request, 'login/login.html' , csrfContext)
+            try:
+                user = models.User.objects.get(username=username)
+                # si lo encuentra quiere decir que el problema está en la contraseña
+                return HttpResponse("contraseñaIncorrecta")
+            except User.DoesNotExist:
+                # no está registrado
+                return HttpResponse("usuarioNoExiste")
+        
+    return render(request, 'login/login.html')
 
 
 def logout_user(request):
