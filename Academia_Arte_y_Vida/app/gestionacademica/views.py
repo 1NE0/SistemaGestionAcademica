@@ -29,7 +29,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core.exceptions import ObjectDoesNotExist
 # Create your views here.
 
-@login_required(login_url='/login')
+
 def estudiantes(request):
     estudiantesLista = Estudiantes.objects.all()
     return render(request, "administracion/estudiantes.html", {'estudiantes': estudiantesLista})
