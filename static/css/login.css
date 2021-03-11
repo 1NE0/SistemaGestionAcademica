@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Yantramanav:wght@700&display=swap');
+
+body{
+    background-color: #f9fafc;
+}
+
+.section{
+    width: 100%;
+    /*IMPORTANTE*/
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+}
+
+
+.layout{
+    text-align: center;
+    width: 450px;
+    
+    background-color: #FFFFFF;
+    border-radius: 3px;
+    padding: 25px 40px;
+    box-shadow: rgb(0 0 0 / 10%) 0 0 10px;
+    margin-top: 6%;
+}
+
+
+#titulo{
+    color: rgb(177, 177, 177);
+    font-size: 20px;
+    font-family: 'Yantramanav', sans-serif;
+}
+
+.ingresar{
+    width: 100%!important;
+    height: 50px!important;
+    background-color: teal;
+    color: white;
+    font-size: 20px;
+    font-family: 'Yantramanav', sans-serif;
+    margin-top: 50px;
+
+}
+
+.ingresar:hover{
+    background-color: rgb(0, 156, 156);
+    cursor: pointer;
+    
+}
+
+
+.mensaje{
+    background-color: #fd5c53;
+    height: 30px;
+    font-family: 'Yantramanav', sans-serif;
+    color: white;
+    padding-top: 3px;
+    margin-bottom: 20px;
+}
+
+.terminos{
+    margin-top: 20px;
+    margin-bottom: 40px;
+    height: auto;
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width: 640px){
+    .layout{
+        width: 100%;
+    }
+    
+    center{
+        width: 100%!important;
+    }
+}
