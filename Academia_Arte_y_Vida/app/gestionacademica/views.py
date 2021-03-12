@@ -290,24 +290,32 @@ def eliminar_programa(request, cod_programa):
 
 
 # Asignaturas ----------------------------------------------------------
-
+"""
 def CrearAsignatura(request):
     docentes = models.Docentes.objects.all()
     return render(request, "crearAsignatura.html", {'docentes' : docentes})
 
+"""
 
 def crudAsignatura(request):
-    codigo = request.POST.get('codigo')
-    nombre = request.POST.get('nombre')
-    descripcion = request.POST.get('descripcion')
-    docente = request.POST.get('docente')
 
-    # buscar el docente
+    docentes = models.Docentes.objects.all()
+    
+    if request.method == "POST" and request.is_ajax:
+        codigo = request.POST.get('codigo')
+        nombre = request.POST.get('nombre')
+        descripcion = request.POST.get('descripcion')
+        docente = request.POST.get('docente')
 
-    docenteObj = models.Docentes.objects.get(nombres=docente)
-    asignatura = models.Asignaturas(cod_asig=codigo , nom_asig = nombre , descripcion=descripcion , Docente=docenteObj)
-    asignatura.save()
-    return HttpResponse("correcto")
+        # buscar el docente
+        docenteObj = models.Docentes.objects.get(nombres=docente)  
+        asignatura = models.Asignaturas(cod_asig=codigo , nom_asig = nombre , descripcion=descripcion , Docente=docenteObj)
+        
+        asignatura.save()
+        
+        return HttpResponse("ok")
+
+    return render(request,"crearasignatura.html",{'docentes' : docentes})
 
 
 def CrearCurso(request):

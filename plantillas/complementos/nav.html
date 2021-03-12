@@ -34,7 +34,6 @@
         <a href="{% url 'quienes_somos' %}">¿Quiénes somos?</a>
       </div>
       <div class="item"><a href="{% url 'programas_info' %}">Programas</a></div>
-      <div class="item"><a href="#">Actividades</a></div>
       <div class="item"><a href="#">Ayuda</a></div>
       <div class="item"><a href="{% url 'fotos' %}">Fotos</a></div>
       {% comment %} DEJAR DE ULTIMO EL DIV CON CLASE "ULTIMO" {% endcomment %}
@@ -68,9 +67,6 @@
       </nav>
       {% else %}
       <div class="item"><a class="accion" href="/login">Login</a></div>
-      <div class="item" style="padding-rigth: 100px!important;">
-        <a class="accion" href="{% url 'crearinscripcion' %}">Registrarse</a>
-      </div>
       {% endif %}
       <!-- SI ES UN DIRECTOR -->
     </div>

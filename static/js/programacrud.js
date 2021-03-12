@@ -38,7 +38,7 @@ $(document).ready(function(){
       $.ajax({
         url : $(this).attr('action'),
         type: "POST",
-        data: {
+        data: { 
           csrfmiddlewaretoken: data[0].value,
           cod_programa: data[1].value,
           nom_programa: data[2].value,
@@ -48,7 +48,7 @@ $(document).ready(function(){
         dataType: "html",
         beforeSend: function(response){
           console.log("realizando..");
-        },
+        }, 
         success: function(response){
           if(response == "correcto"){
           swal("Programa creado","Se creó el programa de manera exitosa","success");

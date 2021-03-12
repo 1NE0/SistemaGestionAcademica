@@ -36,7 +36,7 @@ urlpatterns = [
         editar_programa, name="editarprograma"),
     url(r'^eliminarprograma/(?P<cod_programa>\w+)/$',
         eliminar_programa, name="eliminarprograma"),
-    url(r'^crearasignatura$', CrearAsignatura, name="crearAsignatura"),
+   # url(r'^crearasignatura$', CrearAsignatura, name="crearAsignatura"),
     url(r'^crearcurso/$', CrearCurso, name="crearcurso"),
     url(r'^listacursos/$', lista_curso, name="listacursos"),
     url(r'^login/$', login_user, name="login"),
@@ -76,7 +76,7 @@ urlpatterns = [
     url(r'^modificarEstudiante$', modalEditarEstudiante, name="modificarEstudiante"),
     url(r'^eliminarEstudiante$', eliminarEstudiante, name="eliminarEstudiante"),
     url(r'^crudAsignatura$', crudAsignatura, name="crudAsignatura"),
-
+ 
     # board estudiante
     url(r'^board_estudiante/$', board_estudiante, name="board_estudiante"),
     url(r'^programasEstudiante$', programasEstudiante, name="programasEstudiante"),

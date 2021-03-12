@@ -2,7 +2,7 @@ $(document).ready(function(){
     $('#formCrear').on('submit', function(e) {
         e.preventDefault();
 
-
+ 
         var data = $("#formCrear :input").serializeArray(); // COGER SUS INPUTS, Y SERIALIZARLOS EN JSON
         console.log(data);
 
