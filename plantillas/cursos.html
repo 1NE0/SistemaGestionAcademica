@@ -37,10 +37,12 @@
     
             <div class="programas">
                 <div class="titulo"><h1>PROGRAMAS MATRICULADOS ESTE PERIODO</h1></div>
+                
+
                 <div class="grid">
                     <!-- programas matriculados -->
                     {% for programa in programas %}
-                    <div class="card carta">
+                    <div class="card carta" id="{{programa.Id}}">
                         <h2>{{programa.programa.nom_programa}}</h2>
                         <!-- zona de recepcion -->
                         <div class="example-dropzone" ondragover="onDragOver(event);" ondrop="onDrop(event);">
@@ -53,11 +55,12 @@
                                 {% endif%}
                             {% endfor %}
                         </div>
-                        <a class="btn btn-primary botonGuardar" id="{{programa.Id}}"><span class="spinner-border spinner-border-sm mr-2" style="display: none;"></span> Guardar</a>
+                        
                     </div>
                     {% endfor %}
                     </div>
                 </div>
+                <a class="btn btn-primary guardar"><span class="spinner-border spinner-border-sm mr-2" style="display: none;"></span> Guardar</a>
         </div>
     </div>
     
