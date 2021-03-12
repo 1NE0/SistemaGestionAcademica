@@ -11,14 +11,17 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-
+from django.conf import settings
 # ENVIO DE CORREOS
+
 
 EMAIL_HOST = 'localhost'
 EMAIL_PORT = 1025
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -152,3 +155,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR,'static'),) 
 # opciones posibles: 'sweetalert', 'sweetalert2' - el valor predeterminado es 'sweetalert2' 
 SWEETIFY_SWEETALERT_LIBRARY  =  'sweetalert2'
+
+
+#files
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'   # nombre de la carpeta donde se guardarán

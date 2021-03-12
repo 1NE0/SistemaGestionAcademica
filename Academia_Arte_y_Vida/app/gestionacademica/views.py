@@ -27,6 +27,9 @@ from django.http import FileResponse
 from reportlab.pdfgen import canvas
 from django.views.decorators.csrf import csrf_exempt
 from django.core.exceptions import ObjectDoesNotExist
+
+
+from django.core.files.storage import FileSystemStorage
 # Create your views here.
 
 
@@ -841,9 +844,28 @@ def pagosEstudiante(request):
     return render(request, "board_estudiante/pagosEstudiante.html")
 
 
+
+
 #    BOARD DEL DOCENTE
+@csrf_exempt
 def cursosDocente(request):
-    return render(request, "board_docente/cursosDocente.html")
+    user = models.User.objects.get(id=request.user.id)
+    docente = models.Docentes.objects.get(user=user)
+    cursos = models.detalle_curso.objects.filter(Docente=docente)
+    
+    if request.method == 'POST':
+        id_detalle = request.POST['detalle']
+        detalle = models.detalle_curso.objects.get(id=id_detalle)
+        archivo = request.FILES['documento']
+        titulo = request.POST['titulo']
+        descripcion = request.POST['descripcion']
+        actividad = models.actividades(file=archivo,titulo=titulo,descripcion=descripcion,detalle_curso=detalle.id)
+        actividad.save()
+
+
+        return HttpResponse("correcto")
+    return render(request, "board_docente/cursosDocente.html" , {'docente' : docente , 'cursos' : cursos})
+
 
 def asignaturasDocente(request):
     return render(request, "board_docente/asignaturasDocente.html")
