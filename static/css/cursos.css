@@ -3,7 +3,10 @@
   margin: 0!important;
 }
 
-
+.guardar{
+  margin-left: 20px;
+  width: 98%;
+}
 .boton{
   width: 100%!important;
   margin-bottom: 10px;

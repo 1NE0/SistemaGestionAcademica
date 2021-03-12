@@ -102,45 +102,62 @@ $(function() {
 
 // GUARDAR PROGRAMA
 $(this).children('span').hide();
+
+
+$('.guardar').click(function(e){
+  e.preventDefault();
+  console.log("me presione");
+  $('.card').each(function(){
+
+            var codigoPrograma = $(this).attr('id');
+            console.log(codigoPrograma)
+            // que hacer despues de hacer click en guardar
+            var listaCursos = [];
+
+            $(this).children('.example-dropzone').children('.example-draggable').each(function(){  // recorrer los hijos del dropzone, que en este caso son los cursos
+              listaCursos.push($(this).attr('id'));  // los guardamos en la lista antes creada
+            });
+
+            // mandarlos a la vista
+          $.ajax({
+            type: "POST",
+            url: '/guardarCursoPrograma/',
+            data: {
+                listaCursos : listaCursos,
+                programa: codigoPrograma,
+            },
+            dataType: "html",
+            beforeSend: function(response){   // ANTES QUE SE EJECUTE, O MIENTRAS SE EJECUTA
+                // antes de enviar la peticion
+                console.log("realizando envio de cursos...");
+            },
+            success: function (response) {
+                if(response == 'Perfecto'){
+                    swal("Correcto!", "El programa se ha guardado con éxito.", "success");
+                    $('.principal').load('/asignaturas');
+                }
+
+                $('.contenido').parents('.contenedor-central').load('/cursos');
+                
+            },
+            error: function (response) {
+                console.log(response)
+            }
+          }); 
+  });
+});
+
+
 $('.botonGuardar').click(function(e){
   e.preventDefault();
   $(this).addClass("text-nowrap");
   $(this).children('span').show();
-  var codigoPrograma = $(this).attr('id');
-  // que hacer despues de hacer click en guardar
-  var listaCursos = [];
+  
   console.log($(this).siblings('.example-dropzone').attr('class'));
 
-  $(this).siblings('.example-dropzone').children('.example-draggable').each(function(){  // recorrer los hijos del dropzone, que en este caso son los cursos
-    listaCursos.push($(this).attr('id'));  // los guardamos en la lista antes creada
-  });
+  
 
-  // mandarlos a la vista
-  $.ajax({
-    type: "POST",
-    url: '/guardarCursoPrograma/',
-    data: {
-        listaCursos : listaCursos,
-        programa: codigoPrograma,
-    },
-    dataType: "html",
-    beforeSend: function(response){   // ANTES QUE SE EJECUTE, O MIENTRAS SE EJECUTA
-        // antes de enviar la peticion
-        console.log("realizando envio de cursos...");
-    },
-    success: function (response) {
-        if(response == 'Perfecto'){
-            swal("Correcto!", "El programa se ha guardado con éxito.", "success");
-            $('.principal').load('/asignaturas');
-        }
-
-        $('.contenido').parents('.contenedor-central').load('/cursos');
-        
-    },
-    error: function (response) {
-        console.log(response)
-    }
-  }); 
+  
 
 
 });
