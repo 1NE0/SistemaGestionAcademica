@@ -4,6 +4,7 @@
 $(document).ready(function(){
 
     $('.mensaje').hide();
+    $('#cargando').hide();
 
     $('#form').submit(function(e){
         e.preventDefault();
@@ -21,7 +22,7 @@ $(document).ready(function(){
             },
             dataType: "html",
             beforeSend: function(response){   
-               
+                $('#cargando').show();
            },
            success: function (response) {
                

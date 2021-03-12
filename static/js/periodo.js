@@ -1,4 +1,5 @@
 
+
 $(document).ready(function () {  // cuando el documento esté listo
       var buttonpressed;  // crear esta variable para guardar el nombre del boton que se presionó
        $('.registrar').click(function() {  // 

@@ -190,8 +190,8 @@ class detalle_curso(models.Model):
 
 class inscripcionEstudianteCurso(models.Model):
     
-    detalle_curso = models.ForeignKey(detalle_curso,default="nulo", null=False, blank=False, on_delete=models.CASCADE)
-    estudiante = models.ForeignKey(Estudiantes,default="nulo", null=False, blank=False, on_delete=models.CASCADE)
+    detalle_curso = models.ForeignKey(detalle_curso,default="9999", null=False, blank=False, on_delete=models.CASCADE)
+    estudiante = models.ForeignKey(Estudiantes,default="9999", null=False, blank=False, on_delete=models.CASCADE)
 
     
 
@@ -243,17 +243,13 @@ class Detalle_Pagos(models.Model):
 class actividades(models.Model):
     titulo = models.CharField(max_length=30)
     descripcion = models.CharField(max_length=200)
-
     # archivo
 
-    file = models.FileField(upload_to="actividadesHades/", null=True, blank=True)
+    file = models.FileField(upload_to="actividades/", null=True, blank=True)
 
     #relaciones
-    nivel_asignatura = models.ForeignKey(
-        Nivel_asignatura, null=True, blank=True, on_delete=models.CASCADE)
-
-    nivel_curso = models.ForeignKey(
-        Nivel_Cursos, null=True, blank=True, on_delete=models.CASCADE)
+    detalle_curso = models.CharField(max_length=30,null=True, blank=True)
+    nivel_curso = models.CharField(max_length=30,null=True, blank=True)
 
 
 

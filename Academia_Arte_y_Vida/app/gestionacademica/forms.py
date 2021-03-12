@@ -102,4 +102,4 @@ class  form_Estudiante_nuevo(ModelForm):
             'direccion' : forms.TextInput(attrs={'class': 'form-control'}),
         }
 
-        
+
