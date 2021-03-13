@@ -1,11 +1,3 @@
-.wrapper{
-    
-    width: 98%;
-    height: 97%;
-    margin: 15px;
-    background-color: #fff;
-    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.06);
-}
 
 .bloque{
     display: flex;
@@ -16,7 +8,7 @@
 }
 
 .izquierda{
-    width: 40%;
+    width: 50%;
     margin-left: 0px!important;
     background-color: transparent;
     height: 500px;
@@ -24,7 +16,7 @@
 }
 
 .derecha{
-    width: 40%;
+    width: 50%;
     margin-left: 0px!important;
     height: 500px;
     background-color: transparent;
