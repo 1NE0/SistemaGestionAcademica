@@ -163,6 +163,7 @@ def Admision(request):
 def estadisticas(request):
     return render(request,"administracion/estadisticas.html")
 
+@login_required(login_url='/login')
 def administracion_staff(request):
     return render(request, "administracion/admin.html")
 
