@@ -91,12 +91,6 @@ def asignaturas(request):
     return render(request, "asignaturas.html", {'asignaturas': asignaturasLista})
 
 
-def fotos(request):
-    return render(request, "fotos/fotos.html")
-
-
-
-
 def cursos(request):
     InscripcionesProgramasMatriculados = models.inscripcionPrograma.objects.filter(periodo=models.periodo.periodo_actual())
     periodo = models.periodo.periodo_actual()
@@ -146,11 +140,30 @@ def PDF(request):
 def quienes_somos(request):
     return render(request, "quienesSomos.html")
 
-
-def programas_info(request):
+def info_musica(request):
     # request : para realizar peticiones
-    return render(request, "info/programas_info.html")
+    return render(request, "info/programas_info/musica.html")
 
+def info_artesPlasticas(request):
+    return render(request, "info/programas_info/artesPlasticas.html")
+
+def info_aerografia(request):
+    return render(request, "info/programas_info/aerografia.html")
+
+def info_fotografia(request):
+    return render(request, "info/programas_info/fotografia.html")
+
+def info_danzas(request):
+    return render(request, "info/programas_info/danzas.html")
+
+def info_tallerInfantil(request):
+    return render(request, "info/programas_info/tallerInfantil.html")
+
+def ayuda(request):
+    return render(request, "ayuda.html")
+
+def fotos(request):
+    return render(request, "fotos/fotos.html")
 
 
 def Admision(request):
