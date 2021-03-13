@@ -53,6 +53,16 @@
                                         <button type="submit">Upload</button>
                                     </form>
 
+                                    <div class="archivos-subidos">
+                                        <h1>actividades del curso:</h1>
+                                        {% for actividad in actividades%}
+                                        <h1>soy una actividad</h1>
+                                            {% if actividad.Detalle_curso == detalle %}
+                                                <a href="{{actividad.file}}">{{actividad.titulo}}</a>
+                                            {% endif %}
+                                        {%endfor%}
+                                    </div>
+
 
                                 </div>
 
