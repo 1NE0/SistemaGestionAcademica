@@ -248,8 +248,10 @@ class actividades(models.Model):
     file = models.FileField(upload_to="actividades/", null=True, blank=True)
 
     #relaciones
-    detalle_curso = models.CharField(max_length=30,null=True, blank=True)
-    nivel_curso = models.CharField(max_length=30,null=True, blank=True)
+    Detalle_curso = models.ForeignKey(
+        detalle_curso, null=True, blank=True, on_delete=models.CASCADE)
+    Nivel_curso = models.ForeignKey(
+        Nivel_Cursos, null=True, blank=True, on_delete=models.CASCADE)
 
 
 

@@ -859,20 +859,21 @@ def pagosEstudiante(request):
 def cursosDocente(request):
     user = models.User.objects.get(id=request.user.id)
     docente = models.Docentes.objects.get(user=user)
-    cursos = models.detalle_curso.objects.filter(Docente=docente)
-    
+    cursos = models.detalle_curso.objects.filter(Docente=docente,periodo=models.periodo.periodo_actual())
+    actividades = models.actividades.objects.all()
+
     if request.method == 'POST':
         id_detalle = request.POST['detalle']
         detalle = models.detalle_curso.objects.get(id=id_detalle)
         archivo = request.FILES['documento']
         titulo = request.POST['titulo']
         descripcion = request.POST['descripcion']
-        actividad = models.actividades(file=archivo,titulo=titulo,descripcion=descripcion,detalle_curso=detalle.id)
+        actividad = models.actividades(file=archivo,titulo=titulo,descripcion=descripcion,Detalle_curso=detalle)
         actividad.save()
 
 
         return HttpResponse("correcto")
-    return render(request, "board_docente/cursosDocente.html" , {'docente' : docente , 'cursos' : cursos})
+    return render(request, "board_docente/cursosDocente.html" , {'docente' : docente , 'cursos' : cursos , 'actividades' : actividades})
 
 
 def asignaturasDocente(request):
