@@ -334,7 +334,7 @@ def crudAsignatura(request):
 
 def CrearCurso(request):
     docentes = models.Docentes.objects.all()
-    detalles = models.InscripcionCurso.objects.all()
+    detalles = models.InscripcionCurso.objects.filter()
     if request.method == "POST" and request.is_ajax:
         print("ENTREEEEEEEEEEE AL IF jeje")
         codigo = request.POST.get('cod_curso')
@@ -813,6 +813,8 @@ def aceptarUsuario(request):
             estudiante.save()
             usuario.delete()
             inscripcion.save()
+
+            #guardar inscripciones
             for inscripcionC in inscripcionesCurso:
                 detalleAguardar = models.detalle_curso.objects.get(InscripcionCurso=inscripcionC)
                 inscripcionEstudianteAlCurso = models.inscripcionEstudianteCurso(detalle_curso=detalleAguardar,estudiante=estudiante,inscripcion_programa_estudiante=inscripcion)
@@ -1017,3 +1019,40 @@ def guardarCursoPrograma(request):
     return HttpResponse('Perfecto')
 
     
+
+
+def editarcurso(request):
+
+    
+    if request.method == "POST" and request.is_ajax:
+        print("ENTREEEEEEEEEEE AL IF jeje")
+        codigo = request.POST.get('cod_curso')
+        nombre_curso = request.POST.get('nom_curso')
+        nivel = request.POST.get('nivel')
+        descripcion = request.POST.get('descripcion')
+        docenteIdSelect = request.POST.get('docente')
+        grupo = request.POST.get('grupo')
+        dia = request.POST.get('dia')
+        hora_inicial = request.POST.get('hora_inicial')
+        hora_final = request.POST.get('hora_final')
+
+        docente = models.Docentes.objects.get(identificacion=docenteIdSelect)
+
+        inscripcionCurso = models.InscripcionCurso.objects.get(Id=codigo)
+
+        # verificacion
+        try:
+            nivel = models.Nivel_Cursos.objects.get(inscripcion_curso=inscripcionCurso,nivel=nivel)
+            return HttpResponse("nivelRepetido")
+        except models.Nivel_Cursos.DoesNotExist:
+
+            # crear un nivel del curso
+            nivelCurso = models.Nivel_Cursos(Id=random.randrange(0,1000000),nivel=nivel,descripcion=descripcion,inscripcion_curso=inscripcionCurso)
+            detalle = models.detalle_curso(grupo=grupo,dia=dia,horaInicio=hora_inicial,horaFinal=hora_final,Docente=docente,periodo=models.periodo.periodo_actual(),Nivel_Curso=nivelCurso,InscripcionCurso=inscripcionCurso)
+            
+            #guardar todo
+            nivelCurso.save()
+            detalle.save()
+            return HttpResponse("correcto")
+
+    return HttpResponse("incorrecto")

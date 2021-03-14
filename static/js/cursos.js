@@ -50,12 +50,64 @@ $(function() {
   
 });
 
+     
+
+      $("#comboCursos").click(function(){
+        $('#nombre').val($("#comboCursos option:selected").text());
+        console.log("le di click al combo");
+      });
 
     var buttonpressed; 
        ///////////////////////////////////////////////////////////
        $('.enviar').click(function() {  
              buttonpressed = $(this).attr('name')
        })
+
+       // EDITAR CURSO
+       $('#formEditarCurso').on('submit', function(e) {
+        console.log("me envie");
+        e.preventDefault();
+        var inputs = $("#formEditarCurso :input").serializeArray();
+         console.log(inputs);
+       
+     
+         $.ajax({
+         type: "POST",
+         url: $("#formEditarCurso").attr("action"),
+         data: {
+             csrfmiddlewaretoken:inputs[0].value,
+             cod_curso: inputs[1].value,
+             nivel: inputs[2].value,
+             descripcion: inputs[3].value,
+             docente: inputs[4].value,
+             grupo: inputs[5].value,
+             dia: inputs[6].value,
+             hora_inicial: inputs[7].value,
+             hora_final: inputs[8].value
+         },
+         dataType: "html",
+         beforeSend: function(response){   // ANTES QUE SE EJECUTE, O MIENTRAS SE EJECUTA
+             // antes de enviar la peticion
+             console.log(" esperando...");
+         },
+         success: function (response) {
+             if(response == "correcto"){
+                 swal("Correcto!", "El curso se ha registrado con éxito.", "success");
+                 $('.contenido').parents('.contenedor-central').load('/cursos');
+             }else if(response == "nivelRepetido"){
+                swal("Ups!", "Ya existe un detalle curso con este nivel.", "warning");
+             }
+             console.log(response);
+         },
+         error: function (response) {
+             
+             console.log(response)
+         }
+     });
+ 
+    })
+
+    
        $('#formCrearCurso').on('submit', function(e) {
            console.log("me envie");
            e.preventDefault();

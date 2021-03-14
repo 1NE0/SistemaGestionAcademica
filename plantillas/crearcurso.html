@@ -22,11 +22,53 @@
                         <div class="contenedor-cursos">
                             <h1>Seleccion un curso al que deseas agregar algún nivel y/o detalle.</h1>
 
-                            <select class="form-select mt-1" aria-label="Seleccione el curso" name="nivel">
-                               {% for inscripcionC in detalles %}
-                                    <option value="{{inscripcionC.curso.nom_curso}}">{{inscripcionC.curso.nom_curso}}</option>
-                                {% endfor %}
-                            </select>
+                            <form method="POST" id="formEditarCurso" action="{% url 'editarcurso' %}">
+                                {% csrf_token %}
+                                    <select class="form-select mt-1" aria-label="Seleccione el curso" name="codigo_curso" id="comboCursos">
+                                        {% for inscripcionC in detalles %}
+                                            <option value="{{inscripcionC.Id}}">{{inscripcionC.curso.nom_curso}}</option>
+                                        {% endfor %}
+                                    </select>
+                                        <!-- nivel -->
+                                        <label for="start" class="">Nivel</label>
+                                        <select class="form-select mt-1" aria-label="Seleccione el nivel del curso" name="nivel">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                        </select>
+            
+                                        <!-- descripcion -->
+                                        <label for="start" class="">Descripcion</label>
+                                        <input name="descripcion" type="text" class="form-control">
+                                    
+                                        <label for="start" class="">Docente</label>
+                                        <select  class="form-control" id="exampleFormControlSelect1" name="docente">
+                                            {% for docente in docentes %}
+                                                <option value="{{docente.identificacion}}">{{ docente.nombres }} </option>
+                                            {% endfor %}
+                                        </select>
+                                        <label for="start" class="">Grupo</label>
+                                        <input name="grupo" type="text" class="form-control ">
+            
+                                        <label for="start" class="">Dia</label>
+                                        <select class="form-select mb-4" aria-label="Seleccione el dia" name="dia">
+                                            <option value="lunes">lunes</option>
+                                            <option value="martes">martes</option>
+                                            <option value="miercoles">miercoles</option>
+                                            <option value="jueves">jueves</option>
+                                            <option value="viernes">viernes</option>
+                                            <option value="sabado">sabado</option>
+                                        </select>
+            
+                                        <label for="start" class="">Hora inicial</label>
+                                        <input type="time" id="appt" name="hora_inicial" min="09:00" max="18:00" required>
+            
+                                        <label for="start" class="">Horario inicial</label>
+                                        <input type="time" id="appt" name="hora_final" min="09:00" max="18:00" required>
+        
+        
+                                        <button class="btn btn-primary enviar" type="submit" value="submit">Confirmarr</button>   
+                                </form>
                             
                         </div>
                         <div>
