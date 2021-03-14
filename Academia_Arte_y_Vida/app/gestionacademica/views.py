@@ -356,7 +356,7 @@ def CrearCurso(request):
         nivelCurso = models.Nivel_Cursos(Id=random.randrange(0,1000000),nivel=nivel,descripcion=descripcion,inscripcion_curso=inscripcionCurso)
         
         #crear un detalle
-        detalleCurso = models.detalle_curso(grupo=grupo,dia=dia,horaInicio=hora_inicial,horaFinal=hora_final,Nivel_Curso=nivelCurso,Docente=docente,periodo=models.periodo.periodo_actual())
+        detalleCurso = models.detalle_curso(grupo=grupo,dia=dia,horaInicio=hora_inicial,horaFinal=hora_final,Nivel_Curso=nivelCurso,Docente=docente,periodo=models.periodo.periodo_actual(),InscripcionCurso=inscripcionCurso)
 
 
         #guardar todo
@@ -800,14 +800,29 @@ def aceptarUsuario(request):
         
         try:
             programaAinscribirse = models.inscripcionPrograma.objects.get(programa=programa.cod_programa,periodo=models.periodo.periodo_actual().codigo)
+            
+            # crear la inscripcion estudiante (al programa) con la informacion dada
+            inscripcion = models.InscripcionEstudiante(periodo=models.periodo.periodo_actual(),Fecha_Realizacion=datetime.now(),cod_inscripcionPrograma=programaAinscribirse,Estudiante=estudiante)
+
+            # COMO ES SU PRIMER PERIODO, HAY QUE MATRICULARLE TODOS LOS CURSOS
+            # buscar las inscripciones curso de esta inscripcion programa
+            inscripcionesCurso = InscripcionCurso.objects.filter(Id_inscripcionPrograma=programaAinscribirse)
             # guardar el estudiante y borrar el usuario
             group = Group.objects.get(name='estudiantes')
             estudiante.user.groups.add(group)
             estudiante.save()
             usuario.delete()
-            # crear la inscripcion estudiante con la informacion dada
-            inscripcion = models.InscripcionEstudiante(periodo=models.periodo.periodo_actual(),Fecha_Realizacion=datetime.now(),cod_inscripcionPrograma=programaAinscribirse,Estudiante=estudiante)
             inscripcion.save()
+            for inscripcionC in inscripcionesCurso:
+                detalleAguardar = models.detalle_curso.objects.get(InscripcionCurso=inscripcionC)
+                inscripcionEstudianteAlCurso = models.inscripcionEstudianteCurso(detalle_curso=detalleAguardar,estudiante=estudiante,inscripcion_programa_estudiante=inscripcion)
+                inscripcionEstudianteAlCurso.save()
+            
+
+            
+
+            
+            
         except models.inscripcionPrograma.DoesNotExist:
             print("El programa al que se quiere registrar el estudiante, no está disponible en este periodo")
             return HttpResponse("Incorrecto")
@@ -857,7 +872,19 @@ def pagos(request):
 #    BOARD DEL ESTUDIANTE
 
 def programasEstudiante(request):
-    return render(request, "board_estudiante/programasEstudiante.html")
+    estudiante = models.Estudiantes.objects.get(user=request.user)
+    actividades = models.actividades.objects.all()
+    inscripcionesEstudiante = models.InscripcionEstudiante.objects.filter(periodo=models.periodo.periodo_actual(),Estudiante=estudiante)
+    inscripcionesCurso = models.inscripcionEstudianteCurso.objects.filter(estudiante=estudiante)
+    
+        
+
+
+    
+    #cursos a los que esta matriculado
+
+
+    return render(request, "board_estudiante/programasEstudiante.html" , {'actividades' : actividades,'estudiante' : estudiante , 'inscripcionesEstudiante' : inscripcionesEstudiante , 'inscripcionesCurso' : inscripcionesCurso} )
 
 def asignaturasEstudiante(request):
     return render(request, "board_estudiante/asignaturasEstudiante.html")
@@ -984,6 +1011,7 @@ def guardarCursoPrograma(request):
         print(inscripcion)
         inscripcionC = models.InscripcionCurso.objects.get(Id=inscripcion)
         inscripcionC.Id_inscripcionPrograma = programaInscripcion
+        
         inscripcionC.save()
     
     return HttpResponse('Perfecto')

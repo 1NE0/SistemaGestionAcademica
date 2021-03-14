@@ -185,6 +185,8 @@ class detalle_curso(models.Model):
         Docentes, null=False, blank=False, on_delete=models.CASCADE)
     periodo = models.ForeignKey(periodo,default="", null=False, blank=False, on_delete=models.CASCADE)
     Nivel_Curso = models.ForeignKey(Nivel_Cursos,default="", null=False, blank=False, on_delete=models.CASCADE)
+    InscripcionCurso = models.ForeignKey(InscripcionCurso,default="999", null=True, blank=True, on_delete=models.CASCADE)
+    inscripcion_programa = models.ForeignKey(inscripcionPrograma,default="999", null=True, blank=True, on_delete=models.CASCADE)
 
 # inscripcion del estudiante en el detalle_curso
 
@@ -193,6 +195,7 @@ class inscripcionEstudianteCurso(models.Model):
     detalle_curso = models.ForeignKey(detalle_curso,default="9999", null=False, blank=False, on_delete=models.CASCADE)
     estudiante = models.ForeignKey(Estudiantes,default="9999", null=False, blank=False, on_delete=models.CASCADE)
 
+    inscripcion_programa_estudiante = models.ForeignKey(InscripcionEstudiante,default="", null=True, blank=True, on_delete=models.CASCADE)
     
 
 class usuario(models.Model):
