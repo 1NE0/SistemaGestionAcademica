@@ -134,10 +134,10 @@ $('.guardar').click(function(e){
             success: function (response) {
                 if(response == 'Perfecto'){
                     swal("Correcto!", "El programa se ha guardado con éxito.", "success");
-                    $('.principal').load('/asignaturas');
+                    $('.contenido').parents('.contenedor-central').load('/cursos');
                 }
 
-                $('.contenido').parents('.contenedor-central').load('/cursos');
+                
                 
             },
             error: function (response) {
@@ -183,6 +183,7 @@ function cerrarModal() {
   jQuery.noConflict();  
   console.log("antes");
   $('.modal').modal('hide');
+  $('.contenido').parents('.contenedor-central').load('/cursos');
   console.log("despues");
   
   return false;
