@@ -20,6 +20,7 @@
       integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
       crossorigin="anonymous"
     ></script>
+    <script src="/path/to/bootstrap-hover-dropdown.min.js"></script>
   </head>
 
   <nav class="navegador">
@@ -33,8 +34,21 @@
       <div class="item">
         <a href="{% url 'quienes_somos' %}">¿Quiénes somos?</a>
       </div>
-      <div class="item"><a href="{% url 'programas_info' %}">Programas</a></div>
-      <div class="item"><a href="#">Ayuda</a></div>
+      <div class="item">
+        <a class="item dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Programas
+        </a>      
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+          <a class="dropdown-item" href="{% url 'musica' %}">Música</a>
+          <a class="dropdown-item" href="{% url 'artes_plasticas' %}">Artes Plásticas</a>
+          <a class="dropdown-item" href="{% url 'aerografia' %}">Aerografía</a>
+          <a class="dropdown-item" href="{% url 'fotografia' %}">Fotografía</a>
+          <a class="dropdown-item" href="{% url 'danzas' %}">Danza</a>
+          <a class="dropdown-item" href="{% url 'talleres_infantiles' %}">Talleres Infantiles</a>
+        </div>
+      </div>
+      <!--<div class="item"><a href="#">Programas</a></div>-->
+      <div class="item"><a href="{% url 'ayuda' %}">Ayuda</a></div>
       <div class="item"><a href="{% url 'fotos' %}">Fotos</a></div>
       {% comment %} DEJAR DE ULTIMO EL DIV CON CLASE "ULTIMO" {% endcomment %}
       <div class="ultimo"></div>
