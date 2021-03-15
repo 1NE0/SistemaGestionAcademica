@@ -54,3 +54,17 @@
     text-align: left;
 
 }
+.te{
+    text-align: center;
+    text-decoration: none!important;
+    font-family: 'Montserrat', sans-serif!important;
+    color: black;
+    font-weight: 600;
+    font-size: smaller;
+}
+.juvenil{
+    padding-top: 10px;
+    position: absolute;
+    background-color: rgba(127, 251, 255, 0.61);
+    width: 50%;
+}

@@ -53,3 +53,24 @@
     height: auto;
     
 }
+.artes{
+    position: absolute;
+    background-color: rgba(155, 127, 255, 0.548);
+    width: 50%;
+    padding-top: 10px;
+}
+.musica{
+    position: absolute;
+    background-color: rgba(163, 255, 127, 0.692);
+    width: 50%;
+    padding-top: 10px;
+
+}
+.te{
+    text-align: center;
+    text-decoration: none!important;
+    font-family: 'Montserrat', sans-serif!important;
+    color: black;
+    font-weight: 600;
+    font-size: smaller;
+}
