@@ -49,6 +49,8 @@ urlpatterns = [
     url(r'^registrarInscripcion/$', registrarInscripcion, name="registrarInscripcion"),
     url(r'^primerpago/$', primerpago, name="primerpago"),
     url(r'^estudiantes/$', estudiantes, name="estudiantes"),
+    url(r'^pago_realizado/$', pago_realizado, name="pago_realizado"),
+    url(r'^pago_pendiente/$', pago_pendiente, name="pago_pendiente"),
     ###################### contenido del nav ########################
     url(r'^quienes_somos/$', quienes_somos, name="quienes_somos"),
     url(r'^musica/$', info_musica, name="musica"),
@@ -69,7 +71,7 @@ urlpatterns = [
     #url(r'^pago/$', detalles_pagos, name="pago")
     url(r'^perfil/$', perfil, name="perfil"),
     url(r'^periodos/$', periodo, name="periodos"),
-    url(r'^pago_realizado/$', pago_realizado, name="pago_realizado"),
+    
     url(r'^crearPeriodo$', crearPeriodo, name="crearPeriodo"),
     #Programas
     url(r'^programas/$', programas_Admin, name="programas"),

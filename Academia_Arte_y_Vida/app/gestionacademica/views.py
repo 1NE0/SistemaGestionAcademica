@@ -700,8 +700,13 @@ def primerpago(request):       # no se està utilizando
 
 
 def pago_realizado(request):
+    print(request.GET['payment_id'])
+    print(request.GET['status'])
     return render(request,"info/pago_realizado.html")
 
+
+def pago_pendiente(request):
+    return render(request,"info/pago_realizado.html")
 
 def crearPeriodo (request):
 
