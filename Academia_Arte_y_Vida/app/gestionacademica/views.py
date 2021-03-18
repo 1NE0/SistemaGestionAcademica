@@ -334,7 +334,9 @@ def crudAsignatura(request):
 
 def CrearCurso(request):
     docentes = models.Docentes.objects.all()
-    detalles = models.InscripcionCurso.objects.filter()
+    detalles = models.InscripcionCurso.objects.filter(Id_inscripcionPrograma=None)
+
+
     if request.method == "POST" and request.is_ajax:
         print("ENTREEEEEEEEEEE AL IF jeje")
         codigo = request.POST.get('cod_curso')
@@ -486,7 +488,15 @@ def has_group(user, group_name):
 
 
 def crearInscripcion(request):
-    programas = models.Programas.objects.all()
+    Inscripcionesprogramas = models.inscripcionPrograma.objects.filter(periodo=models.periodo.periodo_actual())
+    programas = []
+    for inscripcionP in Inscripcionesprogramas:
+        inscripcionesCurso = models.InscripcionCurso.objects.filter(Id_inscripcionPrograma=inscripcionP)
+        if inscripcionesCurso.count() == 0:
+            print("no hay ningun programa con cursos inscritos")
+        else:
+            programas.append(inscripcionP.programa)
+
     form_est = form_Estudiante_nuevo(request.POST)
     departamentos = models.departamento.objects.all()
     ciudades = models.ciudad.objects.all()
@@ -702,11 +712,55 @@ def primerpago(request):       # no se està utilizando
 def pago_realizado(request):
     print(request.GET['payment_id'])
     print(request.GET['status'])
+    user = request.user
+    #buscar el usuario para volverlo un estudiante
+
+    usuario = models.usuario.objects.get(user=user)   # encontrar el objeto usuario con el codigo dado
+    programa = models.Programas.objects.get(nom_programa=usuario.nom_programa)   # encontrar el objeto programa con el nom_programa del usuario
+
+    # crear un estudiante con la informacion del usuario 
+    estudiante = models.Estudiantes(ciudad=usuario.ciudad,identificacion=usuario.identificacion,
+                                        tipo=usuario.tipo,nombres=usuario.nombres,apellidos=usuario.apellidos,edad=usuario.edad,
+                                        sexo=usuario.sexo,correo=usuario.correo,telefono=usuario.telefono,direccion=usuario.direccion,user=usuario.user)
+
+
+     # obtener el programa al que se quiere inscribir el estudiante en el periodo actual
+        
+    try:
+        programaAinscribirse = models.inscripcionPrograma.objects.get(programa=programa.cod_programa,periodo=models.periodo.periodo_actual().codigo)
+            
+        # crear la inscripcion estudiante (al programa) con la informacion dada
+        inscripcion = models.InscripcionEstudiante(periodo=models.periodo.periodo_actual(),Fecha_Realizacion=datetime.now(),cod_inscripcionPrograma=programaAinscribirse,Estudiante=estudiante)
+
+        # COMO ES SU PRIMER PERIODO, HAY QUE MATRICULARLE TODOS LOS CURSOS
+        # buscar las inscripciones curso de esta inscripcion programa
+        
+        inscripcionesCurso = InscripcionCurso.objects.filter(Id_inscripcionPrograma=programaAinscribirse)
+        # guardar el estudiante y borrar el usuario
+        group = Group.objects.get(name='estudiantes')
+        estudiante.user.groups.add(group)
+        estudiante.save()
+        usuario.delete()
+        inscripcion.save()
+
+        #guardar inscripciones
+        for inscripcionC in inscripcionesCurso:
+            try:
+                detalleAguardar = models.detalle_curso.objects.get(InscripcionCurso=inscripcionC)
+            except models.detalle_curso.DoesNotExist:
+                inscripcionEstudianteAlCurso = models.inscripcionEstudianteCurso(detalle_curso=detalleAguardar,estudiante=estudiante,inscripcion_programa_estudiante=inscripcion)
+                inscripcionEstudianteAlCurso.save()
+        return render(request,"info/pago_realizado.html")
+
+    except models.inscripcionPrograma.DoesNotExist:
+            print("El programa al que se quiere registrar el estudiante, no está disponible en este periodo")
+            return HttpResponse("Incorrecto")  
+
     return render(request,"info/pago_realizado.html")
 
 
 def pago_pendiente(request):
-    return render(request,"info/pago_realizado.html")
+    return render(request,"info/pago_pendiente.html")
 
 def crearPeriodo (request):
 
