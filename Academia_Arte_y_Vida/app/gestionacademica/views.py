@@ -1061,3 +1061,9 @@ def editarcurso(request):
             return HttpResponse("correcto")
 
     return HttpResponse("incorrecto")
+
+
+
+def cargando(request):
+    print("estoy dentro")
+    return render(request,"complementos/cargando.html")
