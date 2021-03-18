@@ -19,10 +19,22 @@
     }
 }
 
-
+.registrar{
+    -webkit-transition: -webkit-transform 1s ease-out;
+    -moz-transition: -moz-transform 1s ease-out;
+      
+}
 .registrar:hover{
     background-color: #6aebed;
     transform: scale(1.1);
+    -webkit-transition: -webkit-transform 1s ease-out;
+    -moz-transition: -moz-transform 1s ease-out;
+    color:black;
+    font-weight: 300px;
+}
+
+.registrar:active{
+    background-color: #26b3b6;
 }
 
 .cabecera p{
