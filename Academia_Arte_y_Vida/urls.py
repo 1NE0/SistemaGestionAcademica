@@ -108,7 +108,7 @@ urlpatterns = [
     url(r'^guardarCursoPrograma/$', guardarCursoPrograma, name="guardarCursoPrograma"),
     
 
-    
+    url(r'^cargando/$', cargando, name="cargando"),
 ]
 
 #uploads

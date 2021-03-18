@@ -11,27 +11,27 @@ $(document).ready(function() {
 
     $('#btn2').on('click', function(cursitos){
         cursitos.preventDefault();
+        $("#contenedor-central").load('/cargando');
         $("#contenedor-central").load('/cursosEstudiante');
-        $("#contenedor-central").html('<h1 style="text-align:center;padding-top:300px;color:cyan">Cargando<h1>');
         return false;
     });
 
     $('#btn3').on('click', function(asignaturas){
         asignaturas.preventDefault();
+        $("#contenedor-central").load('/cargando');
         $("#contenedor-central").load('/asignaturasEstudiante');
-        $("#contenedor-central").html('<h1 style="text-align:center;padding-top:300px;color:cyan">Cargando<h1>');
     });
 
     $('#btn4').on('click', function(prof) {
         prof.preventDefault();
+        $("#contenedor-central").load('/cargando');
         $("#contenedor-central").load('');
-        $("#contenedor-central").html('<h1 style="text-align:center;padding-top:300px;color:cyan">Cargando<h1>');
     });
 
     $('#btn5').on('click', function(pagos){
         pagos.preventDefault();
+        $("#contenedor-central").load('/cargando');
         $("#contenedor-central").load('/pagosEstudiante');
-        $("#contenedor-central").html('<h1 style="text-align:center;padding-top:300px;color:cyan">Cargando<h1>');
     });
 
 });
