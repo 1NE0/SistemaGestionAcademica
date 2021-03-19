@@ -334,7 +334,7 @@ def crudAsignatura(request):
 
 def CrearCurso(request):
     docentes = models.Docentes.objects.all()
-    detalles = models.InscripcionCurso.objects.filter(Id_inscripcionPrograma=None)
+    detalles = models.InscripcionCurso.objects.filter()
 
 
     if request.method == "POST" and request.is_ajax:
