@@ -13,6 +13,21 @@ $(document).ready(function(){
     textoVerficacionIdNo.hide();
     textoVerficacionId.hide();
 
+    $('.cursoMusica').hide();
+
+
+
+    /* CURSOS DEL PROGRAMA DE MUSICA LOGICA */
+
+    $('#comboProgramas').click(function(){
+      console.log("hola");
+      if($(this).val() == "musica" || $(this).val() == "música" || $(this).val() == "Música"){
+        $('.cursoMusica').show();
+      }else{
+        $('.cursoMusica').hide();
+      }
+    });
+
 
 
     $('.boton').attr("disabled", true);
@@ -59,14 +74,15 @@ $(document).ready(function(){
                     edad: data[5].value,
                     genero: data[6].value,
                     programa: data[7].value,
-                    departamento: data[8].value,
-                    ciudad: data[9].value,
-                    direccion: data[10].value,
-                    telefono: data[11].value,
-                    correo: data[12].value,
-                    username: data[13].value,
-                    password: data[14].value,
-                    password2: data[15].value,
+                    cursoMusica: data[8].value,
+                    departamento: data[9].value,
+                    ciudad: data[10].value,
+                    direccion: data[11].value,
+                    telefono: data[12].value,
+                    correo: data[13].value,
+                    username: data[14].value,
+                    password: data[15].value,
+                    password2: data[16].value,
         
             },
             success:function(response){

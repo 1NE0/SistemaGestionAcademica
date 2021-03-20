@@ -29,9 +29,11 @@ $(document).ready(function(){
                 if(response == "usuarioNoExiste"){
                     $('.mensaje').children('p').text('NO SE ENCUENTRA UN USUARIO CON ESTE USERNAME');
                     $('.mensaje').show();
+                    $('#cargando').hide();
                 }else if (response == "contraseñaIncorrecta"){
                     $('.mensaje').children('p').text('EL USERNAME Y LA CONTRASEÑA NO COINCIDEN');
                     $('.mensaje').show();
+                    $('#cargando').hide();
                 }else{
                     window.location.replace("/home");
                 }

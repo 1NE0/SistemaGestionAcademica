@@ -572,6 +572,7 @@ def registrarInscripcion(request):
     edad = request.POST.get('edad')
     genero = request.POST.get('genero')
     programa = request.POST.get('programa')
+    cursoMusica = request.POST.get('cursoMusica')
     ciudad = request.POST.get('ciudad')
     departamento = request.POST.get('departamento')
     direccion = request.POST.get('departamento')
@@ -605,19 +606,35 @@ def registrarInscripcion(request):
     # OBTENER EL DEPARTAMENTO QUE SELECCIONÓ
     departamentoSlect = models.departamento.objects.get(nombre=departamento)
     ciudadSelect.departamento = departamentoSlect
-    #CREAR EL USUARIO CON TODA LA INFORMACION
-    usuarioRegistrado = models.usuario(identificacion=identificacion
-                                        ,tipo=tipoDocumento
-                                        ,nombres=nombres
-                                        ,apellidos=apellidos
-                                        ,edad=edad
-                                        ,sexo=genero
-                                        ,correo=correo
-                                        ,telefono=telefono
-                                        ,direccion=direccion
-                                        ,user=usercito
-                                        ,ciudad=ciudadSelect
-                                        ,nom_programa=programaSelect.nom_programa)
+
+    if cursoMusica == "" or cursoMusica == None:
+        #CREAR EL USUARIO CON TODA LA INFORMACION
+        usuarioRegistrado = models.usuario(identificacion=identificacion
+                                            ,tipo=tipoDocumento
+                                            ,nombres=nombres
+                                            ,apellidos=apellidos
+                                            ,edad=edad
+                                            ,sexo=genero
+                                            ,correo=correo
+                                            ,telefono=telefono
+                                            ,direccion=direccion
+                                            ,user=usercito
+                                            ,ciudad=ciudadSelect
+                                            ,nom_programa=programaSelect.nom_programa)
+    else:
+        usuarioRegistrado = models.usuario(identificacion=identificacion
+                                            ,tipo=tipoDocumento
+                                            ,nombres=nombres
+                                            ,apellidos=apellidos
+                                            ,edad=edad
+                                            ,sexo=genero
+                                            ,correo=correo
+                                            ,telefono=telefono
+                                            ,direccion=direccion
+                                            ,curso_musica=cursoMusica
+                                            ,user=usercito
+                                            ,ciudad=ciudadSelect
+                                            ,nom_programa=programaSelect.nom_programa)
     print(usuarioRegistrado.nombres)
     usercito.save()
     login(request, usercito)
@@ -747,9 +764,12 @@ def pago_realizado(request):
         for inscripcionC in inscripcionesCurso:
             try:
                 detalleAguardar = models.detalle_curso.objects.get(InscripcionCurso=inscripcionC)
-            except models.detalle_curso.DoesNotExist:
+                #si encuentra detalles en esta inscripcion, lo inscribe a estos detalles
                 inscripcionEstudianteAlCurso = models.inscripcionEstudianteCurso(detalle_curso=detalleAguardar,estudiante=estudiante,inscripcion_programa_estudiante=inscripcion)
                 inscripcionEstudianteAlCurso.save()
+            except models.detalle_curso.DoesNotExist:
+                return HttpResponse("error no hay cursos matriculados en el programa al que se intenta registrar el usuario")
+                
         return render(request,"info/pago_realizado.html")
 
     except models.inscripcionPrograma.DoesNotExist:
@@ -849,11 +869,17 @@ def aceptarUsuario(request):
         usuario = models.usuario.objects.get(identificacion=codigo)   # encontrar el objeto usuario con el codigo dado
         programa = models.Programas.objects.get(nom_programa=usuario.nom_programa)   # encontrar el objeto programa con el nom_programa del usuario
 
-        # crear un estudiante con la informacion del usuario 
-        estudiante = models.Estudiantes(ciudad=usuario.ciudad,identificacion=usuario.identificacion,
-                                        tipo=usuario.tipo,nombres=usuario.nombres,apellidos=usuario.apellidos,edad=usuario.edad,
-                                        sexo=usuario.sexo,correo=usuario.correo,telefono=usuario.telefono,direccion=usuario.direccion,user=usuario.user)
+        if usuario.curso_musica == "" or usuario.curso_musica == None:
 
+            # crear un estudiante con la informacion del usuario 
+            estudiante = models.Estudiantes(ciudad=usuario.ciudad,identificacion=usuario.identificacion,
+                                            tipo=usuario.tipo,nombres=usuario.nombres,apellidos=usuario.apellidos,edad=usuario.edad,
+                                            sexo=usuario.sexo,correo=usuario.correo,telefono=usuario.telefono,direccion=usuario.direccion,user=usuario.user)
+        else:
+            # crear un estudiante con la informacion del usuario 
+            estudiante = models.Estudiantes(ciudad=usuario.ciudad,identificacion=usuario.identificacion,
+                                            tipo=usuario.tipo,nombres=usuario.nombres,apellidos=usuario.apellidos,edad=usuario.edad,
+                                            sexo=usuario.sexo,correo=usuario.correo,telefono=usuario.telefono,direccion=usuario.direccion,curso_musica=usuario.curso_musica,user=usuario.user)
 
         # obtener el programa al que se quiere inscribir el estudiante en el periodo actual
         
@@ -866,6 +892,7 @@ def aceptarUsuario(request):
             # COMO ES SU PRIMER PERIODO, HAY QUE MATRICULARLE TODOS LOS CURSOS
             # buscar las inscripciones curso de esta inscripcion programa
             inscripcionesCurso = InscripcionCurso.objects.filter(Id_inscripcionPrograma=programaAinscribirse)
+            print("el curso de musica que eligio el usuario es " + estudiante.curso_musica)
             # guardar el estudiante y borrar el usuario
             group = Group.objects.get(name='estudiantes')
             estudiante.user.groups.add(group)
@@ -873,12 +900,23 @@ def aceptarUsuario(request):
             usuario.delete()
             inscripcion.save()
 
+            
             #guardar inscripciones
             for inscripcionC in inscripcionesCurso:
-                detalleAguardar = models.detalle_curso.objects.get(InscripcionCurso=inscripcionC)
-                inscripcionEstudianteAlCurso = models.inscripcionEstudianteCurso(detalle_curso=detalleAguardar,estudiante=estudiante,inscripcion_programa_estudiante=inscripcion)
-                inscripcionEstudianteAlCurso.save()
-            
+                try:
+                    if inscripcionC.curso.nom_curso == estudiante.curso_musica:
+                        print("entre al nombre igual")
+                        nivelesC = models.Nivel_Cursos.objects.filter(inscripcion_curso=inscripcionC)
+                        for nivelC in nivelesC:
+                            print("estoy en el for de los niveles")
+                            if nivelC.nivel == 1:
+                                print("soy nivel igual a 1")
+                                detalleAguardar = models.detalle_curso.objects.get(InscripcionCurso=inscripcionC,Nivel_Curso=nivelC)
+                                #si encuentra detalles en esta inscripcion, lo inscribe a estos detalles
+                                inscripcionEstudianteAlCurso = models.inscripcionEstudianteCurso(detalle_curso=detalleAguardar,estudiante=estudiante,inscripcion_programa_estudiante=inscripcion)
+                                inscripcionEstudianteAlCurso.save()
+                except models.detalle_curso.DoesNotExist:
+                    return HttpResponse("error no hay cursos matriculados en este programa")
 
             
 
