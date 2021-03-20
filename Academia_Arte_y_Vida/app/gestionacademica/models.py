@@ -44,6 +44,7 @@ class Estudiantes(models.Model):
     correo = models.EmailField(blank=False)
     telefono = models.CharField(max_length=12)
     direccion = models.CharField(default="",max_length=60, blank=False)
+    curso_musica = models.CharField(default="",max_length=60, blank=True , null=True)
     # hacer la relacion a user
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     ciudad = models.ForeignKey(
@@ -101,7 +102,7 @@ class Docentes(models.Model):
     correo = models.EmailField(blank=False)
     telefono = models.CharField(max_length=12)
     direccion = models.CharField(default="",max_length=60, blank=False)
-
+    
     # hacer la relacion a user
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     ciudad = models.ForeignKey(
@@ -214,6 +215,7 @@ class usuario(models.Model):
     correo = models.EmailField(blank=False)
     telefono = models.CharField(max_length=12)
     direccion = models.CharField(default="",max_length=60, blank=False)
+    curso_musica = models.CharField(default="",max_length=60, blank=True , null=True)
     nom_programa = models.CharField(default="",max_length=60, blank=False)
     referenciaPago = models.IntegerField(null=True,blank=True)
     # hacer la relacion a user

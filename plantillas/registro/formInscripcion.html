@@ -47,10 +47,20 @@
           
           <!-- SELECCIONAR PROGRAMA -->
           <label for="">Seleccione el programa al que se desea matricular</label>
-          <select  class="form-control" id="exampleFormControlSelect1" name="programa">
+          <select  class="form-control" id="comboProgramas" name="programa">
               {% for programas in programas %}
               <option>{{ programas.nom_programa }} </option>
               {% endfor %}
+          </select>
+
+          <label for="" class="cursoMusica">seleccion a que curso de musica se desea matricular:</label>
+          <select  class="form-control cursoMusica" name="cursoMusica" id="">
+              <option>piano</option>
+              <option>guitarra</option>
+              <option>Bateria</option>
+              <option>canto</option>
+              <option>bajo electrico</option>
+              <option>saxofón</option>
           </select>
 
           <div class="boton button btn btn-success boton1" disabled="false" id="boton1">Siguiente</div>
