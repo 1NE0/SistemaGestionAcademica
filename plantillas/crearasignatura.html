@@ -59,7 +59,7 @@
                     </div>
                     <div class="acc-btn"><h1>Crear una asignatura</h1></div>
                     <div class="acc-content">
-                            <form action="{% url 'crudAsignatura' %}" method="POST" id="formCrear">{% csrf_token %}
+                            <form action="{% url 'crudAsignatura' %}" method="POST" id="formCrear">
                                 {% csrf_token %}
                                 <input type="text" name="codigo" placeholder="ingrese el codigo">
                                 <input type="text" name="nombre" placeholder="ingrese el el nombre">
@@ -67,7 +67,7 @@
 
                                 <select  class="form-control" id="exampleFormControlSelect1" name="docente">
                                     {% for docente in docentes %}
-                                    <option>{{ docente.nombres }} </option>
+                                    <option value="{{docente.identificacion}}">{{ docente.nombres }} </option>
                                     {% endfor %}
                                 </select>     
                                 <button type="submit" class="btn btn-success">Guardar</button>     

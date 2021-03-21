@@ -96,7 +96,7 @@ def asignaturas(request):
         else:
             print("entreeee")
             conMatricula.append(inscripcion)
-    print(conMatricula)
+    print(sinMatricula)
     InscripcionesProgramasMatriculados = models.inscripcionPrograma.objects.filter(periodo=models.periodo.periodo_actual())
     return render(request, "asignaturas.html", {'sinMatricula': sinMatricula, 'conMatricula' : conMatricula , 'programas' : InscripcionesProgramasMatriculados})
 
@@ -330,9 +330,12 @@ def crudAsignatura(request):
         nombre = request.POST.get('nombre')
         descripcion = request.POST.get('descripcion')
         docente = request.POST.get('docente')
-
+        print(request.POST.get('codigo'))
+        print(request.POST.get('nombre'))
+        print(request.POST.get('descripcion'))
+        print(request.POST.get('docente'))
         # buscar el docente
-        docenteObj = models.Docentes.objects.get(nombres=docente)  
+        docenteObj = models.Docentes.objects.get(identificacion=docente)  
         asignatura = models.Asignaturas(cod_asig=codigo , nom_asig = nombre , descripcion=descripcion , Docente=docenteObj)
         
         asignatura.save()
@@ -1189,10 +1192,10 @@ def editarAsignatura(request):
         if inscripcionA.nivel == nivel:
             return HttpResponse("nivelRepetido")
         else:
-            nivel = models.Nivel_asignatura(Id=random.randrange(0,1000000),nivel=nivel,descripcion=descripcion,dia=dia,horaInicio=hora_inicial,horaFinal=hora_final,cod_asignatura=asignatura)
-            inscripcionA.nivel = nivel
+            nivel = models.Nivel_asignatura(Id=random.randrange(0,1000000),nivel=nivel,descripcion=descripcion,dia=Dia,horaInicio=hora_inicial,horaFinal=hora_final,cod_asignatura=asignatura)
+            inscripcionNueva = models.InscripcionAsignatura(Id=random.randrange(0,1000000),periodo=models.periodo.periodo_actual(),asignatura=asignatura,nivel=nivel)
             nivel.save()
-            inscripcionA.save()
+            inscripcionNueva.save()
         return HttpResponse("correcto")
     except models.InscripcionAsignatura.DoesNotExist:
         nivel = models.Nivel_asignatura(Id=random.randrange(0,1000000),nivel=nivel,descripcion=descripcion,dia=Dia,horaInicio=hora_inicial,horaFinal=hora_final,cod_asignatura=asignatura)
