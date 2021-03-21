@@ -1,17 +1,18 @@
+{% load static %}
 <body>
-
+    <link rel="stylesheet" href="{% static 'css/asignaturasEstudiante.css' %}">
     <div class="contenedor">
 
         <!-- cursos -->
         <div class="wrapper">
 
             <div class="header">
-              <h1 class="header__title">Programas de {{estudiante.nombres}}</h1>
+              <h1 class="header__title">Asignaturas de {{estudiante.nombres}}</h1>
             </div>
           
             <div class="cards">
                 
-                {% for inscripcionEstudiante in inscripcionesEstudiante %}
+                
                     <div class=" card [ is-collapsed ] ">
                         <div class="card__inner [ js-expander ]">
                             <!--  TITULO -->
@@ -26,14 +27,14 @@
                                     <i class="fas fa-times [ js-collapser ]" style="cursor: pointer; text-align: right;"></i>
                                 </div>
                                 
-                                <h3>cursos</h3>
+                                <h3>Asignaturas</h3>
 
-                                {% for inscripcionCursoEstudiante in inscripcionesCurso %}
-                                    {% if inscripcionCursoEstudiante.inscripcion_programa_estudiante == inscripcionEstudiante%}
+                                {% for inscripcionA in inscripcionesAsignaturas %}
+                                    
                                         
                                         <div class="curso">
                                             <div>
-                                                <h2>{{inscripcionCursoEstudiante.detalle_curso.InscripcionCurso.curso.nom_curso}}</h2>
+                                                <h2>{{inscripcionA.nivel_asignatura.cod_asignatura.nom_asig}} nivel {{inscripcionA.nivel_asignatura.nivel}}</h2>
                                                 <h2>{{inscripcionCursoEstudiante.detalle_curso.grupo}}</h2>
 
                                                 <h3>actividades:</h3>
@@ -45,7 +46,6 @@
                                                 {% endfor %}
                                             </div>
                                         </div>
-                                    {%endif%}
                                 {% endfor %}
 
                             </div>
@@ -53,12 +53,12 @@
 
                           </div>
                     </div>
-                {% endfor %}
+                
                 
             </div>
           
           </div>
 
     </div>
-
+    <script src="{% static 'js/board_Estudiante/asignaturasEstudiante.js' %}"></script>
 </body>

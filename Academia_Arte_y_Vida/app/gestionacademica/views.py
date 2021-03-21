@@ -1021,7 +1021,12 @@ def programasEstudiante(request):
     return render(request, "board_estudiante/programasEstudiante.html" , {'actividades' : actividades,'estudiante' : estudiante , 'inscripcionesEstudiante' : inscripcionesEstudiante , 'inscripcionesCurso' : inscripcionesCurso} )
 
 def asignaturasEstudiante(request):
-    return render(request, "board_estudiante/asignaturasEstudiante.html")
+    estudiante = models.Estudiantes.objects.get(user=request.user)
+
+    inscripcionEstudiante = models.InscripcionEstudiante.objects.get(Estudiante=estudiante,periodo=models.periodo.periodo_actual())
+
+    inscripcionesAsignaturas = models.InscripcionEstudianteAsignatura.objects.filter(inscripcion_estudiante=inscripcionEstudiante)
+    return render(request, "board_estudiante/asignaturasEstudiante.html" , {'inscripcionEstudiante' : inscripcionEstudiante , 'inscripcionesAsignaturas' : inscripcionesAsignaturas , 'estudiante' : estudiante})
 
 def inscripcionEstudianteManual(request):
     return render(request, "board_estudiante/inscripcion_estudiante.html")
