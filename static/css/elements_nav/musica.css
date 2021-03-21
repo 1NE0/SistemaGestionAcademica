@@ -34,6 +34,7 @@
     height: auto;
     background-color: white;
 }
+
 .titulo_principal{
     font-family: 'Montserrat', sans-serif!important;
     text-decoration: none!important;
@@ -82,13 +83,13 @@
     padding-top: 10px;
     position: absolute;
     background-color: rgba(127, 251, 255, 0.61);
-    width: 50%;
+    width: 45%;
 }
 .prejuvenil{
     padding-top: 10px;
     position: absolute;
     background-color: rgba(102, 176, 226, 0.63);
-    width: 50%;
+    width: 45%;
 }
 .te{
     text-align: center;
