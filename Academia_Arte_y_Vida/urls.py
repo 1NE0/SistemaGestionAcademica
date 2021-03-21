@@ -92,7 +92,7 @@ urlpatterns = [
     url(r'^board_estudiante/$', board_estudiante, name="board_estudiante"),
     url(r'^programasEstudiante$', programasEstudiante, name="programasEstudiante"),
     url(r'^asignaturasEstudiante$', asignaturasEstudiante, name="asignaturasEstudiante"),
-    url(r'^pagosEstudiante$', pagosEstudiante, name="pagosEstudiante"),
+    url(r'^inscripcionManual/$', inscripcionEstudianteManual, name="inscripcionEstudianteManual"),
 
     # board docente
     url(r'^board_docente/$', board_docente, name="board_docente"),
@@ -107,8 +107,12 @@ urlpatterns = [
     #guardar cursos en programas
     url(r'^guardarCursoPrograma/$', guardarCursoPrograma, name="guardarCursoPrograma"),
     
+    #guardar asignaturas en programas
+    url(r'^asignarAsignaturaProgramas/$', asignarAsignaturasProgramas, name="asignarAsignaturasProgramas"),
+
 
     url(r'^cargando/$', cargando, name="cargando"),
+    url(r'^editarAsignatura/$', editarAsignatura, name="editarAsignatura"),
 ]
 
 #uploads

@@ -18,7 +18,7 @@ $(document).ready(function() {
 
     $('#btn3').on('click', function(asignaturas){
         asignaturas.preventDefault();
-        $("#contenedor-central").load('/cargando');
+        //$("#contenedor-central").load('/cargando');
         $("#contenedor-central").load('/asignaturasEstudiante');
     });
 
@@ -31,7 +31,7 @@ $(document).ready(function() {
     $('#btn5').on('click', function(pagos){
         pagos.preventDefault();
         $("#contenedor-central").load('/cargando');
-        $("#contenedor-central").load('/pagosEstudiante');
+        $("#contenedor-central").load('/inscripcionManual');
     });
 
 });

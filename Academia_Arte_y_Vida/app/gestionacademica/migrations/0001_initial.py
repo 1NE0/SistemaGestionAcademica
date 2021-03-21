@@ -182,7 +182,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('Id', models.IntegerField(primary_key=True, serialize=False)),
                 ('Id_inscripcionPrograma', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='gestionacademica.inscripcionPrograma')),
-                ('nivel_curso', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='gestionacademica.Nivel_asignatura')),
+                ('nivel_asignatura', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='gestionacademica.Nivel_asignatura')),
             ],
         ),
         migrations.CreateModel(
