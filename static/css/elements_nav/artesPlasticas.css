@@ -1,10 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i');
 
-.contenido{
+.contenido_header{
     padding-top: 60px;
-    height: 1500px;
-    width: 100%;
-    background-color: white;
+    height: auto;
+    width: 100%;  
 }
 
 .barraImg{
@@ -16,7 +15,12 @@
     width: 100%;
     
 }
-
+.contenido_info{
+    display: flex;
+    width: 100%;
+    height: auto;
+    background-color: white;
+}
 .titulo_principal{
     font-family: 'Montserrat', sans-serif!important;
     text-decoration: none!important;
@@ -37,6 +41,15 @@
     margin-top: 80px;
     width: 50%;
     height: auto;
+    
+}
+
+.derecha{
+    width: 50%;
+    margin-left: 80px!important;
+    height: auto;
+    display: flex;
+    margin-top: 80px;
     
 }
 
@@ -66,5 +79,5 @@
     padding-top: 10px;
     position: absolute;
     background-color: rgba(127, 251, 255, 0.61);
-    width: 50%;
+    width: 45%;
 }

@@ -81,7 +81,7 @@ urlpatterns = [
     url(r'^aceptarUsuario$', aceptarUsuario, name="aceptarUsuario"),
     url(r'^asignarProgramas$', asignarProgramas, name="asignarProgramas"),
     url(r'^editarEstudiante$', editarEstudiante, name="editarEstudiante"),
-    url(r'^pagos$', pagos, name="pagos"),
+
     url(r'^verificarUser/$', verificarUsername, name="verificarUsername"),
     url(r'^verificarIdentificacion/$', verificarIdentificacion, name="verificarIdentificacion"),
     url(r'^modificarEstudiante$', modalEditarEstudiante, name="modificarEstudiante"),

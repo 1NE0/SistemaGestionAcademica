@@ -1,12 +1,12 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i');
 
 
-.contenido{
+.contenido_header{
     padding-top: 60px;
-    height: 1500px;
+    height: auto;
     width: 100%;
-    background-color: white;
 }
+
 .barraImg{
     background-image: url(https://cdn.pixabay.com/photo/2016/06/09/02/42/crayons-1445053_960_720.jpg);
     background-repeat: no-repeat;
@@ -15,6 +15,14 @@
     height: 400px;
     width: 100%;    
 }
+
+.contenido_info{
+    display: flex;
+    width: 100%;
+    height: auto;
+    background-color: white;
+}
+
 .tituloPrincipal{
     font-family: 'Montserrat', sans-serif!important;
     text-decoration: none!important;
@@ -51,18 +59,27 @@
     margin-top: 80px;
     width: 50%;
     height: auto;
+}
+
+.derecha{
+    width: 50%;
+    margin-left: 80px!important;
+    height: auto;
+    display: flex;
+    margin-top: 80px;
     
 }
+
 .artes{
     position: absolute;
     background-color: rgba(155, 127, 255, 0.548);
-    width: 50%;
+    width: 45%;
     padding-top: 10px;
 }
 .musica{
     position: absolute;
     background-color: rgba(163, 255, 127, 0.692);
-    width: 50%;
+    width: 45%;
     padding-top: 10px;
 
 }

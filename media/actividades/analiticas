@@ -1,0 +1,226 @@
+
+
+================================================================== ANALITICA WEB ==============================================================
+
+Podemos decir que la analita web es una disciplina
+dedicada al estudio estadistico del funcionamiento de nuestro sitio web.
+permite estudiar los comportamientos y la interacción de los usuarios con una página, con el fin de optimizar su usabilidad para conseguir los objetivos deseados.
+- Actualmente las organizaciones usan la analitica web para varias razones:
+1. presentacion de informes sobre las cifras del trafico del sitio
+2. comprender el comportamiento del cliente/usuario
+3. hacer campañas de marketing
+4- mejorar la usabilidad del sitio
+
+La búsqueda de obtención de ingresos por medio de la publicidad en los sitios web de información ha sido la causante de que los medios se empezaran a interesar en la analítica web. 
+la analitica puede verse como un proceso integrado (un todo) dentro de los procesos de negocio y para ello, la info obtenida debe incorporarse en procesos corportativos como ERP o CRM.
+Las primeras herramientas de analítica web empezaron a utilizarse en los años 90 y No fue hasta mitad de ese decenio cuando estas
+comenzaron a usarse de una forma habitual por los departamentos informáticos (la parte de ventas, de atencion al cliente, de gerencia principalmente, de operaciones..etc)
+
+- En un principio, su objetivo era saber qué carga tenían los servidores
+web de las compañías. Se basaban en tecnologías basadas en archivos de
+log. En un primer momento se analizaba y trabaja sobre esos archivos .log
+
+- asi que, empezaron a surgir herramientas que analizaban esos logs. eran programas que recopilaban los datos de esos archivos y, a partir de ellos, creaban informes de una forma gráfica.
+muchos de estos se ofrecían de forma gratuita como Analog o Webalizer, pero; el software Webtrends, que era de pago, que desde su nacimiento en 1995 se convirtió en el preferido de las empresas. Entonces fue cuando, a partir de estos años, se evoluciono al sistema de medicion por tags.
+
+A medida que la web fue evolucionando, los sistemas de medicion de la web igual y fue entonces donde se introdujo la utilización de herramientas de analítica web incrustando etiquetas en las propias páginas web..De este modo, un simple código de Javascript en cada una de las páginas era el encargado de recoger información y enviarla a un servidor donde se procesaba. De esta forma la información era más precisa, se utilizaba el concepto de cookie.
+(es como un rastro de datos, pequeño archivo con información que se guarda en el PC del usuario para así poder reconocerlo en visitas que haga después al sitio).
+- Las cookies también sirven para mostrar anuncios personalizados.
+(MUESTRO LA DIFERENCIA DE LOS PROGRAMAS)
+
+* Los logs son archivos que toman la dirección IP para identificar a cada visitante único. asi que, Para poder analizar los datos obtenidos se necesita un software específico donde mostrar los datos, que tiene poca flexibilidad para el manejo de los mismos y tarda mucho en procesarlos.
+
+* Implementación de procesos de medición (TAG) Los tags. toman cada PC como visitante único. 
+
+    Este sistema es la evolución que la web ha desarrollado para mejorar la experiencia del usuario durante la analítica web.
+
+POR QUE HACERLO ? PORQUE IMPLEMENTAR ESTA OPCION? 
+-- para tomar desiciones, dependiendo el analisis que obtengamos (segmentar y perfilar)
+
+======================================================== TECNICAS DE INVESTIGACION =============================================================
+
+Estas técnicas permiten un análisis cuantitativo de las acciones que el usuario realiza sobre un sitio web.
+
+- ClickMap (mapa de clics) : representa gráficamente en qué lugares de una página hacen clic los usuarios. Es algo enfocado a conocer cuáles son las partes con mayor interacción, como también aquellas que, por las razones que sea, no reciben tantas interacciones por parte de los visitantes.
+
+----> (NOOO) Algunas versiones, como la que proporciona Google Analytics, sólo ofrecen información acerca de los clics en enlaces, anuncios, y el resto de elementos interactivos dispuestos para ese fin, mientras que otras herramientas como ClickHeat o Clickdensity contemplan también los realizados en otras áreas de la pantalla.
+
+- test A/B : empleada en el marketing digital que permite comparar resultados entre dos posibles versiones de un sitio web o un anuncio(muestro mi app y doy el ejemplo de cambiar el titulo de la seccion principal); estudiando sus ratios de conversión(Porcentaje de visitantes de un sitio web que realizan el objetivo deseado. sirve como indicador para medir la efectividad de una estrategia publicitaria a la hora de convertir en clientes a los usuarios que visitan una página.) y de abandono.
+
+
+- test multivariante : Prueba en la que se comparan múltiples versiones de una misma página web. Estee es más adecuado para comprobar la usabilidad de sitios web que contengan una mayor cantidad de elementos, ya que permite introducir más variables sobre las que hacer pruebas.
+
+----> Las diferencias entre el A/B y multivariante radican principalmente en 3 cosas:
+- El time de ejecucion
+- cantidad de trafico
+- Diseño en general o elementos individuales
+
+
+- Analisis de formularios : consiste en estudiar los abandonos que se producen durante el proceso de rellenar un formulario. Una revisión detallada permite detectar qué campos concretos resultan problemáticos para los usuarios o posibles errores de planteamiento.... fallos que pueden solucionarse para optimizar o mejorar la usabilidad del formulario y facilitar el proceso de compra o suscripción.
+
+- Rutas de navegacion : Se considera uno de los aspectos mas importantes dentro de la analitica web.
+Es el estudio del tráfico de un sitio web, monitorizando el clickstream(Recorrido que sigue un usuario durante su paso por las distintas páginas que visita y el registro de éste) para determinar las preferencias de los usuarios y qué pautas siguen: qué páginas visitan y en qué orden.
+-->Una de las herramientas más completas para el análisis de la navegación de los usuarios es Omniture SiteCatalyst.
+
+
+============================================== CONCEPTOS ======================================================
+
+una PROPIEDAD representa nuestro sitio web, una aplicación para móviles o un blog, etc., que está asociado a un ID de seguimiento único.
+Es el medio por el cual analytics recopila los datos.
+
+PANTALLAS: representan el contenido que ven los usuarios en una aplicación. Este concepto equivale a las páginas de los sitios web.
+
+DIMENSIÓN : Nos delimitan lo que queremos ver en el informe.
+
+HIT: Es una URL que pasa parámetros de información útil para los informes
+-Si el usuario continúa navegando o realiza cualquier interacción con la páginas, por ejemplo, hacer clic en una imagen, reproducir un vídeo, descargar un documento o simplemente comprar, todo ello genera hits. Sin ellos sería imposible saber cuál es el comportamiento del usuario en la web.
+Como tal podemos decir que un hit es una interacción, (un evento) que da como resultado una serie de datos que son enviados a Google Analytics.
+Los tipos:
+- Evento (event)
+- Página vista (pageview)
+- Transacción (transaction). Mide el número de transacciones realizadas
+- Social: podemos medir el número de clics que los usuarios hacen en los botones sociales de la página web.
+- excepción: En este caso podemos saber el número y tipo de bloqueos o de errores que se producen en la propiedad.
+
+* Todos estos tipos de hits son los que registra google analytics.
+* En la versión gratuita de Google Analytics, el número de hits es limitado, tan sólo 10 millones de hist al mes. 
+
+METRICA :Pueden ser sumas o proporciones. Las métricas son elementos individuales de una dimensión que se pueden medir como una suma o como una proporción. Por ejemplo, la dimensión Ciudad se puede asociar a una métrica como Población, que tendría un valor de suma de todos los residentes de la ciudad específica.
+
+Visualizaciones de pantalla, Página por visita y Duración media de la visita son ejemplos de métricas de Analytics.
+
+
+============================================ CONCEPTOS BASICOS ====================================================
+
+* SESIONES : son las visitas totales registradas en tu sitio web en un determinado periodo de tiempo.
+- Por ejemplo, una única sesión puede contener varias vistas de página, eventos, interacciones sociales y transacciones de comercio electrónico.
+ De forma predeterminada, si un usuario permanece inactivo durante al menos 30 minutos, las actividades posteriores se atribuirán a una nueva sesión.
+- El vencimiento de las sesiones puede basarse en:
+------El tiempo:
+Después de 30 minutos de inactividad
+A medianoche
+------La campaña:
+Si el usuario llega al sitio a través de una campaña, lo abandona y, a continuación, regresa al sitio a través de otra campaña.
+
+* USUARIOS ACTIVOS : hace un tiempo se llamaban visitantes único. Son los personas que acceden a tu sitio web. Un mismo usuario puede realizar varias sesiones (visitas).
+
+* Páginas Vistas: indica el total de páginas que los usuarios han visitado durante sus sesiones de navegación en tu web.
+- eje: Si un usuario navega a una página diferente y más tarde vuelve a la página original, también se registrará una segunda página vista.
+
+* Páginas Vistas Únicas: representa el número de sesiones en que una página se ha visto al menos una vez.
+
+* Página de destino(landing page): es la primera pagina a la que llega el usuario tras hacer clic en un enlace que va al sitio web.
+- ejs: un resultado en el buscador.
+
+* Porcentaje de Rebote: indica el porcentaje de usuarios que han salido de tu web tras visitar una única página.
+un rebote se calcula específicamente como una sesión que únicamente activa una solicitud en el servidor de Analytics, por ejemplo, cuando un usuario abre una sola página en su sitio web y, a continuación, sale sin activar ninguna otra solicitud en el servidor de Analytics en esa sesión.
+- Estas sesiones de una sola página duran 0 segundos porque, al no producirse ningún otro hit después del primero, Analytics no puede calcular la duración de la sesión.
+
+-------------- Los informes de Analytics se muestran en base a una agrupación de canales predeterminada como la siguiente --------------
+
+Tráfico orgánico (o de busqueda): indica el tráfico que llega a tu web desde los buscadores (Google, Bing, Yahoo, etc.).
+
+Tráfico Social: indica el tráfico que llega a tu sitio web procedente de las redes sociales. (usuarios que ingresan desde cualquiera de las redes sociales por ejemplo, Facebook o Twitter)
+
+Tráfico de Referencia o referido: es el tráfico que te llega desde otros sitios web a través de otra fuente, de referencias con enlaces (que pueden estar en otro dominio) (tráfico procedente de cualquier sitio)
+
+Tráfico Directo: es el tráfico que recibes cuando los usuarios introducen directamente una URL en sus navegadores. MUESTRO GA
+
+Objetivo: son las metas que puedes configurar para medir las conversiones en tu sitio web en relación al tráfico.
+son las acciones que queremos que el usuario haga en nuestro sitio. x ej: comprar un articulo, enviar solicitud de presupuesto.
+- Se dice que hay conversión cuando se alcanza un objetivo.
+
+================================================== INFORMES ======================================================
+En tiempo real
+Supervise la actividad de los usuarios en el momento en el que ocurre. En la página En tiempo real, los datos de las interacciones se muestran segundos después de que estas se producen. Los datos se actualizan continuamente para que pueda ver cuántos usuarios hay en el momento de la consulta y cómo interactúan con el contenido.
+
+AUDIENCIA: podemos descubrir dónde se encuentran, con qué frecuencia y durante cuánto tiempo utilizan el contenido y qué dispositivos usan más. 
+
+ADQUISICION: Además, si llega directamente o a través de un motor de búsqueda, y la eficacia de determinadas campañas de marketing para atraer usuarios.
+En “Adquisición” se trabaja con tres términos fundamentales:
+-Fuentes. Las fuentes indican el origen desde donde procede el tráfico de una página web. Ejemplos de este tipo de tráfico son redes sociales (Instagram o Twitter), o un sitio web (Google). Ejemplos de fuentes pueden ser: un navegador (Google), una red social (Facebook), un dominio (youtube.com).
+
+-Medios. Los medios indican a qué categoría pertenece la fuente y puede referirse a un medio orgánico, uno social, referencia u otro por ejemplo.
+
+-Canales. Los canales agrupan fuentes y medios para simplificar el análisis de los distintos informes. Esta agrupación se realiza de forma automática por Analytics, aunque es posible crear canales personalizados.
+Es posible también personalizar la agrupación de canales según las necesidades y características del sitio.
+
+COMPORTAMIENTO: podemos acceder a ellos para conocer el número de pantallas vistas por sesión, el tiempo que dura una sesión típica u otras métricas.
+¿Qué informe indica la primera página a la que accede un usuario en su sitio web? informe Páginas de destino
+
+CONVERSIONES: Se divide en OBJETIVOS : Este nos permite ver en qué medida los usuarios están cumpliendo los objetivos que ha definido para nuestro sitio web, así como la forma en que las fuentes, medios y categorías de dispositivos están contribuyendo a las conversiones de objetivos.
+              COMERCIO ELECTRONICO: Si lo hemos configurado para hacer un seguimiento de objetivos como registros de cuenta y ventas de productos; también podemos      usarlos para hacer un seguimiento del rendimiento y de los objetivos de ingresos.
+
+-------------- PARA OBTENER TODOS ESTOS INFORMES DE (CONVERSIONES ASISTIDAS, RUTAS DE CONVERSIÓN PRINCIPALES, LAPSTO DE TIEMPO..ETC) ES NECESARIO PRIMERAMENTE
+CONFIGURAR LOS OBJETIVOS.
+
+Esto es una captura de las distintas rutas seguidas por los usuarios que han convertido.
+EXPLICAR LA IMG DE RUTAS SEGUIDAS.
+por ejemplo: si tenemos un formulario de contacto solo en esa pagina podemos poner como paso la página de contacto. Pero si el formulario lo tenemos en todas las páginas de servicio se podrá conseguir el objetivo desde cualquier página, con lo cual es difícil marcar una ruta de conversión fija.
+
+A partir del momento que tenemos los objetivos guardados podremos obtener mucha información de los usuarios que acaban enviando un formulario de contacto. La mayoría de la información la podemos obtener en los informes de Conversiones.
+
+-Y por destacar uno de los principales beneficios de medir tus objetivos es saber desde donde te llegan los usuarios que convierten y que pasos siguen hasta la conversión. Esto te permite tomar decisiones sobre dónde invertir más presupuesto o simplemente mayor esfuerzo.
+
+
+================================================= VENTAJAS DE ANALYTICS ============================================
+
+Utilizando Analytics nos ahorramos el instalar en nuestro servidor web algún tipo de analizador de tráfico, lo que podría perjudicarnos en el rendimiento del servidor si este coge demasiados recursos del mismo.
+
+- Es fácil de instalar: Sólo es necesario crear una cuenta en Google Analytics para usarlo, beneficiando así a la empresa ya que no genera gastos en un profesional para su instalación.
+- Los informes son personalizables y programables: Le es de mucha utilidad para las empresas ya que pueden personalizarse y programarse a la comodidad de cada una de ellas, permitiendo así un optimo servicio.
+- Al ser un servicio online no tendremos que descargarnos ningún programa para poder utilizarlo. Por lo tanto no ocupará espacio en nuestro disco duro. Además no requiere de ningún tipo de mantenimiento.
+- Es seguro. Google promete cuidar de la privacidad de tus datos a través de su política de confidencialidad. (AUNQUE estos datos se almacenan en los servidores de Google. SUBJETIVO, PARA UNAS PERSONAS no es lo mismo que tener lA INFO almacenada en un servidor propio.)
+- Es gratuito: Sólo necesitas tener una cuenta en Google (Gmail), esto beneficia a la empresa ya que no requiere costear de su capital para rentar una herramienta.
+- Podemos Vincular nuestros datos para obtener resultados : se ha diseñado para funcionar con diferentes productos publicitarios. Usa los datos que proporciona esta herramienta para llegar a los clientes adecuados. Vincula Google Analytics con Display & Video 360, Google Ads, Google AdSense, AdMob y Ad Manager.
+- registro de redes sociales : Es interesante poder evaluar las campañas realizadas en redes sociales para incrementar las visitas en el blog u otro sitio web, y con Google Analytics se tiene un completo registro de esto con sólo un par de clics.
+
+======================================================= Y DESVENTAJAS ==================================================
+
+- Limitaciones técnicas.
+Si JavaScript no está habilitado en el navegador del usuario (pocas veces sucede, pero sucede y puede llegar a ser relevante en sitios con millones de visitas) o si éste bloquea algunas funciones de captura de cookies, claramente se verán afectados los resultados que se plasmarán en los informes.
+
+- Pérdida de datos por error.
+Si se borra el código de Analytics por error, por ejemplo, al actualizar algunos temas en WordPress, simplemente no habrá registros en el tiempo que esté sin funcionamiento.
+
+- Es relativamente intuitivo: a pesar de que los diseñadores o desarrolladores de google se han esforzado tratando de hacer de google analytics algo mas sencillo de usar, mas intuitivo, con cosas graficas coloridas, graficos o menus entendibles; nos puede hacer falta dedicarnos a leer un poco mas, ver tutoriales; etc para sacarle el maximo provecho.
+
+- Muestreo estadístico.
+Cuando son millones de visitas las recibidas por un sitio web, si Google Analytics lo cree necesario ya no registrará ni evaluará visita por visita sino que hará sampling: tomará muestras aleatorias de miles de visitas e inferirá los resultados a la población, a la totalidad de visitas.
+
+
+- En ocasiones no se detecta toda la información de las campañas publicitarias realizadas.
+Desde el momento que se produce el clic en un anuncio hasta que llega finalmente a la web, es posible que se produzcan situaciones en las que no se carguen efectivamente el tracking code de Google Analytics. En estos casos no se mostrará la visita en las estadísticas de nuestra Web. Por este motivo, muchas plataformas publicitarias, incluso la de Google Adwords, suelen darnos datos de clicks y visitas diferentes a las que nos ofrece Analytics.
+
+- Si nuestro sitio recibe un gran volumen de visitas, cientos de miles al mes, los times de carga de las paginas se ralentizan y el análisis se hace muuy pesado.
+- No puede indicar dónde esta mirando el visitante. (para esto se tendría que recurrir a soluciones de eye tracking (seguimiento de ojos, ocular))
+
+
+================================================== PREGUNTAS FRECUENTES =======================================
+
+1. Después de instalar el código, el siguiente paso es identificar qué acciones clave de los usuarios debes monitorear. Éstas son algunas:
+Página de destino: Una página específica en tu sitio Web que genera tráfico.
+Promedio de tiempo en la página: Cuánto dura un visitante en tu sitio.
+Número de páginas vistas: Cuántas páginas vio el usuario durante una visita. (Páginas/Visita)
+Eventos: Acciones que realizan los usuarios en una visita, incluyendo clics, compartir en redes sociales y reproducciones de video.
+
+2. NO, cada dimensión y cada métrica tiene un alcance: de usuario, de sesión o de hit. En la mayoría de los casos, lo más lógico es combinar dimensiones y métricas con el mismo alcance. Por ejemplo, Sesiones es una métrica de sesión, por lo que solo puede usarse con dimensiones de sesión, como Fuente o Ciudad. 
+
+3. es porque que permite muchísima personalización (puedes recoger todo tipo de métricas), crear dashboards personalizados….
+
+4. que el usuario es un falso usuario nuevo. Analytics no podrá asociar los datos de comportamiento del usuario con los datos obtenidos previamente.
+y configurará una nueva cookie de navegador la próxima vez que el navegador cargue una página con seguimiento.
+
+5. Objetivos o comercio electrónico
+
+6. El tiempo máximo durante el que Analytics conservará los datos de Google signals es de 26 meses, independientemente de la configuración que elija.
+
+En el caso de las propiedades de Universal Analytics, el ajuste influye en los datos a nivel de evento y de usuario. Dispone de las siguientes opciones:
+14 meses
+26 meses
+38 meses
+50 meses
+
+En el caso de las propiedades Google Analytics 4, la conservación de los datos de nivel de usuario, incluidas las conversiones, se fija en un máximo de 14 meses. 
+
+

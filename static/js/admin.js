@@ -60,11 +60,6 @@ $(document).ready(function() {
         
     });
 
-    $('#btn8').on('click', function(prof) {
-        prof.preventDefault();
-        $("#contenedor-central").load('/cargando');
-        $("#contenedor-central").load('/pagos');
-    });
 
     $('#btn9').on('click', function(est) {
         est.preventDefault();

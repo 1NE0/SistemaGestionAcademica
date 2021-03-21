@@ -1002,8 +1002,6 @@ def eliminarEstudiante(request):
     estudiante.delete()
     return HttpResponse("eliminado")
 
-def pagos(request):
-    return render(request,"pagos.html")
 
 #    BOARD DEL ESTUDIANTE
 
