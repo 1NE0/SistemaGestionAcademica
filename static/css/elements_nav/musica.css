@@ -6,16 +6,15 @@
 @media (max-width: 768px) {
     .contenido{
         background-color: white;
-        padding-top: 120px;
+        padding-top: 200px;
         height: 1500px;
         width: 100%;
     }
 }
 
-.contenido{
-    background-color:white;
+.contenido_header{
     padding-top: 60px;
-    height: 2000px;
+    height: auto;
     width: 100%;
 }
 .barraImg{
@@ -24,9 +23,16 @@
     background-image: url(https://cdn.pixabay.com/photo/2016/11/23/00/43/audio-1851517_960_720.jpg);  
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: center;
+    background-position:center;
     height: 400px;
     width: 100%;
+}
+
+.contenido_info{
+    display: flex;
+    width: 100%;
+    height: auto;
+    background-color: white;
 }
 .titulo_principal{
     font-family: 'Montserrat', sans-serif!important;
@@ -67,6 +73,9 @@
     width: 50%;
     margin-left: 80px!important;
     height: auto;
+    display: flex;
+    margin-top: 80px;
+    
 }
 
 .juvenil{
