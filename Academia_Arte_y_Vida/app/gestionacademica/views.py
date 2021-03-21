@@ -87,8 +87,18 @@ def crearPrograma (request):
 
 
 def asignaturas(request):
-    asignaturasLista = Asignaturas.objects.all()
-    return render(request, "asignaturas.html", {'asignaturas': asignaturasLista})
+    sinMatricula = []
+    conMatricula = []
+
+    for inscripcion in models.InscripcionAsignatura.objects.filter(periodo=models.periodo.periodo_actual()):
+        if inscripcion.Id_inscripcionPrograma == None or inscripcion.Id_inscripcionPrograma == "":
+            sinMatricula.append(inscripcion)
+        else:
+            print("entreeee")
+            conMatricula.append(inscripcion)
+    print(conMatricula)
+    InscripcionesProgramasMatriculados = models.inscripcionPrograma.objects.filter(periodo=models.periodo.periodo_actual())
+    return render(request, "asignaturas.html", {'sinMatricula': sinMatricula, 'conMatricula' : conMatricula , 'programas' : InscripcionesProgramasMatriculados})
 
 
 def cursos(request):
@@ -314,7 +324,7 @@ def CrearAsignatura(request):
 def crudAsignatura(request):
 
     docentes = models.Docentes.objects.all()
-    
+    asignaturas = models.Asignaturas.objects.all()
     if request.method == "POST" and request.is_ajax:
         codigo = request.POST.get('codigo')
         nombre = request.POST.get('nombre')
@@ -329,7 +339,7 @@ def crudAsignatura(request):
         
         return HttpResponse("ok")
 
-    return render(request,"crearasignatura.html",{'docentes' : docentes})
+    return render(request,"crearasignatura.html",{'docentes' : docentes , 'asignaturas' : asignaturas})
 
 
 def CrearCurso(request):
@@ -988,8 +998,8 @@ def programasEstudiante(request):
 def asignaturasEstudiante(request):
     return render(request, "board_estudiante/asignaturasEstudiante.html")
 
-def pagosEstudiante(request):
-    return render(request, "board_estudiante/pagosEstudiante.html")
+def inscripcionEstudianteManual(request):
+    return render(request, "board_estudiante/inscripcion_estudiante.html")
 
 
 
@@ -1159,3 +1169,56 @@ def editarcurso(request):
 def cargando(request):
     print("estoy dentro")
     return render(request,"complementos/cargando.html")
+
+
+def editarAsignatura(request):
+
+    cod_asignatura = request.POST['asignaturaSelect']
+    nivel = request.POST['nivel']
+    descripcion = request.POST['descripcion']
+    Dia = request.POST['dia']
+    hora_inicial = request.POST['hora_inicial']
+    hora_final = request.POST['hora_final']
+
+    print("ESTOY EN EDITARRRRRRR")
+    asignatura = models.Asignaturas.objects.get(cod_asig=cod_asignatura)
+    try:
+
+        inscripcionA = models.InscripcionAsignatura.objects.get(periodo=models.periodo.periodo_actual(),asignatura=asignatura)
+        # SI HAY UNA INSCRIPCION DE ESTA ASIGNATURA SOLO CREAMOS EL NIVEL Y SE LO AGREGAMOS
+        if inscripcionA.nivel == nivel:
+            return HttpResponse("nivelRepetido")
+        else:
+            nivel = models.Nivel_asignatura(Id=random.randrange(0,1000000),nivel=nivel,descripcion=descripcion,dia=dia,horaInicio=hora_inicial,horaFinal=hora_final,cod_asignatura=asignatura)
+            inscripcionA.nivel = nivel
+            nivel.save()
+            inscripcionA.save()
+        return HttpResponse("correcto")
+    except models.InscripcionAsignatura.DoesNotExist:
+        nivel = models.Nivel_asignatura(Id=random.randrange(0,1000000),nivel=nivel,descripcion=descripcion,dia=Dia,horaInicio=hora_inicial,horaFinal=hora_final,cod_asignatura=asignatura)
+        inscripcionA = models.InscripcionAsignatura(Id=random.randrange(0,1000000),periodo=models.periodo.periodo_actual(),asignatura=asignatura,nivel=nivel)
+
+        nivel.save()
+        inscripcionA.save()
+        return HttpResponse("correcto")
+    return HttpResponse("incorrecto")
+    
+
+@csrf_exempt
+def asignarAsignaturasProgramas(request):
+    cod_inscripcion_programa = request.POST.get('programa')
+    inscripciones = request.POST.getlist('listaInscripciones[]')
+    inscripcionPrograma = models.inscripcionPrograma.objects.get(Id=cod_inscripcion_programa)
+
+    #borrar las anteriores
+    for inscripcionA in models.InscripcionAsignatura.objects.filter(periodo=models.periodo.periodo_actual()):
+        inscripcionA.Id_inscripcionPrograma = None
+        inscripcionA.save()
+
+
+    for inscripcion in inscripciones:
+        inscripcionModel = models.InscripcionAsignatura.objects.get(Id=inscripcion)
+        inscripcionModel.Id_inscripcionPrograma = inscripcionPrograma
+        inscripcionModel.save()
+
+    return HttpResponse("correcto")
