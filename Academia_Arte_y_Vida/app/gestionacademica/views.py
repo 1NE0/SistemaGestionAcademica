@@ -905,27 +905,51 @@ def aceptarUsuario(request):
             # COMO ES SU PRIMER PERIODO, HAY QUE MATRICULARLE TODOS LOS CURSOS
             # buscar las inscripciones curso de esta inscripcion programa
             inscripcionesCurso = InscripcionCurso.objects.filter(Id_inscripcionPrograma=programaAinscribirse)
-            print("el curso de musica que eligio el usuario es " + estudiante.curso_musica)
+            
+            # hay que matricularle todas las asignaturas de nivel 1
+            
+
+            inscripcionesAsignaturass = models.InscripcionAsignatura.objects.filter(Id_inscripcionPrograma=programaAinscribirse,periodo=models.periodo.periodo_actual())
+            print("ATENCIOOOOOOOOOOOON")
+            print(inscripcionesAsignaturass)
+            nivelesAmatricular = []
+            for inscripcionA in inscripcionesAsignaturass:
+                if inscripcionA.nivel.nivel == 1:
+                    print("encontre una asignatura para matricular")
+                    nivelesAmatricular.append(inscripcionA.nivel)
+            
+
             # guardar el estudiante y borrar el usuario
+            
             group = Group.objects.get(name='estudiantes')
             estudiante.user.groups.add(group)
             estudiante.save()
             usuario.delete()
             inscripcion.save()
 
+
+            for nivel in nivelesAmatricular:
+                inscripcioncitaEstudiante = models.InscripcionEstudianteAsignatura(fecha_realizacion=datetime.now(),nivel_asignatura=nivel,estudiante=estudiante,inscripcion_estudiante=inscripcion)
+                inscripcioncitaEstudiante.save()
+
+
+            
             
             #guardar inscripciones
             for inscripcionC in inscripcionesCurso:
                 try:
                     if inscripcionC.curso.nom_curso == estudiante.curso_musica:
+                        
                         print("entre al nombre igual")
                         nivelesC = models.Nivel_Cursos.objects.filter(inscripcion_curso=inscripcionC)
                         for nivelC in nivelesC:
                             print("estoy en el for de los niveles")
+                            
                             if nivelC.nivel == 1:
                                 print("soy nivel igual a 1")
                                 detalleAguardar = models.detalle_curso.objects.get(InscripcionCurso=inscripcionC,Nivel_Curso=nivelC)
                                 #si encuentra detalles en esta inscripcion, lo inscribe a estos detalles
+                                
                                 inscripcionEstudianteAlCurso = models.inscripcionEstudianteCurso(detalle_curso=detalleAguardar,estudiante=estudiante,inscripcion_programa_estudiante=inscripcion)
                                 inscripcionEstudianteAlCurso.save()
                 except models.detalle_curso.DoesNotExist:
