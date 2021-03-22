@@ -111,6 +111,17 @@
     .cabecera{
         padding-top: 500px;
     }
+
+    
+}
+
+@media (max-width: 1100px) {
+    .seccion{
+        display: inline;
+    }
+    .video{
+        width: 100%;
+    }
 }
 
 .cabecera h1 {
