@@ -10,7 +10,7 @@ $(document).ready(function(){
 
     $('#btn2').on('click', function(asi){
         asi.preventDefault();
-        $("#contenedor-central").load('/cargando');
+        //$("#contenedor-central").load('/cargando');
         $("#contenedor-central").load('/asignaturasDocente');
     });
 
