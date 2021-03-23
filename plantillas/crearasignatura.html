@@ -10,7 +10,7 @@
             <button class="cerrar" onclick="cerrarModal()" type="button" data-dismiss = "modal" aria-label="Cerrar">
                 <span aria-hidden="true">&times;</span>
             </button>
-        </div> 
+        </div>
         <form action="{% url 'crudAsignatura' %}" method="POST" id="formCrear">{% csrf_token %}
             <div class="modal-body">
                
@@ -22,17 +22,21 @@
                             {% for docente in docentes %}
                                 <option>{{ docente.nombres }} </option>
                             {% endfor %}
-                        </select>       
+                        </select>
+                
+                        
+                    
             </div>
+                
             <div class="modal-footer">
                     <button class="btn btn-danger" onclick="cerrarModal()" type="button" data-dismiss="modal">Cancelar</button>
                     <button class="btn btn-primary enviar" type="submit" value="submit">Confirmar</button>
+                
             </div>
         </form>
     </div>
 
-    <!--<script src="{% static 'js/crearAsignatura.js' %}"></script>-->
-    <script src="{% static 'js/asignaturas.js' %}"></script>
+    <script src="{% static 'js/crearAsignatura.js' %}"></script>
 </div>
 
 

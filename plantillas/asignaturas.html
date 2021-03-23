@@ -11,7 +11,7 @@
      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   
   
-<div class="principal">
+<div class="principal"> 
     <h1 class="text-center m-4 display-5">ASIGNATURAS</h1>
     <button onclick="abrirModal('{% url 'crudAsignatura' %}');" id="boton_crear" class="btn add bg-success w-50" style="color: white; margin-left: 25%; margin-bottom: 5%;" >Agregar Asignatura <i class="fas fa-plus-square" style="color: white;"></i></button>
     <div class="modal fade" id="creacion" role="dialog"></div>
@@ -24,7 +24,7 @@
                 <th>Codigo</th>
                 <th>Nombre</th>
                 <th>Descripcion</th>
-                <th>Docente</th>
+               <!-- <th>Docente</th>-->
                 <th>Acción</th>
             </tr>
         </thead>
@@ -36,7 +36,7 @@
                 <th>{{asignatura.cod_asig}}</th>
                 <td>{{asignatura.nom_asig}}</td>
                 <td>{{asignatura.descripcion}}</td>
-                <td>{{asignatura.Docente.nombres}}</td>
+                <!--<td>{{asignatura.Docente.nombres}}</td>-->
                 <td>
                     <button class="btn btn-danger">Eliminar</button>
                     <button class="btn btn-primary">Editar</button>
