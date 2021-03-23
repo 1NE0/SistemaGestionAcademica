@@ -58,7 +58,7 @@ $('.eliminarBTN').click(function(e){
       swal("¡Puedes seguir revisando, no se realizó ninguna acción!");
     }
   });
-
+ 
 });
 
 // Abrir modal creacion

@@ -66,3 +66,77 @@ $(function() {
 
 
 /* Editar y Eliminar docentes */
+
+$('.editarBtn').click(function(e){
+  e.preventDefault();
+
+  var identificacion = $(this).attr('id');
+  abrirModal('/editarDocente',identificacion + "");
+  
+});
+
+$('.eliminarBtn').click(function(e){
+  e.preventDefault(); 
+  var docente = [];
+  var identificacion = $('.eliminarBtn').attr('id');
+
+  docente.push(identificacion);
+  console.log(docente);
+
+  swal({
+    title: "¿Estas seguro de querer eliminar este docente?",
+    text: "Cuidado, Se eliminará el docente permanentemente",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+  })
+  .then((confirmar) => {
+    if (confirmar) {    // si el director le da a confirmar
+      $.ajax({
+        method: 'POST',
+        url: '/eliminarDocente',  // la url a la cual irá la peticion
+        data: {
+                docente: docente,   // parametros que se le mandaran a la vista
+        },
+        success:function(response){
+             if(response = "eliminado"){
+               swal("¡Fantástico!" , "Se ha eliminado con exito el docente" , "success");
+               $('.bloque').load('/docentes');
+             }
+        },
+        error:function(response){
+             swal("Ocurrió un error inesperado :(" , "error");
+        }
+      });
+    } else {    // SI CANCELA EL MODAL 
+      swal("¡Puedes seguir revisando, no se realizó ninguna acción!");
+    }
+  });
+})
+
+function abrirModal(url,identificacion){
+
+        jQuery.noConflict();
+        arreglo = {'docente':identificacion};
+        
+
+        $('#creacion').load(url,arreglo,function(){
+          $(this).modal({
+            backdrop: 'static', // evita cerrar la ventana dando click fuera de ella.
+            keyboard: false   
+          })
+          
+          $(this).modal('show'); 
+          
+        });
+}
+
+function cerrarModal(){
+  jQuery.noConflict(); 
+  $('.modal').modal('hide');
+
+  return false;
+}
+
+
+

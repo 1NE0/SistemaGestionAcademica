@@ -11,10 +11,10 @@ class periodo(models.Model):
     codigo = models.IntegerField(primary_key=True , default="999")
     Fecha_inicio = models.DateField(default="")
     Fecha_final = models.DateField(default="")
-
+ 
     def periodo_actual():
         return periodo.objects.last()
-
+ 
 
 class departamento(models.Model):
     cod_dpto = models.IntegerField(null=False, blank=False)

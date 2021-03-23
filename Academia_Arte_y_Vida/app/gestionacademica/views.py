@@ -691,6 +691,47 @@ def lista_docente(request):
         return HttpResponse(data)
     return HttpResponse("activo")
 
+
+@csrf_exempt
+def editarDocente(request):   #abrir el modal
+
+    if request.method == 'POST':
+        print("estoy en POST")
+        identificacion = request.POST.get('docente')
+        print(identificacion)
+        docente = models.Docentes.objects.get(identificacion=identificacion)
+        return render(request, "editardocente.html", {'docente' : docente})
+    return render(request,"editardocente.html")
+
+
+def modalEditarDocente(request):  
+    print(request.POST.get('identificacion'))
+
+    DocenteModificado = models.Docentes.objects.get(identificacion=request.POST.get('identificacion'))
+
+    #DocenteModificado.tipo = request.POST.get('tipoDocumento')
+    #DocenteModificado.identificacion = request.POST.get('identificacion')
+    DocenteModificado.nombres = request.POST.get('nombres')
+    DocenteModificado.apellidos = request.POST.get('apellidos')
+    DocenteModificado.edad = request.POST.get('edad')
+    DocenteModificado.sexo = request.POST.get('sexo')
+    DocenteModificado.telefono = request.POST.get('telefono')
+    DocenteModificado.ciudad = request.POST.get('ciudad')
+    DocenteModificado.direccion = request.POST.get('direccion')
+    
+
+    DocenteModificado.save()
+
+    return HttpResponse("correcto")
+
+
+@csrf_exempt
+def eliminarDocente(request):
+    identificacion = request.POST.get('docente[]')
+    docente = models.Docentes.objects.get(identificacion=identificacion)
+    docente.delete()
+    return HttpResponse("eliminado")
+
 #############################################
 
 @login_required(login_url='/login')
@@ -836,7 +877,7 @@ def aceptarUsuario(request):
 @csrf_exempt
 def editarEstudiante(request):   #abrir el modal
 
-    if request.method == 'POST':
+    if request.method == 'POST': 
         print("estoy en POST")
         identificacion = request.POST.get('estudiante')
         print(identificacion)

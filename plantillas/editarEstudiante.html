@@ -13,7 +13,7 @@
     <div class="modal-content">
         <div class="modal-header">
             <h2 class="modal-title">Editar a {{estudiante.nombres}}</h2>
-            
+             
             <button class="cerrar" onclick="cerrarModal()" type="button" data-dismiss = "modal" aria-label="Cerrar">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -24,28 +24,28 @@
                         {% csrf_token %}
                         <div class="modal-body">
                             <label for="identificacion">Identificacion</label>
-                            <input name="identificacion" id="inputId" type="text" placeholder="identificacion">
+                            <input name="identificacion" class="form-control" id="inputId" type="text" placeholder="identificacion">
 
                             <label for="nombres">Nombres</label>
-                            <input name="nombres" id="inputNombres" type="text" placeholder="nombres">
+                            <input name="nombres" class="form-control" id="inputNombres" type="text" placeholder="nombres">
 
                             <label for="apellidos">Apellidos</label>
-                            <input name="apellidos" id="inputApellidos" type="text" placeholder="apellidos">
+                            <input name="apellidos" class="form-control" id="inputApellidos" type="text" placeholder="apellidos">
                             
                             <label for="edad">Edad</label>
-                            <input name="edad" id="inputEdad" type="text" placeholder="Edad">
+                            <input name="edad" id="inputEdad" type="text" class="form-control" placeholder="Edad">
 
                             <label for="sexo">Sexo</label>
-                            <input name="sexo" id="inputSexo" type="text" placeholder="M/F/O">
+                            <input name="sexo" id="inputSexo" type="text" placeholder="M/F/O" class="form-control">
 
                             <label for="correo">Correo</label>
-                            <input name="correo" id="inputCorreo" type="email" placeholder="Correo">
+                            <input name="correo" id="inputCorreo" type="email" placeholder="Correo" class="form-control"> 
 
                             <label for="telefono">Telefono</label>
-                            <input name="telefono" id="inputTelefono" type="text" placeholder="Telefono">
+                            <input name="telefono" id="inputTelefono" type="text" placeholder="Telefono" class="form-control">
 
                             <label for="direccion">Direccion</label>
-                            <input name="direccion" id="inputDireccion" type="text" placeholder="Direccion">
+                            <input name="direccion" id="inputDireccion" type="text" placeholder="Direccion" class="form-control">
                         </div>
                         
 
@@ -90,12 +90,12 @@
                 dataType: "html",
                 data: {
                     csrfmiddlewaretoken: data[0].value,
-                     identificacion: data[1].value,
+                    identificacion: data[1].value,
                     nombres: data[2].value,
                     apellidos: data[3].value,
                     edad: data[4].value,
                     sexo: data[5].value,
-                    correo: data[6].value,
+                    correo: data[6].value, 
                     telefono: data[7].value,
                     direccion: data[8].value,
                 },

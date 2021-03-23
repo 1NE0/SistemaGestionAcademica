@@ -76,7 +76,7 @@ $(function() {
          url: $("#formEditarCurso").attr("action"),
          data: {
              csrfmiddlewaretoken:inputs[0].value,
-             cod_curso: inputs[1].value,
+             cod_curso: inputs[1].value, 
              nivel: inputs[2].value,
              descripcion: inputs[3].value,
              docente: inputs[4].value,
