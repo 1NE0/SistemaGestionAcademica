@@ -1021,11 +1021,11 @@ def programasEstudiante(request):
 
 def asignaturasEstudiante(request):
     estudiante = models.Estudiantes.objects.get(user=request.user)
-
     inscripcionEstudiante = models.InscripcionEstudiante.objects.get(Estudiante=estudiante,periodo=models.periodo.periodo_actual())
-
     inscripcionesAsignaturas = models.InscripcionEstudianteAsignatura.objects.filter(inscripcion_estudiante=inscripcionEstudiante)
-    return render(request, "board_estudiante/asignaturasEstudiante.html" , {'inscripcionEstudiante' : inscripcionEstudiante , 'inscripcionesAsignaturas' : inscripcionesAsignaturas , 'estudiante' : estudiante})
+    actividades = models.actividades.objects.all()
+
+    return render(request, "board_estudiante/asignaturasEstudiante.html" , {'inscripcionEstudiante' : inscripcionEstudiante , 'inscripcionesAsignaturas' : inscripcionesAsignaturas, 'actividades' : actividades, 'estudiante' : estudiante})
 
 def inscripcionEstudianteManual(request):
     return render(request, "board_estudiante/inscripcion_estudiante.html")
@@ -1060,8 +1060,7 @@ def asignaturasDocente(request):
     actividadesDelDocente = models.actividades.objects.all()
     asignaturasNDelDocente = models.Nivel_asignatura.objects.filter(docente=Docente)
 
-
-    return render(request, "board_docente/asignaturasDocente.html" , {'actividades' : actividadesDelDocente , 'asignaturas' : asignaturasNDelDocente , 'docente' : Docente})
+    return render(request, "board_docente/asignaturasDocente.html" , {'actividades' : actividadesDelDocente , 'asignaturas' : asignaturasNDelDocente, 'docente' : Docente})
 
     
 def asignaturaActividades(request):
