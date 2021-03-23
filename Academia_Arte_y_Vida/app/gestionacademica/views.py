@@ -998,6 +998,7 @@ def modalEditarEstudiante(request):    # logica de editar el estudiante
 @csrf_exempt
 def eliminarEstudiante(request):
     identificacion = request.POST.get('estudiante[]')
+    print(identificacion)
     estudiante = models.Estudiantes.objects.get(identificacion=identificacion)
     estudiante.delete()
     return HttpResponse("eliminado")
