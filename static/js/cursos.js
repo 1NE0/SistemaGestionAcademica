@@ -46,8 +46,6 @@ $(function() {
       $(this).next().slideUp('selected');
     };
 
-    
-  
 });
 
      

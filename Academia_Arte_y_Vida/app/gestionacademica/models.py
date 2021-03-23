@@ -44,6 +44,7 @@ class Estudiantes(models.Model):
     correo = models.EmailField(blank=False)
     telefono = models.CharField(max_length=12)
     direccion = models.CharField(default="",max_length=60, blank=False)
+    curso_musica = models.CharField(default="",max_length=60, blank=True , null=True)
     # hacer la relacion a user
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     ciudad = models.ForeignKey(
@@ -101,7 +102,7 @@ class Docentes(models.Model):
     correo = models.EmailField(blank=False)
     telefono = models.CharField(max_length=12)
     direccion = models.CharField(default="",max_length=60, blank=False)
-
+    
     # hacer la relacion a user
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     ciudad = models.ForeignKey(
@@ -136,9 +137,21 @@ class InscripcionAsignatura(models.Model):
     Id = models.IntegerField(primary_key=True,null=False, blank=False)
 
     # relaciones
-    nivel_curso = models.ForeignKey(Nivel_asignatura, null=False, blank=False, on_delete=models.CASCADE)
-    Id_inscripcionPrograma = models.ForeignKey(inscripcionPrograma, null=False, blank=False, on_delete=models.CASCADE)
+    periodo = models.ForeignKey(periodo,null=False,blank=False ,on_delete=models.CASCADE)
+    Id_inscripcionPrograma = models.ForeignKey(inscripcionPrograma, null=True, blank=True, on_delete=models.CASCADE)
+    asignatura = models.ForeignKey(Asignaturas,null=True,blank=True,on_delete=models.CASCADE)
+    nivel = models.ForeignKey(Nivel_asignatura, null=False, blank=False, on_delete=models.CASCADE)
 
+
+    
+
+
+class InscripcionEstudianteAsignatura(models.Model):
+
+    fecha_realizacion = models.DateField(default="",null=False,blank=False)
+    nivel_asignatura = models.ForeignKey(Nivel_asignatura, null=False, blank=False, on_delete=models.CASCADE)
+    estudiante = models.ForeignKey(Estudiantes, null=False, blank=False, on_delete=models.CASCADE)
+    inscripcion_estudiante = models.ForeignKey(InscripcionEstudiante,default="", null=True, blank=True, on_delete=models.CASCADE)
 
 #Clase curso##########################################################################################################
 class Cursos(models.Model):
@@ -214,6 +227,7 @@ class usuario(models.Model):
     correo = models.EmailField(blank=False)
     telefono = models.CharField(max_length=12)
     direccion = models.CharField(default="",max_length=60, blank=False)
+    curso_musica = models.CharField(default="",max_length=60, blank=True , null=True)
     nom_programa = models.CharField(default="",max_length=60, blank=False)
     referenciaPago = models.IntegerField(null=True,blank=True)
     # hacer la relacion a user

@@ -49,6 +49,8 @@ urlpatterns = [
     url(r'^registrarInscripcion/$', registrarInscripcion, name="registrarInscripcion"),
     url(r'^primerpago/$', primerpago, name="primerpago"),
     url(r'^estudiantes/$', estudiantes, name="estudiantes"),
+    url(r'^pago_realizado/$', pago_realizado, name="pago_realizado"),
+    url(r'^pago_pendiente/$', pago_pendiente, name="pago_pendiente"),
     ###################### contenido del nav ########################
     url(r'^quienes_somos/$', quienes_somos, name="quienes_somos"),
     url(r'^musica/$', info_musica, name="musica"),
@@ -75,8 +77,8 @@ urlpatterns = [
     url(r'^editarcurso/$', editarcurso, name="editarcurso"),
     #url(r'^pago/$', detalles_pagos, name="pago")
     url(r'^perfil/$', perfil, name="perfil"),
-    url(r'^periodos/$', periodo, name="periodos"), 
-    url(r'^pago_realizado/$', pago_realizado, name="pago_realizado"),
+    url(r'^periodos/$', periodo, name="periodos"),
+    
     url(r'^crearPeriodo$', crearPeriodo, name="crearPeriodo"),
     #Programas
     url(r'^programas/$', programas_Admin, name="programas"),
@@ -86,7 +88,7 @@ urlpatterns = [
     url(r'^aceptarUsuario$', aceptarUsuario, name="aceptarUsuario"),
     url(r'^asignarProgramas$', asignarProgramas, name="asignarProgramas"),
     url(r'^editarEstudiante$', editarEstudiante, name="editarEstudiante"),
-    url(r'^pagos$', pagos, name="pagos"),
+
     url(r'^verificarUser/$', verificarUsername, name="verificarUsername"),
     url(r'^verificarIdentificacion/$', verificarIdentificacion, name="verificarIdentificacion"),
     url(r'^modificarEstudiante$', modalEditarEstudiante, name="modificarEstudiante"),
@@ -97,7 +99,7 @@ urlpatterns = [
     url(r'^board_estudiante/$', board_estudiante, name="board_estudiante"),
     url(r'^programasEstudiante$', programasEstudiante, name="programasEstudiante"),
     url(r'^asignaturasEstudiante$', asignaturasEstudiante, name="asignaturasEstudiante"),
-    url(r'^pagosEstudiante$', pagosEstudiante, name="pagosEstudiante"),
+    url(r'^inscripcionManual/$', inscripcionEstudianteManual, name="inscripcionEstudianteManual"),
 
     # board docente
     url(r'^board_docente/$', board_docente, name="board_docente"),
@@ -112,8 +114,12 @@ urlpatterns = [
     #guardar cursos en programas
     url(r'^guardarCursoPrograma/$', guardarCursoPrograma, name="guardarCursoPrograma"),
     
+    #guardar asignaturas en programas
+    url(r'^asignarAsignaturaProgramas/$', asignarAsignaturasProgramas, name="asignarAsignaturasProgramas"),
 
-    
+
+    url(r'^cargando/$', cargando, name="cargando"),
+    url(r'^editarAsignatura/$', editarAsignatura, name="editarAsignatura"),
 ]
 
 #uploads

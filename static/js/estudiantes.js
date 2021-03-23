@@ -25,7 +25,7 @@ $('.editarBTN').click(function(e){
 $('.eliminarBTN').click(function(e){
   e.preventDefault();
   var estudiante = [];
-  var identificacion = $('.eliminarBTN').attr('id');
+  var identificacion = $(this).attr('id');
   estudiante.push(identificacion);
   console.log(estudiante);
   

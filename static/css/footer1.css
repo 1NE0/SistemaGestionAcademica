@@ -4,6 +4,10 @@
 @import url(//fonts.googleapis.com/css?family=Lato:300:400);
 
 
+footer{
+    background-color: black;
+}
+
 .contenidos{
     display: flex;
     justify-content: center;

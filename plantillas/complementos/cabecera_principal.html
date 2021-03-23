@@ -1,6 +1,5 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/cabecera.css' %}">
-<link rel="stylesheet" href="{% static 'css/botones.css' %}">
 
 <!DOCTYPE html>
 <html lang="en">
@@ -22,110 +21,86 @@
 </head>
 <body>
     <div class="cabecera">
-        <div class="overlay">
+        <div class="izq"></div>
+        <div class="centro">
             <h1>ACADEMIA ARTE Y VIDA</h1>
-            <h3>Reasons for Choosing US</h3>
-            <p>¿Que esperas para unirte a la academia?</h5>
             <p>Ven y Aprende con Nosotros Música, 
                 Artes plásticas, Fotografia, Aerografia, Danzas,
-                Escuela Infantil ¡Perfecciona Tu Talento! <br>
+                Escuela Infantil ¡Perfecciona Tu Talento!</p> <br>
+            <center><a href="{% url 'crearinscripcion' %}"><button class="registrar">¡REGISTRATE YA!</button></a></center>
+            
+        </div>
+        <div class="der"></div>
+
+        
+        
+    </div> 
+    <script src="https://cdn.lordicon.com//libs/frhvbuzj/lord-icon-2.0.2.js"></script>
+        
+    <div class="rol">
+        <h2 class="titulongo">La academia y algunos de sus programas</h2>
+        <div class="container">
+            <a href="{% url 'fotografia' %}">
+                <div class="cardItem">
+                    <lord-icon
+                        src="https://cdn.lordicon.com//vixtkkbk.json"
+                        trigger="hover"
+                        colors="primary:#121331,secondary:#08a88a"
+                        stroke="40"
+                        style="width:100px;height:100px;">
+                    </lord-icon>
                     
-        </div>
-    </div>
+                </div>
+            </a>
+            <a href="{% url 'musica' %}">
+                <div class="cardItem">
+                    <lord-icon
+                        src="https://cdn.lordicon.com//vieswnpa.json"
+                        trigger="hover"
+                        colors="primary:#121331,secondary:#08a88a"
+                        style="width:100px;height:100px">
+                    </lord-icon>
+                </div>
+            </a>
+            <a href="{% url 'aerografia' %}">
+                <div class="cardItem">
+                    <lord-icon
+                        src="https://cdn.lordicon.com//fgkmrslx.json"
+                        trigger="hover"
+                        colors="primary:#121331,secondary:#08a88a"
+                        style="width:100px;height:100px">
+                    </lord-icon>
+                </div>
+            </a>
+            <a href="{% url 'artes_plasticas' %}">
+                <div class="cardItem">
+                    <lord-icon
+                        src="https://cdn.lordicon.com//rwotyanb.json"
+                        trigger="hover"
+                        colors="primary:#121331,secondary:#08a88a"
+                        style="width:100px;height:100px">
+                    </lord-icon>
+                </div>
+            </a>
+    </div>    
 
-    <div class="btn-bg bg-1">
-        <div class="btn btn-1">
-          <a href="{% url 'crearinscripcion' %}"><button href=""> Registrarse</button></a>
-        </div>
-      </div>
+    <div class="contenedor">
 
-    <div class="container">
-        <div class="card">
-            <div class="face face1">
-                <div class="content">
-                    <p><i class="fas fa-music"></i></p>
-                    <h3>Música</h3>
-                </div>
-            </div>
-            <div class="face face2">
-                <div class="content">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cum cumque minus iste veritatis provident at.</p>
-                        <a href="#">Leer más</a>
-                </div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="face face1">
-                <div class="content">
-                    <p><i class="fas fa-microphone"></i></p>
-                    <h3>Danza</h3>
-                </div>
-            </div>
-            <div class="face face2">
-                <div class="content">
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cum cumque minus iste veritatis provident at.</p>
-                    <a href="#">Leer más</a>
-                </div>
+        <div class="seccion">
+                <video class="video" src="/media/video.mp4" height="750" width="750" autoplay muted loop></video>
+
+            <div class="texto">
+                <p>En el corazón de la vida <br>
+                    fuego en tus ojos que no palidece <br>
+                    la música te sonríe <br>
+                    se enamora <br>
+                    te alcanza una bendición <br>
+                    su propia llama... <br>
+                    <strong>(Autora: Gilberta Anatonia Caron)</strong>
+                </p>
             </div>
         </div>
-        <div class="card">
-            <div class="face face1">
-                <div class="content">
-                    <p><i class="fas fa-guitar"></i></p>
-                    <h3>Fotografía</h3>
-                </div>
-            </div>
-            <div class="face face2">
-                <div class="content">
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cum cumque minus iste veritatis provident at.</p>
-                        <a href="#">Read More</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="container" style="padding-top: 20px!important;">
-        <div class="card">
-            <div class="face face1">
-                <div class="content">
-                    <p><i class="fas fa-mortar-pestle"></i></p>
-                    <h3>Artes Plasticas</h3>
-                </div>
-            </div>
-            <div class="face face2">
-                <div class="content">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cum cumque minus iste veritatis provident at.</p>
-                        <a href="#">Leer más</a>
-                </div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="face face1">
-                <div class="content">
-                    <p><i class="fas fa-drum"></i></p>
-                    <h3>Aerografia</h3>
-                </div>
-            </div>
-            <div class="face face2">
-                <div class="content">
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cum cumque minus iste veritatis provident at.</p>
-                    <a href="#">Leer más</a>
-                </div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="face face1">
-                <div class="content">
-                    <p><i class="fas fa-align-justify"></i></p>
-                    <h3>Talleres Infantiles</h3>
-                </div>
-            </div>
-            <div class="face face2">
-                <div class="content">
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cum cumque minus iste veritatis provident at.</p>
-                    <a href="#">Leer más</a>
-                </div>
-            </div>
-        </div>
+        
     </div>
 </body>
 </html>
