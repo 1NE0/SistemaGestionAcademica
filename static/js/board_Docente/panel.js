@@ -1,6 +1,12 @@
 
 $(document).ready(function(){
 
+    $('li a').click(function(){
+        console.log("me dieron click");
+        $('.darkerlishadow').removeClass('darkerlishadow');
+        $(this).parents('li').addClass('darkerlishadow');
+    });
+
     $('#btn1').on('click', function(c){
         c.preventDefault();
         $("#contenedor-central").load('/cargando');

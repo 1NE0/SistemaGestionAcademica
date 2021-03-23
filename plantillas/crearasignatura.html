@@ -52,6 +52,13 @@
             
                                 <label for="start" class="">Horario inicial</label>
                                 <input type="time" class="form-control" id="appt" name="hora_final" min="09:00" max="18:00" required>
+
+                                <select  class="form-control" id="exampleFormControlSelect1" name="docente">
+                                    {% for docente in docentes %}
+                                    <option value="{{docente.identificacion}}">{{ docente.nombres }} </option>
+                                    {% endfor %}
+                                </select>  
+
                                 <button type="submit" class="btn btn-success">Guardarrr</button>  
                             </form>
                             
@@ -64,12 +71,6 @@
                                 <input type="text" name="codigo" placeholder="ingrese el codigo">
                                 <input type="text" name="nombre" placeholder="ingrese el el nombre">
                                 <input type="text" name="descripcion" placeholder="descripcion">
-
-                                <select  class="form-control" id="exampleFormControlSelect1" name="docente">
-                                    {% for docente in docentes %}
-                                    <option value="{{docente.identificacion}}">{{ docente.nombres }} </option>
-                                    {% endfor %}
-                                </select>     
                                 <button type="submit" class="btn btn-success">Guardar</button>     
                             </form>
                     

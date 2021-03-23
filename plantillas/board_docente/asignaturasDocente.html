@@ -1,1 +1,83 @@
-<h1>asignaturas que dicta un docente</h1>
+
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/cursosDocente.css' %}">
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<!-- BS JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+<!-- Have fun using Bootstrap JS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous"/>
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<body>
+
+    <div class="contenedor">
+
+        <!-- cursos -->
+        <div class="wrapper">
+
+            <div class="header">
+              <h1 class="header__title">Asignaturas dictadas por {{docente.nombres}}</h1>
+            </div>
+          
+            <div class="cards">
+                
+                {% for asignatura in asignaturas %}
+                    <div class=" card [ is-collapsed ] ">
+                        <div class="card__inner [ js-expander ]">
+                            <!--  TITULO -->
+                            <span>{{asignatura.cod_asignatura.nom_asig}}</span>
+                            <i class="far fa-folder"></i>
+                        </div>
+                        
+                        <div class="card__expander">
+                            
+                            <div class="contenido-curso">
+                                <div>
+                                    <i class="fas fa-times [ js-collapser ]" style="cursor: pointer; text-align: right;"></i>
+                                </div>
+                                
+                                <h3>Agrega contenido al curso</h3>
+
+                                <form method="post" enctype="multipart/form-data" action="{% url 'asignaturaActividades' %}" id="form">
+                                    {% csrf_token %}
+                                    <input type="text" value="{{asignatura.Id}}" style="display: none;" name="nivel">
+                                    <input type="text" name="titulo" placeholder="titulo">
+                                    <input type="text" name="descripcion" placeholder="descripcion">
+                                    <input type="file" name="documento" id="uploadFile">
+                                    <button type="submit">Upload</button>
+                                </form>
+
+                                <div class="archivos-subidos">
+                                    <h1>actividades del curso:</h1>
+                                    {% for actividad in actividades%}
+                                        {% if actividad.Nivel_asignatura == asignatura %}
+                                            <div class="cuadrito">
+                                                {{actividad.titulo}} - {{actividad.descripcion}}
+                                                <a href="/media/{{actividad.file}}" target="_blank" class="btn btn-success">Descargar</a>
+                                            </div>
+                                        {% endif %}
+                                    {%endfor%}
+                                </div>
+
+
+                            </div>
+
+
+                          </div>
+                    </div>
+                {% endfor %}
+                
+            </div>
+          
+          </div>
+
+    </div>
+
+</body>
+<script src="{% static 'js/board_Docente/cursosDocente.js' %}"></script>
