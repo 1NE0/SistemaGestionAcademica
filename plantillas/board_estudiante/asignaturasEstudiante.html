@@ -11,42 +11,46 @@
             </div>
           
             <div class="cards">
-                
-                {% for inscripcionA in inscripcionesAsignaturas %}
-                    <div class=" card [ is-collapsed ] ">
-                        <div class="card__inner [ js-expander ]">
-                            <!--  TITULO -->
-                            <span>{{inscripcionA.nivel_asignatura.cod_asignatura.nom_asig}} nivel {{inscripcionA.nivel_asignatura.nivel}}</span>
-                            <i class="far fa-folder"></i>
-                        </div>
-                        
-                        <div class="card__expander">
+                {% if inscripcionesAsignaturas != None%}
+                        {% for inscripcionA in inscripcionesAsignaturas %}
+                        <div class=" card [ is-collapsed ] ">
+                            <div class="card__inner [ js-expander ]">
+                                <!--  TITULO -->
+                                <span>{{inscripcionA.nivel_asignatura.cod_asignatura.nom_asig}} nivel {{inscripcionA.nivel_asignatura.nivel}}</span>
+                                <i class="far fa-folder"></i>
+                            </div>
                             
-                            <div class="contenido-curso">
-                                <div>
-                                    <i class="fas fa-times [ js-collapser ]" style="cursor: pointer; text-align: right;"></i>
-                                </div>
+                            <div class="card__expander">
                                 
-                                <h3>Asignaturas</h3>
-                                        <div class="curso">
-                                            <div>
-                                                <h3>actividades:</h3>
-                                                {% for actividad in actividades%}
-                                                    {%if actividad.Nivel_asignatura == inscripcionA.nivel_asignatura%}
-                                                        <p>{{actividad.titulo}}</p>
-                                                        <a href="/media/{{actividad.file}}" target="_blank" class="btn btn-success">Descargar</a>
-                                                    {%endif%}
-                                                {% endfor %}
+                                <div class="contenido-curso">
+                                    <div>
+                                        <i class="fas fa-times [ js-collapser ]" style="cursor: pointer; text-align: right;"></i>
+                                    </div>
+                                    
+                                    <h3>Asignaturas</h3>
+                                            <div class="curso">
+                                                <div>
+                                                    <h3>actividades:</h3>
+                                                    {% for actividad in actividades%}
+                                                        {%if actividad.Nivel_asignatura == inscripcionA.nivel_asignatura%}
+                                                            <p>{{actividad.titulo}}</p>
+                                                            <a href="/media/{{actividad.file}}" target="_blank" class="btn btn-success">Descargar</a>
+                                                        {%endif%}
+                                                    {% endfor %}
+                                                </div>
                                             </div>
-                                        </div>
-                                
+                                    
+
+                                </div>
+
 
                             </div>
-
-
-                          </div>
-                    </div>
-                {% endfor %}
+                        </div>
+                    {% endfor %}
+                {% else %}
+                        <h1>No hay asignaturas matriculadas :(</h1>
+                {% endif%}
+                
                 
             </div>
           

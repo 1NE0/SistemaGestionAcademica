@@ -503,10 +503,7 @@ def crearInscripcion(request):
     programas = []
     for inscripcionP in Inscripcionesprogramas:
         inscripcionesCurso = models.InscripcionCurso.objects.filter(Id_inscripcionPrograma=inscripcionP)
-        if inscripcionesCurso.count() == 0:
-            return HttpResponse("Actualmente la academia no acepta inscripciones nuevas :(")
-        else:
-            programas.append(inscripcionP.programa)
+        programas.append(inscripcionP.programa)
 
     form_est = form_Estudiante_nuevo(request.POST)
     departamentos = models.departamento.objects.all()
@@ -1023,11 +1020,13 @@ def programasEstudiante(request):
 
 def asignaturasEstudiante(request):
     estudiante = models.Estudiantes.objects.get(user=request.user)
-    inscripcionEstudiante = models.InscripcionEstudiante.objects.get(Estudiante=estudiante,periodo=models.periodo.periodo_actual())
-    inscripcionesAsignaturas = models.InscripcionEstudianteAsignatura.objects.filter(inscripcion_estudiante=inscripcionEstudiante)
-    actividades = models.actividades.objects.all()
-
-    return render(request, "board_estudiante/asignaturasEstudiante.html" , {'inscripcionEstudiante' : inscripcionEstudiante , 'inscripcionesAsignaturas' : inscripcionesAsignaturas, 'actividades' : actividades, 'estudiante' : estudiante})
+    try:
+        inscripcionEstudiante = models.InscripcionEstudiante.objects.get(Estudiante=estudiante,periodo=models.periodo.periodo_actual())
+        inscripcionesAsignaturas = models.InscripcionEstudianteAsignatura.objects.filter(inscripcion_estudiante=inscripcionEstudiante)
+        actividades = models.actividades.objects.all()
+        return render(request, "board_estudiante/asignaturasEstudiante.html" , {'inscripcionEstudiante' : inscripcionEstudiante , 'inscripcionesAsignaturas' : inscripcionesAsignaturas, 'actividades' : actividades, 'estudiante' : estudiante})
+    except models.InscripcionEstudiante.DoesNotExist:
+        return render(request, "board_estudiante/asignaturasEstudiante.html" , {'inscripcionEstudiante' : None , 'inscripcionesAsignaturas' : None, 'actividades' : None, 'estudiante' : estudiante})
 
 def inscripcionEstudianteManual(request):
     estudiante= models.Estudiantes.objects.get(user=request.user)
