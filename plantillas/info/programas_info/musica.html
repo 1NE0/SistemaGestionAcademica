@@ -9,6 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- estilos -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/elements_nav/musica.css' %}" />
     <title>Música</title>
     {% endblock %}
@@ -57,67 +58,41 @@
             <br><br><br>
 
             <div class="instrumentos">
+                <h2 class="title_inst">INSTRUMENTOS</h2>
                 <!------------------------------------------->
-                <ul class="ch-grid">
-                    <li>
-                        <div class="ch-item ch-img-1">
-                            <div class="ch-info">
-                                <h3>PIANO</h3>
-                                <p>by Angela Duncan View on Dribbble</p>
-                            </div>
+                      <div class="row mt-1">
+                        <div class="col">
+                          <div class="card-container" id="demo">
+                            <div class="cardww" tabindex="0"><h2>Piano</h2><img src="https://cdn.pixabay.com/photo/2015/03/26/10/38/piano-691716_960_720.jpg" width="100%"></div>
+                            <div class="cardww" tabindex="0"><h2>Canto</h2><img src="https://cdn.pixabay.com/photo/2017/08/06/16/25/dark-2593881_960_720.jpg" width="100%"></div>
+                            <div class="cardww" tabindex="0"><h2>Bajo Eléctrico</h2><img src="https://cdn.pixabay.com/photo/2015/05/26/19/29/musician-785209_960_720.jpg" width="100%"></div>
+                            <div class="cardww" tabindex="0"><h2>Guitarra</h2><img src="https://cdn.pixabay.com/photo/2016/11/18/15/44/audience-1835431_960_720.jpg" width="100%"></div>
+                            <div class="cardww" tabindex="0"><h2>Batería</h2><img src="https://cdn.pixabay.com/photo/2016/11/19/13/57/drum-set-1839383_960_720.jpg" width="100%"></div>
+                            <div class="cardww" tabindex="0"><h2>Saxofón</h2><img src="https://cdn.pixabay.com/photo/2018/03/06/06/58/performance-3202707_960_720.jpg" width="100%"></div>
+                          </div>
                         </div>
-                    </li>
-                    <li>
-                        <div class="ch-item ch-img-2">
-                            <div class="ch-info">
-                                <h3>BATERIA</h3>
-                                <p>by Antonio F. Mondragon</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="ch-item ch-img-3">
-                            <div class="ch-info">
-                                <h3>CANTO</h3>
-                                <p>by Charlie Wagers</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="ch-item ch-img-3">
-                            <div class="ch-info">
-                                <h3>BAJO ELECTRICO</h3>
-                                <p>by Charlie Wagers</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="ch-item ch-img-2">
-                            <div class="ch-info">
-                                <h3>GUITARRA</h3>
-                                <p>by Antonio F. Mondragon</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="ch-item ch-img-1">
-                            <div class="ch-info">
-                                <h3>SAXOFÓN</h3>
-                                <p>by Angela Duncan View on Dribbble</p>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
+                      </div> 
                 <!------------------------------------------->
             </div>
         </div>
         
         <div class="derecha">
-            <h2>imagenes o videos</h2>
-            
+            <div class="card" style="width: 30rem; height: 10rem;">
+                <img src="https://scontent-bog1-1.xx.fbcdn.net/v/t1.0-9/147973210_3610927435629453_3533546544221873785_o.jpg?_nc_cat=104&ccb=1-3&_nc_sid=973b4a&_nc_ohc=GIP_WcPe6aQAX9kVO6T&_nc_ht=scontent-bog1-1.xx&oh=07781608c5c9245064b537bf97fbf8f7&oe=607EDF85" class="card-img-top" alt="...">
+              </div>
+              <br><br><br><br><br><br><br><br><br><br>
+              <div class="card" style="width: 30rem; height: 10rem;">
+                <img src="https://scontent-bog1-1.xx.fbcdn.net/v/t1.0-9/103966348_2926858364036367_2024963329513079605_o.jpg?_nc_cat=100&ccb=1-3&_nc_sid=973b4a&_nc_ohc=JScynae-uT4AX_W08G-&_nc_ht=scontent-bog1-1.xx&oh=2b1b6dcdbf6a0329fd56d208cb77a82d&oe=607F37F8" class="card-img-top" alt="...">
+              </div>
+              <br><br><br><br><br><br><br><br><br><br>
+              <div class="card" style="width: 30rem; height: 15rem;">
+                <img src="https://scontent-bog1-1.xx.fbcdn.net/v/t1.0-9/84342196_2647375271984679_56041424767942656_o.jpg?_nc_cat=111&ccb=1-3&_nc_sid=973b4a&_nc_ohc=cjpDGUJLCoQAX9bWPt0&_nc_ht=scontent-bog1-1.xx&oh=13778ef32a1e87c11ce0bed7f2157e00&oe=60814946" class="card-img-top" alt="...">
+              </div>        
         </div>
-
+        
     </div>
+    <center><a href="{% url 'crearinscripcion' %}"><button class="btn-hover color-3">¡REGISTRATE!</button></a></center>
+    <br>
     {% endblock %}
 </body>
 
