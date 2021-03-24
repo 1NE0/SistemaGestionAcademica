@@ -179,7 +179,7 @@ class Nivel_Cursos(models.Model):
     #relaciones
 
     inscripcion_curso = models.ForeignKey(InscripcionCurso,default="999", null=False, blank=False, on_delete=models.CASCADE)
-
+    periodo = models.ForeignKey(periodo,default="999", null=False, blank=False, on_delete=models.CASCADE)
     def _str_(self):
         return "({1})({2})".format(self.Curso, self.nivel)
 

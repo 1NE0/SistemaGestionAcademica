@@ -366,7 +366,7 @@ def CrearCurso(request):
         inscripcionCurso = models.InscripcionCurso(Id=random.randrange(0,1000000),curso = curso)
 
         # crear un nivel del curso
-        nivelCurso = models.Nivel_Cursos(Id=random.randrange(0,1000000),nivel=nivel,descripcion=descripcion,inscripcion_curso=inscripcionCurso)
+        nivelCurso = models.Nivel_Cursos(Id=random.randrange(0,1000000),nivel=nivel,descripcion=descripcion,inscripcion_curso=inscripcionCurso,periodo=models.periodo.periodo_actual())
         
         #crear un detalle
         detalleCurso = models.detalle_curso(grupo=grupo,dia=dia,horaInicio=hora_inicial,horaFinal=hora_final,Nivel_Curso=nivelCurso,Docente=docente,periodo=models.periodo.periodo_actual(),InscripcionCurso=inscripcionCurso)
@@ -504,7 +504,7 @@ def crearInscripcion(request):
     for inscripcionP in Inscripcionesprogramas:
         inscripcionesCurso = models.InscripcionCurso.objects.filter(Id_inscripcionPrograma=inscripcionP)
         if inscripcionesCurso.count() == 0:
-            print("no hay ningun programa con cursos inscritos")
+            return HttpResponse("Actualmente la academia no acepta inscripciones nuevas :(")
         else:
             programas.append(inscripcionP.programa)
 
@@ -817,8 +817,9 @@ def crearPeriodo (request):
             return JsonResponse(context)   # AQUI LO RETORNO, (ESTO ES LO QUE VA A ATRAPAR EL AJAX) NOTA: EN AJAX DEBE ESTAR ESPECIFICADO (dataType: "json")
         else:
             # si no se encuentra registrado
-            periodo = models.periodo(Fecha_inicio=Fecha_ini,Fecha_final=Fecha_fin)
+            periodo = models.periodo(codigo=codigo,Fecha_inicio=Fecha_ini,Fecha_final=Fecha_fin)
             periodo.save()
+            print("me guarde")
             periodoAmandar = models.periodo.objects.get(Fecha_inicio=Fecha_ini,Fecha_final=Fecha_fin)
             context = {'registrado' : 'true', 'fecha_inicio' : periodoAmandar.Fecha_inicio,'fecha_final' : periodoAmandar.Fecha_final}
             
@@ -1011,7 +1012,8 @@ def programasEstudiante(request):
     inscripcionesCurso = models.inscripcionEstudianteCurso.objects.filter(estudiante=estudiante)
     
         
-
+    if inscripcionesEstudiante.count() == 0:
+        print("me la pela")
 
     
     #cursos a los que esta matriculado
@@ -1028,7 +1030,22 @@ def asignaturasEstudiante(request):
     return render(request, "board_estudiante/asignaturasEstudiante.html" , {'inscripcionEstudiante' : inscripcionEstudiante , 'inscripcionesAsignaturas' : inscripcionesAsignaturas, 'actividades' : actividades, 'estudiante' : estudiante})
 
 def inscripcionEstudianteManual(request):
-    return render(request, "board_estudiante/inscripcion_estudiante.html")
+    estudiante= models.Estudiantes.objects.get(user=request.user)
+    inscripcionesCursoEstudent = models.inscripcionEstudianteCurso.objects.filter(estudiante=estudiante)
+    nivel_maximo = 1
+    for inscripcionC in inscripcionesCursoEstudent:
+        if inscripcionC.detalle_curso.Nivel_Curso.nivel >= nivel_maximo:
+            nivel_maximo = inscripcionC.detalle_curso.Nivel_Curso.nivel
+
+    detalles_curso = models.detalle_curso.objects.filter(periodo=models.periodo.periodo_actual())
+
+    detallesMostrar = []
+    for detalle in detalles_curso:
+        if detalle.Nivel_Curso.nivel == nivel_maximo:
+            detallesMostrar.append(detalle)
+    
+
+    return render(request, "board_estudiante/inscripcion_estudiante.html" , {'cursosDisponibles' : detallesMostrar})
 
 
 
@@ -1195,21 +1212,36 @@ def editarcurso(request):
         docente = models.Docentes.objects.get(identificacion=docenteIdSelect)
 
         inscripcionCurso = models.InscripcionCurso.objects.get(Id=codigo)
-
+        
         # verificacion
         try:
-            nivel = models.Nivel_Cursos.objects.get(inscripcion_curso=inscripcionCurso,nivel=nivel)
+            
+            nivel = models.Nivel_Cursos.objects.get(inscripcion_curso=inscripcionCurso,nivel=nivel,periodo=models.periodo.periodo_actual())
             return HttpResponse("nivelRepetido")
         except models.Nivel_Cursos.DoesNotExist:
 
-            # crear un nivel del curso
-            nivelCurso = models.Nivel_Cursos(Id=random.randrange(0,1000000),nivel=nivel,descripcion=descripcion,inscripcion_curso=inscripcionCurso)
-            detalle = models.detalle_curso(grupo=grupo,dia=dia,horaInicio=hora_inicial,horaFinal=hora_final,Docente=docente,periodo=models.periodo.periodo_actual(),Nivel_Curso=nivelCurso,InscripcionCurso=inscripcionCurso)
-            
-            #guardar todo
-            nivelCurso.save()
-            detalle.save()
-            return HttpResponse("correcto")
+            if inscripcionCurso.Id_inscripcionPrograma.periodo != models.periodo.periodo_actual():
+                # si la inscripcion del curso es vieja, se crea una nueva
+                inscripcionN = models.InscripcionCurso(Id=random.randrange(0,1000000),curso=inscripcionCurso.curso)
+                inscripcionN.save()
+                # crear un nivel del curso
+                nivelCurso = models.Nivel_Cursos(Id=random.randrange(0,1000000),nivel=nivel,descripcion=descripcion,inscripcion_curso=inscripcionN,periodo=models.periodo.periodo_actual())
+                detalle = models.detalle_curso(grupo=grupo,dia=dia,horaInicio=hora_inicial,horaFinal=hora_final,Docente=docente,periodo=models.periodo.periodo_actual(),Nivel_Curso=nivelCurso,InscripcionCurso=inscripcionN)
+                
+                #guardar todo
+                nivelCurso.save()
+                detalle.save()
+                return HttpResponse("correcto")
+            else:
+
+                # crear un nivel del curso
+                nivelCurso = models.Nivel_Cursos(Id=random.randrange(0,1000000),nivel=nivel,descripcion=descripcion,inscripcion_curso=inscripcionCurso,periodo=models.periodo.periodo_actual())
+                detalle = models.detalle_curso(grupo=grupo,dia=dia,horaInicio=hora_inicial,horaFinal=hora_final,Docente=docente,periodo=models.periodo.periodo_actual(),Nivel_Curso=nivelCurso,InscripcionCurso=inscripcionCurso)
+                
+                #guardar todo
+                nivelCurso.save()
+                detalle.save()
+                return HttpResponse("correcto")
 
     return HttpResponse("incorrecto")
 
