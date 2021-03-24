@@ -140,7 +140,6 @@ $(document).ready(function(){
                     codigo: data[1].value,
                     nombre: data[2].value,
                     descripcion: data[3].value,
-                    docente: data[4].value,
                 },
                 dataType: "html",
 
@@ -182,6 +181,7 @@ $(document).ready(function(){
                     dia: data[4].value,
                     hora_inicial: data[5].value,
                     hora_final: data[6].value,
+                    docente: data[7].value,
                 },
                 dataType: "html",
 

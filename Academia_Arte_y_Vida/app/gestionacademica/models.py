@@ -115,8 +115,6 @@ class Asignaturas(models.Model):
         primary_key=True, max_length=10, null=False, blank=False)
     nom_asig = models.CharField(max_length=30)
     descripcion = models.CharField(max_length=500)
-    Docente = models.ForeignKey(
-        Docentes, null=False, blank=False, on_delete=models.CASCADE)
 
     def _str_(self):
         return "({0}) {1}".format(self.cod_asig, self.nom_asig)
@@ -132,6 +130,8 @@ class Nivel_asignatura(models.Model):
     #relaciones
     cod_asignatura = models.ForeignKey(
         Asignaturas, null=False, blank=False, on_delete=models.CASCADE)
+    docente = models.ForeignKey(
+        Docentes, null=False, blank=False, on_delete=models.CASCADE)
 
 class InscripcionAsignatura(models.Model):
     Id = models.IntegerField(primary_key=True,null=False, blank=False)
@@ -170,6 +170,7 @@ class InscripcionCurso(models.Model):
     # relaciones
     Id_inscripcionPrograma = models.ForeignKey(inscripcionPrograma, null=True, blank=True, on_delete=models.CASCADE)
     curso = models.ForeignKey(Cursos, null=False, blank=False, on_delete=models.CASCADE)
+    periodo = models.ForeignKey(periodo, null=False, blank=False, on_delete=models.CASCADE)
 
 class Nivel_Cursos(models.Model):
     Id = models.IntegerField(primary_key=True)
@@ -179,7 +180,7 @@ class Nivel_Cursos(models.Model):
     #relaciones
 
     inscripcion_curso = models.ForeignKey(InscripcionCurso,default="999", null=False, blank=False, on_delete=models.CASCADE)
-
+    periodo = models.ForeignKey(periodo,default="999", null=False, blank=False, on_delete=models.CASCADE)
     def _str_(self):
         return "({1})({2})".format(self.Curso, self.nivel)
 
@@ -267,8 +268,8 @@ class actividades(models.Model):
     #relaciones
     Detalle_curso = models.ForeignKey(
         detalle_curso, null=True, blank=True, on_delete=models.CASCADE)
-    Nivel_curso = models.ForeignKey(
-        Nivel_Cursos, null=True, blank=True, on_delete=models.CASCADE)
+    Nivel_asignatura = models.ForeignKey(
+        Nivel_asignatura, null=True, blank=True, on_delete=models.CASCADE)
 
 
 

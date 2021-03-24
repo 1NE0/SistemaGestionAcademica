@@ -91,6 +91,8 @@ $(document).ready(function(){
                   swal("Ha ocurrido un error :(" , "El programa al que se quiere registrar el estudiante, no está disponible en este periodo" , "error");
                 }else if(response == "Username ya usado"){
                   swal("Ha ocurrido un error :(" , "El username ya se encuentra ocupado, por favor utilice otro" , "error");
+                }else if(response == "me la pelas"){
+                  swal("Ha ocurrido un error :(" , "No se seleccionó un programita" , "error");
                 }else{
                   swal("¡se realizó con exito la acción!", {
                     icon: "success",

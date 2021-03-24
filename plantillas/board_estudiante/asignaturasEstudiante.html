@@ -11,48 +11,45 @@
             </div>
           
             <div class="cards">
-                
-                
-                    <div class=" card [ is-collapsed ] ">
-                        <div class="card__inner [ js-expander ]">
-                            <!--  TITULO -->
-                            <span>{{inscripcionEstudiante.cod_inscripcionPrograma.programa.nom_programa}}</span>
-                            <i class="far fa-folder"></i>
-                        </div>
-                        
-                        <div class="card__expander">
+                {% if inscripcionesAsignaturas != None%}
+                        {% for inscripcionA in inscripcionesAsignaturas %}
+                        <div class=" card [ is-collapsed ] ">
+                            <div class="card__inner [ js-expander ]">
+                                <!--  TITULO -->
+                                <span>{{inscripcionA.nivel_asignatura.cod_asignatura.nom_asig}} nivel {{inscripcionA.nivel_asignatura.nivel}}</span>
+                                <i class="far fa-folder"></i>
+                            </div>
                             
-                            <div class="contenido-curso">
-                                <div>
-                                    <i class="fas fa-times [ js-collapser ]" style="cursor: pointer; text-align: right;"></i>
-                                </div>
+                            <div class="card__expander">
                                 
-                                <h3>Asignaturas</h3>
-
-                                {% for inscripcionA in inscripcionesAsignaturas %}
+                                <div class="contenido-curso">
+                                    <div>
+                                        <i class="fas fa-times [ js-collapser ]" style="cursor: pointer; text-align: right;"></i>
+                                    </div>
                                     
-                                        
-                                        <div class="curso">
-                                            <div>
-                                                <h2>{{inscripcionA.nivel_asignatura.cod_asignatura.nom_asig}} nivel {{inscripcionA.nivel_asignatura.nivel}}</h2>
-                                                <h2>{{inscripcionCursoEstudiante.detalle_curso.grupo}}</h2>
-
-                                                <h3>actividades:</h3>
-                                                {% for actividad in actividades%}
-                                                    {%if actividad.Detalle_curso == inscripcionCursoEstudiante.detalle_curso%}
-                                                        <p>{{actividad.titulo}}</p>
-                                                        <a href="/media/{{actividad.file}}" target="_blank" class="btn btn-success">Descargar</a>
-                                                    {%endif%}
-                                                {% endfor %}
+                                    <h3>Asignaturas</h3>
+                                            <div class="curso">
+                                                <div>
+                                                    <h3>actividades:</h3>
+                                                    {% for actividad in actividades%}
+                                                        {%if actividad.Nivel_asignatura == inscripcionA.nivel_asignatura%}
+                                                            <p>{{actividad.titulo}}</p>
+                                                            <a href="/media/{{actividad.file}}" target="_blank" class="btn btn-success">Descargar</a>
+                                                        {%endif%}
+                                                    {% endfor %}
+                                                </div>
                                             </div>
-                                        </div>
-                                {% endfor %}
+                                    
+
+                                </div>
+
 
                             </div>
-
-
-                          </div>
-                    </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                        <h1>No hay asignaturas matriculadas :(</h1>
+                {% endif%}
                 
                 
             </div>

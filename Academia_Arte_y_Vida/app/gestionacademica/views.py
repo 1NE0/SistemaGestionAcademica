@@ -333,10 +333,8 @@ def crudAsignatura(request):
         print(request.POST.get('codigo'))
         print(request.POST.get('nombre'))
         print(request.POST.get('descripcion'))
-        print(request.POST.get('docente'))
         # buscar el docente
-        docenteObj = models.Docentes.objects.get(identificacion=docente)  
-        asignatura = models.Asignaturas(cod_asig=codigo , nom_asig = nombre , descripcion=descripcion , Docente=docenteObj)
+        asignatura = models.Asignaturas(cod_asig=codigo , nom_asig = nombre , descripcion=descripcion)
         
         asignatura.save()
         
@@ -347,7 +345,7 @@ def crudAsignatura(request):
 
 def CrearCurso(request):
     docentes = models.Docentes.objects.all()
-    detalles = models.InscripcionCurso.objects.filter()
+    detalles = models.Cursos.objects.all()
 
 
     if request.method == "POST" and request.is_ajax:
@@ -368,7 +366,7 @@ def CrearCurso(request):
         inscripcionCurso = models.InscripcionCurso(Id=random.randrange(0,1000000),curso = curso)
 
         # crear un nivel del curso
-        nivelCurso = models.Nivel_Cursos(Id=random.randrange(0,1000000),nivel=nivel,descripcion=descripcion,inscripcion_curso=inscripcionCurso)
+        nivelCurso = models.Nivel_Cursos(Id=random.randrange(0,1000000),nivel=nivel,descripcion=descripcion,inscripcion_curso=inscripcionCurso,periodo=models.periodo.periodo_actual())
         
         #crear un detalle
         detalleCurso = models.detalle_curso(grupo=grupo,dia=dia,horaInicio=hora_inicial,horaFinal=hora_final,Nivel_Curso=nivelCurso,Docente=docente,periodo=models.periodo.periodo_actual(),InscripcionCurso=inscripcionCurso)
@@ -505,10 +503,7 @@ def crearInscripcion(request):
     programas = []
     for inscripcionP in Inscripcionesprogramas:
         inscripcionesCurso = models.InscripcionCurso.objects.filter(Id_inscripcionPrograma=inscripcionP)
-        if inscripcionesCurso.count() == 0:
-            print("no hay ningun programa con cursos inscritos")
-        else:
-            programas.append(inscripcionP.programa)
+        programas.append(inscripcionP.programa)
 
     form_est = form_Estudiante_nuevo(request.POST)
     departamentos = models.departamento.objects.all()
@@ -776,7 +771,8 @@ def pago_realizado(request):
         #guardar inscripciones
         for inscripcionC in inscripcionesCurso:
             try:
-                detalleAguardar = models.detalle_curso.objects.get(InscripcionCurso=inscripcionC)
+                detalles = models.detalle_curso.objects.filter(InscripcionCurso=inscripcionC,Nivel_Curso=nivelC)
+                detalleAguardar = detalles[0]
                 #si encuentra detalles en esta inscripcion, lo inscribe a estos detalles
                 inscripcionEstudianteAlCurso = models.inscripcionEstudianteCurso(detalle_curso=detalleAguardar,estudiante=estudiante,inscripcion_programa_estudiante=inscripcion)
                 inscripcionEstudianteAlCurso.save()
@@ -819,8 +815,9 @@ def crearPeriodo (request):
             return JsonResponse(context)   # AQUI LO RETORNO, (ESTO ES LO QUE VA A ATRAPAR EL AJAX) NOTA: EN AJAX DEBE ESTAR ESPECIFICADO (dataType: "json")
         else:
             # si no se encuentra registrado
-            periodo = models.periodo(Fecha_inicio=Fecha_ini,Fecha_final=Fecha_fin)
+            periodo = models.periodo(codigo=codigo,Fecha_inicio=Fecha_ini,Fecha_final=Fecha_fin)
             periodo.save()
+            print("me guarde")
             periodoAmandar = models.periodo.objects.get(Fecha_inicio=Fecha_ini,Fecha_final=Fecha_fin)
             context = {'registrado' : 'true', 'fecha_inicio' : periodoAmandar.Fecha_inicio,'fecha_final' : periodoAmandar.Fecha_final}
             
@@ -947,7 +944,8 @@ def aceptarUsuario(request):
                             
                             if nivelC.nivel == 1:
                                 print("soy nivel igual a 1")
-                                detalleAguardar = models.detalle_curso.objects.get(InscripcionCurso=inscripcionC,Nivel_Curso=nivelC)
+                                detalles = models.detalle_curso.objects.filter(InscripcionCurso=inscripcionC,Nivel_Curso=nivelC)
+                                detalleAguardar = detalles[0]
                                 #si encuentra detalles en esta inscripcion, lo inscribe a estos detalles
                                 
                                 inscripcionEstudianteAlCurso = models.inscripcionEstudianteCurso(detalle_curso=detalleAguardar,estudiante=estudiante,inscripcion_programa_estudiante=inscripcion)
@@ -1013,7 +1011,8 @@ def programasEstudiante(request):
     inscripcionesCurso = models.inscripcionEstudianteCurso.objects.filter(estudiante=estudiante)
     
         
-
+    if inscripcionesEstudiante.count() == 0:
+        print("me la pela")
 
     
     #cursos a los que esta matriculado
@@ -1023,14 +1022,37 @@ def programasEstudiante(request):
 
 def asignaturasEstudiante(request):
     estudiante = models.Estudiantes.objects.get(user=request.user)
-
-    inscripcionEstudiante = models.InscripcionEstudiante.objects.get(Estudiante=estudiante,periodo=models.periodo.periodo_actual())
-
-    inscripcionesAsignaturas = models.InscripcionEstudianteAsignatura.objects.filter(inscripcion_estudiante=inscripcionEstudiante)
-    return render(request, "board_estudiante/asignaturasEstudiante.html" , {'inscripcionEstudiante' : inscripcionEstudiante , 'inscripcionesAsignaturas' : inscripcionesAsignaturas , 'estudiante' : estudiante})
+    try:
+        inscripcionEstudiante = models.InscripcionEstudiante.objects.get(Estudiante=estudiante,periodo=models.periodo.periodo_actual())
+        inscripcionesAsignaturas = models.InscripcionEstudianteAsignatura.objects.filter(inscripcion_estudiante=inscripcionEstudiante)
+        actividades = models.actividades.objects.all()
+        return render(request, "board_estudiante/asignaturasEstudiante.html" , {'inscripcionEstudiante' : inscripcionEstudiante , 'inscripcionesAsignaturas' : inscripcionesAsignaturas, 'actividades' : actividades, 'estudiante' : estudiante})
+    except models.InscripcionEstudiante.DoesNotExist:
+        return render(request, "board_estudiante/asignaturasEstudiante.html" , {'inscripcionEstudiante' : None , 'inscripcionesAsignaturas' : None, 'actividades' : None, 'estudiante' : estudiante})
 
 def inscripcionEstudianteManual(request):
-    return render(request, "board_estudiante/inscripcion_estudiante.html")
+    estudiante= models.Estudiantes.objects.get(user=request.user)
+    inscripcionesCursoEstudent = models.inscripcionEstudianteCurso.objects.filter(estudiante=estudiante)
+    nivel_maximo = 1
+    for inscripcionC in inscripcionesCursoEstudent:
+        if inscripcionC.detalle_curso.Nivel_Curso.nivel > nivel_maximo:
+            nivel_maximo = inscripcionC.detalle_curso.Nivel_Curso.nivel
+
+    detalles_curso = models.detalle_curso.objects.filter(periodo=models.periodo.periodo_actual())
+
+    detallesMostrar = []
+    if estudiante.curso_musica != None:
+        for detalle in detalles_curso:
+            if detalle.Nivel_Curso.nivel > nivel_maximo and detalle.InscripcionCurso.curso.nom_curso == estudiante.curso_musica and detalle.Nivel_Curso.nivel < nivel_maximo+2:
+                detallesMostrar.append(detalle)
+    else:
+        for detalle in detalles_curso:
+            print(detalle.Nivel_Curso.nivel)
+            if detalle.Nivel_Curso.nivel > nivel_maximo and detalle.Nivel_Curso.nivel < nivel_maximo+2:
+                detallesMostrar.append(detalle)
+    
+
+    return render(request, "board_estudiante/inscripcion_estudiante.html" , {'cursosDisponibles' : detallesMostrar})
 
 
 
@@ -1058,10 +1080,30 @@ def cursosDocente(request):
 
 
 def asignaturasDocente(request):
-    return render(request, "board_docente/asignaturasDocente.html")
+    Docente = models.Docentes.objects.get(user=request.user)
+    actividadesDelDocente = models.actividades.objects.all()
+    asignaturasNDelDocente = models.Nivel_asignatura.objects.filter(docente=Docente)
+
+    return render(request, "board_docente/asignaturasDocente.html" , {'actividades' : actividadesDelDocente , 'asignaturas' : asignaturasNDelDocente, 'docente' : Docente})
 
     
+def asignaturaActividades(request):
+    user = models.User.objects.get(id=request.user.id)
+    docente = models.Docentes.objects.get(user=user)
+    actividades = models.actividades.objects.all()
 
+    if request.method == 'POST':
+        nivel_id = request.POST['nivel']
+        print(nivel_id)
+        nivelObj = models.Nivel_asignatura.objects.get(Id=nivel_id)
+        archivo = request.FILES['documento']
+        titulo = request.POST['titulo']
+        descripcion = request.POST['descripcion']
+        actividad = models.actividades(file=archivo,titulo=titulo,descripcion=descripcion,Nivel_asignatura=nivelObj)
+        actividad.save()
+
+
+        return HttpResponse("correcto")
 
 @csrf_exempt
 def verificarUsername(request):
@@ -1175,23 +1217,30 @@ def editarcurso(request):
         hora_final = request.POST.get('hora_final')
 
         docente = models.Docentes.objects.get(identificacion=docenteIdSelect)
-
-        inscripcionCurso = models.InscripcionCurso.objects.get(Id=codigo)
-
-        # verificacion
+        curso= models.Cursos.objects.get(cod_curso=codigo)
+        #verificar si ya hay una inscripcion para este periodo 
         try:
-            nivel = models.Nivel_Cursos.objects.get(inscripcion_curso=inscripcionCurso,nivel=nivel)
-            return HttpResponse("nivelRepetido")
-        except models.Nivel_Cursos.DoesNotExist:
-
-            # crear un nivel del curso
-            nivelCurso = models.Nivel_Cursos(Id=random.randrange(0,1000000),nivel=nivel,descripcion=descripcion,inscripcion_curso=inscripcionCurso)
-            detalle = models.detalle_curso(grupo=grupo,dia=dia,horaInicio=hora_inicial,horaFinal=hora_final,Docente=docente,periodo=models.periodo.periodo_actual(),Nivel_Curso=nivelCurso,InscripcionCurso=inscripcionCurso)
-            
-            #guardar todo
-            nivelCurso.save()
+            inscripcionReciente = models.InscripcionCurso.objects.get(curso=curso,periodo=models.periodo.periodo_actual())
+            #si si hay una inscripcion reciente
+            niveles = models.Nivel_Cursos.objects.filter(nivel=nivel,inscripcion_curso=inscripcionReciente)
+            if niveles.count() == 0:
+                #sino hay niveles quiere decir que lo puede matricular
+                nivelC = models.Nivel_Cursos(Id=random.randrange(0,1000000),nivel=nivel,descripcion=descripcion,periodo=models.periodo.periodo_actual(),inscripcion_curso=inscripcionReciente)
+                detalle = models.detalle_curso(grupo=grupo,dia=dia,horaInicio=hora_inicial,horaFinal=hora_final,Docente=docente,periodo=models.periodo.periodo_actual(),Nivel_Curso=nivelC,InscripcionCurso=inscripcionReciente)
+                nivelC.save()
+                detalle.save()
+                return HttpResponse("correcto")
+            else:
+                return HttpResponse("nivelRepetido")
+        except models.InscripcionCurso.DoesNotExist:
+            inscripcionNueva = models.InscripcionCurso(Id=random.randrange(0,1000000),curso=curso,periodo=models.periodo.periodo_actual())
+            nivelC = models.Nivel_Cursos(Id=random.randrange(0,1000000),nivel=nivel,descripcion=descripcion,periodo=models.periodo.periodo_actual(),inscripcion_curso=inscripcionNueva)
+            detalle = models.detalle_curso(grupo=grupo,dia=dia,horaInicio=hora_inicial,horaFinal=hora_final,Docente=docente,periodo=models.periodo.periodo_actual(),Nivel_Curso=nivelC,InscripcionCurso=inscripcionNueva)
+            inscripcionNueva.save()
+            nivelC.save()
             detalle.save()
             return HttpResponse("correcto")
+        
 
     return HttpResponse("incorrecto")
 
@@ -1210,6 +1259,7 @@ def editarAsignatura(request):
     Dia = request.POST['dia']
     hora_inicial = request.POST['hora_inicial']
     hora_final = request.POST['hora_final']
+    docente = request.POST['docente']
 
     print("ESTOY EN EDITARRRRRRR")
     asignatura = models.Asignaturas.objects.get(cod_asig=cod_asignatura)
@@ -1220,13 +1270,15 @@ def editarAsignatura(request):
         if inscripcionA.nivel == nivel:
             return HttpResponse("nivelRepetido")
         else:
-            nivel = models.Nivel_asignatura(Id=random.randrange(0,1000000),nivel=nivel,descripcion=descripcion,dia=Dia,horaInicio=hora_inicial,horaFinal=hora_final,cod_asignatura=asignatura)
+            docenteObj = models.Docentes.objects.get(identificacion=docente)
+            nivel = models.Nivel_asignatura(Id=random.randrange(0,1000000),nivel=nivel,descripcion=descripcion,dia=Dia,horaInicio=hora_inicial,horaFinal=hora_final,cod_asignatura=asignatura,docente=docenteObj)
             inscripcionNueva = models.InscripcionAsignatura(Id=random.randrange(0,1000000),periodo=models.periodo.periodo_actual(),asignatura=asignatura,nivel=nivel)
             nivel.save()
             inscripcionNueva.save()
         return HttpResponse("correcto")
     except models.InscripcionAsignatura.DoesNotExist:
-        nivel = models.Nivel_asignatura(Id=random.randrange(0,1000000),nivel=nivel,descripcion=descripcion,dia=Dia,horaInicio=hora_inicial,horaFinal=hora_final,cod_asignatura=asignatura)
+        docenteObj = models.Docentes.objects.get(identificacion=docente)
+        nivel = models.Nivel_asignatura(Id=random.randrange(0,1000000),nivel=nivel,descripcion=descripcion,dia=Dia,horaInicio=hora_inicial,horaFinal=hora_final,cod_asignatura=asignatura,docente=docenteObj)
         inscripcionA = models.InscripcionAsignatura(Id=random.randrange(0,1000000),periodo=models.periodo.periodo_actual(),asignatura=asignatura,nivel=nivel)
 
         nivel.save()
