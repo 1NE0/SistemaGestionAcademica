@@ -22,6 +22,22 @@
     <button class="boton btn btn-success">probar</button>
 </div>
 
+<div class="asignaturas">
+    <h2 class="titulo">Asignaturas disponibles para matricular</h2>
+    <div class="cursos-disponibles">
+       
+        {% for asig in asignaturasDisponibles%}
+            
+                <input type="checkbox" id="something" class="check" id="{{asig.Id}}"/>
+                <label for="something" class="check-box" ></label>
+                <span style="margin-left: 5px;">{{asig.cod_asignatura.nom_asig}} nivel {{asig.nivel}}</span>
+
+        {% endfor %}
+        
+    </div>
+    <button class="boton btn btn-success">probar</button>
+</div>
+
 <script src="{% static 'js/board_Estudiante/inscripcion_estudiante.js' %}"></script>
 
   

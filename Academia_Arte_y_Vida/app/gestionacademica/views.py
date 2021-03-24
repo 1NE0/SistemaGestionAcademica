@@ -1033,13 +1033,31 @@ def asignaturasEstudiante(request):
 def inscripcionEstudianteManual(request):
     estudiante= models.Estudiantes.objects.get(user=request.user)
     inscripcionesCursoEstudent = models.inscripcionEstudianteCurso.objects.filter(estudiante=estudiante)
+    inscripcionesAsignaturasEstudiantes = models.InscripcionEstudianteAsignatura.objects.filter(estudiante=estudiante)
+    inscripcionesAsignaturas = []
+    inscripcionEstudianteActual = models.InscripcionEstudiante.objects.filter(Estudiante=estudiante)
+    inscripcionEstudent = inscripcionEstudianteActual[0].cod_inscripcionPrograma
+
+    for inscripcionAsignaturita in models.InscripcionAsignatura.objects.all():
+        if inscripcionAsignaturita.Id_inscripcionPrograma != None:
+            inscripcionesAsignaturas.append(inscripcionAsignaturita)
+
+    asignatura_nivel_maximo = 1
     nivel_maximo = 1
+
+    for inscripcionA in inscripcionesAsignaturasEstudiantes:
+        if inscripcionA.inscripcion_estudiante.cod_inscripcionPrograma == inscripcionEstudent:
+            if inscripcionA.nivel_asignatura.nivel > asignatura_nivel_maximo:
+                asignatura_nivel_maximo = inscripcionA.nivel_asignatura
+
     for inscripcionC in inscripcionesCursoEstudent:
         if inscripcionC.detalle_curso.Nivel_Curso.nivel > nivel_maximo:
             nivel_maximo = inscripcionC.detalle_curso.Nivel_Curso.nivel
 
     detalles_curso = models.detalle_curso.objects.filter(periodo=models.periodo.periodo_actual())
 
+
+    # ESCOGER LOS DETALLES CURSO QUE SE ACOPLEN AL NIVEL REQUERIDO, Y AL PROGRAMA DE MUSICA
     detallesMostrar = []
     if estudiante.curso_musica != None:
         for detalle in detalles_curso:
@@ -1052,7 +1070,14 @@ def inscripcionEstudianteManual(request):
                 detallesMostrar.append(detalle)
     
 
-    return render(request, "board_estudiante/inscripcion_estudiante.html" , {'cursosDisponibles' : detallesMostrar})
+    print(asignatura_nivel_maximo)
+    # ESCOGER LAS ASIGNATURAS CON EL NIVEL REQUERIDO
+    asignaturasMostrar = []
+    for inscripcion in inscripcionesAsignaturas:
+        if inscripcion.nivel.nivel > nivel_maximo and inscripcion.nivel.nivel < nivel_maximo+2:
+            asignaturasMostrar.append(inscripcion.nivel)
+
+    return render(request, "board_estudiante/inscripcion_estudiante.html" , {'cursosDisponibles' : detallesMostrar , 'asignaturasDisponibles' : asignaturasMostrar})
 
 
 
