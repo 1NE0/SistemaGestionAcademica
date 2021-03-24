@@ -25,8 +25,8 @@
                             <form method="POST" id="formEditarCurso" action="{% url 'editarcurso' %}">
                                 {% csrf_token %}
                                     <select class="form-select mt-1" aria-label="Seleccione el curso" name="codigo_curso" id="comboCursos">
-                                        {% for inscripcionC in detalles %}
-                                            <option value="{{inscripcionC.Id}}">{{inscripcionC.curso.nom_curso}}</option>
+                                        {% for curso in detalles %}
+                                            <option value="{{curso.cod_curso}}">{{curso.nom_curso}}</option>
                                         {% endfor %}
                                     </select>
                                         <!-- nivel -->
