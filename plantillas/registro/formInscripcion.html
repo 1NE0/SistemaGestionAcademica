@@ -33,10 +33,28 @@
           </select>
           <p class="identificacionVerificada">La identificacion está disponible</p>
           <p class="identificacionNoVerificada">La identificacion ya se encuentra registrada</p>
-          <input type="number" class="identificacion" name="identificacion" min="1111111" max="9999999999" placeholder="Identificacion">
-          <input type="text" class="nombres" name="nombres"  placeholder="Nombres">
-          <input type="text" class="apellidos" name="apellidos" placeholder="Apellidos">
-          <input type="number" class="edad" name="edad" placeholder="Edad">
+          <div id="identificacion">
+          <input type="number" class="identificacion inputs" name="identificacion" min="1111111" max="9999999999" placeholder="Identificacion">
+          <!-- mensaje de error para identificacion -->
+          <p class="fomulario__input-error ident ">¡La identificacion solo puede contener numeros!</p>
+          </div>
+          <div id="nombre" >
+          <input type="text" class="nombres inputs" name="nombres"  placeholder="Nombres">
+          <!-- mensaje error -->
+          <p class="fomulario__input-error nombre ">¡El nombre solo puede contener letras y espacios!</p>
+           </div>
+
+           <div id="apellido">
+          <input type="text" class="apellidos inputs" name="apellidos" placeholder="Apellidos">
+          <!-- mensaje error -->
+          <p class="fomulario__input-error ">¡El apellido solo puede contener letras y espacios!</p>
+           </div>
+           
+           <div id="edad">
+          <input type="number" class="edad inputs" name="edad" placeholder="Edad">
+          <!-- mensaje error -->
+          <p class="fomulario__input-error ">¡La edad solo puede contener numeros de 1 a 2 digitos!</p>
+          </div>
 
           <!-- SELECCIONAR GENERO -->
           <select  class="form-control" id="exampleFormControlSelect1"name="genero">
@@ -83,21 +101,41 @@
 
           
           <!-- INGRESAR DIRECCION -->
-          <input type="text" name="direccion" placeholder="Direccion">
+          <div id="direccion">
+          <input type="text" name="direccion" class="inputs" placeholder="Direccion">
+          <p class="fomulario__input-error ">direccion</p>
+          </div>
           <!-- INGRESAR TELEFONO -->
-          <input type="number" name="telefono" placeholder="Numero de contacto">
+          <div id="telefono">
+          <input type="number" name="telefono" class="inputs" placeholder="Numero de contacto">
+          <p class="fomulario__input-error ">!El telefono solo puede contener numeros¡</p>
+          </div>
           <!-- INGRESAR EMAIL -->
-          <input type="email" name="correo" placeholder="Email">
+          <div id="email">
+          <input type="email" name="correo" class="inputs" placeholder="Email">
+          <p class="fomulario__input-error ">ingrese un correo valido</p>
+          </div>
 
           <div class="boton button btn btn-success boton2">Siguiente</div>
         </fieldset>
         <fieldset class="section" id="section3">
           <!-- <p class="userVerificado">El usuario se encuentra disponible</p>
           <p class="userNoVerificado">El usuario no se encuentra disponible</p> -->
-          <input type="text" name="username" class="username"placeholder="Username">
-          <input type="password" name="password" id="password" placeholder="Contraseña">
-          <input type="password" name="password2" id="password2" placeholder="Re ingresar contraseña">
 
+          <div id="usuario">
+          <input type="text" name="username" class="username inputs"placeholder="Username">
+          <p class="fomulario__input-error ">nombre se usuario no valido no se permiten carecteres especiales (#$%&) </p>
+          </div>
+
+          <div id="contraseña">
+          <input type="password" name="password" id="password" class="inputs" placeholder="Contraseña">
+          <p class="fomulario__input-error ">de 4 a 12 digitos</p>
+          </div>
+
+          <div id="contraseña2">
+          <input type="password" name="password2" id="password2" class="inputs" placeholder="Re ingresar contraseña">
+          <p class="fomulario__input-error ">las contraseñas no coinciden</p>
+          </div>
             <!-- TERMINOS Y CONDICIONES -->
             <label class="terminos">
               <input type="checkbox" checked="checked" />
@@ -115,4 +153,5 @@
  
 
  <script src="{% static 'js/formInscripcion.js' %}"></script>
+ <script src="{% static 'js/validacion_inscripcion.js' %}"></script>
 </body>
