@@ -45,8 +45,13 @@
                             <input name="telefono" id="inputTelefono" type="text" placeholder="Telefono" class="form-control">
 
                             <label for="ciudad">Ciudad</label>
-                            <input type="text" name="ciudad" id="inputCiudad" placeholder="Ciudad" class="form-control">
-
+                            <select  class="form-control" name="ciudad" id="inputCiudad">
+                                {% for ciudad in ciudades %}
+                                <option id="ciudad">{{ ciudad.nombre }} </option>
+                                {% endfor %}
+                              </select>              
+                            
+                            
                             <label for="direccion">Direccion</label>
                             <input name="direccion" id="inputDireccion" type="text" placeholder="Direccion" class="form-control">
                         </div>
@@ -72,7 +77,7 @@
             $('#inputEdad').val("{{docente.edad}}");
             $('#inputSexo').val("{{docente.sexo}}");
             $('#inputTelefono').val("{{docente.telefono}}");
-            $('#inputCiudad').val("{{docente.ciudad.nombre}}");
+            $('#inputCiudad').val();
             $('#inputDireccion').val("{{docente.direccion}}");
 
 

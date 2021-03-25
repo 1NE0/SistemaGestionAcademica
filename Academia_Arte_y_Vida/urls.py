@@ -105,7 +105,7 @@ urlpatterns = [
     url(r'^board_docente/$', board_docente, name="board_docente"),
     url(r'^cursosDocente$', cursosDocente, name="cursosDocente"),
     url(r'^asignaturasDocente$', asignaturasDocente, name="asignaturasDocente"),
-
+    url(r'^asignaturaActividades$', asignaturaActividades, name="asignaturaActividades"),
 
     #estadisticas
     url(r'^obtenerEstadisticas$', obtenerEstadisticas, name="obtenerEstadisticas"),

@@ -12,11 +12,11 @@
           
             <div class="cards">
                 
-                
+                {% for inscripcionA in inscripcionesAsignaturas %}
                     <div class=" card [ is-collapsed ] ">
                         <div class="card__inner [ js-expander ]">
                             <!--  TITULO -->
-                            <span>{{inscripcionEstudiante.cod_inscripcionPrograma.programa.nom_programa}}</span>
+                            <span>{{inscripcionA.nivel_asignatura.cod_asignatura.nom_asig}} nivel {{inscripcionA.nivel_asignatura.nivel}}</span>
                             <i class="far fa-folder"></i>
                         </div>
                         
@@ -28,32 +28,25 @@
                                 </div>
                                 
                                 <h3>Asignaturas</h3>
-
-                                {% for inscripcionA in inscripcionesAsignaturas %}
-                                    
-                                        
                                         <div class="curso">
                                             <div>
-                                                <h2>{{inscripcionA.nivel_asignatura.cod_asignatura.nom_asig}} nivel {{inscripcionA.nivel_asignatura.nivel}}</h2>
-                                                <h2>{{inscripcionCursoEstudiante.detalle_curso.grupo}}</h2>
-
                                                 <h3>actividades:</h3>
                                                 {% for actividad in actividades%}
-                                                    {%if actividad.Detalle_curso == inscripcionCursoEstudiante.detalle_curso%}
+                                                    {%if actividad.Nivel_asignatura == inscripcionA.nivel_asignatura%}
                                                         <p>{{actividad.titulo}}</p>
                                                         <a href="/media/{{actividad.file}}" target="_blank" class="btn btn-success">Descargar</a>
                                                     {%endif%}
                                                 {% endfor %}
                                             </div>
                                         </div>
-                                {% endfor %}
+                                
 
                             </div>
 
 
                           </div>
                     </div>
-                
+                {% endfor %}
                 
             </div>
           

@@ -8,41 +8,6 @@
 
     <!-- Seewt Alert -->
      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  
-  
-<div class="principal"> 
-    <h1 class="text-center m-4 display-5">ASIGNATURAS</h1>
-    <button onclick="abrirModal('{% url 'crudAsignatura' %}');" id="boton_crear" class="btn add bg-success w-50" style="color: white; margin-left: 25%; margin-bottom: 5%;" >Agregar Asignatura <i class="fas fa-plus-square" style="color: white;"></i></button>
-    <div class="modal fade" id="creacion" role="dialog"></div>
-
- 
-    <div class="tabla-fondo">
-        <table class="table table-hover table-ligth" id="tabla">
-         <thead class="bg-dark text-light">
-            <tr>
-                <th>Codigo</th>
-                <th>Nombre</th>
-                <th>Descripcion</th>
-               <!-- <th>Docente</th>-->
-                <th>Acción</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% if asignaturas %}
-            {% for asignatura in asignaturas %}
-
-            <tr>
-                <th>{{asignatura.cod_asig}}</th>
-                <td>{{asignatura.nom_asig}}</td>
-                <td>{{asignatura.descripcion}}</td>
-                <!--<td>{{asignatura.Docente.nombres}}</td>-->
-                <td>
-                    <button class="btn btn-danger">Eliminar</button>
-                    <button class="btn btn-primary">Editar</button>
-                </td>
-            </tr>
-     <link rel="stylesheet" href="{% static 'css/asignaturas.css' %}">
-
 
      <div class="paginita">
         <div class="seccion1">
@@ -59,7 +24,7 @@
                           <div class="example-origin" ondragover="onDragOver(event);" ondrop="onDrop(event);"> <!-- el panel de origen -->
     
                             <!-- aqui dentro se pueden objetos de clase example-draggable que son los programas -->
-                            {% for inscripcion in sinMatricula%}
+                            {% for inscripcion in sinMatricula %}
                               <div id="{{inscripcion.Id}}" class="example-draggable" draggable="true" ondragstart="onDragStart(event);">
                                 <h2 style="margin-right: 20px;">{{inscripcion.asignatura.nom_asig}} - {{inscripcion.nivel.nivel}}</h2>
                               </div>
@@ -95,6 +60,8 @@
         
             <div class="modal fade" id="creacion" role="dialog"></div>
       </div>
+    </div>
+</div>    
     
     <div class="modal fade" id="creacion" role="dialog"></div>
     <script src="{% static 'js/asignaturas.js' %}"></script>

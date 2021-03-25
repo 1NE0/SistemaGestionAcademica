@@ -78,7 +78,7 @@ $('.editarBtn').click(function(e){
 $('.eliminarBtn').click(function(e){
   e.preventDefault(); 
   var docente = [];
-  var identificacion = $('.eliminarBtn').attr('id');
+  var identificacion = $(this).attr('id');
 
   docente.push(identificacion);
   console.log(docente);

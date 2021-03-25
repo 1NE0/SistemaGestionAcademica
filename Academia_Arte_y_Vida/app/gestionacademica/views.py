@@ -333,10 +333,8 @@ def crudAsignatura(request):
         print(request.POST.get('codigo'))
         print(request.POST.get('nombre'))
         print(request.POST.get('descripcion'))
-        print(request.POST.get('docente'))
         # buscar el docente
-        docenteObj = models.Docentes.objects.get(identificacion=docente)  
-        asignatura = models.Asignaturas(cod_asig=codigo , nom_asig = nombre , descripcion=descripcion , Docente=docenteObj)
+        asignatura = models.Asignaturas(cod_asig=codigo , nom_asig = nombre , descripcion=descripcion)
         
         asignatura.save()
         
@@ -734,18 +732,21 @@ def lista_docente(request):
 
 @csrf_exempt
 def editarDocente(request):   #abrir el modal
+    ciudades = models.ciudad.objects.all()
 
     if request.method == 'POST':
         print("estoy en POST")
         identificacion = request.POST.get('docente')
         print(identificacion)
         docente = models.Docentes.objects.get(identificacion=identificacion)
-        return render(request, "editardocente.html", {'docente' : docente})
-    return render(request,"editardocente.html")
+        return render(request, "editardocente.html", {'docente' : docente, 'ciudades': ciudades})
+    return render(request,"editardocente.html",{'ciudades': ciudades})
 
 
 def modalEditarDocente(request):  
     print(request.POST.get('identificacion'))
+
+    ciudad = models.ciudad.objects.get(nombre=request.POST.get('ciudad'))
 
     DocenteModificado = models.Docentes.objects.get(identificacion=request.POST.get('identificacion'))
 
@@ -756,7 +757,7 @@ def modalEditarDocente(request):
     DocenteModificado.edad = request.POST.get('edad')
     DocenteModificado.sexo = request.POST.get('sexo')
     DocenteModificado.telefono = request.POST.get('telefono')
-    DocenteModificado.ciudad = request.POST.get('ciudad')
+    DocenteModificado.ciudad = ciudad
     DocenteModificado.direccion = request.POST.get('direccion')
     
 
@@ -1064,11 +1065,11 @@ def programasEstudiante(request):
 
 def asignaturasEstudiante(request):
     estudiante = models.Estudiantes.objects.get(user=request.user)
-
     inscripcionEstudiante = models.InscripcionEstudiante.objects.get(Estudiante=estudiante,periodo=models.periodo.periodo_actual())
-
     inscripcionesAsignaturas = models.InscripcionEstudianteAsignatura.objects.filter(inscripcion_estudiante=inscripcionEstudiante)
-    return render(request, "board_estudiante/asignaturasEstudiante.html" , {'inscripcionEstudiante' : inscripcionEstudiante , 'inscripcionesAsignaturas' : inscripcionesAsignaturas , 'estudiante' : estudiante})
+    actividades = models.actividades.objects.all()
+
+    return render(request, "board_estudiante/asignaturasEstudiante.html" , {'inscripcionEstudiante' : inscripcionEstudiante , 'inscripcionesAsignaturas' : inscripcionesAsignaturas, 'actividades' : actividades, 'estudiante' : estudiante})
 
 def inscripcionEstudianteManual(request):
     return render(request, "board_estudiante/inscripcion_estudiante.html")
@@ -1099,10 +1100,30 @@ def cursosDocente(request):
 
 
 def asignaturasDocente(request):
-    return render(request, "board_docente/asignaturasDocente.html")
+    Docente = models.Docentes.objects.get(user=request.user)
+    actividadesDelDocente = models.actividades.objects.all()
+    asignaturasNDelDocente = models.Nivel_asignatura.objects.filter(docente=Docente)
+
+    return render(request, "board_docente/asignaturasDocente.html" , {'actividades' : actividadesDelDocente , 'asignaturas' : asignaturasNDelDocente, 'docente' : Docente})
 
     
+def asignaturaActividades(request):
+    user = models.User.objects.get(id=request.user.id)
+    docente = models.Docentes.objects.get(user=user)
+    actividades = models.actividades.objects.all()
 
+    if request.method == 'POST':
+        nivel_id = request.POST['nivel']
+        print(nivel_id)
+        nivelObj = models.Nivel_asignatura.objects.get(Id=nivel_id)
+        archivo = request.FILES['documento']
+        titulo = request.POST['titulo']
+        descripcion = request.POST['descripcion']
+        actividad = models.actividades(file=archivo,titulo=titulo,descripcion=descripcion,Nivel_asignatura=nivelObj)
+        actividad.save()
+
+
+        return HttpResponse("correcto")
 
 @csrf_exempt
 def verificarUsername(request):
@@ -1251,6 +1272,7 @@ def editarAsignatura(request):
     Dia = request.POST['dia']
     hora_inicial = request.POST['hora_inicial']
     hora_final = request.POST['hora_final']
+    docente = request.POST['docente']
 
     print("ESTOY EN EDITARRRRRRR")
     asignatura = models.Asignaturas.objects.get(cod_asig=cod_asignatura)
@@ -1261,13 +1283,15 @@ def editarAsignatura(request):
         if inscripcionA.nivel == nivel:
             return HttpResponse("nivelRepetido")
         else:
-            nivel = models.Nivel_asignatura(Id=random.randrange(0,1000000),nivel=nivel,descripcion=descripcion,dia=Dia,horaInicio=hora_inicial,horaFinal=hora_final,cod_asignatura=asignatura)
+            docenteObj = models.Docentes.objects.get(identificacion=docente)
+            nivel = models.Nivel_asignatura(Id=random.randrange(0,1000000),nivel=nivel,descripcion=descripcion,dia=Dia,horaInicio=hora_inicial,horaFinal=hora_final,cod_asignatura=asignatura,docente=docenteObj)
             inscripcionNueva = models.InscripcionAsignatura(Id=random.randrange(0,1000000),periodo=models.periodo.periodo_actual(),asignatura=asignatura,nivel=nivel)
             nivel.save()
             inscripcionNueva.save()
         return HttpResponse("correcto")
     except models.InscripcionAsignatura.DoesNotExist:
-        nivel = models.Nivel_asignatura(Id=random.randrange(0,1000000),nivel=nivel,descripcion=descripcion,dia=Dia,horaInicio=hora_inicial,horaFinal=hora_final,cod_asignatura=asignatura)
+        docenteObj = models.Docentes.objects.get(identificacion=docente)
+        nivel = models.Nivel_asignatura(Id=random.randrange(0,1000000),nivel=nivel,descripcion=descripcion,dia=Dia,horaInicio=hora_inicial,horaFinal=hora_final,cod_asignatura=asignatura,docente=docenteObj)
         inscripcionA = models.InscripcionAsignatura(Id=random.randrange(0,1000000),periodo=models.periodo.periodo_actual(),asignatura=asignatura,nivel=nivel)
 
         nivel.save()
