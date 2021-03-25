@@ -112,6 +112,9 @@ DATABASES  =  {
         'HOST' :  'howls.mysql.pythonanywhere-services.com' , 
         'TEST' :  { 
           'NAME' :  'howls$ test_ howls$DB' ,
+        },
+        'OPTIONS': {
+            'sql_mode': 'traditional',
         }
     } 
 }
