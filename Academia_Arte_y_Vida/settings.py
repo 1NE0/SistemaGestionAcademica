@@ -103,7 +103,7 @@ WSGI_APPLICATION = 'Academia_Arte_y_Vida.wsgi.application'
     }
 }  """
 
-DATABASES  =  { 
+""" DATABASES  =  { 
     'default' :  { 
         'ENGINE' :  'django.db.backends.mysql' , 
         'NAME' :  'howls$DB' , 
@@ -118,8 +118,8 @@ DATABASES  =  {
         },
     } 
 }
-
-""" DATABASES  =  { 
+ """
+DATABASES  =  { 
     'default' :  { 
         'ENGINE' :  'django.db.backends.mysql' , 
         'NAME' :  'bi1nyd2ibo5idejidwpd' , 
@@ -128,7 +128,7 @@ DATABASES  =  {
         'HOST' :  'bi1nyd2ibo5idejidwpd-mysql.services.clever-cloud.com' , 
         'PORT' :  '3306',
     } 
-} """
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
