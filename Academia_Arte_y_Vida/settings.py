@@ -114,8 +114,8 @@ DATABASES  =  {
           'NAME' :  'howls$ test_ howls$DB' ,
         },
         'OPTIONS': {
-            'sql_mode': 'traditional',
-        }
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        },
     } 
 }
 
