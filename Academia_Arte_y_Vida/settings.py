@@ -152,10 +152,14 @@ DATE_INPUT_FORMATS = (
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = (os.path.join(BASE_DIR,'static'),) 
+""" STATICFILES_DIRS = (os.path.join(BASE_DIR,'static'),) 
 # opciones posibles: 'sweetalert', 'sweetalert2' - el valor predeterminado es 'sweetalert2' 
 SWEETIFY_SWEETALERT_LIBRARY  =  'sweetalert2'
+ """
 
+STATIC_ROOT = "/home/howls/SistemaGestionAcademica/static"
+# or, eg,
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 #files
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
