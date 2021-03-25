@@ -1,0 +1,1 @@
+web: gunicorn Academia_Arte_y_Vida.wsgi --log-file -

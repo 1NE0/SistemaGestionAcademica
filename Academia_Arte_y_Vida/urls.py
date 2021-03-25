@@ -20,6 +20,7 @@ from Academia_Arte_y_Vida import settings
 from Academia_Arte_y_Vida.app.gestionacademica.views import *
 from django.conf.urls.static import static
 
+
 urlpatterns = [
 
     url(r'^$', Index, name='index'),
@@ -116,7 +117,7 @@ urlpatterns = [
 
     url(r'^guardarInscripcionCurso/$', inscripcionCursos, name="guardarInscripcionCurso"),
     url(r'^guardarInscripcionAsignatura/$', inscripcionAsignaturas, name="guardarInscripcionAsignatura"),
-]
+] + static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)
 
 #uploads
 if settings.DEBUG:
