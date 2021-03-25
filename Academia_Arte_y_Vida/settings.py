@@ -86,22 +86,32 @@ WSGI_APPLICATION = 'Academia_Arte_y_Vida.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 #Academia_Arte_y_Vida
-# 'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'btc1aswv1doohutlewv5',
-#         'USER': 'uiknwio8cchvk6wt',
-#         'PASSWORD': 'tqm9zuhG6XanREeLrTeR',
-#         'HOST': 'btc1aswv1doohutlewv5-mysql.services.clever-cloud.com',
-#         'PORT':'3306'
-#     }
-
-DATABASES = {
+""" DATABASES = {
+ 'default': {
+         'ENGINE': 'django.db.backends.mysql',
+         'NAME': 'howls$DB',
+         'USER': 'howls',
+         'PASSWORD': 'calcifer20',
+         'HOST': 'howls.mysql.pythonanywhere-services.com',
+         'PORT':'3306'
+     }
+} """
+""" DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
-}
+}  """
 
+DATABASES  =  { 
+    'default' :  { 
+        'ENGINE' :  'django.db.backends.mysql' , 
+        'NAME' :  'howls$DB' , 
+        'USER' :  'howls' , 
+        'PASSWORD' :  'calcifer20' , 
+        'HOST' :  'howls.mysql.pythonanywhere-services.com' , 
+    } 
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators

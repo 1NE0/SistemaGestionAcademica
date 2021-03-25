@@ -1250,10 +1250,11 @@ def editarcurso(request):
             niveles = models.Nivel_Cursos.objects.filter(nivel=nivel,inscripcion_curso=inscripcionReciente)
             if niveles.count() == 0:
                 #sino hay niveles quiere decir que lo puede matricular
+                print("se hizo")
                 nivelC = models.Nivel_Cursos(Id=random.randrange(0,1000000),nivel=nivel,descripcion=descripcion,periodo=models.periodo.periodo_actual(),inscripcion_curso=inscripcionReciente)
-                detalle = models.detalle_curso(grupo=grupo,dia=dia,horaInicio=hora_inicial,horaFinal=hora_final,Docente=docente,periodo=models.periodo.periodo_actual(),Nivel_Curso=nivelC,InscripcionCurso=inscripcionReciente)
                 nivelC.save()
-                detalle.save()
+                detalleN = models.detalle_curso(grupo=grupo,dia=dia,horaInicio=hora_inicial,horaFinal=hora_final,Docente=docente,periodo=models.periodo.periodo_actual(),Nivel_Curso=nivelC,InscripcionCurso=inscripcionReciente)
+                detalleN.save()
                 return HttpResponse("correcto")
             else:
                 return HttpResponse("nivelRepetido")
@@ -1264,6 +1265,8 @@ def editarcurso(request):
             inscripcionNueva.save()
             nivelC.save()
             detalle.save()
+            
+            
             return HttpResponse("correcto")
         
 
