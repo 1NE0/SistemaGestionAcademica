@@ -33,7 +33,7 @@ SECRET_KEY = 'zi6%idzlwb%^m&t^yl&_sy7-6tu#)@@=2i4v%_8%&%gvm7a#ep'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['howls.pythonanywhere.com']
 
 
 # Application definition
