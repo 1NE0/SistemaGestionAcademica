@@ -23,7 +23,6 @@ from django.contrib import messages
 from django.views.decorators.csrf import csrf_protect
 import io
 from django.http import FileResponse
-from reportlab.pdfgen import canvas
 from django.views.decorators.csrf import csrf_exempt
 from django.core.exceptions import ObjectDoesNotExist
 
