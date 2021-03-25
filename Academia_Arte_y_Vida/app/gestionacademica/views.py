@@ -2,10 +2,8 @@ from django.contrib.auth.models import Group
 from django import template
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from django.template import loader
-from django.template import Template, Context, RequestContext
+from django.template import RequestContext
 from django.shortcuts import render
-from django.contrib.auth.hashers import check_password
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import Group, User
 from django.contrib.auth import authenticate, login, logout
@@ -19,14 +17,12 @@ from django.shortcuts import redirect
 from django.core import serializers
 from django.http import JsonResponse
 import json
-import reportlab
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_protect
 import io
 from django.http import FileResponse
 from reportlab.pdfgen import canvas
 from django.views.decorators.csrf import csrf_exempt
-from django.core.exceptions import ObjectDoesNotExist
 
 
 from django.core.files.storage import FileSystemStorage
