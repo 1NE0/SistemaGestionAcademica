@@ -1033,26 +1033,56 @@ def asignaturasEstudiante(request):
 def inscripcionEstudianteManual(request):
     estudiante= models.Estudiantes.objects.get(user=request.user)
     inscripcionesCursoEstudent = models.inscripcionEstudianteCurso.objects.filter(estudiante=estudiante)
-    nivel_maximo = 1
-    for inscripcionC in inscripcionesCursoEstudent:
-        if inscripcionC.detalle_curso.Nivel_Curso.nivel > nivel_maximo:
-            nivel_maximo = inscripcionC.detalle_curso.Nivel_Curso.nivel
+    inscripcionesAsignaturasEstudiantes = models.InscripcionEstudianteAsignatura.objects.filter(estudiante=estudiante)
+    inscripcionesAsignaturas = []
 
-    detalles_curso = models.detalle_curso.objects.filter(periodo=models.periodo.periodo_actual())
+    try:
+        inscripcionEstudianteActual = models.InscripcionEstudiante.objects.get(Estudiante=estudiante,periodo=models.periodo.periodo_actual())
+        return HttpResponse("Actualmente no hay matriculas abiertas :(")
+    except models.InscripcionEstudiante.DoesNotExist:
+        inscripcionEstudianteActual = models.InscripcionEstudiante.objects.filter(Estudiante=estudiante)
+        inscripcionEstudent = inscripcionEstudianteActual[0].cod_inscripcionPrograma
 
-    detallesMostrar = []
-    if estudiante.curso_musica != None:
-        for detalle in detalles_curso:
-            if detalle.Nivel_Curso.nivel > nivel_maximo and detalle.InscripcionCurso.curso.nom_curso == estudiante.curso_musica and detalle.Nivel_Curso.nivel < nivel_maximo+2:
-                detallesMostrar.append(detalle)
-    else:
-        for detalle in detalles_curso:
-            print(detalle.Nivel_Curso.nivel)
-            if detalle.Nivel_Curso.nivel > nivel_maximo and detalle.Nivel_Curso.nivel < nivel_maximo+2:
-                detallesMostrar.append(detalle)
-    
+        for inscripcionAsignaturita in models.InscripcionAsignatura.objects.all():
+            if inscripcionAsignaturita.Id_inscripcionPrograma != None:
+                inscripcionesAsignaturas.append(inscripcionAsignaturita)
 
-    return render(request, "board_estudiante/inscripcion_estudiante.html" , {'cursosDisponibles' : detallesMostrar})
+        asignatura_nivel_maximo = 1
+        nivel_maximo = 1
+
+        for inscripcionA in inscripcionesAsignaturasEstudiantes:
+            if inscripcionA.inscripcion_estudiante.cod_inscripcionPrograma == inscripcionEstudent:
+                if inscripcionA.nivel_asignatura.nivel > asignatura_nivel_maximo:
+                    asignatura_nivel_maximo = inscripcionA.nivel_asignatura
+
+        for inscripcionC in inscripcionesCursoEstudent:
+            if inscripcionC.detalle_curso.Nivel_Curso.nivel > nivel_maximo:
+                nivel_maximo = inscripcionC.detalle_curso.Nivel_Curso.nivel
+
+        detalles_curso = models.detalle_curso.objects.filter(periodo=models.periodo.periodo_actual())
+
+
+        # ESCOGER LOS DETALLES CURSO QUE SE ACOPLEN AL NIVEL REQUERIDO, Y AL PROGRAMA DE MUSICA
+        detallesMostrar = []
+        if estudiante.curso_musica != None:
+            for detalle in detalles_curso:
+                if detalle.Nivel_Curso.nivel > nivel_maximo and detalle.InscripcionCurso.curso.nom_curso == estudiante.curso_musica and detalle.Nivel_Curso.nivel < nivel_maximo+2:
+                    detallesMostrar.append(detalle)
+        else:
+            for detalle in detalles_curso:
+                print(detalle.Nivel_Curso.nivel)
+                if detalle.Nivel_Curso.nivel > nivel_maximo and detalle.Nivel_Curso.nivel < nivel_maximo+2:
+                    detallesMostrar.append(detalle)
+        
+
+        print(asignatura_nivel_maximo)
+        # ESCOGER LAS ASIGNATURAS CON EL NIVEL REQUERIDO
+        asignaturasMostrar = []
+        for inscripcion in inscripcionesAsignaturas:
+            if inscripcion.nivel.nivel > nivel_maximo and inscripcion.nivel.nivel < nivel_maximo+2:
+                asignaturasMostrar.append(inscripcion.nivel)
+
+        return render(request, "board_estudiante/inscripcion_estudiante.html" , {'cursosDisponibles' : detallesMostrar , 'asignaturasDisponibles' : asignaturasMostrar})
 
 
 
@@ -1303,5 +1333,51 @@ def asignarAsignaturasProgramas(request):
         inscripcionModel = models.InscripcionAsignatura.objects.get(Id=inscripcion)
         inscripcionModel.Id_inscripcionPrograma = inscripcionPrograma
         inscripcionModel.save()
+
+    return HttpResponse("correcto")
+
+
+
+@csrf_exempt
+def inscripcionCursos(request):
+    estudiante = models.Estudiantes.objects.get(user=request.user)
+    inscripcionesEstudent = models.InscripcionEstudiante.objects.all()
+    inscripcionProgramaActual = inscripcionesEstudent[0].cod_inscripcionPrograma
+
+    #crear la nueva inscripcion del estudiante al programa actual
+    try:
+        inscripcionRecienteDelEstudiante = models.InscripcionEstudiante.objects.get(Estudiante=estudiante,periodo=models.periodo.periodo_actual())
+        return HttpResponse("el estudiante actualmente se encuentra inscrito")
+    except models.InscripcionEstudiante.DoesNotExist:
+        inscripcionEstudianteNueva = models.InscripcionEstudiante(Fecha_Realizacion=datetime.now(),cod_inscripcionPrograma=inscripcionProgramaActual,Estudiante=estudiante,periodo=models.periodo.periodo_actual())
+        inscripcionEstudianteNueva.save()
+        listaDetalles = request.POST.getlist('listaCursos[]') #lista de programas enviados desde ajax
+        print(listaDetalles)
+        for detalle in listaDetalles:
+            detalleObj = models.detalle_curso.objects.get(id=detalle)
+            inscripcionEstudianticoCurso = models.inscripcionEstudianteCurso(detalle_curso=detalleObj,estudiante=estudiante,inscripcion_programa_estudiante=inscripcionEstudianteNueva)
+            inscripcionEstudianticoCurso.save()
+
+    return HttpResponse("correcto")
+
+    pass
+
+
+@csrf_exempt
+def inscripcionAsignaturas(request):
+    estudiante = models.Estudiantes.objects.get(user=request.user)
+    inscripcionesEstudent = models.InscripcionEstudiante.objects.all()
+    inscripcionProgramaActual = inscripcionesEstudent[0].cod_inscripcionPrograma
+
+    #crear la nueva inscripcion del estudiante al programa actual
+    
+    inscripcionRecienteDelEstudiante = models.InscripcionEstudiante.objects.get(Estudiante=estudiante,periodo=models.periodo.periodo_actual())
+    
+    listaAsig= request.POST.getlist('listaAsignaturas[]') #lista de programas enviados desde ajax
+
+    for asignatura in listaAsig:
+        nivelObj = models.Nivel_asignatura.objects.get(Id=asignatura)
+        inscripcionEstudianticoAsignatura = models.InscripcionEstudianteAsignatura(fecha_realizacion=datetime.now(),nivel_asignatura=nivelObj,estudiante=estudiante,inscripcion_estudiante=inscripcionRecienteDelEstudiante)
+        inscripcionEstudianticoAsignatura.save()
 
     return HttpResponse("correcto")
