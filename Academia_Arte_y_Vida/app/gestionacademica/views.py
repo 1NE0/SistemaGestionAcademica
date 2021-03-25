@@ -359,19 +359,21 @@ def CrearCurso(request):
         curso = models.Cursos(cod_curso= codigo, nom_curso=nombre_curso)
         
         inscripcionCurso = models.InscripcionCurso(Id=random.randrange(0,1000000),curso = curso,periodo=models.periodo.periodo_actual(),Id_inscripcionPrograma=None)
-
+        
         # crear un nivel del curso
         nivelCurso = models.Nivel_Cursos(Id=random.randrange(0,1000000),nivel=nivel,descripcion=descripcion,inscripcion_curso=inscripcionCurso,periodo=models.periodo.periodo_actual())
         
-        #crear un detalle
-        detalleCurso = models.detalle_curso(grupo=grupo,dia=dia,horaInicio=hora_inicial,horaFinal=hora_final,Nivel_Curso=nivelCurso,Docente=docente,periodo=models.periodo.periodo_actual(),InscripcionCurso=inscripcionCurso)
-
-
         #guardar todo
         curso.save()
         inscripcionCurso.save()
         nivelCurso.save()
+        #crear un detalle
+        detalleCurso = models.detalle_curso(grupo=grupo,dia=dia,horaInicio=hora_inicial,horaFinal=hora_final,Nivel_Curso=nivelCurso,Docente=docente,periodo=models.periodo.periodo_actual(),InscripcionCurso=inscripcionCurso,inscripcion_programa=None)
+
+
+        
         detalleCurso.save()
+        
         return HttpResponse("correcto")
     
     return render(request, "crearcurso.html", {'docentes' : docentes , 'detalles' : detalles})
@@ -1253,7 +1255,7 @@ def editarcurso(request):
                 print("se hizo")
                 nivelC = models.Nivel_Cursos(Id=random.randrange(0,1000000),nivel=nivel,descripcion=descripcion,periodo=models.periodo.periodo_actual(),inscripcion_curso=inscripcionReciente)
                 nivelC.save()
-                detalleN = models.detalle_curso(grupo=grupo,dia=dia,horaInicio=hora_inicial,horaFinal=hora_final,Docente=docente,periodo=models.periodo.periodo_actual(),Nivel_Curso=nivelC,InscripcionCurso=inscripcionReciente)
+                detalleN = models.detalle_curso(grupo=grupo,dia=dia,horaInicio=hora_inicial,horaFinal=hora_final,Docente=docente,periodo=models.periodo.periodo_actual(),Nivel_Curso=nivelC,InscripcionCurso=inscripcionReciente,inscripcion_programa=None)
                 detalleN.save()
                 return HttpResponse("correcto")
             else:
@@ -1261,7 +1263,7 @@ def editarcurso(request):
         except models.InscripcionCurso.DoesNotExist:
             inscripcionNueva = models.InscripcionCurso(Id=random.randrange(0,1000000),curso=curso,periodo=models.periodo.periodo_actual())
             nivelC = models.Nivel_Cursos(Id=random.randrange(0,1000000),nivel=nivel,descripcion=descripcion,periodo=models.periodo.periodo_actual(),inscripcion_curso=inscripcionNueva)
-            detalle = models.detalle_curso(grupo=grupo,dia=dia,horaInicio=hora_inicial,horaFinal=hora_final,Docente=docente,periodo=models.periodo.periodo_actual(),Nivel_Curso=nivelC,InscripcionCurso=inscripcionNueva)
+            detalle = models.detalle_curso(grupo=grupo,dia=dia,horaInicio=hora_inicial,horaFinal=hora_final,Docente=docente,periodo=models.periodo.periodo_actual(),Nivel_Curso=nivelC,InscripcionCurso=inscripcionNueva,inscripcion_programa=None)
             inscripcionNueva.save()
             nivelC.save()
             detalle.save()
