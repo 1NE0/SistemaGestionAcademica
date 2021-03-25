@@ -19,7 +19,6 @@ from django.shortcuts import redirect
 from django.core import serializers
 from django.http import JsonResponse
 import json
-import reportlab
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_protect
 import io
