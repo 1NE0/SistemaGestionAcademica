@@ -33,7 +33,7 @@ SECRET_KEY = 'zi6%idzlwb%^m&t^yl&_sy7-6tu#)@@=2i4v%_8%&%gvm7a#ep'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['howls.pythonanywhere.com','127.0.0.1']
 
 
 # Application definition
@@ -153,9 +153,9 @@ DATE_INPUT_FORMATS = (
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (os.path.join(BASE_DIR,'static'),) 
-# opciones posibles: 'sweetalert', 'sweetalert2' - el valor predeterminado es 'sweetalert2' 
-SWEETIFY_SWEETALERT_LIBRARY  =  'sweetalert2'
 
+# or, eg,
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 #files
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
