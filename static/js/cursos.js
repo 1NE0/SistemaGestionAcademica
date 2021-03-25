@@ -136,7 +136,8 @@ $(function() {
             success: function (response) {
                 if(response == "correcto"){
                     swal("Correcto!", "El curso se ha registrado con éxito.", "success");
-                    $('.contenido').parents('.contenedor-central').load('/cursos');
+                }else if(response == "correctoDetalle"){
+                    swal("Correcto!", "El curso se ha registrado en el nivel ya existente.", "success");
                 }
                 console.log(response);
             },
@@ -184,7 +185,7 @@ $('.guardar').click(function(e){
             success: function (response) {
                 if(response == 'Perfecto'){
                     swal("Correcto!", "El programa se ha guardado con éxito.", "success");
-                    $('.contenido').parents('.contenedor-central').load('/cursos');
+                    
                 }
 
                 

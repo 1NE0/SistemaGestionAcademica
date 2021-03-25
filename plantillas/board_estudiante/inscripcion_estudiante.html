@@ -1,1 +1,40 @@
-<h2>paguitos que podrá hacer el estudiante.</h2>
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/inscripcion_estudiante.css' %}">
+    <!-- jQuery -->
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    
+<div class="cursos">
+    <h2 class="titulo">cursos disponibles para matricular</h2>
+    <div class="cursos-disponibles">
+       
+        {% for curso in cursosDisponibles%}
+                <input type="checkbox" class="check" id="{{curso.id}}"/>
+                <label for="something" class="check-box" ></label>
+                <span style="margin-left: 5px;">{{curso.Nivel_Curso.inscripcion_curso.curso.nom_curso}} nivel {{curso.Nivel_Curso.nivel}}</span>
+        {% endfor %}
+        
+    </div>
+    
+</div>
+<div class="asignaturas">
+    <h2 class="titulo">Asignaturas disponibles para matricular</h2>
+    <div class="asignaturas-disponibles">
+       
+        {% for asig in asignaturasDisponibles%}
+            
+                <input type="checkbox" class="check" id="{{asig.Id}}"/>
+                <label for="something" class="check-box" ></label>
+                <span style="margin-left: 5px;">{{asig.cod_asignatura.nom_asig}} nivel {{asig.nivel}}</span>
+
+        {% endfor %}
+        
+    </div>
+    
+</div>
+<button class="boton btn btn-success matricular">Matricular</button>
+
+<script src="{% static 'js/board_Estudiante/inscripcion_estudiante.js' %}"></script>
+
+  

@@ -170,6 +170,7 @@ class InscripcionCurso(models.Model):
     # relaciones
     Id_inscripcionPrograma = models.ForeignKey(inscripcionPrograma, null=True, blank=True, on_delete=models.CASCADE)
     curso = models.ForeignKey(Cursos, null=False, blank=False, on_delete=models.CASCADE)
+    periodo = models.ForeignKey(periodo, null=False, blank=False, on_delete=models.CASCADE)
 
 class Nivel_Cursos(models.Model):
     Id = models.IntegerField(primary_key=True)
@@ -179,7 +180,7 @@ class Nivel_Cursos(models.Model):
     #relaciones
 
     inscripcion_curso = models.ForeignKey(InscripcionCurso,default="999", null=False, blank=False, on_delete=models.CASCADE)
-
+    periodo = models.ForeignKey(periodo,default="999", null=False, blank=False, on_delete=models.CASCADE)
     def _str_(self):
         return "({1})({2})".format(self.Curso, self.nivel)
 

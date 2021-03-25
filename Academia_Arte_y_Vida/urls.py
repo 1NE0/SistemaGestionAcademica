@@ -120,6 +120,9 @@ urlpatterns = [
 
     url(r'^cargando/$', cargando, name="cargando"),
     url(r'^editarAsignatura/$', editarAsignatura, name="editarAsignatura"),
+
+    url(r'^guardarInscripcionCurso/$', inscripcionCursos, name="guardarInscripcionCurso"),
+    url(r'^guardarInscripcionAsignatura/$', inscripcionAsignaturas, name="guardarInscripcionAsignatura"),
 ]
 
 #uploads
