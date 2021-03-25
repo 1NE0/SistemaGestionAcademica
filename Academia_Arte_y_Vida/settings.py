@@ -97,12 +97,8 @@ WSGI_APPLICATION = 'Academia_Arte_y_Vida.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'bi1nyd2ibo5idejidwpd',
-        'USER': 'u2glksgz4x4zztbl',
-        'PASSWORD': 'APmjJNmeZDao8jxwrcLJ',
-        'HOST': 'bi1nyd2ibo5idejidwpd-mysql.services.clever-cloud.com',
-        'PORT':'3306'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
