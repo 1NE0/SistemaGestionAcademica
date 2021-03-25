@@ -358,7 +358,7 @@ def CrearCurso(request):
         docente = models.Docentes.objects.get(identificacion=docenteIdSelect)
         curso = models.Cursos(cod_curso= codigo, nom_curso=nombre_curso)
         
-        inscripcionCurso = models.InscripcionCurso(Id=random.randrange(0,1000000),curso = curso)
+        inscripcionCurso = models.InscripcionCurso(Id=random.randrange(0,1000000),curso = curso,periodo=models.periodo.periodo_actual())
 
         # crear un nivel del curso
         nivelCurso = models.Nivel_Cursos(Id=random.randrange(0,1000000),nivel=nivel,descripcion=descripcion,inscripcion_curso=inscripcionCurso,periodo=models.periodo.periodo_actual())

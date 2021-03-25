@@ -110,8 +110,22 @@ DATABASES  =  {
         'USER' :  'howls' , 
         'PASSWORD' :  'calcifer20' , 
         'HOST' :  'howls.mysql.pythonanywhere-services.com' , 
+        'TEST' :  { 
+          'NAME' :  'howls$ test_ howls$DB' ,
+        }
     } 
 }
+
+""" DATABASES  =  { 
+    'default' :  { 
+        'ENGINE' :  'django.db.backends.mysql' , 
+        'NAME' :  'bi1nyd2ibo5idejidwpd' , 
+        'USER' :  'u2glksgz4x4zztbl' , 
+        'PASSWORD' :  'APmjJNmeZDao8jxwrcLJ' , 
+        'HOST' :  'bi1nyd2ibo5idejidwpd-mysql.services.clever-cloud.com' , 
+        'PORT' :  '3306',
+    } 
+} """
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
