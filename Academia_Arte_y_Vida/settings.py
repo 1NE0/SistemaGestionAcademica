@@ -33,7 +33,7 @@ SECRET_KEY = 'zi6%idzlwb%^m&t^yl&_sy7-6tu#)@@=2i4v%_8%&%gvm7a#ep'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['howls.pythonanywhere.com','127.0.0.1']
 
 
 # Application definition
@@ -86,26 +86,49 @@ WSGI_APPLICATION = 'Academia_Arte_y_Vida.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 #Academia_Arte_y_Vida
-# 'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'btc1aswv1doohutlewv5',
-#         'USER': 'uiknwio8cchvk6wt',
-#         'PASSWORD': 'tqm9zuhG6XanREeLrTeR',
-#         'HOST': 'btc1aswv1doohutlewv5-mysql.services.clever-cloud.com',
-#         'PORT':'3306'
-#     }
-
+""" DATABASES = {
+ 'default': {
+         'ENGINE': 'django.db.backends.mysql',
+         'NAME': 'howls$DB',
+         'USER': 'howls',
+         'PASSWORD': 'calcifer20',
+         'HOST': 'howls.mysql.pythonanywhere-services.com',
+         'PORT':'3306'
+     }
+} """
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'bi1nyd2ibo5idejidwpd',
-        'USER': 'u2glksgz4x4zztbl',
-        'PASSWORD': 'APmjJNmeZDao8jxwrcLJ',
-        'HOST': 'bi1nyd2ibo5idejidwpd-mysql.services.clever-cloud.com',
-        'PORT':'3306'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
-}
+} 
 
+""" DATABASES  =  { 
+    'default' :  { 
+        'ENGINE' :  'django.db.backends.mysql' , 
+        'NAME' :  'howls$DB' , 
+        'USER' :  'howls' , 
+        'PASSWORD' :  'calcifer20' , 
+        'HOST' :  'howls.mysql.pythonanywhere-services.com' , 
+        'TEST' :  { 
+          'NAME' :  'howls$ test_ howls$DB' ,
+        },
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        },
+    } 
+}
+ """
+""" DATABASES  =  { 
+    'default' :  { 
+        'ENGINE' :  'django.db.backends.mysql' , 
+        'NAME' :  'bi1nyd2ibo5idejidwpd' , 
+        'USER' :  'u2glksgz4x4zztbl' , 
+        'PASSWORD' :  'APmjJNmeZDao8jxwrcLJ' , 
+        'HOST' :  'bi1nyd2ibo5idejidwpd-mysql.services.clever-cloud.com' , 
+        'PORT' :  '3306',
+    } 
+} """
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -153,9 +176,9 @@ DATE_INPUT_FORMATS = (
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (os.path.join(BASE_DIR,'static'),) 
-# opciones posibles: 'sweetalert', 'sweetalert2' - el valor predeterminado es 'sweetalert2' 
-SWEETIFY_SWEETALERT_LIBRARY  =  'sweetalert2'
 
+# or, eg,
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 #files
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
