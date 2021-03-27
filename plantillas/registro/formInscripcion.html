@@ -73,12 +73,9 @@
 
           <label for="" class="cursoMusica">seleccion a que curso de musica se desea matricular:</label>
           <select  class="form-control cursoMusica" name="cursoMusica" id="">
-              <option>piano</option>
-              <option>guitarra</option>
-              <option>Bateria</option>
-              <option>canto</option>
-              <option>bajo electrico</option>
-              <option>saxofón</option>
+              {% for cursito in cursosDisponibles %}
+                <option value="{{cursito.cod_curso}}" >{{cursito.nom_curso}}</option>
+              {% endfor %}
           </select>
 
           <div class="boton button btn btn-success boton1" disabled="false" id="boton1">Siguiente</div>
@@ -124,7 +121,7 @@
 
           <div id="usuario">
           <input type="text" name="username" class="username inputs"placeholder="Username">
-          <p class="fomulario__input-error ">nombre se usuario no valido no se permiten carecteres especiales (#$%&) </p>
+          <p class="fomulario__input-error ">nombre se usuario no valido no se permiten caracteres especiales (#$%&) </p>
           </div>
 
           <div id="contraseña">

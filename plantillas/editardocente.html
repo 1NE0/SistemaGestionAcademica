@@ -1,0 +1,123 @@
+{% load static %}
+
+<!-- scripts para jquery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+<!-- font awesome -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+<!-- bootstrap estilos -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous"/>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+
+
+
+
+<div class="modal-dialog modal-lg" role="document" id="miModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title">Editar a {{docente.nombres}}</h2>
+            
+            <button class="cerrar" onclick="cerrarModal()" type="button" data-dismiss = "modal" aria-label="Cerrar">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        
+        
+                <form class="formEditarDocente" method="POST" action="{% url 'modificarDocente' %}">
+                        {% csrf_token %}
+                        <div class="modal-body">
+                            <label for="identificacion">Identificacion</label>
+                            <input name="identificacion" id="inputId" type="text" placeholder="identificacion" class="form-control">
+
+                            <label for="nombres">Nombres</label>
+                            <input name="nombres" id="inputNombres" type="text" placeholder="nombres" class="form-control">
+
+                            <label for="apellidos">Apellidos</label>
+                            <input name="apellidos" id="inputApellidos" type="text" placeholder="apellidos" class="form-control">
+                            
+                            <label for="edad">Edad</label>
+                            <input name="edad" id="inputEdad" type="text" placeholder="Edad" class="form-control">
+
+                            <label for="sexo">Sexo</label>
+                            <input name="sexo" id="inputSexo" type="text" placeholder="M/F/O" class="form-control">
+
+                            <label for="telefono">Telefono</label>
+                            <input name="telefono" id="inputTelefono" type="text" placeholder="Telefono" class="form-control">
+
+                            <label for="ciudad">Ciudad</label>
+                            <select  class="form-control" name="ciudad" id="inputCiudad">
+                                {% for ciudad in ciudades %}
+                                <option id="ciudad">{{ ciudad.nombre }} </option>
+                                {% endfor %}
+                              </select>              
+                            
+                            
+                            <label for="direccion">Direccion</label>
+                            <input name="direccion" id="inputDireccion" type="text" placeholder="Direccion" class="form-control">
+                        </div>
+                        
+
+                        <div class="modal-footer">
+                            <button class="btn btn-danger" onclick="cerrarModal()" type="button" data-dismiss="modal">Cancelar</button>
+                            <button class="btn btn-primary" type="submit" value="submit">Confirmar</button>
+                        </div>
+                    </form>
+           
+    </div>
+    <script src="{% static 'js/crearDocente.js' %}"></script>
+</div>
+
+<script>
+
+     $(document).ready(function(){
+
+            $('#inputId').val("{{docente.identificacion}}");
+            $('#inputNombres').val("{{docente.nombres}}");
+            $('#inputApellidos').val("{{docente.apellidos}}");
+            $('#inputEdad').val("{{docente.edad}}");
+            $('#inputSexo').val("{{docente.sexo}}");
+            $('#inputTelefono').val("{{docente.telefono}}");
+            $('#inputCiudad').val();
+            $('#inputDireccion').val("{{docente.direccion}}");
+
+
+function cerrarModal() {
+    console.log($('.modal-dialog').attr('id'));
+    
+    return false;
+}
+
+$('.formEditarDocente').on("submit", function (e) {
+    e.preventDefault();
+    var data = $(".formEditarDocente :input").serializeArray(); // COGER SUS INPUTS, Y SERIALIZARLOS EN JSON
+    console.log(data);
+    console.log(data[0].value);
+    $.ajax({
+        type: "POST", 
+        url: $(".formEditarDocente").attr("action"),
+        dataType: "html",
+        data: {
+            csrfmiddlewaretoken: data[0].value,
+            identificacion: data[1].value,
+            nombres: data[2].value,
+            apellidos: data[3].value,
+            edad: data[4].value,
+            sexo: data[5].value,
+            telefono: data[6].value,
+            ciudad: data[7].value,
+            direccion: data[8].value,
+        },
+        success: function (response) { // evita que jQuery intente procesar algo que no puede
+            if(response == "correcto"){
+                swal("¡Fantástico!","Se actualizó correctamente a {{docente.nombres}} {{docente.apellidos}} :)", "success");
+                console.log($('.modal-dialog').parent().parent().attr('id'));
+            }
+        },
+        error: function (param) { 
+
+        }
+    });
+})
+});
+
+</script>

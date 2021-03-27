@@ -1,32 +1,44 @@
-{% load static %}
 
+    {% load static %}
+    <link rel="stylesheet" href="../static/css/validaciones.css">
 
-<div class="modal-dialog modal-lg" role="document" id="miModal">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h2 class="modal-title">Crear Periodo</h2>
-            <button class="cerrar" onclick="cerrarModal()" type="button" data-dismiss = "modal" aria-label="Cerrar">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-            
-            {% csrf_token %}
-            <div class="modal-body">
-                <form  method="POST" action="{% url 'crearPeriodo' %}" id="form_periodos">
-                    {% csrf_token %}
-                    <label for="start">Fecha inicio</label>
-                    <input type="date" id="start" name="trip-start" value="{{fecha_actual.year}}-{{mes_actual}}-{{dia_actual}}" min="{{fecha_actual.year}}-{{mes_actual}}-{{dia_actual}}" max="">
-                    <label for="start">Fecha Final</label>
-                    <input type="date" id="start" name="trip-start" value="{{fecha_recomendada.year}}-{{mes_recomendado}}-{{dia_recomendado}}" min="{{fecha_recomendada.year}}-{{mes_recomendado}}-{{dia_recomendado}}" max="">
-                    <div class="modal-footer">
-                        <button type="Submit" value="Submit" class="btn btn-success registrar" onclick="prueba()">registrar</button>
-                    </div>
-                    
-                </form>
+ 
+    <div class="modal-dialog modal-lg" role="document" id="miModal">
+        
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Crear Periodo</h2>
+                <button class="cerrar" onclick="cerrarModal()" type="button" data-dismiss = "modal" aria-label="Cerrar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
+                
+                {% csrf_token %}
+                <div class="modal-body">
+                    <form  method="POST" action="{% url 'crearPeriodo' %}" id="form_periodos">
+                        {% csrf_token %}
+                        <div id="inicio">
+                        <label for="start">Fecha inicio</label>
+                        <input type="date" id="start Finicio" name="trip-start-inicio" class="inputs" value="{{dia_actual}}-{{mes_actual}}-{{fecha_actual.year}}" min="{{fecha_actual.year}}-{{mes_actual}}-{{dia_actual}}" max="">
+                        <p class="fomulario__input-error ">la fecha no puede ser menor a la fecha actual</p>
+                        </div>
+
+                        <div id="final">
+                        <label for="start">Fecha Final</label>
+                        <input type="date" id="start Ffinal" name="trip-start-final"  class="inputs " value="" min="{{fecha_recomendada.year}}-{{mes_recomendado}}-{{dia_recomendado}}" max="">
+                        <p class="fomulario__input-error ">la fecha no puede ser menor a la fecha de inicio</p>
+                        </div> -->
+
+                        <div class="modal-footer">
+                            <button type="Submit" value="Submit" class="btn btn-success registrar" onclick="prueba()">registrar</button>
+                        </div>
+                        
+                    </form>
+                </div>
+        </div>
     </div>
-</div>
 
 
 
-<script src="{% static 'js/periodo.js' %}"></script>
+    <script src="{% static 'js/periodo.js' %}"></script>
+    <script src="{% static 'js/validacion_periodo.js' %}"></script>
