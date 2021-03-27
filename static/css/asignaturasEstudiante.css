@@ -15,24 +15,140 @@
 
 /* curso */
 
-.curso{
-    width: 100%; 
-    background-color: #3c4552;
-}
-
-.curso h2{
-    
-}
-
-.contenido{
+.contenedor{
+    height: auto;
     overflow-y: scroll;
 }
 
-.contenido-curso{
-    margin: 40px;
+@import url('https://fonts.googleapis.com/css2?family=Yantramanav:wght@900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bungee&family=Yantramanav:wght@900&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i');
+
+.datos{
     width: 100%;
-    
+    display: flex;
 }
+
+.titulito{
+    font-family:'Montserrat', sans-serif!important;
+    font-weight: 500;
+    text-align: center;
+}
+
+.contenido-curso{
+    width: 100%;
+    height: auto;
+    padding: 20px;
+}
+
+.contenido-curso h2{
+    text-align: center;
+}
+
+.cuadrito{
+    height: auto;
+}
+
+/* FILE UPLOAD */
+/* Basics */
+.subir{
+    width: 100%!important;
+    background-color: #1abc9c;
+    border: none;
+    color: white;
+    font-family:'Montserrat', sans-serif!important;
+}
+
+.subir:hover{
+    background-color: #169e83;
+}
+
+.subir:active{
+    background-color: #22e0ba;
+}
+
+.actividad{
+    width: 100px;
+    height: auto;
+    background-color: white;
+    margin-right: 20px;
+}
+
+.imagen{
+    width: 100px;
+    height: 100px;
+}
+
+.archivos-subidos{
+    margin-top: 15px;
+    display: flex;
+}
+
+.descargar{
+    background-color: teal!important;
+    color: white!important;
+    border-radius: 0px!important;
+    animation: none!important;
+    border: none!important;
+    width: 100%!important;
+}
+
+.texto-actividad p{
+    color: black;
+    font-size: 12px;
+    text-align: center;
+}
+
+/***************************************** upload button styles ******************************************/
+.file-input {
+    display: inline-block;
+    text-align: left;
+    background: #fff;
+    padding: 16px;
+    width: 100%;
+    position: relative;
+    border-radius: 3px;
+  }
+  
+  .file-input > [type='file'] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    z-index: 10;
+    cursor: pointer;
+  }
+  
+  .file-input > .button {
+    display: inline-block;
+    cursor: pointer;
+    background: rgb(27, 74, 88);
+    padding: 8px 16px;
+    border-radius: 2px;
+    margin-right: 8px;
+  }
+  
+  .file-input:hover > .button {
+    background: rgb(45, 123, 146);
+    color: white;
+  }
+  
+  .file-input > .label {
+    color: #333;
+    white-space: nowrap;
+    opacity: .3;
+  }
+  
+  .file-input.-chosen > .label {
+    opacity: 1;
+  }
+
+  .primeros{
+      border-radius: 0px!important;
+      margin-bottom: 5px!important;
+  }
 
 .wrapper {
     margin: 5em auto;
@@ -40,6 +156,8 @@
     margin: 10px;
     background-color: #fff;
     box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.06);
+    height: 650px;
+    overflow-y: scroll;
 }
 .header {
     padding: 30px 30px 0;

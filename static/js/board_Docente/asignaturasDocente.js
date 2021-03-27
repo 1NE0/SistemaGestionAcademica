@@ -50,8 +50,8 @@ $('#form').submit(function(e){
     },
     success: function(response){    // AL TERMINAR SATISFACTORIAMENTE
         if(response == "correcto"){
-          swal("¡Bien hecho!", "Se registro con exito", "success");
-          $('body').load('/asignaturasDocente');
+          swal("¡Bien hecho!", "Se Guardó con exito el documento :)", "success");
+          $('.contenedor').load('/asignaturasDocente');
         }
     },
     error: function (response) {
@@ -59,3 +59,27 @@ $('#form').submit(function(e){
     },
     });
 });
+
+
+/* ESTILO CSS Y JS */
+// Also see: https://www.quirksmode.org/dom/inputfile.html
+
+var inputs = document.querySelectorAll('.file-input')
+
+for (var i = 0, len = inputs.length; i < len; i++) {
+  customInput(inputs[i])
+}
+
+function customInput (el) {
+  const fileInput = el.querySelector('[type="file"]')
+  const label = el.querySelector('[data-js-label]')
+  
+  fileInput.onchange =
+  fileInput.onmouseout = function () {
+    if (!fileInput.value) return
+    
+    var value = fileInput.value.replace(/^.*[\\\/]/, '')
+    el.className += ' -chosen'
+    label.innerText = value
+  }
+}
