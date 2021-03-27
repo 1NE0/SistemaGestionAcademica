@@ -62,7 +62,6 @@ function onDragStart(event) {   // CUANDO SE COMIENZA A ARRASTRAR
 function cerrarModal() {
     jQuery.noConflict(); 
     $('#creacion').modal('hide');
-    $('.principal').load('/asignaturas');
     $('.paginita').load('/asignaturas');
     return false;
 }
@@ -212,8 +211,3 @@ $(document).ready(function(){
 
     });
 });
-
-
-
-
-

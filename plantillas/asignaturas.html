@@ -9,6 +9,9 @@
     
     <!-- Seewt Alert -->
      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  
+     <link rel="stylesheet" href="{% static 'css/asignaturas.css' %}">
+
 
      <div class="paginita">
         <div class="seccion1">
@@ -25,7 +28,7 @@
                           <div class="example-origin" ondragover="onDragOver(event);" ondrop="onDrop(event);"> <!-- el panel de origen -->
     
                             <!-- aqui dentro se pueden objetos de clase example-draggable que son los programas -->
-                            {% for inscripcion in sinMatricula %}
+                            {% for inscripcion in sinMatricula%}
                               <div id="{{inscripcion.Id}}" class="example-draggable" draggable="true" ondragstart="onDragStart(event);">
                                 <h2 style="margin-right: 20px;">{{inscripcion.asignatura.nom_asig}} - {{inscripcion.nivel.nivel}}</h2>
                               </div>
@@ -61,9 +64,6 @@
         
             <div class="modal fade" id="creacion" role="dialog"></div>
       </div>
-    </div>
-</div>    
     
     <div class="modal fade" id="creacion" role="dialog"></div>
     <script src="{% static 'js/asignaturas.js' %}"></script>
-
