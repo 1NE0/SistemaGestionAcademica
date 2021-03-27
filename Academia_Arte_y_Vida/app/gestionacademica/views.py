@@ -789,7 +789,6 @@ def pago_realizado(request):
         
     #buscar el usuario para volverlo un estudiante
 
-    usuario = models.usuario.objects.get(identificacion=codigo)   # encontrar el objeto usuario con el codigo dado
     programa = models.Programas.objects.get(nom_programa=usuario.nom_programa)   # encontrar el objeto programa con el nom_programa del usuario
 
     if usuario.curso_musica == "" or usuario.curso_musica == None:

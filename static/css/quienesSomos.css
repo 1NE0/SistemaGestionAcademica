@@ -1,6 +1,11 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i');
+
 .contenidito {
   padding-top: 100px;
   height: 900px;
+}
+
+.contenido-cards{
   margin-left: 100px;
   margin-right: 100px;
 }
@@ -16,15 +21,17 @@ body {
 }
 
 .texto p {
-  font-size: 14px;
+  font-family: 'Montserrat', sans-serif!important;
+  font-size: 23px;
   color: white;
-  font-weight: bolder;
+  font-weight: normal;
   text-align: left;
-  margin-top: 50px;
-  line-height: 20px;
+  margin-top: 30px;
+  line-height: 35px;
 }
 
 .texto h1 {
+  font-family: 'Montserrat', sans-serif!important;
   color: white;
   font-weight: bolder;
   text-align: center;
@@ -35,7 +42,7 @@ body {
  
 
 .card {
-  background-color: rgb(26, 188, 156) !important;
+  background-color: rgb(41, 162, 199) !important;
   padding: 10px;
   transition: 0.3s linear;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
