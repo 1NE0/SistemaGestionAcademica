@@ -1,6 +1,8 @@
 {% load static %}
 
 <link rel="stylesheet" href="{% static 'css/crearcurso.css' %}">
+<link rel="stylesheet" href="{% static 'css/validaciones.css' %}">
+
 
 <div class="modal-dialog modal-lg" role="document" id="miModal">
     <div class="modal-content">
@@ -38,8 +40,16 @@
                                         </select>
             
                                         <!-- descripcion -->
-                                        <label for="start" class="">Descripcion</label>
-                                        <input name="descripcion" type="text" class="form-control">
+                                        <div id="descripcionedid">
+                                            <label for="start" class="">Descripcion</label>
+                                            <input name="descripcion" type="text" class="form-control inputs">
+                                            <p class="fomulario__input-error ">La descripcion no permite caracteres especiales(/\#$%&)
+                                                debe cotener entre(8-60) caracteres
+                                            </p>
+                                            </div>
+                                        
+
+
                                     
                                         <label for="start" class="">Docente</label>
                                         <select  class="form-control" id="exampleFormControlSelect1" name="docente">
@@ -47,8 +57,15 @@
                                                 <option value="{{docente.identificacion}}">{{ docente.nombres }} </option>
                                             {% endfor %}
                                         </select>
-                                        <label for="start" class="">Grupo</label>
-                                        <input name="grupo" type="text" class="form-control ">
+                                        <!-- grupo -->
+                                        <div id="grupo_editar">
+                                            <label for="start" class="">Grupo</label>
+                                            <input name="grupo" type="text" class="form-control inputs ">
+                                            <p class="fomulario__input-error ">el grupo solo permite numeros entre 1 a 2 caracteres
+                                            </p>
+            
+                                            </div>
+                                        
             
                                         <label for="start" class="">Dia</label>
                                         <select class="form-select mb-4" aria-label="Seleccione el dia" name="dia">
@@ -59,12 +76,22 @@
                                             <option value="viernes">viernes</option>
                                             <option value="sabado">sabado</option>
                                         </select>
-            
-                                        <label for="start" class="">Hora inicial</label>
-                                        <input type="time" id="appt" name="hora_inicial" min="09:00" max="18:00" required>
-            
-                                        <label for="start" class="">Horario inicial</label>
-                                        <input type="time" id="appt" name="hora_final" min="09:00" max="18:00" required>
+                                        <!-- horas -->
+                                         <div id="hora_inicial_editar">
+                                            <label for="start" class="">Hora inicial</label>
+                                            <input type="time" id="appt_inicio_editar" name="hora_inicial" class="inputs" min="08:00" max="18:00" required>
+                                            <p class="fomulario__input-error "> la hora inicial no puede ser mayor a las 6:00pm y menor a las 8:00 am
+                                            </p>
+                                            </div>
+
+                                            <div id="hora_final_editar">
+                                            <label for="start" class="">Horario final</label>
+                                            <input type="time" id="appt_final_editar" name="hora_final" class="inputs"  min="08:00" max="18:00" required>
+                                            <p class="fomulario__input-error "> La hora final no puede ser menor a la inicial y mayor a las 6:00pm
+                                            </p>
+                                            </div>
+             
+                                        
         
         
                                         <button class="btn btn-primary enviar" type="submit" value="submit">Confirmarr</button>   
@@ -79,11 +106,19 @@
                     <div class="acc-content">
                         <div class="content">
                             <div class="izquierda">
+
+                                <div id="codigo">                                
                                 <label for="start" class="">Código</label>
-                                <input name="cod_curso" type="text" class="form-control">
+                                <input name="cod_curso" type="text" class="form-control inputs">
+                                <p class="fomulario__input-error ">El codigo solo puede contener letras, numeros y giones(-_)(entre 4 y 8 caracteres)</p>
+                                </div>
+
+                                <div id="nombre">
                                 <label for="start" class="">Nombre</label>
-                                <input name="nom_curso" type="text" class="form-control">
-    
+                                <input name="nom_curso" type="text" class="form-control inputs">
+                                <p class="fomulario__input-error ">El nombre solo puede contener letras y espacios</p>
+                                </div>
+                                    
                                 <!-- nivel -->
                                 <label for="start" class="">Nivel</label>
                                 <select class="form-select mt-1" aria-label="Seleccione el nivel del curso" name="nivel">
@@ -93,8 +128,13 @@
                                 </select>
     
                                 <!-- descripcion -->
+                                <div id="descripcion">
                                 <label for="start" class="">Descripcion</label>
-                                <input name="descripcion" type="text" class="form-control">
+                                <input name="descripcion" type="text" class="form-control inputs">
+                                <p class="fomulario__input-error ">La descripcion no permite caracteres especiales(/\#$%&)
+                                    debe cotener entre(8-60) caracteres
+                                </p>
+                                </div>
                             </div>
                             <div class="derecha">
                                 <label for="start" class="">Docente</label>
@@ -103,8 +143,13 @@
                                         <option value="{{docente.identificacion}}">{{ docente.nombres }} </option>
                                     {% endfor %}
                                 </select>
+                                <div id="grupo">
                                 <label for="start" class="">Grupo</label>
-                                <input name="grupo" type="text" class="form-control ">
+                                <input name="grupo" type="text" class="form-control inputs ">
+                                <p class="fomulario__input-error ">el grupo solo permite numeros entre 1 a 2 caracteres
+                                </p>
+
+                                </div>
     
                                 <label for="start" class="">Dia</label>
                                 <select class="form-select mb-4" aria-label="Seleccione el dia" name="dia">
@@ -115,13 +160,18 @@
                                     <option value="viernes">viernes</option>
                                     <option value="sabado">sabado</option>
                                 </select>
-    
+                                <div id="hora_inicial">
                                 <label for="start" class="">Hora inicial</label>
-                                <input type="time" id="appt" name="hora_inicial" min="09:00" max="18:00" required>
-    
-                                <label for="start" class="">Horario inicial</label>
-                                <input type="time" id="appt" name="hora_final" min="09:00" max="18:00" required>
-
+                                <input type="time" id="appt_inicio" name="hora_inicial" class="inputs" min="08:00" max="18:00" required>
+                                <p class="fomulario__input-error "> la hora inicial no puede ser mayor a las 6:00pm y menor a las 8:00 am
+                                </p>
+                                </div>
+                                <div id="hora_final">
+                                <label for="start" class="">Horario final</label>
+                                <input type="time" id="appt_final" name="hora_final" class="inputs"  min="08:00" max="18:00" required>
+                                <p class="fomulario__input-error "> La hora final no puede ser menor a la inicial y mayor a las 6:00pm
+                                </p>
+                                </div>
 
                                 <button class="btn btn-primary enviar" type="submit" value="submit">Confirmarr</button>   
                             </div>
@@ -141,5 +191,8 @@
         </form>
     </div>
 </div>
+<script src="{% static 'js/validacion_cursos_crear.js' %}"></script>
+<!-- <script src="{% static 'js/validacion_cursos_editar.js' %}"></script>  -->
 
 <script src="{% static 'js/cursos.js' %}"></script>
+

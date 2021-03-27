@@ -1,0 +1,22 @@
+ /* mensajes error  */
+ .fomulario__input-error{
+    font-size: 12px;
+    margin-bottom: 0;
+    display: none;
+    color:#bb2929;
+  }
+  /* modificador activo mostara el mensaje cuando el error se dispare */
+  .fomulario__input-error-activo{
+    display: block;
+    
+  }
+  
+  .grupo-incorrecto .inputs{
+    border: 2px solid #e84545 !important;
+    
+  }
+  
+  .grupo-correcto .inputs{
+    border: 2px solid #16c79a !important;
+    
+  }
