@@ -74,7 +74,7 @@ $(function() {
          url: $("#formEditarCurso").attr("action"),
          data: {
              csrfmiddlewaretoken:inputs[0].value,
-             cod_curso: inputs[1].value,
+             cod_curso: inputs[1].value, 
              nivel: inputs[2].value,
              descripcion: inputs[3].value,
              docente: inputs[4].value,
@@ -91,7 +91,7 @@ $(function() {
          success: function (response) {
              if(response == "correcto"){
                  swal("Correcto!", "El curso se ha registrado con éxito.", "success");
-                 $('.contenido').parents('.contenedor-central').load('/cursos');
+                 
              }else if(response == "nivelRepetido"){
                 swal("Ups!", "Ya existe un detalle curso con este nivel.", "warning");
              }
@@ -185,7 +185,7 @@ $('.guardar').click(function(e){
             success: function (response) {
                 if(response == 'Perfecto'){
                     swal("Correcto!", "El programa se ha guardado con éxito.", "success");
-                    
+                    $('.contenido').parents('.contenedor-central').load('/cursos');
                 }
 
                 

@@ -193,7 +193,7 @@ $(document).ready(function(){
                 success: function(response){    // AL TERMINAR SATISFACTORIAMENTE
                         if(response == "correcto"){
                             swal("Registrado exitosamente :)", "Se ha registrado correctamente el nivel de la asignatura", "success");
-                            $('.paginita').load('/asignaturas');
+                            
                         }else if(response == "nivelRepetido"){
                             swal("Ocurrió un error :(", "Ya hay una asignatura con este nivel", "error");
                         } 
@@ -211,8 +211,3 @@ $(document).ready(function(){
 
     });
 });
-
-
-
-
-

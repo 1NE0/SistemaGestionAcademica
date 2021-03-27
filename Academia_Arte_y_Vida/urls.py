@@ -64,9 +64,16 @@ urlpatterns = [
     ##################################################################
     url(r'^administracion/$', administracion_staff, name="administracion"),
     url(r'^inscripcion/$', primerpago, name="inscripcion"),
+
+    #Docentes
     url(r'^docentes/$', docentes, name="docentes"),
     url(r'^crearDocente/$', crearDocente, name="crearDocente"),
     url(r'^listaDocente/$', lista_docente, name="listaDocente"),
+    url(r'^editarDocente$', editarDocente, name="editarDocente"),
+    url(r'^modificarDocente$', modalEditarDocente, name="modificarDocente"),
+    url(r'^eliminarDocente$', eliminarDocente, name="eliminarDocente"),
+ 
+
     url(r'^editarcurso/$', editarcurso, name="editarcurso"),
     #url(r'^pago/$', detalles_pagos, name="pago")
     url(r'^perfil/$', perfil, name="perfil"),

@@ -91,7 +91,7 @@ function cerrarModal() {
   $('#creacion').modal('hide');
 
   // actualizar informacion
-  
+  $('paginita').load('/periodos');
   return false;
 }
 
