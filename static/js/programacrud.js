@@ -16,14 +16,7 @@ function abrirModal(url){
    return false;  
 }
 
-function cerrarModal() {
-  console.log("hola"); 
-  $('#creacion').modal('hide');
-  $('#edicion').modal('hide');
-  $('.pagina').load('/programas');
-  return false; 
-}
-
+ 
 
 $(document).ready(function(){
 
@@ -68,17 +61,35 @@ $(document).ready(function(){
 
   })
 });
-/*
+
 $('.editar').click(function(e){
   e.preventDefault();
   var codigo = $(this).attr('id');
-  abrirModal('/editarprograma' , codigo + "");
+  modalabrir('/editarPrograma',codigo + "");
 });
-/*
+
+
+function modalabrir(url,codigo){
+    jQuery.noConflict();
+
+    arreglo = {'programa':codigo};
+
+    $('#creacion').load(url,arreglo,function(){
+      $(this).modal({
+        backdrop: 'static', // evita cerrar la ventana dando click fuera de ella.
+        keyboard: false   
+      })
+      
+      $(this).modal('show'); 
+      
+    });
+
+}
+
 $('.eliminar').click(function(e){
 e.preventDefault();
 var programa = [];
-var codigo = $('.eliminar').attr('id');
+var codigo = $(this).attr('id');
 programa.push(codigo);
 console.log(programa);
 
@@ -93,7 +104,7 @@ swal({
   if (confirmar) {    // si el director le da a confirmar
     $.ajax({
       method: 'POST',
-      url: '/eliminarprograma',  // la url a la cual irá la peticion
+      url: '/eliminarPrograma',  // la url a la cual irá la peticion
       data: {
               programa: programa,   // parametros que se le mandaran a la vista
       },
@@ -112,13 +123,14 @@ swal({
   }
 });
 });
-function agregarFila(cod_programa,nom_programa,contenido_Aca){
-  var htmlTags = '<tr style="color:white;font-weight:bold;background-color:#092638;">'+
-                    '<td>' + cod_programa + '</td>'+
-                    '<td>' + nom_programa + '</td>'+
-                    '<td>' + contenido_Aca + '</td>'
-                '</tr>'
-  $('#tabla tbody').append(htmlTags);
-  console.log("actulizacion")
+
+function cerrarModal() {
+  console.log("hola");
+  jQuery.noConflict();
+  $('#creacion').modal('hide');
+  $('#edicion').modal('hide');
+  $('.pagina').load('/programas');
+  return false; 
 }
-*/
+
+
