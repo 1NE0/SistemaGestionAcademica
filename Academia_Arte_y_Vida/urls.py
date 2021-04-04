@@ -50,6 +50,8 @@ urlpatterns = [
     url(r'^primerpago/$', primerpago, name="primerpago"),
     url(r'^estudiantes/$', estudiantes, name="estudiantes"),
     url(r'^pago_realizado/$', pago_realizado, name="pago_realizado"),
+
+    url(r'^pago_realizado_prueba/$', pago_realizado_prueba, name="pago_realizado"),
     url(r'^pago_pendiente/$', pago_pendiente, name="pago_pendiente"),
     ###################### contenido del nav ########################
     url(r'^quienes_somos/$', quienes_somos, name="quienes_somos"),

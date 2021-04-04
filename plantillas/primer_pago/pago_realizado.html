@@ -1,0 +1,40 @@
+
+{% extends "base.html" %}
+
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+<head>
+    {% block title %} 
+          {% include "complementos/nav.html" %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/pago_realizado.css' %}">
+    <title>Document</title>
+    {% endblock %}
+</head>
+<body>
+    {% block content %}
+    <h1 style="padding-top: 60px;text-align: center;">holi</h1>
+    <div class="contenidito">
+            <div class="loguito">
+                <img height="100%" width="100%" src="https://i.ibb.co/PhBW2xL/Gei-el-que-me-abra.png" alt="">
+            </div>
+
+            <div class="derecha">
+                <h3> Pago realizado </h3>
+                <p>El pago de la inscripción se realizó con éxito.
+                    Por favor, ingrese
+                </p>
+            </div>
+
+    </div>
+      
+
+        
+    {% endblock %}
+    
+    
+</body>
+</html>

@@ -777,6 +777,9 @@ def primerpago(request):       # no se està utilizando
     usuario = models.usuario.objects.get(user=request.user.id)
     return render(request,"primer_pago/primer_pago.html",{'usuario':usuario})
 
+def pago_realizado_prueba(request):
+    return render(request, "primer_pago/pago_realizado.html")
+
 
 def pago_realizado(request):
     print(request.GET['payment_id'])
@@ -876,7 +879,7 @@ def pago_realizado(request):
         return HttpResponse("Incorrecto")
 
 
-    return HttpResponse("correcto")
+    return render(request, "primer_pago/pago_realizado.html")
 
 
 
