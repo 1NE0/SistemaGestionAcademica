@@ -158,8 +158,8 @@ def info_aerografia(request):
 def info_fotografia(request):
     return render(request, "info/programas_info/fotografia.html")
 
-def info_danzas(request):
-    return render(request, "info/programas_info/danzas.html")
+#def info_danzas(request):
+#    return render(request, "info/programas_info/danzas.html")
 
 def info_tallerInfantil(request):
     return render(request, "info/programas_info/tallerInfantil.html")
