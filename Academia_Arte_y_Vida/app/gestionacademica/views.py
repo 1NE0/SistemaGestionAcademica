@@ -283,7 +283,39 @@ def lista_programas(request):
     return render(request, 'lista_programas.html', context)
 
 
+@csrf_exempt
+def editarPrograma(request):   #abrir el modal
+    
+    if request.method == 'POST':
+        print("estoy en POST")
+        codigo = request.POST.get('programa')
+        print(codigo)
+        programa = models.Programas.objects.get(cod_programa=codigo)
+        return render(request, "administracion/programas/editar.html", {'programa' : programa})
+    return render(request,"administracion/programas/editar.html",{'programa':programa})
 
+
+def modalEditarPrograma(request):      
+
+    ProgramaModificado = models.Programas.objects.get(cod_programa=request.POST.get('codigo'))
+
+    ProgramaModificado.nom_programa = request.POST.get('nombre')
+    ProgramaModificado.contenido_Aca = request.POST.get('contenido')
+    ProgramaModificado.duracion = request.POST.get('duracion')
+
+
+    ProgramaModificado.save()
+
+    return HttpResponse("correcto")
+
+@csrf_exempt
+def eliminarPrograma(request):
+    codigo = request.POST.get('programa[]')
+    programa = models.Programas.objects.get(cod_programa=codigo)
+    programa.delete()
+    return HttpResponse("eliminado")
+
+"""
 def editar_programa(request, cod_programa):
     programa = models.Programas.objects.get(cod_programa=cod_programa)
     if request.method == 'GET':
@@ -306,7 +338,7 @@ def eliminar_programa(request, cod_programa):
         return redirect("../../listaprograma")
     context = {'programa': programa}
     return render(request, "eliminar_programa.html", context)
-
+"""
 
 # Asignaturas ----------------------------------------------------------
 """
@@ -777,6 +809,9 @@ def primerpago(request):       # no se està utilizando
     usuario = models.usuario.objects.get(user=request.user.id)
     return render(request,"primer_pago/primer_pago.html",{'usuario':usuario})
 
+def pago_realizado_prueba(request):
+    return render(request, "primer_pago/pago_realizado.html")
+
 
 def pago_realizado(request):
     print(request.GET['payment_id'])
@@ -789,7 +824,6 @@ def pago_realizado(request):
         
     #buscar el usuario para volverlo un estudiante
 
-    usuario = models.usuario.objects.get(identificacion=codigo)   # encontrar el objeto usuario con el codigo dado
     programa = models.Programas.objects.get(nom_programa=usuario.nom_programa)   # encontrar el objeto programa con el nom_programa del usuario
 
     if usuario.curso_musica == "" or usuario.curso_musica == None:
@@ -877,7 +911,7 @@ def pago_realizado(request):
         return HttpResponse("Incorrecto")
 
 
-    return HttpResponse("correcto")
+    return render(request, "primer_pago/pago_realizado.html")
 
 
 
