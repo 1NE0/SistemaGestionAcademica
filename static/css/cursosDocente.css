@@ -90,10 +90,15 @@
     width: 100%!important;
 }
 
+.texto-actividad{
+    height: auto;
+}
+
 .texto-actividad p{
     color: black;
     font-size: 12px;
     text-align: center;
+    height: 40px;
 }
 
 /***************************************** upload button styles ******************************************/

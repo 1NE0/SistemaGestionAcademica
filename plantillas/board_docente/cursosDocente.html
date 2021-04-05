@@ -47,9 +47,9 @@
                                     <form method="post" enctype="multipart/form-data" action="{% url 'cursosDocente' %}" id="form">
                                         {% csrf_token %}
                                         <div class="datos">
-                                            <input type="text" class="form-control" value="{{detalle.id}}" style="display: none;" name="detalle">
-                                            <input type="text" class="form-control primeros" name="titulo" placeholder="titulo">
-                                            <input type="text" class="form-control primeros" name="descripcion" placeholder="descripcion">
+                                            <input type="text" class="form-control" value="{{detalle.id}}" style="display: none;" name="detalle" required>
+                                            <input type="text" class="form-control primeros" name="titulo" placeholder="titulo" required>
+                                            <input type="text" class="form-control primeros" name="descripcion" placeholder="descripcion" required>
                                         </div>
                                         <div class='file-input'>
                                             <input type='file' name="documento">
