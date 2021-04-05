@@ -134,7 +134,7 @@ function abrirModal(url,identificacion){
 function cerrarModal(){
   jQuery.noConflict(); 
   $('.modal').modal('hide');
-
+  
   return false;
 }
 

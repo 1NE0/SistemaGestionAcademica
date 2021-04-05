@@ -32,10 +32,10 @@ urlpatterns = [
     url(r'^pagos/$', Pagos, name="pagos"),
     #url(r'^crearprograma/$', CrearPrograma, name="crearprograma"),
     url(r'^listaprograma/$', lista_programas, name="listaprograma"),
-    url(r'^editarprograma/(?P<cod_programa>\w+)/$',
-        editar_programa, name="editarprograma"),
-    url(r'^eliminarprograma/(?P<cod_programa>\w+)/$',
-        eliminar_programa, name="eliminarprograma"),
+   # url(r'^editarprograma/(?P<cod_programa>\w+)/$',
+    #    editar_programa, name="editarprograma"),
+    #url(r'^eliminarprograma/(?P<cod_programa>\w+)/$',
+    #    eliminar_programa, name="eliminarprograma"),
    # url(r'^crearasignatura$', CrearAsignatura, name="crearAsignatura"),
     url(r'^crearcurso/$', CrearCurso, name="crearcurso"),
     url(r'^listacursos/$', lista_curso, name="listacursos"),
@@ -50,6 +50,8 @@ urlpatterns = [
     url(r'^primerpago/$', primerpago, name="primerpago"),
     url(r'^estudiantes/$', estudiantes, name="estudiantes"),
     url(r'^pago_realizado/$', pago_realizado, name="pago_realizado"),
+
+    url(r'^pago_realizado_prueba/$', pago_realizado_prueba, name="pago_realizado"),
     url(r'^pago_pendiente/$', pago_pendiente, name="pago_pendiente"),
     ###################### contenido del nav ########################
     url(r'^quienes_somos/$', quienes_somos, name="quienes_somos"),
@@ -83,7 +85,10 @@ urlpatterns = [
     #Programas
     url(r'^programas/$', programas_Admin, name="programas"),
     url(r'^programas/crear$', crearPrograma, name="crearprograma"),
-    
+    url(r'^editarPrograma$', editarPrograma, name="editarprograma"),
+    url(r'^programas/modificar$', modalEditarPrograma, name="modificarprograma"),
+    url(r'^eliminarPrograma$', eliminarPrograma, name="eliminarprograma"),
+
     url(r'^efectuarReferencia$',activarReferenciaDePago, name="referenciaPago"),
     url(r'^aceptarUsuario$', aceptarUsuario, name="aceptarUsuario"),
     url(r'^asignarProgramas$', asignarProgramas, name="asignarProgramas"),
@@ -106,6 +111,7 @@ urlpatterns = [
     url(r'^cursosDocente$', cursosDocente, name="cursosDocente"),
     url(r'^asignaturasDocente$', asignaturasDocente, name="asignaturasDocente"),
     url(r'^asignaturaActividades$', asignaturaActividades, name="asignaturaActividades"),
+    url(r'^eliminarActividad/$', eliminarActividad, name="eliminarActividad"),
 
     #estadisticas
     url(r'^obtenerEstadisticas$', obtenerEstadisticas, name="obtenerEstadisticas"),

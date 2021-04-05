@@ -26,16 +26,14 @@
   <nav class="navegador">
     <div class="menu-main">
       <div class="logo">
-        <!-- <img src="https://i.imgur.com/FAFeDCb.png" alt="" width="60px" height="60px"> -->
-        <a href="{% url 'index' %}"
-          ><h2>SGA <i class="fas fa-atom"></i></h2
-        ></a>
+        
+        <a href="{% url 'index' %}"><img src="https://i.ibb.co/rsJ5hKP/logo-A.png" alt="" width="60px" height="60px"></a>
       </div>
       <div class="item">
         <a href="{% url 'quienes_somos' %}">¿Quiénes somos?</a>
       </div>
       <div class="item">
-        <a class="item dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="item dropdown-toggle general" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Programas
         </a>      
         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -55,28 +53,24 @@
       {% if user.is_active%}
 
       <nav class="perfil">
-        <ul>
-          <li class="item">
-            <a href="#"
-              >{{user.username}}
-              <i class="fas fa-user" style="margin-left: 10px"></i
-            ></a>
-
-            <ul>
-              {% ifequal user.groups.all.0.name "director"%}
-              <li><a href="{% url 'administracion'%}">Administración</a></li>
-              {% endifequal %} {% ifequal user.groups.all.0.name "usuarios"%}
-              <li><a href="{% url 'primerpago' %}">Inscripcion</a></li>
-              {% endifequal %} {% ifequal user.groups.all.0.name "estudiantes"%}
-              <li><a href="{% url 'board_estudiante' %}">Panel Académico</a></li>
-              {% endifequal %} {% ifequal user.groups.all.0.name "docentes"%}
-              <li><a href="{% url 'board_docente' %}">Panel Académico</a></li>
-              {% endifequal %}
-              <li><a href="{% url 'perfil' %}">Perfil</a></li>
-              <li><i class="fa fa-power-off fa-lg"></i> <a href="/logout">  Salir</a></li>
-            </ul>
-          </li>
-        </ul>
+        <div class="item">
+          <a class="item dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-user" style="margin-right: 15px;"></i>{{user.username}}
+          </a>      
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            {% ifequal user.groups.all.0.name "director"%}
+            <a class="dropdown-item" href="{% url 'administracion' %}"><i class="fas fa-tools" style="margin-right: 5px;"></i>      Administración</a>
+            {% endifequal %} {% ifequal user.groups.all.0.name "usuarios"%}
+            <a class="dropdown-item" href="{% url 'primerpago' %}"><i class="fas fa-money-check-alt" style="margin-right: 5px;"></i> Inscripcion</a>
+            {% endifequal %} {% ifequal user.groups.all.0.name "estudiantes"%}
+            <a class="dropdown-item" href="{% url 'board_estudiante' %}"><i class="fas fa-tools" style="margin-right: 5px;"></i>  Panel Académico</a>
+            {% endifequal %} {% ifequal user.groups.all.0.name "docentes"%}
+            <a class="dropdown-item" href="{% url 'board_docente' %}"><i class="fas fa-tools" style="margin-right: 5px;"></i>  Panel Académico</a>
+            {% endifequal %}
+            <a class="dropdown-item" href="{% url 'perfil' %}"> <i class="fas fa-user-circle" style="margin-right: 5px;"></i> Perfil</a>
+            <a class="dropdown-item" href="/logout"><i class="fas fa-sign-out-alt" style="margin-right: 5px;"></i> Salir</a>
+          </div>
+        </div>
       </nav>
       {% else %}
       <div class="item"><a class="accion" href="/login">Login</a></div>

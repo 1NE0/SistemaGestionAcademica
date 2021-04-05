@@ -1,0 +1,27 @@
+body{
+    margin-top: 100px;
+}
+.contenidito{
+    
+    height: auto;
+    padding-top: 10px;
+    display: flex;
+}
+
+.loguito{
+    background-color: rgb(235, 233, 233);
+    width: 50%;
+    height: auto;
+    padding-left: 60px;
+    padding-top: 30px;
+  
+  } 
+
+.derecha{
+    text-align: center;
+
+    width: 50%;
+    height: auto;
+    padding-top: 30px;
+    background-color: rgb(235, 233, 233);
+  }

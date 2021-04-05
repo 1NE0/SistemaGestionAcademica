@@ -283,7 +283,39 @@ def lista_programas(request):
     return render(request, 'lista_programas.html', context)
 
 
+@csrf_exempt
+def editarPrograma(request):   #abrir el modal
+    
+    if request.method == 'POST':
+        print("estoy en POST")
+        codigo = request.POST.get('programa')
+        print(codigo)
+        programa = models.Programas.objects.get(cod_programa=codigo)
+        return render(request, "administracion/programas/editar.html", {'programa' : programa})
+    return render(request,"administracion/programas/editar.html",{'programa':programa})
 
+
+def modalEditarPrograma(request):      
+
+    ProgramaModificado = models.Programas.objects.get(cod_programa=request.POST.get('codigo'))
+
+    ProgramaModificado.nom_programa = request.POST.get('nombre')
+    ProgramaModificado.contenido_Aca = request.POST.get('contenido')
+    ProgramaModificado.duracion = request.POST.get('duracion')
+
+
+    ProgramaModificado.save()
+
+    return HttpResponse("correcto")
+
+@csrf_exempt
+def eliminarPrograma(request):
+    codigo = request.POST.get('programa[]')
+    programa = models.Programas.objects.get(cod_programa=codigo)
+    programa.delete()
+    return HttpResponse("eliminado")
+
+"""
 def editar_programa(request, cod_programa):
     programa = models.Programas.objects.get(cod_programa=cod_programa)
     if request.method == 'GET':
@@ -306,7 +338,7 @@ def eliminar_programa(request, cod_programa):
         return redirect("../../listaprograma")
     context = {'programa': programa}
     return render(request, "eliminar_programa.html", context)
-
+"""
 
 # Asignaturas ----------------------------------------------------------
 """
@@ -777,6 +809,9 @@ def primerpago(request):       # no se està utilizando
     usuario = models.usuario.objects.get(user=request.user.id)
     return render(request,"primer_pago/primer_pago.html",{'usuario':usuario})
 
+def pago_realizado_prueba(request):
+    return render(request, "primer_pago/pago_realizado.html")
+
 
 def pago_realizado(request):
     print(request.GET['payment_id'])
@@ -876,7 +911,7 @@ def pago_realizado(request):
         return HttpResponse("Incorrecto")
 
 
-    return HttpResponse("correcto")
+    return render(request, "primer_pago/pago_realizado.html")
 
 
 
@@ -1477,4 +1512,12 @@ def inscripcionAsignaturas(request):
         inscripcionEstudianticoAsignatura = models.InscripcionEstudianteAsignatura(fecha_realizacion=datetime.now(),nivel_asignatura=nivelObj,estudiante=estudiante,inscripcion_estudiante=inscripcionRecienteDelEstudiante)
         inscripcionEstudianticoAsignatura.save()
 
+    return HttpResponse("correcto")
+
+@csrf_exempt
+def eliminarActividad(request):
+
+    codigo = request.POST.get('codActividad[]')
+
+    models.actividades.objects.get(id=codigo).delete()
     return HttpResponse("correcto")

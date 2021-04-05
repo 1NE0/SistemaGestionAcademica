@@ -1,0 +1,12 @@
+ 
+
+ 
+ 
+ 1)  cuando hay que restar e a f(n)    ==> se usa O  ( 0 <= f(n) <= c2g(n)
+ 
+ 
+ 2) cuando f(n) es igual ==> se usa  theta    (c1g(n) <= f(n) <= c2g(n) para todo n > n0)
+ 
+ 
+ 3) cuando f(n) es mayor ==> se usa omega   => 0 <= c1g(n) <= f(n)
+ n4   (n logba + e)

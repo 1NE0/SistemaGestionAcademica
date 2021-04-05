@@ -5,7 +5,9 @@ body{
       margin: 0px;
       background: #d1d1d1;
   }
-
+  .dropdown-menu a:active{
+      color: white!important;
+  }
   .navegador{
       width: 100%;
   }
@@ -86,6 +88,11 @@ body{
       text-decoration: none;
   }
   
+  .general:hover{
+    color: rgb(245,128,133);
+    text-decoration: none;
+  }
+
   .item a.active{
       background-color: #29487d;
   }
@@ -107,7 +114,9 @@ body{
     .perfil{
         margin-top: 15px;
         z-index: 6;
-    }      
+        width: 150px;
+    }
+
     .perfil li{
         display:inline-block;
         width:150px;
@@ -118,10 +127,11 @@ body{
         color:rgb(0, 0, 0);
         position:relative;
         z-index: 6;
+        border-radius: 1px solid black;
     }
             
     .perfil li:hover{
-        background-color:#fff;
+        background-color:rgb(201, 201, 201);
         color:#000;
         animation-duration: 0.3s;
     }
@@ -201,5 +211,5 @@ body{
         }
     } */
 
-}
+
     
