@@ -1,6 +1,7 @@
 {% load static %}
 
 <link rel="stylesheet" href="{% static 'css/crearAsignatura.css' %}">
+<link rel="stylesheet" href="{% static 'css/validaciones.css' %}">
 
 
 <div class="modal-dialog modal-lg" role="document" id="miModal">
@@ -36,8 +37,14 @@
                                     <option value="3">3</option>
                                     <option value="4">4</option>
                                 </select>
+                                <!-- editar descripcion  -->
+                                <div id="ediar_descipcion">
                                 <label for="start">Ingrese la descripcion</label>
-                                <input type="text" class="form-control" name="descripcion" placeholder="ejemplo : esto es una asignatura">
+                                <input type="text" class="form-control inputs" name="descripcion" placeholder="ejemplo : esto es una asignatura">
+                                <p class="fomulario__input-error ">La descripcion no permite caracteres especiales(/\#$%&)
+                                    debe cotener entre(8-60) caracteres </p>  
+                                 
+                                </div>
                                 <label for="start" >Dia</label>
                                         <select class="form-select mb-4" aria-label="Seleccione el dia" name="dia">
                                             <option value="lunes">lunes</option>
@@ -47,12 +54,21 @@
                                             <option value="viernes">viernes</option>
                                             <option value="sabado">sabado</option>
                                         </select>
+                                <!-- hora inicial -->
+                                 <div id="hora_inicial">       
                                 <label for="start" class="">Hora inicial</label>
-                                <input type="time" class="form-control" id="appt" name="hora_inicial" min="09:00" max="18:00" required>
-            
-                                <label for="start" class="">Horario inicial</label>
-                                <input type="time" class="form-control" id="appt" name="hora_final" min="09:00" max="18:00" required>
+                                <input type="time" class="form-control  inputs" id="appt_inicio_editar" name="hora_inicial" min="08:00" max="18:00" required>
+                                <p class="fomulario__input-error "> la hora inicial no puede ser mayor a las 6:00pm y menor a las 8:00 am
+                                </p>                                 
+                                </div>
 
+                                <!-- hora final -->
+                                <div id="hora_final">
+                                <label for="start" class="">Horario final</label>
+                                <input type="time" class="form-control  inputs" id="appt_final_editar" name="hora_final" min="08:00" max="18:00" required>
+                                <p class="fomulario__input-error "> La hora final no puede ser menor a la inicial y mayor a las 6:00pm
+                                </p>
+                                </div>
                                 <select  class="form-control" id="exampleFormControlSelect1" name="docente">
                                     {% for docente in docentes %}
                                     <option value="{{docente.identificacion}}">{{ docente.nombres }} </option>
@@ -64,13 +80,28 @@
                             
                         </div>
                     </div>
+                    <!-- crear asignatura -->
                     <div class="acc-btn"><h1>Crear una asignatura</h1></div>
                     <div class="acc-content">
                             <form action="{% url 'crudAsignatura' %}" method="POST" id="formCrear">
                                 {% csrf_token %}
-                                <input type="text" name="codigo" placeholder="ingrese el codigo">
-                                <input type="text" name="nombre" placeholder="ingrese el el nombre">
-                                <input type="text" name="descripcion" placeholder="descripcion">
+                                <!-- codigo -->
+                                <div id="crear_codigo">
+                                <input type="text" name="codigo" class="inputs" placeholder="ingrese el codigo">
+                                <p class="fomulario__input-error ">El codigo solo puede contener letras, numeros y giones(-_)(entre 4 y 8 caracteres)</p>
+                                </div>
+                                <!--  nombre -->
+                                <div id="crear_nombre">
+                                <input type="text" name="nombre" class="inputs" placeholder="ingrese el el nombre">
+                                <p class="fomulario__input-error ">El nombre solo puede contener letras y espacios</p>
+                                </div>
+                                <!-- descripcion -->
+                                <div id="crear_descripcion">
+                                <input type="text" name="descripcion" class="inputs" placeholder="descripcion">
+                                <p class="fomulario__input-error ">La descripcion no permite caracteres especiales(/\#$%&)
+                                    debe cotener entre(8-60) caracteres </p>
+                                </div>
+
                                 <button type="submit" class="btn btn-success">Guardar</button>     
                             </form>
                     
@@ -83,5 +114,6 @@
         </div>
 
     <!--<script src="{% static 'js/crearAsignatura.js' %}"></script>-->
+    <script src="{% static 'js/validacion_asignaturas.js' %}"></script>
     <script src="{% static 'js/asignaturas.js' %}"></script>
 </div>

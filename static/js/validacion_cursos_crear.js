@@ -90,7 +90,7 @@ const validarFormulario = (e) => {
             var hor = document.getElementById('appt_inicio').value
             console.log(hor)
             
-            if(hor > "18:00" || hor < "08:00"){
+            if(hor >= "18:00" || hor < "08:00"){
                 console.log('hora salida')
                 document.querySelector('#hora_inicial .fomulario__input-error').classList.add('fomulario__input-error-activo')
                 document.getElementById('hora_inicial').classList.remove('grupo-correcto')
@@ -164,7 +164,7 @@ const validarFormularioedid = (e) => {
             var hor = document.getElementById('appt_inicio_editar').value
             console.log(hor)
             
-            if(hor > "18:00" || hor < "08:00"){
+            if(hor >= "18:00" || hor < "08:00"){
                 console.log('hora salida')
                 document.querySelector('#hora_inicial_editar .fomulario__input-error').classList.add('fomulario__input-error-activo')
                 document.getElementById('hora_inicial_editar').classList.remove('grupo-correcto')
