@@ -88,6 +88,16 @@
     animation: none!important;
     border: none!important;
     width: 100%!important;
+    margin:  0;
+}
+
+.eliminar{
+    color: white!important;
+    border-radius: 0px!important;
+    animation: none!important;
+    border: none!important;
+    width: 100%!important;
+    margin:  0;
 }
 
 .texto-actividad{

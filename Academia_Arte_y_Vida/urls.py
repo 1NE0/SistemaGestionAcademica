@@ -111,6 +111,7 @@ urlpatterns = [
     url(r'^cursosDocente$', cursosDocente, name="cursosDocente"),
     url(r'^asignaturasDocente$', asignaturasDocente, name="asignaturasDocente"),
     url(r'^asignaturaActividades$', asignaturaActividades, name="asignaturaActividades"),
+    url(r'^eliminarActividad/$', eliminarActividad, name="eliminarActividad"),
 
     #estadisticas
     url(r'^obtenerEstadisticas$', obtenerEstadisticas, name="obtenerEstadisticas"),

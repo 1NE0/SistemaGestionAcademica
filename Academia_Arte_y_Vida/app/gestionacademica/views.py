@@ -1513,3 +1513,11 @@ def inscripcionAsignaturas(request):
         inscripcionEstudianticoAsignatura.save()
 
     return HttpResponse("correcto")
+
+@csrf_exempt
+def eliminarActividad(request):
+
+    codigo = request.POST.get('codActividad[]')
+
+    models.actividades.objects.get(id=codigo).delete()
+    return HttpResponse("correcto")
