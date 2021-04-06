@@ -62,9 +62,61 @@
     width: 50%;
     margin-left: 80px!important;
     height: auto;
-    display: flex;
     margin-top: 80px;
     
+}
+
+/* boton registrarse */
+.btn-hover {
+    width: 200px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    margin: 20px;
+    height: 55px;
+    text-align:center;
+    border: none;
+    background-size: 300% 100%;
+  
+    border-radius: 50px;
+    moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+  }
+  
+  .btn-hover:hover {
+    background-position: 100% 0;
+    moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+  }
+  
+  .btn-hover:focus {
+    outline: none;
+  }
+  
+  .btn-hover.color-3 {
+    background-image: linear-gradient(to right, #667eea, #764ba2, #6B8DD6, #8E37D7);
+    box-shadow: 0 4px 15px 0 rgba(116, 79, 168, 0.75);
+  }
+  
+.carousel {
+    position: center;
+    margin-top: 25%;
+  
+}
+
+.carousel-item img{
+    width: 85%;
+    height: 50%;
+}
+  
+.carousel-control-next{
+    background-size: 10px;
+    margin-right: 15%;
 }
 
 .basico{
