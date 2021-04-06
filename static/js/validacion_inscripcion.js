@@ -15,18 +15,18 @@ const expresiones = {
 
 }
 
-const campos ={
-    identificaion: false,
-    nombres: false,
-    apellidos: false,
-    edad: false,
-    telefono: false,
-    correo: false,
-    usuario:false,
-    contraseña1:false,
-    contraseña2:false
 
-}
+    var identificaion= false;
+    var nombres= false;
+    var apellidos= false;
+    var edad= false;
+    var telefono= false;
+    var correo= false;
+    var usuario=false;
+    var contraseña1=false;
+    var contraseña2=false;
+
+
  
 const validarFormulario = (e) => {
     switch(e.target.name){
@@ -36,12 +36,12 @@ const validarFormulario = (e) => {
                 document.getElementById('identificacion').classList.add('grupo-correcto')
                 document.getElementById('identificacion').classList.remove('grupo-incorrecto')
                 document.querySelector('#identificacion .fomulario__input-error').classList.remove('fomulario__input-error-activo')
-                campos['identificaion']=true;
+                identificaion=true;
             }else{
                 document.querySelector('#identificacion .fomulario__input-error').classList.add('fomulario__input-error-activo')
                 document.getElementById('identificacion').classList.remove('grupo-correcto')
                 document.getElementById('identificacion').classList.add('grupo-incorrecto')
-                campos['identificaion']=false;
+                identificaion=false;
             }
 
         break;
@@ -51,12 +51,12 @@ const validarFormulario = (e) => {
                 document.querySelector('#nombre .fomulario__input-error').classList.remove('fomulario__input-error-activo')
                 document.getElementById('nombre').classList.remove('grupo-incorrecto')
                 document.getElementById('nombre').classList.add('grupo-correcto')
-                campos['nombres']=true;
+                nombres=true;
             }else{
                 document.getElementById('nombre').classList.add('grupo-incorrecto')
                 document.querySelector('#nombre .fomulario__input-error').classList.add('fomulario__input-error-activo')
                 document.getElementById('nombre').classList.remove('grupo-correcto')
-                campos['nombres']=false;
+                nombres=false;
             }
 
         break;
@@ -66,12 +66,12 @@ const validarFormulario = (e) => {
                 document.getElementById('apellido').classList.add('grupo-correcto')
                 document.getElementById('apellido').classList.remove('grupo-incorrecto')
                 document.querySelector('#apellido .fomulario__input-error').classList.remove('fomulario__input-error-activo')
-                campos['apellidos']=true;
+                apellidos=true;
             }else{
                 document.querySelector('#apellido .fomulario__input-error').classList.add('fomulario__input-error-activo')
                 document.getElementById('apellido').classList.remove('grupo-correcto')
                 document.getElementById('apellido').classList.add('grupo-incorrecto')
-                campos['apellidos']=false;
+                apellidos=false;
             }
             
 
@@ -82,12 +82,12 @@ const validarFormulario = (e) => {
                 document.getElementById('edad').classList.add('grupo-correcto')
                 document.getElementById('edad').classList.remove('grupo-incorrecto')
                 document.querySelector('#edad .fomulario__input-error').classList.remove('fomulario__input-error-activo')
-                campos['edad']=true;
+                edad=true;
             }else{
                 document.querySelector('#edad .fomulario__input-error').classList.add('fomulario__input-error-activo')
                 document.getElementById('edad').classList.remove('grupo-correcto')
                 document.getElementById('edad').classList.add('grupo-incorrecto')
-                campos['edad']=false;
+                edad=false;
             }
             
 
@@ -98,12 +98,12 @@ const validarFormulario = (e) => {
                 document.getElementById('telefono').classList.add('grupo-correcto')
                 document.getElementById('telefono').classList.remove('grupo-incorrecto')
                 document.querySelector('#telefono .fomulario__input-error').classList.remove('fomulario__input-error-activo')
-                campos['telefono']=true;
+                telefono=true;
             }else{
                 document.querySelector('#telefono .fomulario__input-error').classList.add('fomulario__input-error-activo')
                 document.getElementById('telefono').classList.remove('grupo-correcto')
                 document.getElementById('telefono').classList.add('grupo-incorrecto')
-                campos['telefono']=false;
+                telefono=false;
             }
             
 
@@ -114,12 +114,12 @@ const validarFormulario = (e) => {
                 document.getElementById('email').classList.add('grupo-correcto')
                 document.getElementById('email').classList.remove('grupo-incorrecto')
                 document.querySelector('#email .fomulario__input-error').classList.remove('fomulario__input-error-activo')
-                campos['correo']=true;
+                correo=true;
             }else{
                 document.querySelector('#email .fomulario__input-error').classList.add('fomulario__input-error-activo')
                 document.getElementById('email').classList.remove('grupo-correcto')
                 document.getElementById('email').classList.add('grupo-incorrecto')
-                campos['correo']=false;
+                correo=false;
             }
             
 
@@ -130,12 +130,12 @@ const validarFormulario = (e) => {
                 document.getElementById('usuario').classList.add('grupo-correcto')
                 document.getElementById('usuario').classList.remove('grupo-incorrecto')
                 document.querySelector('#usuario .fomulario__input-error').classList.remove('fomulario__input-error-activo')
-                campos['usuario']=true;
+                usuario=true;
             }else{
                 document.querySelector('#usuario .fomulario__input-error').classList.add('fomulario__input-error-activo')
                 document.getElementById('usuario').classList.remove('grupo-correcto')
                 document.getElementById('usuario').classList.add('grupo-incorrecto')
-                campos['usuario']=false;
+                usuario=false;
             }
             
 
@@ -146,12 +146,12 @@ const validarFormulario = (e) => {
                 document.getElementById('contraseña').classList.add('grupo-correcto')
                 document.getElementById('contraseña').classList.remove('grupo-incorrecto')
                 document.querySelector('#contraseña .fomulario__input-error').classList.remove('fomulario__input-error-activo')
-                campos['contraseña1']=true;
+                contraseña1=true;
             }else{
                 document.querySelector('#contraseña .fomulario__input-error').classList.add('fomulario__input-error-activo')
                 document.getElementById('contraseña').classList.remove('grupo-correcto')
                 document.getElementById('contraseña').classList.add('grupo-incorrecto')
-                campos['contraseña1']=false;
+                contraseña1=false;
 
             }
             
@@ -165,36 +165,48 @@ const validarFormulario = (e) => {
                 document.getElementById('contraseña2').classList.add('grupo-correcto')
                 document.getElementById('contraseña2').classList.remove('grupo-incorrecto')
                 document.querySelector('#contraseña2 .fomulario__input-error').classList.remove('fomulario__input-error-activo')
-                campos['contraseña2']=true;
+                contraseña2=true;
             }else{
                 document.querySelector('#contraseña2 .fomulario__input-error').classList.add('fomulario__input-error-activo')
                 document.getElementById('contraseña2').classList.remove('grupo-correcto')
                 document.getElementById('contraseña2').classList.add('grupo-incorrecto')
-                campos['contraseña2']=false;
+                contraseña2=false;
             }
             
 
         break;
         
     }
+
+    const boton = document.getElementById('btn_registrar');
+    if(identificaion ==false || nombres == false || apellidos==false || edad== false || telefono == false || correo== false
+        || usuario==false || contraseña1==false || contraseña2==false ){
+            // botonRegistrar.attr("disabled", true);
+            boton.disabled=true;
+            console.log('hay un campo malo ')
+        }else{
+            console.log('todos estan buenos ');
+            boton.disabled=false;
+        }  
+
     
 
 }
 
 //boton balidar//
-const validarbtn = (e) => {
+// const validarbtn = (e) => {
 
     
-    if(campos.identificaion && campos.nombres && campos.apellidos && campos.edad && campos.telefono && campos.correo
-        && campos.usuario && campos.contraseña1 && campos.contraseña2){
-            document.getElementById('btn_registrar').attributes("disabled", true);
-        }else{
-            document.getElementById('btn_registrar').attributes("disabled", false);
-            // document.getElementById("btn_registrar").disabled = true;
-        }
-};
+//     if(campos.identificaion && campos.nombres && campos.apellidos && campos.edad && campos.telefono && campos.correo
+//         && campos.usuario && campos.contraseña1 && campos.contraseña2){
+//             document.getElementById('btn_registrar').attributes.add("disabled",true)
+//         }else{
+//             document.getElementById('btn_registrar').attributes("disabled", false);
+//             // document.getElementById("btn_registrar").disabled = true;
+//         }
+// };
 
 inputs.forEach((input)=>{
-    input.addEventListener('keyup', validarFormulario, validarbtn); //valida cuando se levanta la tecla
-    input.addEventListener('blur', validarFormulario, validarbtn);  //valida cuando se hace clik en otro lado
+    input.addEventListener('keyup', validarFormulario); //valida cuando se levanta la tecla
+    input.addEventListener('blur', validarFormulario);  //valida cuando se hace clik en otro lado
 });

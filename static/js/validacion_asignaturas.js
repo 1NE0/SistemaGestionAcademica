@@ -30,6 +30,12 @@ const expresiones = {
 
 }
 
+var codigo = false;
+var nombre= false;
+var descripcion= false;
+var descripcion_editar= false;
+var horaI = false;
+var horaF = false;
 const validarFormulario = (e) => {
     switch(e.target.name){
         case "codigo":
@@ -38,12 +44,12 @@ const validarFormulario = (e) => {
                 document.getElementById('crear_codigo').classList.add('grupo-correcto')
                 document.getElementById('crear_codigo').classList.remove('grupo-incorrecto')
                 document.querySelector('#crear_codigo .fomulario__input-error').classList.remove('fomulario__input-error-activo')
-
+                codigo = true;
             }else{
                 document.getElementById('crear_codigo').classList.remove('grupo-correcto')
                 document.getElementById('crear_codigo').classList.add('grupo-incorrecto')
                 document.querySelector('#crear_codigo .fomulario__input-error').classList.add('fomulario__input-error-activo')
-
+                codigo = false;
             }
 
         break;
@@ -53,12 +59,12 @@ const validarFormulario = (e) => {
                 document.getElementById('crear_nombre').classList.add('grupo-correcto')
                 document.getElementById('crear_nombre').classList.remove('grupo-incorrecto')
                 document.querySelector('#crear_nombre .fomulario__input-error').classList.remove('fomulario__input-error-activo')
-
+                var nombre= true;
             }else{
                 document.getElementById('crear_nombre').classList.remove('grupo-correcto')
                 document.getElementById('crear_nombre').classList.add('grupo-incorrecto')
                 document.querySelector('#crear_nombre .fomulario__input-error').classList.add('fomulario__input-error-activo')
-
+                var nombre= false;
             }
         break;
         case "descripcion":
@@ -67,17 +73,27 @@ const validarFormulario = (e) => {
                 document.getElementById('crear_descripcion').classList.add('grupo-correcto')
                 document.getElementById('crear_descripcion').classList.remove('grupo-incorrecto')
                 document.querySelector('#crear_descripcion .fomulario__input-error').classList.remove('fomulario__input-error-activo')
-
+                descripcion= true;
             }else{
                 document.getElementById('crear_descripcion').classList.remove('grupo-correcto')
                 document.getElementById('crear_descripcion').classList.add('grupo-incorrecto')
                 document.querySelector('#crear_descripcion .fomulario__input-error').classList.add('fomulario__input-error-activo')
-
+                descripcion= false;
             }
 
         break;
 
         }
+
+        const boton = document.getElementById('btn_crear');
+    if(codigo ==false || nombre == false || descripcion==false ){
+            // botonRegistrar.attr("disabled", true);
+            boton.disabled=true;
+            console.log('hay un campo malo ')
+        }else{
+            console.log('todos estan buenos ');
+            boton.disabled=false;
+        }  
     }
 
 
@@ -89,12 +105,12 @@ const validarFormulario = (e) => {
                      document.getElementById('ediar_descipcion').classList.add('grupo-correcto')
                      document.getElementById('ediar_descipcion').classList.remove('grupo-incorrecto')
                     document.querySelector('#ediar_descipcion .fomulario__input-error').classList.remove('fomulario__input-error-activo')
-    
+                     descripcion_editar= true;
                 }else{
                      document.getElementById('ediar_descipcion').classList.remove('grupo-correcto')
                      document.getElementById('ediar_descipcion').classList.add('grupo-incorrecto')
                     document.querySelector('#ediar_descipcion .fomulario__input-error').classList.add('fomulario__input-error-activo')
-    
+                    descripcion_editar= false;
                 }
                 break;
                 case "hora_inicial":
@@ -107,11 +123,12 @@ const validarFormulario = (e) => {
                 document.querySelector('#hora_inicial .fomulario__input-error').classList.add('fomulario__input-error-activo')
                 document.getElementById('hora_inicial').classList.remove('grupo-correcto')
                 document.getElementById('hora_inicial').classList.add('grupo-incorrecto')
-
+                horaI=false;
             }else{
                 document.querySelector('#hora_inicial .fomulario__input-error').classList.remove('fomulario__input-error-activo')
                 document.getElementById('hora_inicial').classList.add('grupo-correcto')
                 document.getElementById('hora_inicial').classList.remove('grupo-incorrecto')
+                horaI=true;
             }
         break;
         case "hora_final":
@@ -126,14 +143,28 @@ const validarFormulario = (e) => {
                 document.querySelector('#hora_final .fomulario__input-error').classList.add('fomulario__input-error-activo')
                 document.getElementById('hora_final').classList.remove('grupo-correcto')
                 document.getElementById('hora_final').classList.add('grupo-incorrecto')
+                horaF = false;
 
             }else{
                 document.querySelector('#hora_final .fomulario__input-error').classList.remove('fomulario__input-error-activo')
                 document.getElementById('hora_final').classList.add('grupo-correcto')
                 document.getElementById('hora_final').classList.remove('grupo-incorrecto')
+                horaF = true;
             }
         break;   
             }
+
+            const boton = document.getElementById('btn_editar');
+            if(horaI ==false || horaF == false || descripcion_editar==false ){
+                    // botonRegistrar.attr("disabled", true);
+                    boton.disabled=true;
+                    console.log('hay un campo malo ')
+                }else{
+                    console.log('todos estan buenos ');
+                    boton.disabled=false;
+                }  
+
+
         }
 
 
