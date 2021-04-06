@@ -59,7 +59,7 @@ urlpatterns = [
     url(r'^artes_plasticas/$', info_artesPlasticas, name="artes_plasticas"),
     url(r'^aerografia/$', info_aerografia, name="aerografia"),
     url(r'^fotografia/$', info_fotografia, name="fotografia"),
-    url(r'^danzas/$', info_danzas, name="danzas"),
+    #url(r'^danzas/$', info_danzas, name="danzas"),
     url(r'^talleres_infantiles/$', info_tallerInfantil, name="talleres_infantiles"),
     url(r'^ayuda/$', ayuda, name="ayuda"),
     url(r'^fotos/$', fotos, name="fotos"),
@@ -111,6 +111,7 @@ urlpatterns = [
     url(r'^cursosDocente$', cursosDocente, name="cursosDocente"),
     url(r'^asignaturasDocente$', asignaturasDocente, name="asignaturasDocente"),
     url(r'^asignaturaActividades$', asignaturaActividades, name="asignaturaActividades"),
+    url(r'^eliminarActividad/$', eliminarActividad, name="eliminarActividad"),
 
     #estadisticas
     url(r'^obtenerEstadisticas$', obtenerEstadisticas, name="obtenerEstadisticas"),

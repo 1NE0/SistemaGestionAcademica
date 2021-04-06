@@ -89,6 +89,21 @@ footer{
         
     }
 
+    .copy{
+        padding-top: 20px;
+        text-align: center;
+        padding-bottom: 20px;
+    }
+    .copy a:hover{
+        text-decoration: none;
+        color: #1687a7;
+    }
+
+    .finn{
+        margin-top: 52px;
+        background-color: rgb(17, 17, 17);
+        height: auto;
+    }
 
     @media (max-width: 768px){
         .contenidos{

@@ -1,22 +1,56 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i');
+@import url('https://fonts.googleapis.com/css?family=Fjalla+One');
+@import url('https://fonts.googleapis.com/css?family=Kite+One');
 
-.container{
+
+
+.contenido{
     padding-top: 60px;
+    width: 100%;
+    background-image: url(https://cdn.pixabay.com/photo/2018/03/20/18/07/cranium-3244110_960_720.png);
+    background-repeat: repeat;
 }
+.container{
+    padding-top: 20px;
+    background-color:hsl(240, 66.7% , 94.1% , 0.9 );
+    height: auto;
+    width: 100%;
 
-body{
-    background-color: rgb(145, 211, 219);
 }
 
 .titulo_principal{
+    font-family: 'Montserrat', sans-serif!important;
+    text-decoration: none!important;
     margin-top: 20px;
     text-align: center;
+    font-weight: bold;
+    color: black;
     
 }
 .subtitulo{
+    font-family: 'Montserrat', sans-serif!important;
+    text-decoration: none!important;
     margin-top: 30px;
     text-align: center;
+    font-weight: bold;
+    color: black;
 }
 
 .carticas{
     margin-top: 30px;
+}
+
+.pCards{
+    text-align: center;
+    font-family: 'Montserrat', sans-serif!important;
+    text-decoration: none!important;
+    font-size: larger;
+
+}
+
+h5{
+    font-family: 'Montserrat', sans-serif!important;
+    text-decoration: none!important;
+    text-align: center;
+    font-size: x-large;
 }

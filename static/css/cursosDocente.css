@@ -88,12 +88,27 @@
     animation: none!important;
     border: none!important;
     width: 100%!important;
+    margin:  0;
+}
+
+.eliminar{
+    color: white!important;
+    border-radius: 0px!important;
+    animation: none!important;
+    border: none!important;
+    width: 100%!important;
+    margin:  0;
+}
+
+.texto-actividad{
+    height: auto;
 }
 
 .texto-actividad p{
     color: black;
     font-size: 12px;
     text-align: center;
+    height: 40px;
 }
 
 /***************************************** upload button styles ******************************************/

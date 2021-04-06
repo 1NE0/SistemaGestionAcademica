@@ -60,6 +60,29 @@ $('#form').submit(function(e){
     });
 });
 
+// logica de eliminar
+$('.eliminar').click(function(){
+  var codigoActividad = $(this).attr('id');
+  var codigo = [];
+  codigo.push(codigoActividad);
+  $.ajax({
+    type: "POST",
+    url: '/eliminarActividad/',
+    data: {
+      codActividad : codigo,
+    },
+    success: function(response) {
+      if (response == "correcto") {
+        swal("¡Bien hecho!", "Se eliminó con exito el documento", "success");
+        $('.contenedor').load('/asignaturasDocente');
+      } else {
+        alert('Ocurrió un error mientras se eliminaba el archivo');
+      }
+    }
+  })
+
+});
+
 
 /* ESTILO CSS Y JS */
 // Also see: https://www.quirksmode.org/dom/inputfile.html

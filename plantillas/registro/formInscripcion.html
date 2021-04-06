@@ -24,7 +24,7 @@
       <form class="form-wrapper" method="POST" action="{% url 'registrarInscripcion' %}" id="inscripcionForm">{% csrf_token %}
         <fieldset class="section is-active" id="section1">
           <h3>Tu información personal</h3>
-          <label>Seleccione el tipo de documento</label>
+          <label>Seleccione el tipo de documento:</label>
           <!-- TIPO DE DOCUMENTO -->
           <select class="form-control" name="tipoDocumento">
             {% for tipoDoc in tiposDocumentos %}
@@ -64,14 +64,14 @@
           </select>
           
           <!-- SELECCIONAR PROGRAMA -->
-          <label for="">Seleccione el programa al que se desea matricular</label>
+          <label for="">Seleccione el programa al que se desea matricular:</label>
           <select  class="form-control" id="comboProgramas" name="programa">
               {% for programas in programas %}
               <option>{{ programas.nom_programa }} </option>
               {% endfor %}
           </select>
 
-          <label for="" class="cursoMusica">seleccion a que curso de musica se desea matricular:</label>
+          <label for="" class="cursoMusica">Seleccione a qué curso de música desea entrar:</label>
           <select  class="form-control cursoMusica" name="cursoMusica" id="">
               {% for cursito in cursosDisponibles %}
                 <option value="{{cursito.cod_curso}}" >{{cursito.nom_curso}}</option>
