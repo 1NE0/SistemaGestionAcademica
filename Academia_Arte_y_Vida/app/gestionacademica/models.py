@@ -272,4 +272,23 @@ class actividades(models.Model):
         Nivel_asignatura, null=True, blank=True, on_delete=models.CASCADE)
 
 
+class pqrs(models.Model):
+    nombreCompleto = models.CharField(max_length=40)
+    email = models.EmailField(blank=False)
+    solicitante = (('Est', 'Estudiante'), ('Col', 'Colaborador'), ('doc', 'Docente'), 
+                ('Egr','Egresado'), ('Ext', 'Externo'), ('Prov', 'Proveedor'), ('otro', 'Otro'))
+    tipoSolicitante = models.CharField(max_length=20, choices=solicitante, default='')
+    celular = models.CharField(max_length=10)
+    solicitud = (('1', 'Felicitaciones'), ('2', 'Sugerencias'), ('3', 'Peticiones'), 
+                ('4','Quejas'), ('5', 'Reclamos'), ('6', 'Comentarios'), ('7', 'Otro'))
+    tipoSolicitud = models.CharField(max_length=20, choices=solicitud, default='')
+    servicio = (('1', 'Académicos'), ('2', 'Administrativos'), ('3', 'Consultor'), 
+                ('4','Tecnología'), ('5', 'Otro'))
+    solicitudServicio = models.CharField(max_length=20, choices=servicio, default='')
+    comentario = models.TextField(max_length=1000)
+
+    # Relaciones
+    ciudad = models.ForeignKey(
+        ciudad, default="", null=False, blank=False, on_delete=models.CASCADE)
+
 

@@ -164,8 +164,12 @@ def info_fotografia(request):
 def info_tallerInfantil(request):
     return render(request, "info/programas_info/tallerInfantil.html")
 
+############ PQRS ####################
 def ayuda(request):
     return render(request, "ayuda.html")
+
+def registrarPQRS(request):
+    return HttpResponse('SE HA REGISTRADO')
 
 def fotos(request):
     return render(request, "fotos/fotos.html")
