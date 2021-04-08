@@ -169,7 +169,21 @@ def ayuda(request):
     return render(request, "ayuda.html")
 
 def registrarPQRS(request):
-    return render(request, "pqrs.html")
+    ciudades = models.ciudad.objects.all()
+    solicitante = []
+    solicitud = []
+    servicio = []
+
+    for tiposolicitante in models.pqrs.solicitante:
+        solicitante.append(tiposolicitante[1])
+
+    for tipoSolicitud in models.pqrs.solicitud:
+        solicitud.append(tipoSolicitud[1])
+
+    for servicioSolicitud in models.pqrs.servicio:
+        servicio.append(servicioSolicitud[1])
+
+    return render(request, "pqrs.html", {'tiposolicitante': solicitante, 'tipoSolicitud': solicitud, 'ciudades': ciudades, 'servicioSolicitud': servicio})
 
 def fotos(request):
     return render(request, "fotos/fotos.html")

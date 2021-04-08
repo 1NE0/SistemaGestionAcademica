@@ -275,8 +275,8 @@ class actividades(models.Model):
 class pqrs(models.Model):
     nombreCompleto = models.CharField(max_length=40)
     email = models.EmailField(blank=False)
-    solicitante = (('Est', 'Estudiante'), ('Col', 'Colaborador'), ('doc', 'Docente'), 
-                ('Egr','Egresado'), ('Ext', 'Externo'), ('Prov', 'Proveedor'), ('otro', 'Otro'))
+    solicitante = (('1', 'Estudiante'), ('2', 'Colaborador'), ('3', 'Docente'), 
+                ('4','Egresado'), ('5', 'Externo'), ('6', 'Proveedor'), ('7', 'Otro'))
     tipoSolicitante = models.CharField(max_length=20, choices=solicitante, default='')
     celular = models.CharField(max_length=10)
     solicitud = (('1', 'Felicitaciones'), ('2', 'Sugerencias'), ('3', 'Peticiones'), 
