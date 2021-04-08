@@ -30,7 +30,7 @@ $(function() {
               },
               success: function (response) {
                   if(response == "correcto"){
-                      swal("Hecho!", "Su solicitud fue registrada con éxito.");
+                      swal("Hecho!", "Su solicitud fue registrada con éxito.", "success");
                     }
                   console.log(response);
               },

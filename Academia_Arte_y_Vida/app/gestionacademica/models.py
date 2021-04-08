@@ -292,3 +292,7 @@ class pqrs(models.Model):
         ciudad, default="", null=False, blank=False, on_delete=models.CASCADE)
 
 
+class contacto(models.Model):
+    nombre = models.CharField(max_length=40)
+    email = models.EmailField(blank=False)
+    mensaje = models.TextField(max_length=1000)

@@ -166,6 +166,17 @@ def info_tallerInfantil(request):
 
 ############ PQRS ####################
 def ayuda(request):
+
+    if request.method == "POST" and request.is_ajax:
+
+        nombres = request.POST.get('nombres')
+        correo = request.POST.get('email')
+        mensaje = request.POST.get('mensaje')
+
+        addInquietud = models.contacto(nombre = nombres, email = correo, mensaje = mensaje)
+        addInquietud.save()  
+        return HttpResponse("correcto")
+
     return render(request, "ayuda.html")
 
 def registrarPQRS(request):
