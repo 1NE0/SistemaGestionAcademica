@@ -183,6 +183,32 @@ def registrarPQRS(request):
     for servicioSolicitud in models.pqrs.servicio:
         servicio.append(servicioSolicitud[1])
 
+
+    if request.method == "POST" and request.is_ajax:
+        print("ENTRE AL IF DEL PQRS")
+
+        nombres = request.POST.get('nombres')
+        correo =request.POST.get('email')
+        tipoSolicitante = request.POST.get('tipoSolicitante')
+        ciudad = request.POST.get('ciudad')
+        telefono = request.POST.get('celular')
+        tipoSolicitud = request.POST.get('tipoSolicitud')
+        service = request.POST.get('servicioSolicitud')
+        comentario = request.POST.get('comentarios')
+
+        ciudadSeleccionada = models.ciudad.objects.get(nombre = ciudad)
+
+        addPQRS = models.pqrs(nombreCompleto=nombres, email = correo, 
+                              tipoSolicitante = tipoSolicitante,
+                              ciudad=ciudadSeleccionada,
+                              celular = telefono,
+                              tipoSolicitud = tipoSolicitud,
+                              solicitudServicio = service,
+                              comentario = comentario)
+
+        addPQRS.save()  
+        return HttpResponse("correcto")
+        
     return render(request, "pqrs.html", {'tiposolicitante': solicitante, 'tipoSolicitud': solicitud, 'ciudades': ciudades, 'servicioSolicitud': servicio})
 
 def fotos(request):
