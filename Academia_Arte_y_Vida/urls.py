@@ -62,6 +62,7 @@ urlpatterns = [
     #url(r'^danzas/$', info_danzas, name="danzas"),
     url(r'^talleres_infantiles/$', info_tallerInfantil, name="talleres_infantiles"),
     url(r'^ayuda/$', ayuda, name="ayuda"),
+    url(r'^pqrs/$', registrarPQRS, name="pqrs"),
     url(r'^fotos/$', fotos, name="fotos"),
     ##################################################################
     url(r'^administracion/$', administracion_staff, name="administracion"),

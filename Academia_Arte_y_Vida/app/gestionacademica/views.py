@@ -169,11 +169,10 @@ def ayuda(request):
     return render(request, "ayuda.html")
 
 def registrarPQRS(request):
-    return HttpResponse('SE HA REGISTRADO')
+    return render(request, "pqrs.html")
 
 def fotos(request):
     return render(request, "fotos/fotos.html")
-
 
 def Admision(request):
 
