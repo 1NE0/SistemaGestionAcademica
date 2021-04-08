@@ -183,3 +183,13 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 #files
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'   # nombre de la carpeta donde se guardarán
+
+
+# ensayis de correos
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 25
+EMAIL_HOST_USER = 'seas19754@gmail.com'
+EMAIL_HOST_PASSWORD = 'calcifer20'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
