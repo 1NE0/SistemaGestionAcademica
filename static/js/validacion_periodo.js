@@ -3,60 +3,93 @@ const formulario = document.getElementById('form_periodos');
 //obtener todos los inputs del fromulario
 const inputs = document.querySelectorAll('#form_periodos input');
 
+var fechaI = false;
+var fechaF = false;
+
 
 const validarFormulario = (e) => {
-    const fechaActual = new Date().toLocaleString();
+    const fechaActual = new Date();
     
     switch(e.target.name){
          case "trip-start-inicio":
              console.log('funciona')
-             var fecha = new Date(document.getElementById('Finicio'));
-            //  var fecha2 = document.querySelector('input[type="date"]');
-            //  var fecha3 = new Date(fecha2);
-            //  var fecha3 = document.querySelector('#inicio .Finicio').value;
-            // document.getElementById('Finicio').addEventListener('change', function() {
-                      // se ejecuta cuando el datepicker cambie de valor
-                    //    var input_date = this.value;
-                    //    console.log(input_date)
-            // })
+            //  este es el valor que obtenemos en  el input
+             var fechas = document.getElementById('start_Finicio').value
+            //se transforma a un date 
+             var fechaprueba = new Date(fechas);
+             //se le suma un dia por que segun como se edite el input queda un dia menos
+             fechaprueba.setDate(fechaprueba.getDate()+1);
+
+             if(fechaprueba < fechaActual){
+                 console.log('fecha menor');
+                 document.querySelector('#inicio .fomulario__input-error').classList.add('fomulario__input-error-activo')
+                 document.getElementById('inicio').classList.remove('grupo-correcto')
+                 document.getElementById('inicio').classList.add('grupo-incorrecto')
+                 fechaI = false;
+
+             }else{
+                document.querySelector('#inicio .fomulario__input-error').classList.remove('fomulario__input-error-activo')
+                document.getElementById('inicio').classList.add('grupo-correcto')
+                document.getElementById('inicio').classList.remove('grupo-incorrecto')
+                fechaI = true;
+
+                 console.log('fecha mayor');
+             }
+           
+            
+            //  console.log(fechas);
+             console.log('fecha actual' + fechaActual);
+             console.log('fecha de prubea:' + fechaprueba.toLocaleDateString());
              
-             
-             
-              console.log(fecha.toISOString);
-            //  console.log(fecha2);
-            //  console.log(fecha3.getdate);
-            //  console.log(fechaActual);
-            //  console.log
+            
          break;
          case "trip-start-final":
+             var fechainput = document.getElementById('start_Ffinal').value
+             var fechaFinal = new Date(fechainput);
+             fechaFinal.setDate(fechaFinal.getDate()+1)
+
+             var fechas = document.getElementById('start_Finicio').value
+              var fechaprueba = new Date(fechas);
+              fechaprueba.setDate(fechaprueba.getDate()+1);
+
+             console.log(fechainput + '\n' + fechaFinal);
+
+             if(fechaFinal <= fechaprueba){
+                document.querySelector('#final .fomulario__input-error').classList.add('fomulario__input-error-activo')
+                document.getElementById('final').classList.remove('grupo-correcto')
+                document.getElementById('final').classList.add('grupo-incorrecto')
+                fechaF = false;
+                 console.log('error fecha final');
+             }else{
+                document.querySelector('#final .fomulario__input-error').classList.remove('fomulario__input-error-activo')
+                document.getElementById('final').classList.add('grupo-correcto')
+                document.getElementById('final').classList.remove('grupo-incorrecto')
+                fechaF = true;
+
+                console.log('exicto fecha final');
+
+             }
             
             
-            // var fecha = new Date(document.getElementById('Ffinal').;
             
-            //         var input_date = this.value;
-            //         console.log(input_date)
-            //     }
+            
         break;
              
     }
 
+    const boton = document.getElementById('btn_crearP');
+    if(fechaI ==false || fechaF == false ){
+            // botonRegistrar.attr("disabled", true);
+            boton.disabled=true;
+            console.log('hay un campo malo ')
+        }else{
+            console.log('todos estan buenos ');
+            boton.disabled=false;
+        }  
+
 }
 
-// function modoElegirFecha() {
-//     document.getElementById('start').addEventListener('change', function() {
-//         // se ejecuta cuando el datepicker cambie de valor
-//         var input_date = this.value;
-//         console.log(input_date)
-//     //     var now = new Date();
-//     //     var date_selected = new Date(input_date);
-//     //     if (now > date_selected) { 
-//     //         alert('Invalido la fecha actual es: '+ now  + ' fecha seleccionada es: ' + date_selected) 
-//     //     }
-//     //     else { 
-//     //         alert('la fecha:'+ input_date + ' es valida');
-//     //     }
-//     // });
-//   }
+
   
 
 
