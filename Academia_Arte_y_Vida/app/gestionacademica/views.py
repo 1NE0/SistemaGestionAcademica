@@ -1296,8 +1296,18 @@ def asignaturasDocente(request):
     Docente = models.Docentes.objects.get(user=request.user)
     actividadesDelDocente = models.actividades.objects.all()
     asignaturasNDelDocente = models.Nivel_asignatura.objects.filter(docente=Docente)
+    inscripcionesAsignaturasActuales = models.InscripcionAsignatura.objects.filter(periodo=models.periodo.periodo_actual())
+    asignaturasActuales = []
 
-    return render(request, "board_docente/asignaturasDocente.html" , {'actividades' : actividadesDelDocente , 'asignaturas' : asignaturasNDelDocente, 'docente' : Docente})
+    for asignatura in asignaturasNDelDocente:
+        for inscripcionA in inscripcionesAsignaturasActuales:
+            if inscripcionA.nivel == asignatura:
+                asignaturasActuales.append(asignatura)
+
+    
+
+
+    return render(request, "board_docente/asignaturasDocente.html" , {'actividades' : actividadesDelDocente , 'asignaturas' : asignaturasActuales, 'docente' : Docente})
 
     
 def asignaturaActividades(request):
