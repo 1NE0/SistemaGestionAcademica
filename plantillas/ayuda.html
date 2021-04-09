@@ -7,12 +7,20 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- estilos -->
+   
+    <!-- scripts para jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+    <!-- font awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
         integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+    <!-- Seewt Alert -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+     <!-- estilos css -->
     <link rel="stylesheet" href="{% static 'css/elements_nav/ayuda.css' %}" />
     <title>Ayuda</title>
     {% endblock %}
+
 </head>
 <body>
     {% block content %}
@@ -59,15 +67,16 @@
                       </defs>
                       <path d="m 40,120.00016 239.99984,-3.2e-4 c 0,0 24.99263,0.79932 25.00016,35.00016 0.008,34.20084 -25.00016,35 -25.00016,35 h -239.99984 c 0,-0.0205 -25,4.01348 -25,38.5 0,34.48652 25,38.5 25,38.5 h 215 c 0,0 20,-0.99604 20,-25 0,-24.00396 -20,-25 -20,-25 h -190 c 0,0 -20,1.71033 -20,25 0,24.00396 20,25 20,25 h 168.57143" />
                     </svg>
-                    <div class="form">
+                    <form class="form" method="POST" id="formContacto">
+                      {% csrf_token %}
                         <label for="nombres">Nombre</label>
-                        <input type="text" name="" id="nombres">
+                        <input type="text" name="nombres" id="nombres">
                         <label for="email">Email</label>
-                        <input type="email" id="email">
+                        <input type="email" id="email" name="email">
                         <label for="mensaje">Mensaje</label>
-                        <input type="text" name="" id="mensaje">
-                        <input type="submit" id="submit" value="Submit">
-                    </div>
+                        <input type="text" name="mensaje" id="mensaje">
+                        <button type="submit" id="submit" class="crear" name="crear" style="margin-left: 39%;"> ENVIAR </button>
+                    </form>
                   </div>
                 </div>
               </div>

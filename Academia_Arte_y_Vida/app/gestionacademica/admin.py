@@ -21,6 +21,7 @@ admin.site.register(usuario)
 admin.site.register(periodo)
 admin.site.register(ciudad)
 admin.site.register(departamento)
-
+admin.site.register(pqrs)
+admin.site.register(contacto)
 
 
