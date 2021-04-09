@@ -10,6 +10,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 
 
+
  
 
 <div class="modal-dialog modal-lg" role="document" id="miModal">
@@ -23,26 +24,46 @@
         </div>
         
         
-                <form class="formEditarDocente" method="POST" action="{% url 'modificarDocente' %}">
+                <form id="formEditardocente" class="formEditarDocente" method="POST" action="{% url 'modificarDocente' %}">
                         {% csrf_token %}
                         <div class="modal-body">
-                            <label for="identificacion">Identificacion</label>
-                            <input name="identificacion" id="inputId" type="text" placeholder="identificacion" class="form-control">
 
-                            <label for="nombres">Nombres</label>
-                            <input name="nombres" id="inputNombres" type="text" placeholder="nombres" class="form-control">
-
-                            <label for="apellidos">Apellidos</label>
-                            <input name="apellidos" id="inputApellidos" type="text" placeholder="apellidos" class="form-control">
                             
-                            <label for="edad">Edad</label>
-                            <input name="edad" id="inputEdad" type="text" placeholder="Edad" class="form-control">
+                            <div id="identificacion_editar">
+                            <label for="identificacion">Identificacion</label>
+                            <input name="identificacion" id="inputId" type="text" placeholder="identificacion" class="form-control  inputs">
+                            <p class="fomulario__input-error ident ">¡La identificacion solo puede contener numeros!</p>
+                            </div>
 
+                            <div id="nombre_editar">
+                            <label for="nombres">Nombres</label>
+                            <input name="nombres" id="inputNombres" type="text" placeholder="nombres" class="form-control  inputs">
+                            <p class="fomulario__input-error ident ">¡El nombre solo puede contener letras y epacios</p>
+                            </div>
+
+                            <div id="apellido_editar">
+                            <label for="apellidos">Apellidos</label>
+                            <input name="apellidos" id="inputApellidos" type="text" placeholder="apellidos" class="form-control  inputs">
+                            <p class="fomulario__input-error">¡El apellido solo puede contener letras y espacios!</p>
+                            </div>
+
+                            <div id="edad_editar">
+                            <label for="edad">Edad</label>
+                            <input name="edad" id="inputEdad" type="text" placeholder="Edad" class="form-control  inputs">
+                            <p class="fomulario__input-error ">¡La edad solo puede contener numeros de 1 a 2 digitos!</p>
+                            </div>
+
+                            <div id="sexo">
                             <label for="sexo">Sexo</label>
                             <input name="sexo" id="inputSexo" type="text" placeholder="M/F/O" class="form-control">
+                            </div>
 
+                            <div id="telefono_editar">
                             <label for="telefono">Telefono</label>
-                            <input name="telefono" id="inputTelefono" type="text" placeholder="Telefono" class="form-control">
+                            <input name="telefono" id="inputTelefono" type="text" placeholder="Telefono" class="form-control  inputs">
+                            <p class="fomulario__input-error ">!El telefono solo puede contener numeros¡</p>
+                            </div>
+
 
                             <label for="ciudad">Ciudad</label>
                             <select  class="form-control" name="ciudad" id="inputCiudad">
@@ -59,12 +80,14 @@
 
                         <div class="modal-footer">
                             <button class="btn btn-danger" onclick="cerrarModal()" type="button" data-dismiss="modal">Cancelar</button>
-                            <button class="btn btn-primary" type="submit" value="submit">Confirmar</button>
+                            <button id="btn_confirmar" class="btn btn-primary" type="submit" value="submit">Confirmar</button>
                         </div>
                     </form>
            
     </div>
     <script src="{% static 'js/crearDocente.js' %}"></script>
+    <script src="{% static 'js/validacion_ediatdocentes.js' %}"></script>
+    
 </div>
 
 <script>
