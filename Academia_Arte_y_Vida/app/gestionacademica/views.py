@@ -164,12 +164,66 @@ def info_fotografia(request):
 def info_tallerInfantil(request):
     return render(request, "info/programas_info/tallerInfantil.html")
 
+############ PQRS ####################
 def ayuda(request):
+
+    if request.method == "POST" and request.is_ajax:
+
+        nombres = request.POST.get('nombres')
+        correo = request.POST.get('email')
+        mensaje = request.POST.get('mensaje')
+
+        addInquietud = models.contacto(nombre = nombres, email = correo, mensaje = mensaje)
+        addInquietud.save()  
+        return HttpResponse("correcto")
+
     return render(request, "ayuda.html")
+
+def registrarPQRS(request):
+    ciudades = models.ciudad.objects.all()
+    solicitante = []
+    solicitud = []
+    servicio = []
+
+    for tiposolicitante in models.pqrs.solicitante:
+        solicitante.append(tiposolicitante[1])
+
+    for tipoSolicitud in models.pqrs.solicitud:
+        solicitud.append(tipoSolicitud[1])
+
+    for servicioSolicitud in models.pqrs.servicio:
+        servicio.append(servicioSolicitud[1])
+
+
+    if request.method == "POST" and request.is_ajax:
+        print("ENTRE AL IF DEL PQRS")
+
+        nombres = request.POST.get('nombres')
+        correo =request.POST.get('email')
+        tipoSolicitante = request.POST.get('tipoSolicitante')
+        ciudad = request.POST.get('ciudad')
+        telefono = request.POST.get('celular')
+        tipoSolicitud = request.POST.get('tipoSolicitud')
+        service = request.POST.get('servicioSolicitud')
+        comentario = request.POST.get('comentarios')
+
+        ciudadSeleccionada = models.ciudad.objects.get(nombre = ciudad)
+
+        addPQRS = models.pqrs(nombreCompleto=nombres, email = correo, 
+                              tipoSolicitante = tipoSolicitante,
+                              ciudad=ciudadSeleccionada,
+                              celular = telefono,
+                              tipoSolicitud = tipoSolicitud,
+                              solicitudServicio = service,
+                              comentario = comentario)
+
+        addPQRS.save()  
+        return HttpResponse("correcto")
+        
+    return render(request, "pqrs.html", {'tiposolicitante': solicitante, 'tipoSolicitud': solicitud, 'ciudades': ciudades, 'servicioSolicitud': servicio})
 
 def fotos(request):
     return render(request, "fotos/fotos.html")
-
 
 def Admision(request):
 

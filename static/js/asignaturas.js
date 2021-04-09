@@ -99,9 +99,8 @@ $(document).ready(function(){
                 },
                 success: function(response){    // AL TERMINAR SATISFACTORIAMENTE
                         if(response == "correcto"){
-                        swal("Registrado exitosamente :)", "Se ha registrado correctamente todas las asignaturas", "success");
-                        $('paginita').load('/asignaturas');
-                        $('#cargando').hide();
+                            swal("Registrado exitosamente :)", "Se ha registrado correctamente todas las asignaturas", "success");
+                            $('paginita').load('/asignaturas');
                         }    
                         console.log(response);
                 },

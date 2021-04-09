@@ -14,13 +14,19 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView,PasswordResetCompleteView
 #from django.urls import path
 from django.conf.urls import url
 from Academia_Arte_y_Vida import settings
 from Academia_Arte_y_Vida.app.gestionacademica.views import *
 from django.conf.urls.static import static
-
+from django.urls import path, re_path, include
 urlpatterns = [
+    # recuperar contraseña
+    path('reset/password_reset/', PasswordResetView.as_view(template_name='recuperar_pass/pass_reset_form.html', email_template_name="recuperar_pass/pass_reset_email.html"), name = 'password_reset'),
+    path('reset/password_reset_done/', PasswordResetDoneView.as_view(template_name='recuperar_pass/pass_reset_done.html'), name = 'password_reset_done'),
+    re_path(r'^reset/(?P<uidb64>[0-9A-za-z_\-]+)/(?P<token>.+)/$', PasswordResetConfirmView.as_view(template_name='recuperar_pass/pass_reset_confirm.html'), name = 'password_reset_confirm'),
+    path('reset/done',PasswordResetCompleteView.as_view(template_name='recuperar_pass/pass_reset_complete.html') , name = 'password_reset_complete'),
 
     url(r'^$', Index, name='index'),
     url(r'^admin/', admin.site.urls),
@@ -62,6 +68,7 @@ urlpatterns = [
     #url(r'^danzas/$', info_danzas, name="danzas"),
     url(r'^talleres_infantiles/$', info_tallerInfantil, name="talleres_infantiles"),
     url(r'^ayuda/$', ayuda, name="ayuda"),
+    url(r'^pqrs/$', registrarPQRS, name="pqrs"),
     url(r'^fotos/$', fotos, name="fotos"),
     ##################################################################
     url(r'^administracion/$', administracion_staff, name="administracion"),
