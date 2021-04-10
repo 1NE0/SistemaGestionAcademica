@@ -95,13 +95,12 @@ $(document).ready(function(){
     
                 beforeSend: function(response){   // ANTES QUE SE EJECUTE, O MIENTRAS SE EJECUTA
                     // antes de enviar la peticion
-                    swal("Registrado exitosamente :)", "Se ha registrado correctamente todas las asignaturas", "success");
-                    console.log("reealizando...");
-    
                 },
                 success: function(response){    // AL TERMINAR SATISFACTORIAMENTE
-                        
-                        console.log(response);
+                    swal("Registrado exitosamente :)", "Se ha registrado correctamente todas las asignaturas", "success");
+                    $('.cargando').hide();
+                    console.log("reealizando...");
+                    console.log(response);
                 },
                 error: function (response) {
                     
