@@ -4,10 +4,24 @@ body{
 .contenidito{
     
     height: auto;
-    padding-top: 10px;
+    padding-top: 40px;
     display: flex;
 }
 
+.volver{
+  font-family: 'Montserrat', sans-serif!important;
+
+}
+
+p{
+  font-family: 'Montserrat', sans-serif!important;
+  font-size: large;
+}
+
+h3{
+  margin-top: 40px;
+  font-family: 'Montserrat', sans-serif!important;
+}
 .loguito{
     background-color: rgb(235, 233, 233);
     width: 50%;
@@ -22,6 +36,6 @@ body{
 
     width: 50%;
     height: auto;
-    padding-top: 30px;
+    padding-top: 300px;
     background-color: rgb(235, 233, 233);
   }

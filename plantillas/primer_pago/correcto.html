@@ -16,18 +16,16 @@
 </head>
 <body>
     {% block content %}
-    <h1 style="padding-top: 60px;text-align: center;">holi</h1>
     <div class="contenidito">
             <div class="loguito">
                 <img height="100%" width="100%" src="https://i.ibb.co/PhBW2xL/Gei-el-que-me-abra.png" alt="">
             </div>
-
             <div class="derecha">
-                <h3> Referencia enviada </h3>
+                <h3> Referencia Enviada </h3>
                 <p>
                     Tu referencia ha sido enviada, y está siendo verificada por administración, esto puede tardar algunos minutos.
-
-                    <button href="{% url 'index' %}" class="btn btn-success">ir a inicio</button>
+                    <br><br>
+                    <a href="{% url 'index' %}"><button class="btn btn-success">Ir a inicio</button></a>
                 </p>
             </div>
 
