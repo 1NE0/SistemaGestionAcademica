@@ -20,7 +20,7 @@ $(document).ready(function(){
 
     $('#comboProgramas').click(function(){
       console.log("hola");
-      if($(this).val() == "musica" || $(this).val() == "música" || $(this).val() == "Música"){
+      if($(this).val() == "musica" || $(this).val() == "música" || $(this).val() == "Música" || $(this).val() == "Musica" || $(this).val() == "Music"  || $(this).val() == "Musicaa"){
         $('.cursoMusica').show();
       }else{
         $('.cursoMusica').hide();
