@@ -98,7 +98,7 @@ $(document).ready(function(){
                 },
                 success: function(response){    // AL TERMINAR SATISFACTORIAMENTE
                     swal("Registrado exitosamente :)", "Se ha registrado correctamente todas las asignaturas", "success");
-                    $('.cargando').hide();
+                    $('#cargando').hide();
                     console.log("reealizando...");
                     console.log(response);
                 },
