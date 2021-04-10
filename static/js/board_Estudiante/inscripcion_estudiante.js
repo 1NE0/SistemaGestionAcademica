@@ -38,23 +38,6 @@ $(document).ready(function(){
                     url: '/guardarInscripcionCurso/', // holi
                     data: {
                             listaCursos: listaCursos,
-                    },
-                    success:function(response){
-                         //this gets called when server returns an OK response
-                         if(response == "correcto"){
-                          swal("¡" + response + " con éxito!", "Se ha guardado con exito la inscripcion :)", "success");
-                         }
-                         $('.paginita').load('/inscripcionManual');
-                    },
-                    error:function(response){
-                         swal("Ocurrió un error inesperado :(" , "Error");
-                    }
-                });
-        
-                $.ajax({
-                    method: 'POST',
-                    url: '/guardarInscripcionAsignatura/', // holi
-                    data: {
                             listaAsignaturas: listaAsignaturas,
                     },
                     success:function(response){
@@ -68,8 +51,9 @@ $(document).ready(function(){
                          swal("Ocurrió un error inesperado :(" , "Error");
                     }
                 });
+        
             } else {
-              swal("Your imaginary file is safe!");
+              swal("No elegiste ninguna accion");
             }
           });
 
