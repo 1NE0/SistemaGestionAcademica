@@ -99,13 +99,22 @@ $(document).ready(function(){
                 },
                 success: function(response){    // AL TERMINAR SATISFACTORIAMENTE
                         if(response == "correcto"){
-                            swal("Registrado exitosamente :)", "Se ha registrado correctamente todas las asignaturas", "success");
+                            $('#cargando').show();
+                            setTimeout(
+                                function() 
+                                {
+
+                                    swal("Registrado exitosamente :)", "Se ha registrado correctamente todas las asignaturas", "success");
+                                  //do something special
+                                }, 3000);
+                            
                             $('paginita').load('/asignaturas');
+                            $('#cargando').hide();
                         }    
                         console.log(response);
                 },
                 error: function (response) {
-                    $('#cargando').hide();
+                    
                     // si todo sale mal
                     console.log(response)
                     e.preventDefault();
