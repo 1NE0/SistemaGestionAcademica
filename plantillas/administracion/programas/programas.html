@@ -4,18 +4,19 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+<!-- font awesome -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+  integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+<!-- bootstrap estilos -->
+<!-- hoja de estilo -->
+<link rel="stylesheet" href="{% static 'css/programas.css' %}">
 
 
-<div class="pagina">
+<h2 class="tituloPrincipal">GESTIONAR PROGRAMAS</h2>
+
     <div class="seccion-1">
-
-        <h1 class="display-5 text-center m-3">PROGRAMAS</h1>
-
         
-        <button onclick="abrirModal('{% url 'crearprograma' %}')" class="btn add bg-success w-50 text-light" style="margin-left: 25%; margin-bottom: 5%;" >Agregar Programa <i class="fas fa-plus-square" style="color: white;"></i></button>
-       
-    </div>
+        <button onclick="abrirModal('{% url 'crearprograma' %}')" class="btn add bg-success w-50 text-light" style="margin-left: 25%; margin-bottom: 3%; margin-top: 30px;" >Agregar Programa <i class="fas fa-plus-square" style="color: white;"></i></button>
  
         <div class="seccion-2">
 
@@ -23,10 +24,10 @@
                 <table class="table table-hover table-ligth text-center" id="tabla">
                     <thead class="bg-dark text-light">
                         <tr>
-                                    <th scope="col">Codigo</th>
+                                    <th scope="col">Código</th>
                                     <th scope="col">Nombre</th>
-                                    <th scope="col">Contenido Academico</th>
-                                    <th scope="col">Duración(numero de periodos)</th>
+                                    <th scope="col">Contenido Académico</th>
+                                    <th scope="col">Duración(número de periodos)</th>
                                     <th>Acción</th>
                                     
                         </tr>
@@ -42,8 +43,10 @@
                                             <td>{{programa.duracion}}</td>
                                             
                                             <td> 
-                                                <button class="btn btn-danger eliminar" id="{{programa.cod_programa}}">Eliminar</button>
-                                                <button class="btn btn-primary editar" id="{{programa.cod_programa}}">editar</button>
+                                                <button class="btn btn-danger eliminar" id="{{programa.cod_programa}}"><i class="fas fa-minus-circle"
+                                                    style="color: white;"></i></button>
+                                                <button class="btn btn-primary editar" id="{{programa.cod_programa}}"><i class="fas fa-edit"
+                                                    style="color: white;"></i></button>
                                             </td>
                                     </tr>
     
@@ -57,8 +60,8 @@
 
         </div>
 
-    <div class="modal fade" id="creacion" role="dialog"></div>
+    </div>
 
-</div>
+    <div class="modal fade" id="creacion" role="dialog"></div>
 
 <script src="{% static 'js/programacrud.js' %}"></script>

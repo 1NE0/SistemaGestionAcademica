@@ -9,7 +9,7 @@
 
 .izquierda{
     width: 50%;
-    margin-left: 0px!important;
+    margin-left: 30px!important;
     background-color: transparent;
     height: 500px;
    
@@ -18,6 +18,7 @@
 .derecha{
     width: 50%;
     margin-left: 0px!important;
+    margin-right: 30px!important;
     height: 500px;
     background-color: transparent;
     
@@ -55,10 +56,10 @@
     border: none!important;
 }
 
-.eliminarBTN{
-    background-color: rgb(224, 77, 77)!important;
+.eliminarBtn{
+    background-color: rgb(184, 50, 50)!important;
 }
 
-.editarBTN{
+.editarBtn{
     background-color:rgb(138,189,244)!important;
 }

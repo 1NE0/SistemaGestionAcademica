@@ -7,9 +7,19 @@
   margin-left: 20px;
   width: 98%;
 }
+
 .boton{
   width: 100%!important;
   margin-bottom: 10px;
+  background-color: rgb(9,38,56)!important;
+  -webkit-box-shadow: 2px 7px 21px 4px rgba(0,0,0,0.21);
+  -moz-box-shadow: 2px 7px 21px 4px rgba(0,0,0,0.21);
+  box-shadow: 2px 7px 21px 4px rgba(0,0,0,0.21);
+}
+
+.boton:hover{
+  /* transition:  .2s; */
+  background-color: rgb(43,177,171)!important;
 }
 
 .contenido{
