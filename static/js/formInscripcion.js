@@ -2,6 +2,11 @@
 
 
 $(document).ready(function(){
+  if($('#comboProgramas').val() == "musica" || $('#comboProgramas').val() == "música" || $('#comboProgramas').val() == "Música" || $('#comboProgramas').val() == "Musica" || $('#comboProgramas').val() == "Music"  || $('#comboProgramas').val() == "Musicaa"){
+    $('.cursoMusica').show();
+  }
+
+
     textoVerficacionId = $('.identificacionVerificada');
     textoVerficacionIdNo = $('.identificacionNoVerificada');
     botonRegistrar = $('.registrar');
