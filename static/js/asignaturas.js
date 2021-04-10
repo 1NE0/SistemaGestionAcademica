@@ -68,6 +68,7 @@ function cerrarModal() {
 
 
 
+
 $(document).ready(function(){
     
     $('#cargando').hide();
@@ -94,23 +95,12 @@ $(document).ready(function(){
     
                 beforeSend: function(response){   // ANTES QUE SE EJECUTE, O MIENTRAS SE EJECUTA
                     // antes de enviar la peticion
+                    swal("Registrado exitosamente :)", "Se ha registrado correctamente todas las asignaturas", "success");
                     console.log("reealizando...");
     
                 },
                 success: function(response){    // AL TERMINAR SATISFACTORIAMENTE
-                        if(response == "correcto"){
-                            $('#cargando').show();
-                            setTimeout(
-                                function() 
-                                {
-
-                                    swal("Registrado exitosamente :)", "Se ha registrado correctamente todas las asignaturas", "success");
-                                  //do something special
-                                }, 3000);
-                            
-                            $('paginita').load('/asignaturas');
-                            $('#cargando').hide();
-                        }    
+                        
                         console.log(response);
                 },
                 error: function (response) {
