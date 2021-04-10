@@ -1249,7 +1249,7 @@ def inscripcionEstudianteManual(request):
         detallesMostrar = []
         if estudiante.curso_musica != None:
             for detalle in detalles_curso:
-                if detalle.Nivel_Curso.nivel > nivel_maximo and detalle.InscripcionCurso.curso.nom_curso == estudiante.curso_musica and detalle.Nivel_Curso.nivel < nivel_maximo+2:
+                if detalle.Nivel_Curso.nivel > nivel_maximo and detalle.Nivel_Curso.nivel < nivel_maximo+2:
                     detallesMostrar.append(detalle)
         else:
             for detalle in detalles_curso:
@@ -1257,7 +1257,7 @@ def inscripcionEstudianteManual(request):
                 if detalle.Nivel_Curso.nivel > nivel_maximo and detalle.Nivel_Curso.nivel < nivel_maximo+2:
                     detallesMostrar.append(detalle)
         
-
+        print(detallesMostrar)
         print(asignatura_nivel_maximo)
         # ESCOGER LAS ASIGNATURAS CON EL NIVEL REQUERIDO
         asignaturasMostrar = []
