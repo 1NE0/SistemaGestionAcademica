@@ -12,13 +12,16 @@
 
   <link rel="stylesheet" href="{% static 'css/formInscripcion.css' %}">
   <link rel="stylesheet" href="{% static 'css/button.css' %}">
+
 <body>
+
   <div class="container">
+    <center><a href="{% url 'index' %}"><button type="button" class="btn btn-dark btnVolver">Volver</button></a></center>
     <div class="wrapper">
       <ul class="steps">
-        <a href="#"><li class="is-active" id="1" class="inner">Datos Personales</li></a>
-        <a href="#"><li class="" id="2">Contacto y residencia</li></a>
-        <a href="#"><li class="" id="3">Datos de acceso</li></a>
+        <a href="#"><li class="is-active titles" id="1" class="inner">Datos Personales</li></a>
+        <a href="#"><li class="titles" id="2">Contacto y residencia</li></a>
+        <a href="#"><li class="titles" id="3">Datos de acceso</li></a>
 	    	<span class="glider"></span>
       </ul>
       <form class="form-wrapper" method="POST" action="{% url 'registrarInscripcion' %}" id="inscripcionForm">{% csrf_token %}
@@ -34,9 +37,9 @@
           <p class="identificacionVerificada">La identificacion está disponible</p>
           <p class="identificacionNoVerificada">La identificacion ya se encuentra registrada</p>
           <div id="identificacion">
-          <input type="number" class="identificacion inputs" name="identificacion" min="1111111" max="9999999999" placeholder="Identificacion">
+          <input type="number" class="identificacion inputs" name="identificacion" min="1111111" max="9999999999" placeholder="Identificación">
           <!-- mensaje de error para identificacion -->
-          <p class="fomulario__input-error ident ">¡La identificacion solo puede contener numeros!</p>
+          <p class="fomulario__input-error ident ">¡La identificación solo puede contener números!</p>
           </div>
           <div id="nombre" >
           <input type="text" class="nombres inputs" name="nombres"  placeholder="Nombres">
@@ -99,12 +102,12 @@
           
           <!-- INGRESAR DIRECCION -->
           <div id="direccion">
-          <input type="text" name="direccion" class="inputs" placeholder="Direccion">
+          <input type="text" name="direccion" class="inputs" placeholder="Dirección">
           <p class="fomulario__input-error ">direccion</p>
           </div>
           <!-- INGRESAR TELEFONO -->
           <div id="telefono">
-          <input type="number" name="telefono" class="inputs" placeholder="Numero de contacto">
+          <input type="number" name="telefono" class="inputs" placeholder="Número de contacto">
           <p class="fomulario__input-error ">!El telefono solo puede contener numeros¡</p>
           </div>
           <!-- INGRESAR EMAIL -->

@@ -1,25 +1,62 @@
-html, body{
+@import url('https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i');
+body{
     width: 100%;
-    height: 100%;
+    height: auto;
     margin: 0;
     padding: 0;
-    font-family: 'Open Sans', sans-serif;
-    background-color: #3498db;
+    font-family: 'Montserrat', sans-serif;
+    background-image: url(https://cdn.pixabay.com/photo/2017/07/01/19/48/background-2462430_960_720.jpg);
+    background-repeat: repeat;  
   }
+
+  .btnVolver{
+    margin-top: 20px;
+    margin-left: 8px;
+    width: 100%;
+    background-position: center;
+  }
+
+  .btnVolver:hover{
+    background-color: rgb(43,177,171)!important;
+  }
+
+  
   
   h1, h2, h3, h4, h5 ,h6{
+    font-family: 'Montserrat', sans-serif;
     font-weight: 200;
+    padding-top: 15px;
   }
   
+  .titles{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+  }
+
+  label{
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  ::placeholder{
+    font-family: 'Montserrat', sans-serif;
+  }
+
   a{
     text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
   }
   
   p, li, a{
     font-size: 14px;
+    font-family: 'Montserrat', sans-serif;
   }
   
+  option{
+    font-family: 'Montserrat', sans-serif;
+  }
+
   fieldset{
+    font-family: 'Montserrat', sans-serif;
     margin: 0;
     padding: 0;
     border: none;
@@ -109,7 +146,7 @@ html, body{
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    background-color: #fff;
+    background-color: rgba(228, 222, 222, 0.925);
     opacity: 0;
     -webkit-transform: scale(1, 0);
     -ms-transform: scale(1, 0);
