@@ -28,7 +28,7 @@
             <div class="cards">
                 {% if inscripcionesEstudiante.count == 0 %}
                     <h2>No tienes ninguna inscripcion a un programa, ¿ya verificaste tu inscripcion?</h2>
-                {% endif %}
+                {% else %}
                 {% for inscripcionCursoEstudiante in inscripcionesCurso %}
                     <div class=" card [ is-collapsed ] ">
                         <div class="card__inner [ js-expander ]">
@@ -73,7 +73,7 @@
                           </div>
                     </div>
                 {% endfor %}
-                
+                {% endif %}
             </div>
           
           </div>
