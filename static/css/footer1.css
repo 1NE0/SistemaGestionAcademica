@@ -90,6 +90,7 @@ footer{
     }
 
     .copy{
+        font-family: 'Montserrat', sans-serif;
         padding-top: 20px;
         text-align: center;
         padding-bottom: 20px;
@@ -100,6 +101,7 @@ footer{
     }
 
     .finn{
+        font-family: 'Montserrat', sans-serif;
         margin-top: 52px;
         background-color: rgb(17, 17, 17);
         height: auto;
