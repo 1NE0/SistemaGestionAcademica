@@ -230,7 +230,7 @@ class usuario(models.Model):
     direccion = models.CharField(default="",max_length=60, blank=False)
     curso_musica = models.CharField(default="",max_length=60, blank=True , null=True)
     nom_programa = models.CharField(default="",max_length=60, blank=False)
-    referenciaPago = models.IntegerField(null=True,blank=True)
+    referenciaPago = models.CharField(max_length=12,null=True,blank=True)
     # hacer la relacion a user
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     ciudad = models.ForeignKey(
