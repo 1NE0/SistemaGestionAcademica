@@ -1,13 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
 
 .body{
-  background-color:  #e8edf2;
+  background-color: rgb(214,214,214);
+}
+.principal{
+  height: 70px;
+  background-color: rgb(214,214,214);
 }
 
 .titulo{
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 100px;
+  font-family: 'Montserrat', sans-serif!important;
+  font-weight: 700;
+  color: rgb(102, 102, 102);;
   text-align: center;
+  padding-top: 20px;
+  width: 100%;
+  height: auto;
+  margin-bottom: 20px;
 }
 
 .panel{
@@ -39,6 +48,7 @@
 }
 
 .cards {
+    padding-top: 30px;
     max-width: 1200px;
     margin: 0 auto;
     display: grid;

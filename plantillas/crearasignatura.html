@@ -7,7 +7,7 @@
 <div class="modal-dialog modal-lg" role="document" id="miModal">
     <div class="modal-content">
         <div class="modal-header">
-            <h2 class="modal-title">Crear Nueva Asignatura</h2>
+            <h2 class="modal-title" >Crear Nueva Asignatura</h2>
             <button class="cerrar" onclick="cerrarModal()" type="button" data-dismiss = "modal" aria-label="Cerrar">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -88,7 +88,7 @@
                                 {% csrf_token %}
                                 <!-- codigo -->
                                 <div id="crear_codigo">
-                                <input type="text" name="codigo" class="inputs" placeholder="ingrese el codigo">
+                                <input type="text" name="codigo" class="inputs" placeholder="ingrese el código">
                                 <p class="fomulario__input-error ">El codigo solo puede contener letras, numeros y giones(-_)(entre 4 y 8 caracteres)</p>
                                 </div>
                                 <!--  nombre -->
@@ -98,8 +98,8 @@
                                 </div>
                                 <!-- descripcion -->
                                 <div id="crear_descripcion">
-                                <input type="text" name="descripcion" class="inputs" placeholder="descripcion">
-                                <p class="fomulario__input-error ">La descripcion no permite caracteres especiales(/\#$%&)
+                                <input type="text" name="descripcion" class="inputs" placeholder="descripción">
+                                <p class="fomulario__input-error ">La descripción no permite caracteres especiales(/\#$%&)
                                     debe cotener entre(8-60) caracteres </p>
                                 </div>
 
@@ -111,7 +111,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                
+                <button class="btn btn-danger" onclick="cerrarModal()" type="button" data-dismiss="modal">Cancelar</button>
         </div>
 
     <!--<script src="{% static 'js/crearAsignatura.js' %}"></script>-->
