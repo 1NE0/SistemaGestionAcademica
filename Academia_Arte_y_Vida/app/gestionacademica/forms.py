@@ -67,7 +67,7 @@ class nivelCurso_form(ModelForm):
         widgets = {
             'nivel': forms.Select(attrs={'class': 'form-control'}, choices=[('op1','1'), ('op2','2'), ('op3','3'), ('op4','4')]),
             'descripcion': forms.Textarea(attrs={'class': 'form-control'})
-        }
+        } 
 
 
 

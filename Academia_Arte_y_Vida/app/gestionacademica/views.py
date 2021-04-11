@@ -235,9 +235,15 @@ def Admision(request):
 def estadisticas(request):
     return render(request,"administracion/estadisticas.html")
 
+from django.core.exceptions import PermissionDenied
 @login_required(login_url='/login')
 def administracion_staff(request):
-    return render(request, "administracion/admin.html")
+    # esta vista solo la puede ver un digitador
+    if request.user.is_staff:
+        return render(request, "administracion/admin.html")
+    else:
+        return render(request, "administracion/permisos.html")
+    
 
 @login_required(login_url='/login')
 def board_estudiante(request):
@@ -245,7 +251,11 @@ def board_estudiante(request):
 
 @login_required(login_url='/login')
 def board_docente(request):
-    return render(request, "board_docente/panel.html")
+    try:
+        docente = models.Docentes.objects.get(user= request.user)
+        return render(request, "board_docente/panel.html")
+    except models.Docentes.DoesNotExist:
+        return render(request, "administracion/permisos.html")
 
 @login_required(login_url='/login')
 def perfil(request):
@@ -1062,94 +1072,96 @@ def aceptarUsuario(request):
         #buscar el usuario para volverlo un estudiante
 
         usuario = models.usuario.objects.get(identificacion=codigo)   # encontrar el objeto usuario con el codigo dado
-        programa = models.Programas.objects.get(nom_programa=usuario.nom_programa)   # encontrar el objeto programa con el nom_programa del usuario
-
-        if usuario.curso_musica == "" or usuario.curso_musica == None:
-
-            # crear un estudiante con la informacion del usuario 
-            estudiante = models.Estudiantes(ciudad=usuario.ciudad,identificacion=usuario.identificacion,
-                                            tipo=usuario.tipo,nombres=usuario.nombres,apellidos=usuario.apellidos,edad=usuario.edad,
-                                            sexo=usuario.sexo,correo=usuario.correo,telefono=usuario.telefono,direccion=usuario.direccion,user=usuario.user)
-        else:
-            # crear un estudiante con la informacion del usuario 
-            estudiante = models.Estudiantes(ciudad=usuario.ciudad,identificacion=usuario.identificacion,
-                                            tipo=usuario.tipo,nombres=usuario.nombres,apellidos=usuario.apellidos,edad=usuario.edad,
-                                            sexo=usuario.sexo,correo=usuario.correo,telefono=usuario.telefono,direccion=usuario.direccion,curso_musica=usuario.curso_musica,user=usuario.user)
-
-        # obtener el programa al que se quiere inscribir el estudiante en el periodo actual
-        
         try:
-            programaAinscribirse = models.inscripcionPrograma.objects.get(programa=programa.cod_programa,periodo=models.periodo.periodo_actual().codigo)
+            programa = models.Programas.objects.get(nom_programa=usuario.nom_programa)   # encontrar el objeto programa con el nom_programa del usuario
+            if usuario.curso_musica == "" or usuario.curso_musica == None:
+                # crear un estudiante con la informacion del usuario 
+                estudiante = models.Estudiantes(ciudad=usuario.ciudad,identificacion=usuario.identificacion,
+                                                tipo=usuario.tipo,nombres=usuario.nombres,apellidos=usuario.apellidos,edad=usuario.edad,
+                                                sexo=usuario.sexo,correo=usuario.correo,telefono=usuario.telefono,direccion=usuario.direccion,user=usuario.user)
+            else:
+                # crear un estudiante con la informacion del usuario 
+                estudiante = models.Estudiantes(ciudad=usuario.ciudad,identificacion=usuario.identificacion,
+                                                tipo=usuario.tipo,nombres=usuario.nombres,apellidos=usuario.apellidos,edad=usuario.edad,
+                                                sexo=usuario.sexo,correo=usuario.correo,telefono=usuario.telefono,direccion=usuario.direccion,curso_musica=usuario.curso_musica,user=usuario.user)
+
+            # obtener el programa al que se quiere inscribir el estudiante en el periodo actual
             
-            # crear la inscripcion estudiante (al programa) con la informacion dada
-            inscripcion = models.InscripcionEstudiante(periodo=models.periodo.periodo_actual(),Fecha_Realizacion=datetime.now(),cod_inscripcionPrograma=programaAinscribirse,Estudiante=estudiante)
+            try:
+                programaAinscribirse = models.inscripcionPrograma.objects.get(programa=programa.cod_programa,periodo=models.periodo.periodo_actual().codigo)
+                
+                # crear la inscripcion estudiante (al programa) con la informacion dada
+                inscripcion = models.InscripcionEstudiante(periodo=models.periodo.periodo_actual(),Fecha_Realizacion=datetime.now(),cod_inscripcionPrograma=programaAinscribirse,Estudiante=estudiante)
 
-            # COMO ES SU PRIMER PERIODO, HAY QUE MATRICULARLE TODOS LOS CURSOS
-            # buscar las inscripciones curso de esta inscripcion programa
-            inscripcionesCurso = InscripcionCurso.objects.filter(Id_inscripcionPrograma=programaAinscribirse)
-            print("inscripciones cursos disponibles:")
-            print(inscripcionesCurso[0].curso.nom_curso)
-            # hay que matricularle todas las asignaturas de nivel 1
-            
+                # COMO ES SU PRIMER PERIODO, HAY QUE MATRICULARLE TODOS LOS CURSOS
+                # buscar las inscripciones curso de esta inscripcion programa
+                inscripcionesCurso = InscripcionCurso.objects.filter(Id_inscripcionPrograma=programaAinscribirse)
+                print("inscripciones cursos disponibles:")
+                print(inscripcionesCurso[0].curso.nom_curso)
+                # hay que matricularle todas las asignaturas de nivel 1
+                
 
-            inscripcionesAsignaturass = models.InscripcionAsignatura.objects.filter(Id_inscripcionPrograma=programaAinscribirse,periodo=models.periodo.periodo_actual())
-            print("ATENCIOOOOOOOOOOOON")
-            print("inscripciones asignaturas disponibles:")
-            print(inscripcionesAsignaturass)
-            nivelesAmatricular = []
-            for inscripcionA in inscripcionesAsignaturass:
-                if inscripcionA.nivel.nivel == 1:
-                    print("encontre una asignatura para matricular")
-                    nivelesAmatricular.append(inscripcionA.nivel)
-            
+                inscripcionesAsignaturass = models.InscripcionAsignatura.objects.filter(Id_inscripcionPrograma=programaAinscribirse,periodo=models.periodo.periodo_actual())
+                print("ATENCIOOOOOOOOOOOON")
+                print("inscripciones asignaturas disponibles:")
+                print(inscripcionesAsignaturass)
+                nivelesAmatricular = []
+                for inscripcionA in inscripcionesAsignaturass:
+                    if inscripcionA.nivel.nivel == 1:
+                        print("encontre una asignatura para matricular")
+                        nivelesAmatricular.append(inscripcionA.nivel)
+                
 
-            # guardar el estudiante y borrar el usuario
-            
-            group = Group.objects.get(name='estudiantes')
-            estudiante.user.groups.add(group)
-            estudiante.save()
-            usuario.delete()
-            inscripcion.save()
-
-
-            for nivel in nivelesAmatricular:
-                inscripcioncitaEstudiante = models.InscripcionEstudianteAsignatura(fecha_realizacion=datetime.now(),nivel_asignatura=nivel,estudiante=estudiante,inscripcion_estudiante=inscripcion)
-                inscripcioncitaEstudiante.save()
+                # guardar el estudiante y borrar el usuario
+                
+                group = Group.objects.get(name='estudiantes')
+                estudiante.user.groups.add(group)
+                estudiante.save()
+                usuario.delete()
+                inscripcion.save()
 
 
-            
-            
-            #guardar inscripciones
-            for inscripcionC in inscripcionesCurso:
-                try:
-                    if inscripcionC.curso.cod_curso == estudiante.curso_musica:
-                        
-                        print("entre al nombre igual")
-                        nivelesC = models.Nivel_Cursos.objects.filter(inscripcion_curso=inscripcionC)
-                        for nivelC in nivelesC:
-                            print("estoy en el for de los niveles")
+                for nivel in nivelesAmatricular:
+                    inscripcioncitaEstudiante = models.InscripcionEstudianteAsignatura(fecha_realizacion=datetime.now(),nivel_asignatura=nivel,estudiante=estudiante,inscripcion_estudiante=inscripcion)
+                    inscripcioncitaEstudiante.save()
+
+
+                
+                
+                #guardar inscripciones
+                for inscripcionC in inscripcionesCurso:
+                    try:
+                        if inscripcionC.curso.cod_curso == estudiante.curso_musica:
                             
-                            if nivelC.nivel == 1:
-                                print("soy nivel igual a 1")
-                                detalles = models.detalle_curso.objects.filter(InscripcionCurso=inscripcionC,Nivel_Curso=nivelC)
-                                detalleAguardar = detalles[0]
-                                #si encuentra detalles en esta inscripcion, lo inscribe a estos detalles
+                            print("entre al nombre igual")
+                            nivelesC = models.Nivel_Cursos.objects.filter(inscripcion_curso=inscripcionC)
+                            for nivelC in nivelesC:
+                                print("estoy en el for de los niveles")
                                 
-                                inscripcionEstudianteAlCurso = models.inscripcionEstudianteCurso(detalle_curso=detalleAguardar,estudiante=estudiante,inscripcion_programa_estudiante=inscripcion)
-                                inscripcionEstudianteAlCurso.save()
-                except models.detalle_curso.DoesNotExist:
-                    return HttpResponse("error no hay cursos matriculados en este programa")
+                                if nivelC.nivel == 1:
+                                    print("soy nivel igual a 1")
+                                    detalles = models.detalle_curso.objects.filter(InscripcionCurso=inscripcionC,Nivel_Curso=nivelC)
+                                    detalleAguardar = detalles[0]
+                                    #si encuentra detalles en esta inscripcion, lo inscribe a estos detalles
+                                    
+                                    inscripcionEstudianteAlCurso = models.inscripcionEstudianteCurso(detalle_curso=detalleAguardar,estudiante=estudiante,inscripcion_programa_estudiante=inscripcion)
+                                    inscripcionEstudianteAlCurso.save()
+                    except models.detalle_curso.DoesNotExist:
+                        return HttpResponse("error no hay cursos matriculados en este programa")
 
+                
+
+                
+                
+            except models.inscripcionPrograma.DoesNotExist:
+                print("El programa al que se quiere registrar el estudiante, no está disponible en este periodo")
+                return HttpResponse("Incorrecto")
+
+
+            return HttpResponse("correcto")
+        except models.Programas.DoesNotExist:
+            return HttpResponse("ProgramaNoEncontrado")
             
-
-            
-            
-        except models.inscripcionPrograma.DoesNotExist:
-            print("El programa al que se quiere registrar el estudiante, no está disponible en este periodo")
-            return HttpResponse("Incorrecto")
-
-
-        return HttpResponse("correcto")
 
 
 @csrf_exempt

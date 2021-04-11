@@ -32,12 +32,16 @@ $(".botoncito").click(function(e){
                      //     SINO SALE NINGUN ERROR
                      if(response == "Incorrecto"){
                       swal("Ha ocurrido un error :(" , "El programa al que se quiere registrar el estudiante, no está disponible en este periodo" , "error");
+                     }else if(response == "ProgramaNoEncontrado"){
+                      swal("Ha ocurrido un error :(" , "El programa al que se quiere registrar el estudiante, no está disponible en este periodo" , "error");
                      }else{
                       swal("¡se realizó con exito la acción!", {
                         icon: "success",
                       });
                       $('#' + codigoUsuario).remove();  // remover el div que tiene la informacion del usuario a inscribirse 
                      }
+
+                     
                      
                 },
                 error:function(response){

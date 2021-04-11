@@ -69,6 +69,7 @@
                                 <p class="fomulario__input-error "> La hora final no puede ser menor a la inicial y mayor a las 6:00pm
                                 </p>
                                 </div>
+                                <label for="start" class="">Docente</label>
                                 <select  class="form-control" id="exampleFormControlSelect1" name="docente">
                                     {% for docente in docentes %}
                                     <option value="{{docente.identificacion}}">{{ docente.nombres }} </option>
