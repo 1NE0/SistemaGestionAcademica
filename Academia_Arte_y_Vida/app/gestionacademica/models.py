@@ -11,9 +11,13 @@ class periodo(models.Model):
     codigo = models.IntegerField(primary_key=True , default="999")
     Fecha_inicio = models.DateField(default="")
     Fecha_final = models.DateField(default="")
- 
+    isActual = models.BooleanField(default=False)
     def periodo_actual():
-        return periodo.objects.last()
+        try:
+            return  periodo.objects.get(isActual=True)
+        except periodo.DoesNotExist:
+            return None
+        
  
 
 class departamento(models.Model):
