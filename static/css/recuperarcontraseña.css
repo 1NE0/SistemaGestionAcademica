@@ -47,3 +47,7 @@ input[type="submit"]{
     margin-left: 30%;
     color: white;
 }
+
+@media(max-width:1000px){
+    
+}
