@@ -39,6 +39,7 @@ def periodo(request):
     periodos = models.periodo.objects.all()
     periodoActual = models.periodo.periodo_actual()
 
+    
     #programas
     programasLista = models.Programas.objects.all()
     programasMatriculados = []  #guardaremos los programas que ya estan matriculados
@@ -1009,8 +1010,15 @@ def crearPeriodo (request):
             context = {'error_boludo' : 'error'}  # AQUI ARMO MI CONTEXTO CON EL ERROR
             return JsonResponse(context)   # AQUI LO RETORNO, (ESTO ES LO QUE VA A ATRAPAR EL AJAX) NOTA: EN AJAX DEBE ESTAR ESPECIFICADO (dataType: "json")
         else:
+            
             # si no se encuentra registrado
-            periodo = models.periodo(codigo=codigo,Fecha_inicio=Fecha_ini,Fecha_final=Fecha_fin)
+            
+            # A LOS ANTERIORES PERIODOS PONERLOS EN FALSO
+            for periodo in models.periodo.objects.all():
+                if periodo.isActual:
+                    periodo.isActual = False
+                    periodo.save()
+            periodo = models.periodo(codigo=codigo,Fecha_inicio=Fecha_ini,Fecha_final=Fecha_fin , isActual=True)
             periodo.save()
             print("me guarde")
             periodoAmandar = models.periodo.objects.get(Fecha_inicio=Fecha_ini,Fecha_final=Fecha_fin)
