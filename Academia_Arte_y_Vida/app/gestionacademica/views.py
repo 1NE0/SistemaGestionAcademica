@@ -29,8 +29,12 @@ from django.core.files.storage import FileSystemStorage
 
 
 def estudiantes(request):
-    estudiantesLista = Estudiantes.objects.all()
-    return render(request, "administracion/estudiantes.html", {'estudiantes': estudiantesLista})
+    if request.user.is_staff:
+        estudiantesLista = Estudiantes.objects.all()
+        return render(request, "administracion/estudiantes.html", {'estudiantes': estudiantesLista})
+    else:
+        return render(request, "administracion/permisos.html")
+    
 
 @csrf_protect
 def periodo(request):
@@ -85,17 +89,21 @@ def crearPrograma (request):
 def asignaturas(request):
     sinMatricula = []
     conMatricula = []
+    
+    if request.user.is_staff:
+        for inscripcion in models.InscripcionAsignatura.objects.filter(periodo=models.periodo.periodo_actual()):
+            if inscripcion.Id_inscripcionPrograma == None or inscripcion.Id_inscripcionPrograma == "":
+                sinMatricula.append(inscripcion)
+            else:
+                print("entreeee")
+                conMatricula.append(inscripcion)
+        print(sinMatricula)
+        InscripcionesProgramasMatriculados = models.inscripcionPrograma.objects.filter(periodo=models.periodo.periodo_actual())
+        return render(request, "asignaturas.html", {'sinMatricula': sinMatricula, 'conMatricula' : conMatricula , 'programas' : InscripcionesProgramasMatriculados})
+    else:
+        return render(request, "administracion/permisos.html")
 
-    for inscripcion in models.InscripcionAsignatura.objects.filter(periodo=models.periodo.periodo_actual()):
-        if inscripcion.Id_inscripcionPrograma == None or inscripcion.Id_inscripcionPrograma == "":
-            sinMatricula.append(inscripcion)
-        else:
-            print("entreeee")
-            conMatricula.append(inscripcion)
-    print(sinMatricula)
-    InscripcionesProgramasMatriculados = models.inscripcionPrograma.objects.filter(periodo=models.periodo.periodo_actual())
-    return render(request, "asignaturas.html", {'sinMatricula': sinMatricula, 'conMatricula' : conMatricula , 'programas' : InscripcionesProgramasMatriculados})
-
+    
 
 def cursos(request):
     InscripcionesProgramasMatriculados = models.inscripcionPrograma.objects.filter(periodo=models.periodo.periodo_actual())
@@ -113,8 +121,12 @@ def cursos(request):
     return render(request, "cursos.html", {'programas': InscripcionesProgramasMatriculados, 'conMatricula' : conMatricula, 'sinMatricula' : sinMatricula , 'inscripcionesTotales' : detalles})
 
 def docentes(request):
-    docentesLista = models.Docentes.objects.all()
-    return render(request, "administracion/docentes.html", {'docentes': docentesLista})
+    if request.user.is_staff:
+        docentesLista = models.Docentes.objects.all()
+        return render(request, "administracion/docentes.html", {'docentes': docentesLista})
+    else:
+        return render(request, "administracion/permisos.html")
+    
 
 #def detalles_pagos(request):
 #    pagosLista = models.Pagos.objects.all()

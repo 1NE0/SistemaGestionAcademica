@@ -1,4 +1,4 @@
-// obtener el formulario
+/* // obtener el formulario
 const formulario = document.getElementById('formEditarEstudiantes');
 //obtener todos los inputs del fromulario
 const inputs = document.querySelectorAll('#formEditarEstudiantes input');
@@ -143,4 +143,4 @@ const expresiones = {
     inputs.forEach((input)=>{
         input.addEventListener('keyup', validarFormulario); //valida cuando se levanta la tecla
         input.addEventListener('blur', validarFormulario);  //valida cuando se hace clik en otro lado
-    });
+    }); */

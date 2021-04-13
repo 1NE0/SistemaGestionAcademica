@@ -1,4 +1,4 @@
-
+/* 
 // obtener el formulario
 const formularioeditar = document.getElementById('formEditardocente');
 //obtener todos los inputs del fromulario
@@ -123,4 +123,4 @@ const validarFormulario_editar = (e) => {
 inputs_editar.forEach((input)=>{
     input.addEventListener('keyup', validarFormulario_editar); //valida cuando se levanta la tecla
     input.addEventListener('blur', validarFormulario_editar);  //valida cuando se hace clik en otro lado
-});
+}); */
