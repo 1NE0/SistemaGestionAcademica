@@ -1,22 +1,52 @@
+{% load static %}
 
 
-{% if validlink %}
+<head>
+    <title>Modificar constraseña</title>
+</head>
 
-<h1>Nueva contraseña </h1>
+<head>    
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <!-- BS JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+    <!-- Have fun using Bootstrap JS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous"/>
 
-<form action="" method="post">
-    {% csrf_token %}
-    {{ form.new_password1.errors }}
-    <label for="id_new_password1">Nueva contraseña:</label>
-    {{ form.new_password1}}
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
-    {{ form.new_password2.errors}}
-    <label for="id_new_password2">Confirme contraseña</label>{{form.new_password2}}
-    <input type="submit" value="Cambiar mi contraseñá">
-</form>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+     
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+    
+    <link rel="stylesheet" href="{% static 'css/modificarconstraseña.css' %}">
+</head>
+<body>
+    <div class="principal">
 
-{% else %}
+            <div class="cajita">
+                {% if validlink %}
+                <i class="fas fa-hands-helping"></i>
+                <h1 class="center">Nueva contraseña </h1>
 
-<h1 class="text-center"> ENLACE VÁLIDO : ESTE ENLACE YA HA SIDO UTILIZADO</h1>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {{ form.new_password1.errors }}
+                    <label for="id_new_password1">Nueva contraseña:</label>
+                    {{ form.new_password1}}
 
-{% endif%}
+                    {{ form.new_password2.errors}}
+                    <label for="id_new_password2">Confirme contraseña</label>{{form.new_password2}}
+                    <input class="btn btn-success" type="submit" value="Cambiar mi contraseñá">
+                </form>
+            </div>
+
+            {% else %}
+
+            <h1 class="text-center"> ENLACE VÁLIDO : ESTE ENLACE YA HA SIDO UTILIZADO</h1>
+
+            {% endif%}
+    </div>
+</body>

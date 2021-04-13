@@ -7,7 +7,7 @@
 .cajita{
     background: #f7f3e9;
     width: 80%;
-    height: 35%;
+    height: 40%;
     margin-left: 10%;
     margin-top: 15%;
     position: absolute;
@@ -23,4 +23,8 @@
 .cajita h4{
     font-size:2.5rem;
     color: #56776c;
+}
+
+@media(max-width:1000px){
+    
 }
